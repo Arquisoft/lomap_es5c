@@ -449,7 +449,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_stakeholders">1.3. Stakeholders</a></li>
 </ul>
 </li>
-<li><a href="#section-architecture-constraints">2. Architecture Constraints</a></li>
+<li><a href="#section-architecture-constraints">2. Architecture Constraints</a>
+<ul class="sectlevel2">
+<li><a href="#_technical_constraints">2.1. Technical constraints</a></li>
+<li><a href="#_convention">2.2. Convention</a></li>
+<li><a href="#_organizational_constraints">2.3. Organizational constraints</a></li>
+</ul>
+</li>
 <li><a href="#section-system-scope-and-context">3. System Scope and Context</a>
 <ul class="sectlevel2">
 <li><a href="#_business_context">3.1. Business Context</a></li>
@@ -825,7 +831,102 @@ conventions (e.g. programming or versioning guidelines, documentation or naming 
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_technical_constraints">2.1. Technical constraints</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">React</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We will use React framework to develop the frontend of the application.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JavaScript</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It will be used on the frontend but also on the backend to work with SOLID pods and NodeJS.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NodeJS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Node.js is designed to build network applications and it will be used as the backend of our application. It is based on JavaScript and it is event-driven.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SOLID</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We will use SOLID to store users information using PODs, giving this data more privacy. This is a requirement.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GitHub</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We will use GitHub to update the changes of the source code.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Docker + Amazon AWS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We will deploy our application using Amazon AWS to create a virtual machine and use docker to create the images and then deploy the application with GitHub Actions.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_convention">2.2. Convention</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Language</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We will work with English as our main language. All commits, pull request, issues, code documentation, etc will be written in English.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Code documentation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All the code should have its documentation.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Project documentation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We will use Arc42 template to write the documentation.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_organizational_constraints">2.3. Organizational constraints</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Meetings</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We will assemble every week on the laboraty class to decide the following steps to develop the application. If necessary, extra meetings will be made.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Time</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This large project can lead to time issues as we need to learn a lot of new technologies. Also we have more subjects to attend to.</p></td>
+</tr>
+</tbody>
+</table>
 <div style="page-break-after: always;"></div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1871,7 +1972,7 @@ Created by Dr. Peter Hruschka &amp; Dr. Gernot Starke.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-02-12 19:28:40 +0100
+Last updated 2023-02-02 10:48:23 +0100
 </div>
 </div>
 </body>
