@@ -556,6 +556,19 @@ For documentation of your own system you use better the <em>plain</em> version.<
 </div>
 </div>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p>LoMap is a decentralized web application where citizens will be able to check personalized maps filled with their city&#8217;s places and shops.</p>
+</li>
+<li>
+<p>Our goal is to provide Brussels' citizens the most useful and secure application to keep and share their favourites places such as restaurants, shops, monuments and more.</p>
+</li>
+<li>
+<p>We have also the objective of creating a general software solution for every city around the world that could need our app.</p>
+</li>
+</ul>
+</div>
 <div class="sect2">
 <h3 id="_requirements_overview">1.1. Requirements Overview</h3>
 <div class="sidebarblock arc42help">
@@ -581,6 +594,80 @@ If requirements documents exist this overview should refer to these documents.</
 </div>
 </div>
 </div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. High level requirements</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Adding places on different tabs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Users can add different kinds of places (shops, restaurants, monuments, landscapes&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map visualization</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Users can see places on a map</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reviews</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Users can add punctuations, comments, photos and more to added places</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Privacy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A user can customize the way of sharing information with other users</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Decentralized information</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Each user has a unique pod for its personal information</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional centralized information</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If necessary, for specific perfomance purposes, some information can be centralized</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Social interaction</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A user can see other user&#8217;s places and reviews</p></td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">App options available</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">There are filters for categories, friends and more</p></td>
+</tr>
+</tfoot>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. Extra requirements</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User roles</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">There will be roles: citizien, clothing shop, restaurant, bar&#8230;&#8203;</p></td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Establishment pods</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Shops, bars, restaurants, etc can create their own pod</p></td>
+</tr>
+</tfoot>
+</table>
 </div>
 <div class="sect2">
 <h3 id="_quality_goals">1.2. Quality Goals</h3>
@@ -601,6 +688,40 @@ If you as an architect do not know how the quality of your work will be judged â
 </div>
 </div>
 </div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Privacy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User information will be on its personal pod (information will be decentralized)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integrity</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The app will check that the stored data is valid and ensures that the information lasts</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Usability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All users will use the app without any problem. The app will be intuitive and easy to use</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Accesibility</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The app can be used with any device (mobile, laptop, tablet or pc)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Security</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Real-time-location is only available if the user enables it. LoMap will store the minimum required info of the user</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect2">
 <h3 id="_stakeholders">1.3. Stakeholders</h3>
@@ -656,14 +777,24 @@ These stakeholders determine the extent and the level of detail of your work and
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Role-1&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Contact-1&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Expectation-1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SOLID</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Make decentralized SOLID based technologies more visible for the public</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Role-2&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Contact-2&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Expectation-2&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Development team</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Build a full functional app, hone teamwork and try to get the scolarship offered by SOLID team</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Citizens</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Discover new places and stablishments and be able to tell their favourite ones to their friends</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Establishments</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Make themselves known by adding them to the map</p></td>
 </tr>
 </tbody>
 </table>
@@ -1213,7 +1344,7 @@ building block instances depicted in this diagram.&gt;</em></p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="./images/Sequence%20diagram.png" alt="Sequence diagram" width="332" height="335">
+<img src="./images/Sequence%20diagram.png" alt="Sequence diagram" width="348" height="345">
 </div>
 </div>
 </div>
@@ -1740,7 +1871,7 @@ Created by Dr. Peter Hruschka &amp; Dr. Gernot Starke.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-02-09 09:52:18 +0100
+Last updated 2023-02-09 18:50:29 +0100
 </div>
 </div>
 </body>
