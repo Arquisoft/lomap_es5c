@@ -49,10 +49,6 @@ image::LOmap_BUsiness.png[]
 |API| We are using OpenStreet Maps to visualize the locations.
 |=======================
 
-**<Diagram or Table>**
-
-**<optionally: Explanation of external domain interfaces>**
-
 === Technical Context
 
 [role="arc42help"]
@@ -79,12 +75,7 @@ image::Technical.png[]
 |CSS| Language to set different styles and positions to our components.
 |Docker| Used for the system deployment
 |AWS| Used for the system deployment
+|MongoDB| Used for store user's logging info
 |=======================
 
 We use OpenStreet Maps as the main API for the project to visualize the maps.
-
-**<Diagram or Table>**
-
-**<optionally: Explanation of technical interfaces>**
-
-**<Mapping Input/Output to Channels>**
