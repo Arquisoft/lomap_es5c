@@ -52,8 +52,18 @@ image:08-Crosscutting-Concepts-Structure-EN.png["Possible topics for crosscuttin
 
 === Domain model
 
-image:UmlDiagram.png["Example UML Diagram"]
+|=======================
+|*Name*|*Description*
+|POD| User information.
+|User| User who uses the application .
+|Professional User| Special user who runs the POD for an actual place as: bar, shop, bar... 
+|Places| A location in the map that is static over time.
+|Professional Places| A location in the map that is run by a user.
+|Monuments| A type of static place.
+|Restaurant| A type of place run by a user.
+|=======================
 
+image::modeloDominio.png[]
 
 
 === _<Concept 2>_
