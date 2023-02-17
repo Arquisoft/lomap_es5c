@@ -472,10 +472,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#section-runtime-view">6. Runtime View</a>
 <ul class="sectlevel2">
-<li><a href="#_runtime_scenario_1">6.1. &lt;Runtime Scenario 1&gt;</a></li>
-<li><a href="#_runtime_scenario_2">6.2. &lt;Runtime Scenario 2&gt;</a></li>
-<li><a href="#">6.3. &#8230;&#8203;</a></li>
-<li><a href="#_runtime_scenario_n">6.4. &lt;Runtime Scenario n&gt;</a></li>
+<li><a href="#_register_user">6.1. Register User</a></li>
+<li><a href="#_user_login_pod">6.2. User Login Pod</a></li>
+<li><a href="#_visualize_map">6.3. Visualize map</a></li>
+<li><a href="#_friends_list">6.4. Friends list</a></li>
+<li><a href="#_add_places_to_map">6.5. Add places to map</a></li>
+<li><a href="#_reviews">6.6. Reviews</a></li>
+<li><a href="#_filter_map">6.7. Filter map</a></li>
 </ul>
 </li>
 <li><a href="#section-deployment-view">7. Deployment View</a>
@@ -1266,59 +1269,11 @@ In the best case you will get away with examples or simple signatures.</p>
 </div>
 </div>
 <div class="paragraph">
-<p><em><strong>&lt;Overview Diagram&gt;</strong></em></p>
+<p>Here, the app is represented as a whitebox. Inside of it we can see the three layers of MVC (Model View Controller) convention in black boxes:</p>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Motivation</dt>
-<dd>
-<p><em>&lt;text explanation&gt;</em></p>
-</dd>
-<dt class="hdlist1">Contained Building Blocks</dt>
-<dd>
-<p><em>&lt;Description of contained building block (black boxes)&gt;</em></p>
-</dd>
-<dt class="hdlist1">Important Interfaces</dt>
-<dd>
-<p><em>&lt;Description of important interfaces&gt;</em></p>
-</dd>
-</dl>
-</div>
-<div class="sidebarblock arc42help">
+<div class="imageblock">
 <div class="content">
-<div class="paragraph">
-<p>Insert your explanations of black boxes from level 1:</p>
-</div>
-<div class="paragraph">
-<p>If you use tabular form you will only describe your black boxes with name and
-responsibility according to the following schema:</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 66.6667%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top"><strong>Name</strong></th>
-<th class="tableblock halign-left valign-top"><strong>Responsibility</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;black box 1&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"> <em>&lt;Text&gt;</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;black box 2&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"> <em>&lt;Text&gt;</em></p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p>If you use a list of black box descriptions then you fill in a separate black box template for every important building block .
-Its headline is the name of the black box.</p>
-</div>
+<img src="./images/Whitebox_Overall_System.png" alt="Whitebox Overall System">
 </div>
 </div>
 <div class="sect3">
@@ -1542,37 +1497,60 @@ You will mainly capture scenarios in your documentation to communicate your arch
 </div>
 </div>
 <div class="sect2">
-<h3 id="_runtime_scenario_1">6.1. &lt;Runtime Scenario 1&gt;</h3>
-<div class="ulist">
-<ul>
-<li>
-<p><em>&lt;insert runtime diagram or textual description of the scenario&gt;</em></p>
-</li>
-<li>
-<p><em>&lt;insert description of the notable aspects of the interactions between the
-building block instances depicted in this diagram.&gt;</em></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>It is possible to use a sequence diagram:</p>
-</div>
+<h3 id="_register_user">6.1. Register User</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/Sequence%20diagram.png" alt="Sequence diagram" width="332" height="335">
+<img src="./images/register%20diagram.png" alt="register diagram" width="448" height="335">
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_runtime_scenario_2">6.2. &lt;Runtime Scenario 2&gt;</h3>
-
+<h3 id="_user_login_pod">6.2. User Login Pod</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./images/login%20diagram.png" alt="login diagram" width="546" height="409">
+</div>
+</div>
 </div>
 <div class="sect2">
-<h3 id="">6.3. &#8230;&#8203;</h3>
-
+<h3 id="_visualize_map">6.3. Visualize map</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Map%20diagram.png" alt="Map diagram" width="628" height="426">
+</div>
+</div>
 </div>
 <div class="sect2">
-<h3 id="_runtime_scenario_n">6.4. &lt;Runtime Scenario n&gt;</h3>
+<h3 id="_friends_list">6.4. Friends list</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Friends%20list%20diagram.png" alt="Friends list diagram" width="555" height="365">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_add_places_to_map">6.5. Add places to map</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Add%20places%20diagram.png" alt="Add places diagram" width="650" height="365">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_reviews">6.6. Reviews</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Reviews%20diagram.png" alt="Reviews diagram" width="742" height="335">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_filter_map">6.7. Filter map</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./images/filter%20map%20diagram.png" alt="filter map diagram" width="851" height="426">
+</div>
+</div>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
