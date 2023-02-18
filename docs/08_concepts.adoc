@@ -66,12 +66,11 @@ image:08-Crosscutting-Concepts-Structure-EN.png["Possible topics for crosscuttin
 image::modeloDominio.png[]
 
 
-=== _<Concept 2>_
+=== User Interface
 
-_<explanation>_
+Prototype version:
 
-...
+image::ux1.0_Main.png[]
 
-=== _<Concept n>_
 
-_<explanation>_
+
