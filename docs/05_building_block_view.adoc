@@ -34,7 +34,7 @@ Thus it contains the white box description of selected building blocks of level 
 *Level 3* zooms into selected building blocks of level 2, and so on.
 ****
 
-=== Whitebox Overall System
+=== Whitebox Overall System - Level 1
 
 [role="arc42help"]
 ****
@@ -58,10 +58,6 @@ In the best case you will get away with examples or simple signatures.
 ****
 Here, the app is represented as a whitebox. Inside of it we can see the three layers of MVC (Model View Controller) convention in black boxes:
 
-image::Whitebox_Overall_System.png[] 
-
-
-==== <Name black box 1>
 
 [role="arc42help"]
 ****
@@ -77,39 +73,18 @@ according the the following black box template:
 
 ****
 
-_<Purpose/Responsibility>_
+image::Whitebox_Overall_System.png[] 
 
-_<Interface(s)>_
+==== Black Box descriptions of Overall System
 
-_<(Optional) Quality/Performance Characteristics>_
+|=======================
+|Name|Responsability
+|**Model**| Stores/gets data from/to database and gets info from personal pods. Defines business model and also gives information to the view layer to represent it.
+|**View**| Process the data sent by Model layer and represents it  on the web. This layer is the one which interacts with the final user.
+|**Controller**|This layer receives the inputs from users and manages the interactions between View layer and Model layer
+|=======================
 
-_<(Optional) Directory/File Location>_
-
-_<(Optional) Fulfilled Requirements>_
-
-_<(optional) Open Issues/Problems/Risks>_
-
-
-
-
-==== <Name black box 2>
-
-_<black box template>_
-
-==== <Name black box n>
-
-_<black box template>_
-
-
-==== <Name interface 1>
-
-...
-
-==== <Name interface m>
-
-
-
-=== Level 2
+=== Building block view - Level 2
 
 [role="arc42help"]
 ****
@@ -120,57 +95,4 @@ Please prefer relevance over completeness. Specify important, surprising, risky,
 Leave out normal, simple, boring or standardized parts of your system
 ****
 
-==== White Box _<building block 1>_
-
-[role="arc42help"]
-****
-...describes the internal structure of _building block 1_.
-****
-
-_<white box template>_
-
-==== White Box _<building block 2>_
-
-
-_<white box template>_
-
-...
-
-==== White Box _<building block m>_
-
-
-_<white box template>_
-
-
-
-=== Level 3
-
-[role="arc42help"]
-****
-Here you can specify the inner structure of (some) building blocks from level 2 as white boxes.
-
-When you need more detailed levels of your architecture please copy this
-part of arc42 for additional levels.
-****
-
-
-==== White Box <_building block x.1_>
-
-[role="arc42help"]
-****
-Specifies the internal structure of _building block x.1_.
-****
-
-
-_<white box template>_
-
-
-==== White Box <_building block x.2_>
-
-_<white box template>_
-
-
-
-==== White Box <_building block y.1_>
-
-_<white box template>_
+image::building_block_view.png[] 
