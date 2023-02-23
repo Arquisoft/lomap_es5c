@@ -17,3 +17,31 @@ If needed you can subdivide them into
 technical constraints, organizational and political constraints and
 conventions (e.g. programming or versioning guidelines, documentation or naming conventions)
 ****
+=== Technical constraints
+[options="header",cols="1,2"]
+|=======================
+|Name|Description
+|React| We will use React framework to develop the frontend of the application.
+|JavaScript| It will be used on the frontend but also on the backend to work with SOLID pods and NodeJS.
+|NodeJS| Node.js is designed to build network applications and it will be used as the backend of our application. It is based on JavaScript and it is event-driven.
+|SOLID| We will use SOLID to store users information using PODs, giving this data more privacy. This is a requirement.
+|GitHub| We will use GitHub to update the changes of the source code.
+|Docker + Amazon AWS| We will deploy our application using Amazon AWS to create a virtual machine and use docker to create the images and then deploy the application with GitHub Actions.
+|=======================
+
+=== Convention
+[options="header",cols="1,2"]
+|=======================
+|Name|Description
+|Language| We will work with English as our main language. All commits, pull request, issues, code documentation, etc will be written in English.
+|Code documentation| All the code should have its documentation.
+|Project documentation| We will use Arc42 template to write the documentation. 
+|=======================
+
+=== Organizational constraints
+[options="header",cols="1,2"]
+|=======================
+|Name|Description
+|Meetings| We will assemble every week on the laboraty class to decide the following steps to develop the application. If necessary, extra meetings will be made.
+|Time| This large project can lead to time issues as we need to learn a lot of new technologies. Also we have more subjects to attend to.
+|=======================

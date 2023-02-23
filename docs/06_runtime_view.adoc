@@ -30,28 +30,124 @@ There are many notations for describing scenarios, e.g.
 
 ****
 
-=== <Runtime Scenario 1>
-
-
-* _<insert runtime diagram or textual description of the scenario>_
-* _<insert description of the notable aspects of the interactions between the
-building block instances depicted in this diagram.>_
-
-It is possible to use a sequence diagram:
-
-[plantuml,"Sequence diagram",png]
+=== Register User
+[plantuml,"register diagram",png]
 ----
-actor Alice
-actor Bob
-database Pod as "Bob's Pod"
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
-Alice  --> Pod: Store route
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+actor User
+entity EntityWeb as "WebApp"
+entity EntityRest as "RestAPI"
+database Pod as "USER_POD"
+
+User -> EntityWeb: register
+EntityWeb -> EntityRest: send user data 
+EntityRest -> Pod: store user data
+EntityRest -> EntityWeb: notify success
+EntityWeb -> User: log the user into the app
 ----
-=== <Runtime Scenario 2>
 
-=== ...
 
-=== <Runtime Scenario n>
+=== User Login Pod
+[plantuml,"login diagram",png]
+----
+actor User
+entity EntityWeb as "WebApp"
+entity EntityRest as "RestAPI"
+database Pod as "USER_POD"
+
+User -> EntityWeb: enter WebID
+EntityWeb -> EntityRest: send user WebId
+EntityRest -> Pod: get username and password
+Pod -> EntityRest: send username and password
+EntityRest -> EntityRest: check login data
+EntityRest -> EntityWeb: notify success
+EntityWeb -> User: log the user into the app
+----
+
+=== Visualize map
+[plantuml,"Map diagram",png]
+----
+actor User
+entity EntityWeb as "WebApp"
+entity EntityRest as "RestAPI"
+database Pod as "USER_POD"
+database Mongo as "Database"
+
+User -> EntityWeb: select the data to load on map
+EntityWeb -> EntityRest: send data and parameters
+EntityRest -> Pod: get locations
+EntityRest -> Mongo: get locations
+Pod -> EntityRest: send data back
+Mongo -> EntityRest: send data back
+EntityRest -> EntityWeb: load data to map
+EntityWeb -> User: show map
+----
+
+
+=== Friends list
+[plantuml,"Friends list diagram",png]
+----
+actor User
+entity EntityWeb as "WebApp"
+entity EntityRest as "RestAPI"
+database Pod as "USER_POD"
+
+User -> EntityWeb: select friend list option (has to be logged)
+EntityWeb -> EntityRest: ask for data
+EntityRest -> Pod: get friends data
+Pod -> EntityRest: send data back
+EntityRest -> EntityWeb: load data to app
+EntityWeb -> User: show friends list
+----
+
+=== Add places to map
+[plantuml,"Add places diagram",png]
+----
+actor User
+entity EntityWeb as "WebApp"
+entity EntityRest as "RestAPI"
+database Pod as "USER_POD"
+database Mongo as "Database"
+
+User -> EntityWeb: select a place on the map (has to be logged)
+EntityWeb -> EntityRest: send petition
+EntityRest -> Pod: add place to pod
+EntityRest -> Mongo: add place to db
+EntityRest -> EntityWeb: notify success
+EntityWeb -> User: show new point on map
+----
+
+
+=== Reviews
+[plantuml,"Reviews diagram",png]
+----
+actor User
+entity EntityWeb as "WebApp"
+entity EntityRest as "RestAPI"
+database Pod as "USER_POD"
+
+User -> EntityWeb: select a place on the map to review (has to be logged)
+EntityWeb -> EntityRest: send review petition
+EntityRest -> Pod: add review to place on user pod
+EntityRest -> EntityWeb: notify success
+EntityWeb -> User: show review on map
+----
+
+=== Filter map
+[plantuml,"filter map diagram",png]
+----
+actor User
+entity EntityWeb as "WebApp"
+entity EntityRest as "RestAPI"
+database Pod as "USER_POD"
+database Mongo as "Database"
+
+User -> EntityWeb: select a cattegory (has to be logged)
+EntityWeb -> EntityRest: send petition
+EntityRest -> Pod: ask for the places from the specified cattegory
+EntityRest -> Mongo: ask for the places from the specified cattegory
+Pod -> EntityRest: receive data
+Mongo -> EntityRest: receive data
+EntityRest -> EntityWeb: send data to frontend
+EntityWeb -> User: show places for specified cattegory on map
+----
+

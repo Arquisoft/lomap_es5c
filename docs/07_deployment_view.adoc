@@ -48,19 +48,14 @@ Describe (usually in a combination of diagrams, tables, and text):
 For multiple environments or alternative deployments please copy that section of arc42 for all relevant environments.
 ****
 
-_**<Overview Diagram>**_
-
 Motivation::
-
-_<explanation in text form>_
+This diagram helps us to visualise which components we will use and their dependencies.
 
 Quality and/or Performance Features::
-
-_<explanation in text form>_
+To improve the performance of the application we have chosen MongoDB as the database that will store some information. It helps us because it is a very efficient database.
 
 Mapping of Building Blocks to Infrastructure::
-_<description of the mapping>_
-
+image:Deployment1.png[arc42]
 
 === Infrastructure Level 2
 
@@ -71,16 +66,12 @@ Here you can include the internal structure of (some) infrastructure elements fr
 Please copy the structure from level 1 for each selected element.
 ****
 
-==== _<Infrastructure Element 1>_
+Motivation::
+This diagram allow us to have a more exhaustive vision about how the deployment on AWS would work. It includes the docker containers.
 
-_<diagram + explanation>_
+Quality and/or Performance Features::
+We are going to use AWS to deploy the application, working as a remote server. We will use Docker to launch each part of the system.
 
-==== _<Infrastructure Element 2>_
+Mapping of Building Blocks to Infrastructure::
+image:Deployment2.png[arc42]
 
-_<diagram + explanation>_
-
-...
-
-==== _<Infrastructure Element n>_
-
-_<diagram + explanation>_

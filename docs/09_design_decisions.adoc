@@ -24,3 +24,13 @@ Various options:
 * more detailed in form of separate sections per decision
 * ADR (architecture decision record) for every important decision
 ****
+
+|=======================
+|*Decision*|*Details*|*Advantages*|*Disadvantages*
+|Architecture | We will use MVC as the architecture design. | We will have a very well structured code separarated by Model, View and Controller.| The separation in layers makes the application more complex.
+|Data Base| We will use MongoDB to store some information.| MonboDB works good with NodeJS. | It is a new technology for the team, so we have to learn.
+|OpenStreetMaps API| We will use the API to create the map. | It's free, not like the Google Maps API.| It's the first time using it, we'll have to adapt.
+|Docker+AWS| We use them to deploy the application.| It's free and it provides a very fast deployment. | The general cloud computing issues as backup protection.
+|CSS| We use it to add a nice look to the application.| It's a well known stylesheet languaje for the team. | Different browsers work different, we have to take care of it.|
+|=======================
+
