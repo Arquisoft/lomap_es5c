@@ -41,3 +41,8 @@ We have chosen to use the next technologies on the app:
 * **MongoDB**: is a NoSQL document-oriented database. Instead of saving data on tables (relational databases), MongoDB saves BSON data estructures (similar to JSON). We will use it for some specific data saving on the app.
 
 * **Github**: is a version management system where all the code will be stored, structured and modified.
+
+=== Why this technologies?
+* React, CSS, Javascript and NodeJS were chosen to reach a good level of usability and accesibility.
+* MongoDB, SOLID, docker and some libraries o9f NodeJS will provide the privacy, integrity and security of the web app.
+* Github was chosen for version control and organization and communication between the team.
