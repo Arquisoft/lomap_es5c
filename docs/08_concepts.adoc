@@ -55,8 +55,9 @@ image:08-Crosscutting-Concepts-Structure-EN.png["Possible topics for crosscuttin
 |=======================
 |*Name*|*Description*
 |POD| User information.
-|User| User who uses the application .
+|User| User who uses the application. Can be friend with other users.
 |Professional User| Special user who runs the POD for an actual place as: bar, shop, bar... 
+|Post| A comment, score... made by a user related to a place.
 |Places| A location in the map that is static over time.
 |Professional Places| A location in the map that is run by a user.
 |Monuments| A type of static place.
