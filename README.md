@@ -32,8 +32,8 @@ docker-compose up --build
 This will create two docker images as they don't exist in your system (the webapp and the restapi) and launch a mongo container database. It will also launch Prometheus and Grafana containers to monitor the webservice. You should be able to access everything from here:
 
 - [Webapp - http://localhost:3000](http://localhost:3000)
-- [RestApi example call - http://localhost:5000/api/users/list](http://localhost:5000/api/users/list)
-- [RestApi raw metrics - http://localhost:5000/metrics](http://localhost:5000/metrics)
+- [RestApi example call - http://localhost:5001/api/users/list](http://localhost:5001/api/users/list)
+- [RestApi raw metrics - http://localhost:5001/metrics](http://localhost:5001/metrics)
 - [Prometheus server - http://localhost:9090](http://localhost:9090)
 - [Grafana server http://localhost:9091](http://localhost:9091)
 
@@ -87,13 +87,13 @@ After logging in to Microsoft Azure with a student account, we can access the se
    <img width="200" alt="Download private key" src="https://user-images.githubusercontent.com/10683040/155282896-5069093e-fa61-4cdb-9cdf-777f9d978f40.png">
 </p>
 
-- After creating the machine, we can access its network information. Here we will have useful information as the public IP, that we will use to access the machine. Also, this is where we are going to configure the ports that will be accessible (in our case, ports 3000 and 5000).
+- After creating the machine, we can access its network information. Here we will have useful information as the public IP, that we will use to access the machine. Also, this is where we are going to configure the ports that will be accessible (in our case, ports 3000 and 5001).
 
 <p align="center">   
    <img width="500" alt="Network configuration" src="https://user-images.githubusercontent.com/10683040/155283691-7d782018-f61e-43ab-83fd-f52a0cf04725.png">
 </p>
 
-- To add more open ports, press in "Add inbound security route". Then, fill in the information to open ports 3000 and 5000.
+- To add more open ports, press in "Add inbound security route". Then, fill in the information to open ports 3000 and 5001.
 
 <p align="center">   
    <img width="500" alt="Download private key" src="https://user-images.githubusercontent.com/10683040/155284067-e8a85c53-3171-4e40-b773-3d33e05b1159.png">
@@ -155,7 +155,7 @@ Amazon Academy is a platform created by Amazon to prepare students to work with 
    <img width="500" alt="Default options" src="https://user-images.githubusercontent.com/10683040/158769977-6ef85390-6fe5-48ab-aa31-d9a653916741.png">
 </p>
 
-- Step 5: We dont add any tag. - Step 6: Configure Security Group. We open ssh , 3000 and 5000 ports for all inbound traffic and every IP.
+- Step 5: We dont add any tag. - Step 6: Configure Security Group. We open ssh , 3000 and 5001 ports for all inbound traffic and every IP.
 
 <p align="center">   
    <img width="500" alt="Default options" src="https://user-images.githubusercontent.com/10683040/158770582-2e33b804-a53b-4de8-bc60-7b8f6254abaf.png">
@@ -216,7 +216,7 @@ services:
   restapi:
     image: ghcr.io/arquisoft/lomap_es5c/restapi:latest
     ports:
-      - "5000:5000"
+      - "5001:5001"
   webapp:
     image: ghcr.io/arquisoft/lomap_es5c/webapp:latest
     ports:
@@ -257,13 +257,13 @@ In order for everything to work, we need to make some extra modifications in the
 
 ```typescript
 const apiEndPoint =
-  process.env.REACT_APP_API_URI || "http://localhost:5000/api";
+  process.env.REACT_APP_API_URI || "http://localhost:5001/api";
 ```
 
 This means that React will look for an environment variable and if it exists, it will take the `apiEndPoint` from there, choosing localhost in any other case. Environment variables in React are picked up in building time and not in execution time. That means we need to pass this variable when we are building the docker image before deploying. For that we need to change the Dockerfile for the webapp and add the following lines before `npm run build`:
 
 ```yaml
-ARG API_URI="http://localhost:5000/api"
+ARG API_URI="http://localhost:5001/api"
 ENV REACT_APP_API_URI=$API_URI
 ```
 

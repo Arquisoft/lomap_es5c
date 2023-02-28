@@ -21,14 +21,15 @@ Si quieres ejecutar el proyecto necesitarás [git](https://git-scm.com/downloads
 ```bash
 docker-compose up --build
 ```
+
 Este comando creará dos imágenes de docker si no existen en tu equipo (la webapp y la restapi) y lanzará un contenedor de mongoDB. Además lanzará contenedores de Prometheus y Grafana para monitorizar el servicio web. Deberías ser capaz de acceder a todo desde aquí:
 
- - [Webapp - http://localhost:3000](http://localhost:3000)
- - [Ejemplo llamada a RestApi - http://localhost:5000/api/users/list](http://localhost:5000/api/users/list)
- - [Métricas RestApi - http://localhost:5000/metrics](http://localhost:5000/metrics)
- - [Servidor Prometheus - http://localhost:9090](http://localhost:9090)
- - [Servidor Grafana http://localhost:9091](http://localhost:9091)
- 
+- [Webapp - http://localhost:3000](http://localhost:3000)
+- [Ejemplo llamada a RestApi - http://localhost:5001/api/users/list](http://localhost:5001/api/users/list)
+- [Métricas RestApi - http://localhost:5001/metrics](http://localhost:5001/metrics)
+- [Servidor Prometheus - http://localhost:9090](http://localhost:9090)
+- [Servidor Grafana http://localhost:9091](http://localhost:9091)
+
 Si quieres ejecutar el proyecto sin Docker primero compila y ejecuta la restapi:
 
 ```shell
@@ -36,7 +37,9 @@ cd restapi
 npm install
 npm start
 ```
+
 a continuación la webapp:
+
 ```shell
 cd webapp
 npm install
@@ -46,7 +49,9 @@ npm start
 Deberías ser capaz de acceder a la aplicación en [http://localhost:3000](http://localhost:3000).
 
 ## Mas información
+
 Encontrarás más información sobre el repositorio en los otros archivos README:
+
 - Documentación: https://github.com/arquisoft/lomap_es5c/tree/master/docs
 - Webapp: https://github.com/arquisoft/lomap_es5c/tree/master/webapp
 - Restapi: https://github.com/arquisoft/lomap_es5c/tree/master/restapi
