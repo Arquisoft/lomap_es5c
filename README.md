@@ -1,4 +1,4 @@
-# Como ejecutar el proyecto
+# How to execute
 
-1. npm install --force
-2. npm start
+1. `npm install --force`
+2. `npm start`
