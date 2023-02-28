@@ -11,7 +11,10 @@ const NotLoggedText = () => {
   });
   const [display_name, setName] = useState("");
 
+  const [isLoaded, setIsLoaded] = useState(false);
+
   function error() {
+    setIsLoaded(false); // Change the isLoaded property to false
     alert("Sorry, no position available.");
   }
   const options = {
@@ -20,15 +23,7 @@ const NotLoggedText = () => {
     timeout: 27000,
   };
 
-  async function getCurrentCityName(position) {
-    setCorrds({
-      latitude: position.coords.latitude,
-      longitude: position.coords.longitude,
-    });
-
-    // let url = `https://nominatim.openstreetmap.org/reverse?
-    // &lat=${coords.latitude}
-    // &lon=${coords.longitude}`
+  async function getCurrentCityName() {
     let url =
       "https://nominatim.openstreetmap.org/reverse?format=jsonv2" +
       "&lat=" +
@@ -36,7 +31,7 @@ const NotLoggedText = () => {
       "&lon=" +
       coords.longitude;
 
-    await fetch(url, {
+    const response = await fetch(url, {
       method: "GET",
       mode: "cors",
       headers: {
@@ -47,25 +42,29 @@ const NotLoggedText = () => {
       .then((data) => setName(data.display_name));
   }
 
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      // (position) => {
-      // console.log("Lon:" + position.coords.longtitude);
-      // setCorrds({
-      //   latitude: position.coords.latitude,
-      //   longitude: position.coords.longitude
-      // });
+  async function getLocation() {
+    const response = await new Promise((resolve, reject) =>
+      navigator.geolocation.getCurrentPosition(resolve, reject, options)
+    ).then((value) => {
+      setCorrds({
+        latitude: value.coords.latitude,
+        longitude: value.coords.longitude,
+      });
+      setIsLoaded(true);
+    });
+  }
 
-      // },
-      getCurrentCityName,
-      error,
-      options
-    );
+  useEffect(() => {
+    getCurrentCityName();
+  }, [coords]);
+
+  useEffect(() => {
+    getLocation();
   }, []);
 
   return (
     <div className={styles.container}>
-      <Map coords={coords} display_name={display_name} />
+      {isLoaded && <Map coords={coords} display_name={display_name} />}
     </div>
     // <div className={styles.container}>
     //   <p className={styles.text}>NOT LOGGED IN, PLEASE LOGIN!</p>
