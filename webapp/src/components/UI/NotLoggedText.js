@@ -54,6 +54,8 @@ const NotLoggedText = () => {
     });
   }
 
+  // A useEffect without dependencies loads only on first componente load, otherwise a useEffect
+  // with dependencies only runs when the object/s changes
   useEffect(() => {
     getCurrentCityName();
   }, [coords]);
@@ -66,6 +68,7 @@ const NotLoggedText = () => {
     <div className={styles.container}>
       {isLoaded && <Map coords={coords} display_name={display_name} />}
     </div>
+
     // <div className={styles.container}>
     //   <p className={styles.text}>NOT LOGGED IN, PLEASE LOGIN!</p>
     // </div>
