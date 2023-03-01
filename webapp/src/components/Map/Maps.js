@@ -9,8 +9,6 @@ export default function Map({ coords, display_name }) {
 
   console.log(latitude);
   console.log(longitude);
-  // console.log(longitude );
-  // const { lat, long } = coords;
 
   const customIcon = new L.Icon({
     iconUrl: icon,
@@ -29,7 +27,7 @@ export default function Map({ coords, display_name }) {
     <MapContainer
       classsName="map"
       center={[latitude, longitude]}
-      zoom={5}
+      zoom={15}
       scrollWheelZoom={true}
     >
       <TileLayer

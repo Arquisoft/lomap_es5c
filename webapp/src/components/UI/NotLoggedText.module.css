@@ -1,10 +1,20 @@
 .container {
-  position: absolute;
+  /* position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  max-width: 90rem;
+  transform: translate(-50%, -50%); */
+  /* max-width: 90rem;
   width: 92%;
+  height: 100vh;
+  min-height: 80rem;
+  max-height: 120rem; */
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  min-height: 70rem;
+  /* min-height: 80rem;
+  max-height: 120rem; */
+  position: relative;
 }
 
 .text {
@@ -14,6 +24,13 @@
 }
 
 .leaflet-container {
-  width: 100vw;
-  height: 100vh;
+  max-width: 100%;
+  width: 100%;
+}
+
+@media (max-width: 400px) {
+  .container {
+    max-width: 100%;
+    width: 100%;
+  }
 }
