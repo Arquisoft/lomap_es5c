@@ -2,7 +2,7 @@
   "name": "restapi",
   "version": "1.0.0",
   "scripts": {
-    "start": "ts-node-dev ./server.ts",
+    "start": "nodemon server.js",
     "test": "cd tests && jest --runInBand"
   },
   "keywords": [],
@@ -11,9 +11,13 @@
   "dependencies": {
     "body-parser": "^1.20.1",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "express-export": "^1.0.1",
     "express-prom-bundle": "^6.6.0",
     "express-validator": "^6.14.2",
+    "mongoose": "^7.0.0",
+    "nodemon": "^2.0.21",
     "prom-client": "^14.1.1"
   },
   "devDependencies": {
