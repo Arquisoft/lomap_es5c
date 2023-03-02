@@ -6,11 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import Header from "./components/UI/Header";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+root.render(<App />);
 
 // We add the header tag to the ReactDOM
 // const header = ReactDOM.createRoot(document.getElementById("header"));
