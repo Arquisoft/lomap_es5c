@@ -86,3 +86,9 @@
   cursor: pointer;
   background-color: #221ab5;
 }
+
+@media (max-width: 400px) {
+  .header_container {
+    overflow: hidden;
+  }
+}

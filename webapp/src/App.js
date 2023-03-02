@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import ProfileViewer from "./components/ProfileViewer";
 import { useSession } from "@inrupt/solid-ui-react/dist";
 import NotLoggedText from "./components/UI/NotLoggedText";
+import Header from "./components/UI/Header";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -20,9 +21,12 @@ function App() {
   });
 
   return (
-    <SessionProvider sessionId="log-in-example">
-      {!isLoggedIn ? <NotLoggedText /> : <ProfileViewer />}
-    </SessionProvider>
+    <>
+      <Header></Header>
+      <SessionProvider sessionId="log-in-example">
+        {!isLoggedIn ? <NotLoggedText /> : <ProfileViewer />}
+      </SessionProvider>
+    </>
   );
 }
 

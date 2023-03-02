@@ -13,7 +13,7 @@ root.render(
 );
 
 // We add the header tag to the ReactDOM
-const header = ReactDOM.createRoot(document.getElementById("header"));
-header.render(<Header />);
+// const header = ReactDOM.createRoot(document.getElementById("header"));
+// header.render(<Header />);
 
 reportWebVitals();

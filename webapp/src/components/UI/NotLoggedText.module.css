@@ -11,10 +11,11 @@
   display: flex;
   justify-content: center;
   height: 100%;
-  min-height: 70rem;
+  min-height: 90vh;
+  position: relative;
   /* min-height: 80rem;
   max-height: 120rem; */
-  position: relative;
+  /* position: relative; */
 }
 
 .text {

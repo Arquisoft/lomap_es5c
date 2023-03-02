@@ -7,8 +7,8 @@ import L from "leaflet";
 export default function Map({ coords, display_name }) {
   const { latitude, longitude } = coords;
 
-  console.log(latitude);
-  console.log(longitude);
+  // console.log(latitude);
+  // console.log(longitude);
 
   const customIcon = new L.Icon({
     iconUrl: icon,
