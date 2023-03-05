@@ -18,21 +18,7 @@ html {
   font-size: 15px;
   scroll-behavior: smooth;
 }
-/* @media only screen and (max-width: 75em) {
-  html {
-    font-size: 59%;
-  }
-}
-@media only screen and (max-width: 56.25em) {
-  html {
-    font-size: 56%;
-  }
-}
-@media only screen and (min-width: 112.5em) {
-  html {
-    font-size: 65%;
-  }
-} */
+
 *,
 ::after,
 ::before {
@@ -40,6 +26,15 @@ html {
   padding: 0;
   box-sizing: border-box;
   font-family: inherit;
+}
+
+@media (max-width: 400px) {
+  html {
+    font-size: 11px;
+  }
+}
+.MuiContainer-root {
+  padding: 0 !important;
 }
 
 /* header {

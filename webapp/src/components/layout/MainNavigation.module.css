@@ -5,17 +5,21 @@
   padding: 0 10%;
   justify-content: space-between;
   align-items: center;
-  background-color: #008080;
+  /* background-color: #008080; */
+  background: #fff;
+  box-shadow: 0px 15px 10px -15px #111;
+  margin-bottom: 10px;
 }
 
 .logo {
   font-size: 2rem;
-  color: white;
+  color: black;
 }
 
 .nav ul {
   list-style: none;
   display: flex;
+  align-items: center;
   margin: 0;
   padding: 0;
 }
@@ -27,11 +31,13 @@
 
 .nav a {
   text-decoration: none;
-  color: #88dfdf;
+  display: inline-block;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  transition: color 0.3s;
+  color: black;
 }
 
-.nav a:hover,
-.nav a:active,
-.nav a.active {
-  color: #e6fcfc;
+.nav a:hover {
+  color: rgb(90, 166, 80);
 }
