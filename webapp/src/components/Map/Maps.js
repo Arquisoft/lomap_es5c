@@ -5,40 +5,40 @@ import icon from "../../images/icon.png";
 import L from "leaflet";
 
 export default function Map({ coords, display_name }) {
-  const { latitude, longitude } = coords;
+	const { latitude, longitude } = coords;
 
-  // console.log(latitude);
-  // console.log(longitude);
+	// console.log(latitude);
+	// console.log(longitude);
 
-  const customIcon = new L.Icon({
-    iconUrl: icon,
-    iconSize: [25, 35],
-    iconAnchor: [5, 30],
-  });
+	const customIcon = new L.Icon({
+		iconUrl: icon,
+		iconSize: [25, 35],
+		iconAnchor: [5, 30],
+	});
 
-  function MapView() {
-    let map = useMap();
-    map.setView([latitude, longitude], map.getZoom());
+	function MapView() {
+		let map = useMap();
+		map.setView([latitude, longitude], map.getZoom());
 
-    return null;
-  }
+		return null;
+	}
 
-  return (
-    <MapContainer
-      classsName="map"
-      center={[latitude, longitude]}
-      zoom={15}
-      scrollWheelZoom={true}
-    >
-      <TileLayer
-        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> 
+	return (
+		<MapContainer
+			classsName="map"
+			center={[latitude, longitude]}
+			zoom={15}
+			scrollWheelZoom={true}
+		>
+			<TileLayer
+				attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> 
         contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      <Marker icon={customIcon} position={[latitude, longitude]}>
-        <Popup>{display_name}</Popup>
-      </Marker>
-      <MapView />
-    </MapContainer>
-  );
+				url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+			/>
+			<Marker icon={customIcon} position={[latitude, longitude]}>
+				<Popup>{display_name}</Popup>
+			</Marker>
+			<MapView />
+		</MapContainer>
+	);
 }
