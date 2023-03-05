@@ -23,9 +23,11 @@ const Header = () => {
           <li className={styles.links_wrapper}>
             <a className={styles.header_link}>HOME</a>
           </li>
+
           <li className={styles.links_wrapper}>
             <a className={styles.header_link}>ABOUT</a>
           </li>
+
           <li className={styles.links_wrapper}>
             <a className={styles.header_link}>CONTACT</a>
           </li>

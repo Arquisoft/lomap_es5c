@@ -1,21 +1,9 @@
 .container {
-  /* position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); */
-  /* max-width: 90rem;
-  width: 92%;
-  height: 100vh;
-  min-height: 80rem;
-  max-height: 120rem; */
+  position: absolute;
   display: flex;
   justify-content: center;
-  height: 100%;
-  min-height: 90vh;
-  position: relative;
-  /* min-height: 80rem;
-  max-height: 120rem; */
-  /* position: relative; */
+  height: 90%;
+  width: 100%;
 }
 
 .text {
@@ -24,9 +12,16 @@
   text-align: center;
 }
 
-.leaflet-container {
+.info_container {
+  position: absolute;
+  top: 0;
+  right: 50px;
+  width: 50%;
+  height: 80%;
+  z-index: 400;
+  width: 600px;
   max-width: 100%;
-  width: 100%;
+  min-height: 200px;
 }
 
 @media (max-width: 400px) {

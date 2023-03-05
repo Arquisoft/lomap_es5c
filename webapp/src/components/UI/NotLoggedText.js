@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./NotLoggedText.module.css";
 import Map from "../Map/Maps";
 import InfoCard from "./InfoCard";
+import LoadingSpinner from "./LoadingSpinner";
 
 // This component is used when the user is not logged in
 const NotLoggedText = () => {
@@ -72,11 +73,15 @@ const NotLoggedText = () => {
 
   return (
     <div className={styles.container}>
-      {isLoaded && (
+      {isLoaded ? (
         <React.Fragment>
           <Map coords={coords} display_name={display_name} />
-          <InfoCard position={display_name}></InfoCard>
+          <div className={styles.info_container}>
+            <InfoCard position={display_name}></InfoCard>
+          </div>
         </React.Fragment>
+      ) : (
+        <LoadingSpinner />
       )}
     </div>
   );
