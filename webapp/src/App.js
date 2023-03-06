@@ -1,23 +1,39 @@
 import "./App.css";
-import React from "react";
-
+import React, { useState } from "react";
 import About from "./components/About/About";
-
 import Layout from "./components/layout/Layout";
 import { Route, Routes } from "react-router-dom";
 import NotFound from "./components/Pages/NotFound";
 import Content from "./components/Pages/Content";
+import { SessionProvider } from "@inrupt/solid-ui-react";
+import { useSession } from "@inrupt/solid-ui-react/dist";
+
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { session } = useSession();
+
+  //We have logged in
+  session.onLogin(() => {
+    setIsLoggedIn(true);
+  });
+
+  //We have logged out
+  session.onLogout(() => {
+    setIsLoggedIn(false);
+  });
+
   return (
     <>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route index element={<Content />}></Route>
-          <Route path="/home" element={<Content />} />
-          <Route path="/about" element={<About />} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
-      </Routes>
+      <SessionProvider sessionId="log-in-example">
+        <Routes>
+          <Route element={<Layout />}>
+            <Route index element={<Content />}></Route>
+            <Route path="/home" element={<Content />} />
+            <Route path="/about" element={<About />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
+        </Routes>
+      </SessionProvider>
     </>
   );
 }

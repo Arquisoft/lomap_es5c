@@ -14,7 +14,6 @@
 
 .info_container {
   position: absolute;
-  top: 0;
   right: 50px;
   width: 50%;
   height: 80%;
@@ -28,5 +27,11 @@
   .container {
     max-width: 100%;
     width: 100%;
+  }
+
+  .info_container {
+    bottom: 0;
+    right: 0;
+    margin-bottom: 50px;
   }
 }

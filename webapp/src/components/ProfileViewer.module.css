@@ -1,11 +1,15 @@
+.dataContainer {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  height: 70%;
+  width: 100%;
+  margin-top: 3rem;
+}
+
 .mainContainer {
   display: flex;
-  align-items: center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  max-width: 90rem;
-  width: 30%;
+  justify-content: center;
   text-align: center;
+  width: 30%;
 }

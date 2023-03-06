@@ -39,8 +39,8 @@ const About = () => {
     description: "Student and Java developer",
     mail: "uo275955",
     githubLink: "https://github.com/lauracc97",
-    twitterLink: "https://offline-dino-game.firebaseapp.com/",
-    linkedinLink: "https://offline-dino-game.firebaseapp.com/",
+    twitterLink: {},
+    linkedinLink: {},
   };
 
   const fer = {

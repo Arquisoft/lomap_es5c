@@ -16,23 +16,21 @@
 
   background-color: white;
   border-radius: 10px;
-  box-shadow: 5px 5px 5px 3px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2); */
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 @media (max-width: 400px) {
   .mainContainer {
     justify-items: flex-end;
+    justify-content: center;
   }
   .infoContainer {
-    padding: 1rem 15rem;
     position: absolute;
     height: 100%;
+    width: 95%;
     min-height: 5rem;
     max-height: 30rem;
-    left: 0;
     bottom: 0;
-    justify-self: center;
-    margin-bottom: 2%;
-    margin-left: 1%;
   }
 }
