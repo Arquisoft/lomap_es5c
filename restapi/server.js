@@ -3,8 +3,6 @@ const cors = require('cors');
 const express = require('express');
 const bp = require('body-parser');
 
-const mongoose = require('mongoose');
-
 const promBundle = require('express-prom-bundle');
 
 const route = require('./routes/routes');
