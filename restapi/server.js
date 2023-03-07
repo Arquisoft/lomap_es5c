@@ -6,19 +6,13 @@ const bp = require('body-parser');
 const mongoose = require('mongoose');
 
 const promBundle = require('express-prom-bundle');
-const routes = require('./routes/routes');
 
-const mongoString = process.env.DATABASE_URL; //Creates a valid conection 
-mongoose.connect(mongoString);
-const database = mongoose.connection;
+const route = require('./routes/routes');
+const routeComment = require('./routes/post/CommentRoutes');
+const routePhoto = require('./routes/post/PhotoRoutes');
+const routeScore = require('./routes/post/ScoreRoutes');
 
-database.on('error', (error) => {
-  console.log(error)
-})
-
-database.once('connected', () => {
-  console.log('Database MongoDB Connected');
-})
+let database = require("./persistence/mongoDB");
 
 const app = express();
 const port = 5000;
@@ -29,7 +23,10 @@ app.use(metricsMiddleware);
 app.use(cors());
 app.use(bp.urlencoded({ extended: true }));
 
-app.use("/api", routes);
+app.use("/place", route);
+app.use("/comment", routeComment);
+app.use("/photo", routePhoto);
+app.use("/score", routeScore);
 
 app
   .listen(port, ()=> {
