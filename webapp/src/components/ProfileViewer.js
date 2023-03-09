@@ -16,6 +16,7 @@ import {
 import { FOAF, VCARD } from "@inrupt/lit-generated-vocab-common";
 
 import styles from "./ProfileViewer.module.css";
+import PodCreateForm from "./Pods/PodCreateForm";
 
 // This component show the information of the logged in user in inrupt provider
 const ProfileViewer = () => {
@@ -60,6 +61,7 @@ const ProfileViewer = () => {
           </LogoutButton> */}
         </Container>
       </div>
+      {/* <PodCreateForm /> */}
     </div>
   );
 };
