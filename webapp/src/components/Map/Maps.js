@@ -10,8 +10,9 @@ import React from "react";
 import "leaflet/dist/leaflet.css";
 import icon from "../../images/icon.png";
 import L from "leaflet";
+import LocationMarkers from "./LocateMarkers";
 
-export default function Map({ coords, display_name }) {
+export default function Map({ coords, display_name, getPositionName }) {
 	const { latitude, longitude } = coords;
 	const markers = [[latitude, longitude]];
 
@@ -29,12 +30,6 @@ export default function Map({ coords, display_name }) {
 
 	function MapView() {
 		let map = useMap();
-		// let map = useMapEvents({
-		// 	click(e) {
-		// 		markers.push(e.latlng);
-		// 		setMarkers((prevValue) => [...prevValue, e.latlng]);
-		// 	},
-		// });
 		map.setView([latitude - 0.005, longitude], map.getZoom());
 
 		return null;
@@ -53,19 +48,10 @@ export default function Map({ coords, display_name }) {
         contributors'
 				url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 			/>
-			{/* <MapConsumer>
-        {(map) => {
-          console.log("map center:", map.getCenter());
-          map.on("click", function (e) {
-            const { lat, lng } = e.latlng;
-            L.marker([lat, lng], { icon }).addTo(map);
-          });
-          return null;
-        }}
-      </MapConsumer> */}
-			<Marker icon={customIcon} position={[latitude, longitude]}>
+			{/* <Marker icon={customIcon} position={[latitude, longitude]}>
 				<Popup>{display_name}</Popup>
-			</Marker>
+			</Marker> */}
+			<LocationMarkers coords={coords} getPositionName={getPositionName} />
 			<MapView />
 		</MapContainer>
 	);
