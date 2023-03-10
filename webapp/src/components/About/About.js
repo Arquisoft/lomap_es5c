@@ -55,15 +55,16 @@ const About = () => {
     linkedinLink: "https://www.linkedin.com/in/fer-glez-869844236/",
   };
 
+  const data = [jonathan, edu, laura, fer];
+
   return (
     <div className={styles.info_container}>
       <h1 className={styles.h1}>LoMap team ⭐️</h1>
 
       <div className="row">
-        <UserCard user={jonathan}></UserCard>
-        <UserCard user={edu}></UserCard>
-        <UserCard user={fer}></UserCard>
-        <UserCard user={laura}></UserCard>
+        {data.map((component) => (
+          <UserCard user={component}></UserCard>
+        ))}
       </div>
     </div>
   );
