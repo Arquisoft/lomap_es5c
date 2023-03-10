@@ -1,0 +1,9 @@
+.info_container {
+  position: absolute;
+  right: 50px;
+  width: 50%;
+  height: 80%;
+  width: 600px;
+  max-width: 100%;
+  min-height: 200px;
+}

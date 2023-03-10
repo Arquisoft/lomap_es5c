@@ -18,6 +18,7 @@
   border-radius: 10px;
   /* box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2); */
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  z-index: 1000;
 }
 
 @media (max-width: 400px) {
