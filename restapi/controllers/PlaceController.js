@@ -6,7 +6,7 @@ const Place = require('../models/Place');
 var randomstring = require("randomstring"); 
 
 module.exports.findPlacesById = async(req, res) => {
-    const places = await Place.find( {idPlace: req.params.id})
+    const places = await Place.find( {_id: req.params.id})
     return res.json(places);
 }; 
 
@@ -24,6 +24,18 @@ module.exports.addPlace = async(req, res) => {
   }catch {
     res.send("Failed to add a place.");
   }
+}; 
+
+
+module.exports.deletePlaceById = async(req, res) => {
+  try {
+    const id = req.params.id;
+    const place = await Place.findByIdAndDelete(id);
+    res.send(`Document with ${place.name} has been deleted..`)
+}
+catch (error) {
+    res.status(400).json({ message: error.message })
+}
 }; 
 
 module.exports.findAllPlaces = async(req, res) => {

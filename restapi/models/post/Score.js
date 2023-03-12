@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
 var dataSchema = new mongoose.Schema({
-    idScore: {
-        required: true,
-        type: String
-    },
     idUser: {
         required: true,
         type: String

@@ -1,10 +1,7 @@
 const mongoose = require('mongoose');
 
 var dataSchema = new mongoose.Schema({
-    idComment: {
-        required: true,
-        type: String
-    },
+
     idUser: {
         required: true,
         type: String

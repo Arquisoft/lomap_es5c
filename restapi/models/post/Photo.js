@@ -1,10 +1,7 @@
 const mongoose = require('mongoose');
 
 var dataSchema = new mongoose.Schema({
-    idPhoto: {
-        required: true,
-        type: String
-    },idUser: {
+    idUser: {
         required: true,
         type: String
     },
