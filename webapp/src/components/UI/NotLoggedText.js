@@ -12,8 +12,8 @@ const NotLoggedText = () => {
     longitude: null,
   });
   const [display_name, setName] = useState("");
-
   const [isLoaded, setIsLoaded] = useState(false);
+  const [clickedMarker, setClickedMarker] = useState(false);
 
   function error() {
     setIsLoaded(false); // Change the isLoaded property to false

@@ -15,9 +15,10 @@ function App() {
   const [data, setData] = useState();
 
   const handleFetch = async () => {
-    const response = await fetch("http://localhost:5000/place/list")
-      .then((res) => (res.json()))
-      //.then((data) => (setData(data.message)))
+    const response = await fetch("http://localhost:5000/place/list").then(
+      (res) => res.json()
+    );
+    //.then((data) => (setData(data.message)))
 
     console.log(response);
   };
