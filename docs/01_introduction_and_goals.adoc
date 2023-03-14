@@ -112,4 +112,5 @@ Table with role names, person names, and their expectations with respect to the 
 |Laura Cordero Castrillo|uo275955@uniovi.es| Build a useful app and learn new technologies
 |Fernando José González Sierra|uo277938@uniovi.es|Learn new frontend skills and build a nice app
 |Cristian Augusto|augustocristian@uniovi.es|A full functional and decentralized app
+|Irene Cid|cidirene@uniovi.es|A full functional and decentralized app
 |===
