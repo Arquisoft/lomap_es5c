@@ -5,6 +5,7 @@ import icon from "../../images/icon.png";
 import L from "leaflet";
 
 import InfoCard from "../UI/InfoCard";
+import PodCreateForm from "../Pods/PodCreateForm";
 
 import styles from "./LocateMarkers.module.css";
 
@@ -14,6 +15,7 @@ function LocationMarkers({ coords }) {
   // const { latitude, longitude } = coords;
   const [markers, setMarkers] = useState(initialMarkers);
   const [clicked, setClicked] = useState(false);
+  const [initial, setInitial] = useState(false);
 
   const customIcon = new L.Icon({
     iconUrl: icon,
@@ -40,10 +42,7 @@ function LocationMarkers({ coords }) {
     })
       .then((response) => response.json())
       .then((data) => setMarkerName(data.display_name));
-  }
-
-  function onClick(e) {
-    console.log(e);
+    setClicked(true);
   }
 
   const load = (
@@ -52,12 +51,24 @@ function LocationMarkers({ coords }) {
     </div>
   );
 
+  const form = (
+    <div className={styles.info_container}>
+      <PodCreateForm coords={markers} />
+    </div>
+  );
+
+  const aux =
+    "leaflet-container leaflet-touch leaflet-retina leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom";
+
   const map = useMapEvents({
     click(e) {
-      console.log("EJEMPLO");
-      // setMarkerName(getPositionName(e.latlng.latitude, e.latlng.longitude));
-      markers.push(e.latlng);
-      setMarkers((prevValue) => [...prevValue, e.latlng]);
+      if (e.originalEvent.target.attributes.length > 0) {
+        if (aux === e.originalEvent.target.attributes[0].nodeValue) {
+          setClicked(false);
+          setInitial(true);
+          setMarkers((prevValue) => [...prevValue, e.latlng]);
+        }
+      }
     },
   });
 
@@ -70,15 +81,16 @@ function LocationMarkers({ coords }) {
           position={marker}
           eventHandlers={{
             click: (e) => {
-              setClicked(true);
+              setInitial(false);
               getCurrentCityName(e.latlng.lat, e.latlng.lng);
             },
           }}
         >
-          <Popup>TEST</Popup>
+          {/* <Popup>Test</Popup> */}
         </Marker>
       ))}
       {clicked && load}
+      {initial && form}
     </React.Fragment>
   );
 }

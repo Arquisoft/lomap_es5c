@@ -4,15 +4,18 @@
   height: 100%;
   position: absolute;
   justify-content: end;
-  margin-top: 4vw;
+  /* margin-top: 4vw; */
+  min-width: 600px;
+  right: 20px;
 }
 
 .infoContainer {
   display: flex;
   flex-direction: row;
-  justify-content: start;
+  justify-content: center;
   text-align: center;
   padding: 2rem;
+  width: 100%;
 
   background-color: white;
   border-radius: 10px;

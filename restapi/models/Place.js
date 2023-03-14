@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
 var dataSchema = new mongoose.Schema({
-    idPlace: {
-        required: true,
-        type: String
-    },
     name: {
         required: true,
         type: String

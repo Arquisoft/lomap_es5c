@@ -1,9 +1,10 @@
 .info_container {
   position: absolute;
   right: 50px;
-  width: 50%;
+  /* width: 50%; */
   height: 80%;
-  width: 600px;
+  /* width: 600px; */
   max-width: 100%;
   min-height: 200px;
+  margin-top: 4vh;
 }
