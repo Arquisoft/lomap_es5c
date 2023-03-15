@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import styles from "./PodCreateForm.module.css";
 
 import useInput from "../../hooks/use-input";
 
-const PodCreateForm = ({ coords }) => {
+const PodCreateForm = ({ coords, saveData }) => {
+  const [showForm, setShowForm] = useState(true);
+
   // useInput for each input
   const {
     value: enteredTitle,
@@ -63,7 +65,8 @@ const PodCreateForm = ({ coords }) => {
       return;
     }
 
-    console.log(enteredDescription, enteredTitle, coords.slice(-1));
+    // We should save the data to pod in here
+    saveData(coords.slice(-1), enteredTitle, enteredDescription);
 
     // Reset input fields
     resetTitleInput();
@@ -76,50 +79,54 @@ const PodCreateForm = ({ coords }) => {
   }, [coords]);
 
   return (
-    <div className={styles.mainContainer}>
-      <div className={styles.infoContainer}>
-        <h4>Create location</h4>
-        <form onSubmit={formSubmissionHandler}>
-          <div className="control-group">
-            <div className={titleInputClasses}>
-              <label htmlFor="title">Title</label>
-              <input
-                type="text"
-                id="title"
-                onChange={titleChangeHandler}
-                onBlur={titleBlurHandler}
-                value={enteredTitle}
-              />
-              {titleInputHasError && (
-                <p className="error-text">Title not valid!</p>
-              )}
-            </div>
+    <React.Fragment>
+      {showForm && (
+        <div className={styles.mainContainer}>
+          <div className={styles.infoContainer}>
+            <h4>Create location</h4>
+            <form onSubmit={formSubmissionHandler}>
+              <div className="control-group">
+                <div className={titleInputClasses}>
+                  <label htmlFor="title">Title</label>
+                  <input
+                    type="text"
+                    id="title"
+                    onChange={titleChangeHandler}
+                    onBlur={titleBlurHandler}
+                    value={enteredTitle}
+                  />
+                  {titleInputHasError && (
+                    <p className="error-text">Title not valid!</p>
+                  )}
+                </div>
 
-            <div className={descriptionInputClasses}>
-              <label htmlFor="description">Description</label>
-              <textarea
-                type="text"
-                name="description"
-                id="description"
-                onChange={descriptionChangeHandler}
-                onBlur={descriptionBlurHandler}
-                value={enteredDescription}
-                maxLength="150"
-              ></textarea>
-              {descriptionInputHasError && (
-                <p className="error-text">Description not valid!</p>
-              )}
-            </div>
-          </div>
+                <div className={descriptionInputClasses}>
+                  <label htmlFor="description">Description</label>
+                  <textarea
+                    type="text"
+                    name="description"
+                    id="description"
+                    onChange={descriptionChangeHandler}
+                    onBlur={descriptionBlurHandler}
+                    value={enteredDescription}
+                    maxLength="150"
+                  ></textarea>
+                  {descriptionInputHasError && (
+                    <p className="error-text">Description not valid!</p>
+                  )}
+                </div>
+              </div>
 
-          <div className="form-actions">
-            <button className={styles.button} disabled={!formIsValid}>
-              SUBMIT
-            </button>
+              <div className="form-actions">
+                <button className={styles.button} disabled={!formIsValid}>
+                  SUBMIT
+                </button>
+              </div>
+            </form>
           </div>
-        </form>
-      </div>
-    </div>
+        </div>
+      )}
+    </React.Fragment>
   );
 };
 

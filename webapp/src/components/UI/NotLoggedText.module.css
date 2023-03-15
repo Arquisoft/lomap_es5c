@@ -1,37 +1,10 @@
-.container {
-  position: absolute;
+.notLoggedTextContainer {
   display: flex;
-  justify-content: center;
-  height: 85%;
-  width: 100%;
+  align-items: center;
+  margin-top: 5rem;
 }
 
-.text {
-  font-size: large;
-  font-weight: 700;
-  text-align: center;
-}
-
-.info_container {
-  position: absolute;
-  right: 50px;
-  width: 50%;
-  height: 80%;
-  z-index: 400;
-  width: 600px;
-  max-width: 100%;
-  min-height: 200px;
-}
-
-@media (max-width: 400px) {
-  .container {
-    max-width: 100%;
-    width: 100%;
-  }
-
-  .info_container {
-    bottom: 0;
-    right: 0;
-    margin-bottom: 50px;
-  }
+.notLoggedTextContainer p {
+  font-size: 2rem;
+  font-weight: 550;
 }

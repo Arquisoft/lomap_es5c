@@ -58,10 +58,9 @@ const About = () => {
   const data = [jonathan, edu, laura, fer];
 
   return (
-    <div className={styles.info_container}>
+    <div className={styles.main_container}>
       <h1 className={styles.h1}>LoMap team ⭐️</h1>
-
-      <div className="row">
+      <div className={styles.info_container}>
         {data.map((component) => (
           <UserCard user={component}></UserCard>
         ))}
