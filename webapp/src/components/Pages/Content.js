@@ -4,23 +4,9 @@ import { SessionProvider } from "@inrupt/solid-ui-react";
 import NotLoggedText from "../UI/NotLoggedText";
 import MapContainer from "../Map/MapContainer";
 
-const Content = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const { session } = useSession();
-
-  //We have logged in
-  session.onLogin(() => {
-    setIsLoggedIn(true);
-  });
-
-  //We have logged out
-  session.onLogout(() => {
-    setIsLoggedIn(false);
-  });
-
+const Content = ({ isLoggedIn }) => {
   return (
     <SessionProvider sessionId="log-in-example">
-      {/* {!isLoggedIn ? <NotLoggedText /> : <WriteToPod />} */}
       {isLoggedIn ? <MapContainer /> : <NotLoggedText />}
     </SessionProvider>
   );

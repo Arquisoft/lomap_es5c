@@ -4,10 +4,10 @@ import styles from "./Layout.module.css";
 import MainNavigation from "./MainNavigation";
 import { Outlet } from "react-router-dom";
 
-const Layout = () => {
+const Layout = ({ isLoggedIn }) => {
   return (
     <React.Fragment>
-      <MainNavigation />
+      <MainNavigation isLoggedIn={isLoggedIn} />
       <main className={styles.main}>
         <Outlet />
       </main>

@@ -26,9 +26,9 @@ function App() {
     <>
       <SessionProvider sessionId="log-in-example">
         <Routes>
-          <Route element={<Layout />}>
-            <Route index element={<Content />}></Route>
-            <Route path="/home" element={<Content />} />
+          <Route element={<Layout isLoggedIn={isLoggedIn} />}>
+            <Route index element={<Content isLoggedIn={isLoggedIn} />}></Route>
+            {/* <Route path="/home" element={<Content />} /> */}
             <Route path="/about" element={<About />} />
             <Route path="*" element={<NotFound />} />
           </Route>

@@ -10,7 +10,7 @@ import LogInButton from "../LogInButton";
 // import logo from "../../images/test.png";
 import logo from "../../images/logo.png";
 
-const MainNavigation = () => {
+const MainNavigation = ({ isLoggedIn }) => {
   return (
     <div className={styles.header_container}>
       <header className={styles.header}>
@@ -27,7 +27,7 @@ const MainNavigation = () => {
         <nav className={styles.nav}>
           <ul>
             <li>
-              <NavLink to="/home" className={styles.active}>
+              <NavLink to="/" className={styles.active}>
                 Home
               </NavLink>
             </li>
@@ -37,7 +37,7 @@ const MainNavigation = () => {
               </NavLink>
             </li>
             <li>
-              <LogInButton />
+              <LogInButton isLoggedIn={isLoggedIn} />
             </li>
           </ul>
         </nav>
