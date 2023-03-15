@@ -35,13 +35,11 @@ There are many notations for describing scenarios, e.g.
 ----
 actor User
 entity EntityWeb as "WebApp"
-entity EntityRest as "RestAPI"
 database Pod as "USER_POD"
 
 User -> EntityWeb: register
-EntityWeb -> EntityRest: send user data 
-EntityRest -> Pod: store user data
-EntityRest -> EntityWeb: notify success
+EntityWeb -> Pod: send user data 
+Pod -> EntityWeb: notify success
 EntityWeb -> User: log the user into the app
 ----
 
@@ -51,15 +49,13 @@ EntityWeb -> User: log the user into the app
 ----
 actor User
 entity EntityWeb as "WebApp"
-entity EntityRest as "RestAPI"
 database Pod as "USER_POD"
 
 User -> EntityWeb: enter WebID
-EntityWeb -> EntityRest: send user WebId
-EntityRest -> Pod: get username and password
-Pod --> EntityRest: send username and password
-EntityRest -> EntityRest: check login data
-EntityRest -> EntityWeb: notify success
+EntityWeb -> Pod: send webId
+Pod --> EntityWeb: send username and password
+Pod -> Pod: check login data
+Pod -> EntityWeb: notify success
 EntityWeb -> User: log the user into the app
 ----
 

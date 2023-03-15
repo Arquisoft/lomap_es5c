@@ -30,9 +30,9 @@ We have chosen to use the next technologies on the app:
 
 * **Node js**: is a Javascript execution environment controlled by events, what makes it light and efficient. It is also a nice option for reactive web apps because it's able to provide a big amount of simultaneous conections with high performance (big scalability). 
 
-* *Javascript*: is an interpreted programming language based on prototypes, imperative and dynamic. We will use it mainly for frontend.
+* *Javascript*: is an interpreted programming language based on prototypes, imperative and dynamic. We will use it on both frontend and backend.
 
-* **CSS**: is a graphic programming language oriented to define the rpesentation of a document. We will use it as part of the frontend of the app.
+* **CSS**: is a graphic programming language oriented to define the repesentation of a document. We will use it as part of the frontend of the app.
 
 * **Docker**: is a software platform that allows to create, try and implement new apps easily and fast. We will use it for the fast deployment of our web application.
 
@@ -44,5 +44,5 @@ We have chosen to use the next technologies on the app:
 
 === Why this technologies?
 * React, CSS, Javascript and NodeJS were chosen to reach a good level of usability and accesibility.
-* MongoDB, SOLID, docker and some libraries o9f NodeJS will provide the privacy, integrity and security of the web app.
+* MongoDB, SOLID, docker and some libraries of NodeJS will provide the privacy, integrity and security of the web app.
 * Github was chosen for version control and organization and communication between the team.

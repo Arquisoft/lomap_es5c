@@ -32,3 +32,6 @@ This is a list of identified technical risks, ordered by priority (1 is the high
 * In order to avoid this risk or minimize its damage, we will have to be open to the other team members, always consider their ideas and help each other if someone doesn't understand something.
 
 === Technical Debt
+This is a list of identified technical debts, ordered by priority (1 is the highest priority).
+
+1. The frontend application unsolved package vulnerabilities, forcing us to use the '--force' when we need to install.
