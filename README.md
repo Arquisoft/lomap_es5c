@@ -2,10 +2,13 @@
 
 ## Participant list
 
-- Jonathan Arias Busto -> UO283586
-- Eduardo Blanco Bielsa -> UO285176
-- Laura Cordero Castrillo -> UO275955
-- Fernando José González Sierra -> UO277938
+[![Jony](https://img.shields.io/badge/UO283586-Jonathan%20Arias-yellow)](https://github.com/JonathanAriass)
+
+[![Edu](https://img.shields.io/badge/UO285176-Eduardo%20Blanco-blueviolet)](https://github.com/gitblanc)
+
+[![Fer](https://img.shields.io/badge/UO277938-Fernando%20Jos%C3%A9%20Gonz%C3%A1lez-orange)](https://github.com/UO277938)
+
+[![Laura](https://img.shields.io/badge/UO275955%20-Laura%20Cordero-brightgreen)](https://github.com/lauracc97)
 
 [![CI for LOMAP ES5C](https://github.com/Arquisoft/lomap_es5c/actions/workflows/lomap_es5c.yml/badge.svg)](https://github.com/Arquisoft/lomap_es5c/actions/workflows/lomap_es5c.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_lomap_es5c&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Arquisoft_lomap_es5c)
