@@ -1,0 +1,77 @@
+[[section-concepts]]
+== Cross-cutting Concepts
+
+
+[role="arc42help"]
+****
+.Content
+This section describes overall, principal regulations and solution ideas that are
+relevant in multiple parts (= cross-cutting) of your system.
+Such concepts are often related to multiple building blocks.
+They can include many different topics, such as
+
+* domain models
+* architecture patterns or design patterns
+* rules for using specific technology
+* principal, often technical decisions of overall decisions
+* implementation rules
+
+.Motivation
+Concepts form the basis for _conceptual integrity_ (consistency, homogeneity)
+of the architecture. Thus, they are an important contribution to achieve inner qualities of your system.
+
+Some of these concepts cannot be assigned to individual building blocks
+(e.g. security or safety). This is the place in the template that we provided for a
+cohesive specification of such concepts.
+
+.Form
+The form can be varied:
+
+* concept papers with any kind of structure
+* cross-cutting model excerpts or scenarios using notations of the architecture views
+* sample implementations, especially for technical concepts
+* reference to typical usage of standard frameworks (e.g. using Hibernate for object/relational mapping)
+
+.Structure
+A potential (but not mandatory) structure for this section could be:
+
+* Domain concepts
+* User Experience concepts (UX)
+* Safety and security concepts
+* Architecture and design patterns
+* "Under-the-hood"
+* development concepts
+* operational concepts
+
+Note: it might be difficult to assign individual concepts to one specific topic
+on this list.
+
+image:08-Crosscutting-Concepts-Structure-EN.png["Possible topics for crosscutting concepts"]
+****
+
+
+=== Domain model
+
+|=======================
+|*Name*|*Description*
+|POD| User information.
+|User| User who uses the application. Can be friend with other users.
+|Professional User| Special user who runs the POD for an actual place as: bar, shop, bar... 
+|Post| A comment, score... made by a user related to a place.
+|Places| A location in the map that is static over time.
+|Professional Places| A location in the map that is run by a user.
+|Monuments| A type of static place.
+|Restaurant| A type of place run by a user.
+|=======================
+
+image::modeloDominio.png[]
+
+
+=== User Interface
+
+Prototype version:
+
+image::ux1.0_Main.png[]
+
+
+

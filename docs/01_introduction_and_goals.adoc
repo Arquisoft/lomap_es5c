@@ -1,0 +1,116 @@
+[[section-introduction-and-goals]]
+== Introduction and Goals
+
+[role="arc42help"]
+****
+Describes the relevant requirements and the driving forces that software architects and development team must consider. These include
+
+* underlying business goals, essential features and functional requirements for the system
+* quality goals for the architecture
+* relevant stakeholders and their expectations
+****
+
+* LoMap is a decentralized web application where citizens will be able to check personalized maps filled with their city's places and shops.
+* Our goal is to provide Brussels' citizens the most useful and secure application to keep and share their favourites places such as restaurants, shops, monuments and more.
+* We have also the objective of creating a general software solution for every city around the world that could need our app.
+
+=== Requirements Overview
+
+[role="arc42help"]
+****
+.Contents
+Short description of the functional requirements, driving forces, extract (or abstract)
+of requirements. Link to (hopefully existing) requirements documents
+(with version number and information where to find it).
+
+.Motivation
+From the point of view of the end users a system is created or modified to
+improve support of a business activity and/or improve the quality.
+
+.Form
+Short textual description, probably in tabular use-case format.
+If requirements documents exist this overview should refer to these documents.
+
+Keep these excerpts as short as possible. Balance readability of this document with potential redundancy w.r.t to requirements documents.
+****
+
+.High level requirements
+[options="header,footer"]
+|=======================
+|Name|Description
+|Adding places on different tabs   |Users can add different kinds of places (shops, restaurants, monuments, landscapes...)    
+|Map visualization    |Users can see places on a map     
+|Reviews    |Users can add punctuations, comments, photos and more to added places   
+|Privacy    |A user can customize the way of sharing information with other users
+|Decentralized information| Each user has a unique pod for its personal information
+|Optional centralized information| If necessary, for specific perfomance purposes, some information can be centralized
+|Social interaction| A user can see other user's places and reviews
+|App options available| There are filters for categories, friends and more
+|=======================
+
+.Extra requirements
+[options="header,footer"]
+|=======================
+|Name|Description
+|User roles| There will be roles: citizien, clothing shop, restaurant, bar...
+|Establishment pods| Shops, bars, restaurants, etc can create their own pod
+|=======================
+
+=== Quality Goals
+
+[role="arc42help"]
+****
+.Contents
+The top three (max five) quality goals for the architecture whose fulfillment is of highest importance to the major stakeholders. We really mean quality goals for the architecture. Don't confuse them with project goals. They are not necessarily identical.
+
+.Motivation
+You should know the quality goals of your most important stakeholders, since they will influence fundamental architectural decisions. Make sure to be very concrete about these qualities, avoid buzzwords.
+If you as an architect do not know how the quality of your work will be judged …
+
+.Form
+A table with quality goals and concrete scenarios, ordered by priorities
+****
+
+[options="header",cols="1,2"]
+|=======================
+|Name|Description
+|Privacy| User information will be on its personal pod (information will be decentralized)
+|Integrity| The app will check that the stored data is valid and ensures that the information lasts
+|Usability| All users will use the app without any problem. The app will be intuitive and easy to use
+|Accesibility| The app can be used with any device (mobile, laptop, tablet or pc)
+|Security| Real-time-location is only available if the user enables it. LoMap will store the minimum required info of the user
+|=======================
+
+=== Stakeholders
+
+[role="arc42help"]
+****
+.Contents
+Explicit overview of stakeholders of the system, i.e. all person, roles or organizations that
+
+* should know the architecture
+* have to be convinced of the architecture
+* have to work with the architecture or with code
+* need the documentation of the architecture for their work
+* have to come up with decisions about the system or its development
+
+.Motivation
+You should know all parties involved in development of the system or affected by the system.
+Otherwise, you may get nasty surprises later in the development process.
+These stakeholders determine the extent and the level of detail of your work and its results.
+
+.Form
+Table with role names, person names, and their expectations with respect to the architecture and its documentation.
+****
+
+[options="header",cols="1,2,2"]
+|===
+|Role/Name|Contact|Expectations
+|Inrupt |info@inrupt.com| Make decentralized SOLID based technologies more visible for the public through this app
+|Eduardo Blanco Bielsa |uo285176@uniovi.es| Build a secure and decentralized app, hone teamwork and try to get the scolarship offered by SOLID team
+|Jonathan Arias Busto|uo283586@uniovi.es| Learn new skills and learn how to work as a team on big projects
+|Laura Cordero Castrillo|uo275955@uniovi.es| Build a useful app and learn new technologies
+|Fernando José González Sierra|uo277938@uniovi.es|Learn new frontend skills and build a nice app
+|Cristian Augusto|augustocristian@uniovi.es|A full functional and decentralized app
+|Irene Cid|cidirene@uniovi.es|A full functional and decentralized app
+|===

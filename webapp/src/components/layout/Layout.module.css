@@ -1,0 +1,11 @@
+.main {
+  margin: 0rem auto;
+  width: 100%;
+  /* max-width: 40rem; */
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  top: 0;
+  left: 0;
+}

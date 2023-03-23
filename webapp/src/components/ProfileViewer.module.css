@@ -1,0 +1,15 @@
+.dataContainer {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  height: 70%;
+  width: 100%;
+  margin-top: 3rem;
+}
+
+.mainContainer {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  width: 30%;
+}

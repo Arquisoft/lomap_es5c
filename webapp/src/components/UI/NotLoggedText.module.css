@@ -1,0 +1,10 @@
+.notLoggedTextContainer {
+  display: flex;
+  align-items: center;
+  margin-top: 5rem;
+}
+
+.notLoggedTextContainer p {
+  font-size: 2rem;
+  font-weight: 550;
+}
