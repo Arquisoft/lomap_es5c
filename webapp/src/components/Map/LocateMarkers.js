@@ -4,24 +4,11 @@ import { LatLng } from "leaflet";
 import icon from "../../images/icon.png";
 import iconRed from "../../images/redMarker.png";
 import L from "leaflet";
-import {
-	createSolidDataset,
-	createThing,
-	setThing,
-	saveSolidDatasetAt,
-	buildThing,
-	getSolidDataset,
-	getThing,
-	getUrlAll,
-} from "@inrupt/solid-client";
 import { useSession } from "@inrupt/solid-ui-react";
-
 import InfoCard from "../UI/InfoCard";
 import PodCreateForm from "../Pods/PodCreateForm";
-
 import styles from "./LocateMarkers.module.css";
-
-import { FOAF } from "@inrupt/lit-generated-vocab-common";
+import { insertNewMarker } from "../Pods/PodsFunctions";
 
 function LocationMarkers({ coords }) {
 	const [markerName, setMarkerName] = useState();
@@ -43,6 +30,12 @@ function LocationMarkers({ coords }) {
 		iconSize: [25, 35],
 		iconAnchor: [5, 30],
 	});
+
+	//PODS
+	const { session } = useSession(); // Hook for providing access to the session in the component
+	const { webId } = session.info; // User's webId
+	//Url of the places that user has on his pod
+	const podUrl = webId.replace("/profile/card#me", "/private/places.json");
 
 	const handleFetch = async () => {
 		const response = await fetch("http://localhost:5001/place/list").then(
@@ -110,102 +103,12 @@ function LocationMarkers({ coords }) {
 		},
 	});
 
-	// FOR PODS -------------------------------------------
-	const { session } = useSession(); // Hook for providing access to the session in the component
-	const { webId } = session.info; // User's webId
-
-	async function createNewPlacesFile(newPlace, propertyName) {
-		//Create a new dataset
-		const placesDataset = createSolidDataset();
-
-		// Create a new Thing
-		const thing = buildThing(
-			createThing({
-				name: "places.json",
-			})
-		)
-			.addStringNoLocale(propertyName, `{${newPlace}}`)
-			.build();
-
-		// Add the Thing to the SolidDataset
-		const newDataset = setThing(placesDataset, thing);
-
-		// Save the SolidDataset to the user's Pod
-		const savedDataset = await saveSolidDatasetAt(podUrl, newDataset, {
-			fetch: session.fetch,
-		});
-	}
-
-	async function checkIfPlacesFileExists(podUrl) {
-		try {
-			const dataset = await getSolidDataset(podUrl);
-			return dataset !== null;
-		} catch (error) {
-			return false;
-		}
-	}
-
-	//Url of the places that user has on his pod
-	const podUrl = webId.replace("/profile/card#me", "") + "/public/places.json";
-
-	//Function that obtains a complete list of friends of the user pod
-	async function listFriends() {
-		// Get the Solid dataset of the profile
-		const profileDataset = await getSolidDataset(webId);
-
-		const thing = getThing(profileDataset, webId);
-
-		// Get all the Things (resources) in the dataset that have the "knows" property
-		const knowsThings = getUrlAll(thing, FOAF.knows);
-
-		console.log("User knows: " + knowsThings);
-	}
+	// FOR PODS ------------------------------------------
 
 	//Function to save a new place into user's pod
 	async function insertThing(coords, name, description) {
-		listFriends();
-		//property name for the thing
-		const propertyName = podUrl + "#points";
-		//We create the new place in JSON format
-		const newPlace = JSON.stringify({
-			name: name,
-			description: description,
-			lat: coords[0].lat,
-			lng: coords[0].lng,
-		});
-		const newDataBlob = new Blob([newPlace], {
-			type: "application/json",
-		});
-		//Check if is a new user or not -> creates a new places file if it is new
-		const existsDataset = await checkIfPlacesFileExists(podUrl);
-		if (!existsDataset) {
-			createNewPlacesFile(newPlace, propertyName);
-			return;
-		} else {
-			const dataset = await getSolidDataset(podUrl);
-			let places = getThing(dataset, `${podUrl}#places.json`);
-			const existingPoints =
-				places.predicates[propertyName].literals[
-					"http://www.w3.org/2001/XMLSchema#string"
-				][0];
-			const modifiedPoints = `${existingPoints.slice(0, -1)},${newPlace}`;
-
-			// Create a new Thing
-			const newThing = buildThing(
-				createThing({
-					name: "places.json",
-				})
-			)
-				.addStringNoLocale(propertyName, `${modifiedPoints}}`)
-				.build();
-
-			//Create the new dataset
-			const newDataset = setThing(dataset, newThing);
-
-			// Save the SolidDataset to the user's Pod
-			const savedDataset = await saveSolidDatasetAt(podUrl, newDataset, {
-				fetch: session.fetch,
-			});
+		{
+			insertNewMarker(coords, name, description, podUrl, session, webId);
 		}
 	}
 
