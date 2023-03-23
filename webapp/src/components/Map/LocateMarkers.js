@@ -12,6 +12,7 @@ import {
 	buildThing,
 	getSolidDataset,
 	getThing,
+	getUrlAll,
 } from "@inrupt/solid-client";
 import { useSession } from "@inrupt/solid-ui-react";
 
@@ -19,6 +20,8 @@ import InfoCard from "../UI/InfoCard";
 import PodCreateForm from "../Pods/PodCreateForm";
 
 import styles from "./LocateMarkers.module.css";
+
+import { FOAF } from "@inrupt/lit-generated-vocab-common";
 
 function LocationMarkers({ coords }) {
 	const [markerName, setMarkerName] = useState();
@@ -107,7 +110,7 @@ function LocationMarkers({ coords }) {
 		},
 	});
 
-	// PARA LOS PODS
+	// FOR PODS -------------------------------------------
 	const { session } = useSession(); // Hook for providing access to the session in the component
 	const { webId } = session.info; // User's webId
 
@@ -145,8 +148,22 @@ function LocationMarkers({ coords }) {
 	//Url of the places that user has on his pod
 	const podUrl = webId.replace("/profile/card#me", "") + "/public/places.json";
 
+	//Function that obtains a complete list of friends of the user pod
+	async function listFriends() {
+		// Get the Solid dataset of the profile
+		const profileDataset = await getSolidDataset(webId);
+
+		const thing = getThing(profileDataset, webId);
+
+		// Get all the Things (resources) in the dataset that have the "knows" property
+		const knowsThings = getUrlAll(thing, FOAF.knows);
+
+		console.log("User knows: " + knowsThings);
+	}
+
 	//Function to save a new place into user's pod
 	async function insertThing(coords, name, description) {
+		listFriends();
 		//property name for the thing
 		const propertyName = podUrl + "#points";
 		//We create the new place in JSON format
