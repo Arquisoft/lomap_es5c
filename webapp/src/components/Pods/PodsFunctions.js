@@ -81,8 +81,10 @@ async function updatePlacesFile(newFile, podUrl, session) {
 			contentType: newFile.type,
 			fetch: session.fetch,
 		});
+		return true; //marker was inserted, so we say it to the frontend
 	} catch (error) {
 		console.log(error);
+		return false; //marker was not inserted
 	}
 }
 
