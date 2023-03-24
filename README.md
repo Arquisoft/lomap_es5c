@@ -10,6 +10,8 @@
 
 [![Laura](https://img.shields.io/badge/UO275955%20-Laura%20Cordero-brightgreen)](https://github.com/lauracc97)
 
+[![Xin](https://img.shields.io/badge/UO276967%20-Chen%20Xin%20Pan%20Wang-hotpink)](https://github.com/iimxinn)
+
 [![CI for LOMAP ES5C](https://github.com/Arquisoft/lomap_es5c/actions/workflows/lomap_es5c.yml/badge.svg)](https://github.com/Arquisoft/lomap_es5c/actions/workflows/lomap_es5c.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_lomap_es5c&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Arquisoft_lomap_es5c)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_lomap_es5c&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Arquisoft_lomap_es5c)
