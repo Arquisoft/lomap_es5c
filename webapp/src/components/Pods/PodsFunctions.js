@@ -99,7 +99,7 @@ async function addNewMarker(file, podUrl, session, marker) {
 
 	var newFile = new File([blob], "places.json", { type: blob.type });
 
-	updatePlacesFile(newFile, podUrl, session);
+	return updatePlacesFile(newFile, podUrl, session); //returns true if everything was ok or false if there was an error
 }
 
 //Function to save a new place into user's pod
