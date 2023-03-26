@@ -102,6 +102,17 @@ async function addNewMarker(file, podUrl, session, marker) {
 	return updatePlacesFile(newFile, podUrl, session); //returns true if everything was ok or false if there was an error
 }
 
+//Function that returns the file as JSON parsed
+async function getPlacesFileAsJSON(podUrl, session) {
+	try {
+		let file = await getFile(podUrl, { fetch: session.fetch });
+		let jsonMarkers = JSON.parse(await file.text());
+		return jsonMarkers;
+	} catch (error) {
+		return Error;
+	}
+}
+
 //Function to save a new place into user's pod
 export async function insertNewMarker(
 	coords,
