@@ -5,6 +5,16 @@ import {
 	getUrlAll,
 	getFile,
 	saveFileInContainer,
+	//For acl permissions
+	getSolidDatasetWithAcl,
+	hasResourceAcl,
+	hasFallbackAcl,
+	hasAccessibleAcl,
+	createAcl,
+	createAclFromFallbackAcl,
+	getResourceAcl,
+	setAgentResourceAccess,
+	saveAclFor,
 } from "@inrupt/solid-client";
 
 import { FOAF } from "@inrupt/lit-generated-vocab-common";
@@ -70,8 +80,7 @@ async function listFriends(webId) {
 	// Get all the Things (resources) in the dataset that have the "knows" property
 	const friends = getUrlAll(thing, FOAF.knows);
 
-	//NOW ONLY PRINTS THE FRIENDS OF THE USER
-	console.log("User knows: " + friends);
+	return friends;
 }
 
 //Funtion that updates the existing file of places on the user's pod
@@ -122,7 +131,6 @@ export async function insertNewMarker(
 	session,
 	webId
 ) {
-	listFriends(webId);
 	//We create the new place in JSON format
 	const marker = {
 		name: name,
@@ -133,4 +141,47 @@ export async function insertNewMarker(
 
 	//Check if is a new user or not -> creates a new places file if it is new OR adds the marker if exists
 	await checkIfPlacesFileExists(podUrl, session, marker);
+
+	createFriendsFolder(listFriends(webId), webId, session);
+}
+
+async function createFriendsFolder(friends, webId, session) {
+	const folderUrl = webId.replace("/profile/card#me", "/justforfriends/");
+	const myDatasetWithAcl = await getSolidDatasetWithAcl(folderUrl, {
+		fetch: session.fetch,
+	});
+
+	// Obtain the SolidDataset's own ACL, if available,
+	// or initialise a new one, if possible:
+	let resourceAcl;
+	if (!hasResourceAcl(myDatasetWithAcl)) {
+		if (!hasAccessibleAcl(myDatasetWithAcl)) {
+			throw new Error(
+				"The current user does not have permission to change access rights to this Resource."
+			);
+		}
+		if (!hasFallbackAcl(myDatasetWithAcl)) {
+			throw new Error(
+				"The current user does not have permission to see who currently has access to this Resource."
+			);
+			// Alternatively, initialise a new empty ACL as follows,
+			// but be aware that if you do not give someone Control access,
+			// **nobody will ever be able to change Access permissions in the future**:
+			// resourceAcl = createAcl(myDatasetWithAcl);
+		}
+		resourceAcl = createAclFromFallbackAcl(myDatasetWithAcl);
+	} else {
+		resourceAcl = getResourceAcl(myDatasetWithAcl);
+	}
+
+	// Give someone Control access to the given Resource:
+	const updatedAcl = setAgentResourceAccess(
+		resourceAcl,
+		"https://arias.inrupt.net/profile/card#me",
+		{ read: true, append: false, write: false, control: false } //just read permissions
+	);
+
+	// Now save the ACL:
+	await saveAclFor(myDatasetWithAcl, updatedAcl, { fetch: session.fetch });
+	console.log("worked!");
 }
