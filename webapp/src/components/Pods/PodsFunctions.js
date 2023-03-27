@@ -142,10 +142,11 @@ export async function insertNewMarker(
 	//Check if is a new user or not -> creates a new places file if it is new OR adds the marker if exists
 	await checkIfPlacesFileExists(podUrl, session, marker);
 
-	createFriendsFolder(listFriends(webId), webId, session);
+	createFriendsFolder(webId, session);
 }
 
-async function createFriendsFolder(friends, webId, session) {
+async function createFriendsFolder(webId, session) {
+	const friends = await listFriends(webId);
 	const folderUrl = webId.replace("/profile/card#me", "/justforfriends/");
 	const myDatasetWithAcl = await getSolidDatasetWithAcl(folderUrl, {
 		fetch: session.fetch,
@@ -174,14 +175,16 @@ async function createFriendsFolder(friends, webId, session) {
 		resourceAcl = getResourceAcl(myDatasetWithAcl);
 	}
 
-	// Give someone Control access to the given Resource:
-	const updatedAcl = setAgentResourceAccess(
-		resourceAcl,
-		"https://arias.inrupt.net/profile/card#me",
-		{ read: true, append: false, write: false, control: false } //just read permissions
-	);
+	// Give friends Control access to the given Resource:
+	for (let i = 0; i < friends.length; i++) {
+		console.log(friends[i]);
+		const updatedAcl = setAgentResourceAccess(
+			resourceAcl,
+			friends[i], //webId of a specific friend
+			{ read: true, append: true, write: true, control: false } // permissions
+		);
 
-	// Now save the ACL:
-	await saveAclFor(myDatasetWithAcl, updatedAcl, { fetch: session.fetch });
-	console.log("worked!");
+		// Now save the ACL:
+		await saveAclFor(myDatasetWithAcl, updatedAcl, { fetch: session.fetch });
+	}
 }
