@@ -5,6 +5,7 @@ import {
 	getUrlAll,
 	getFile,
 	saveFileInContainer,
+	createContainerAt,
 	//For acl permissions
 	getSolidDatasetWithAcl,
 	hasResourceAcl,
@@ -34,39 +35,56 @@ async function createPlaces(file, path, session) {
 
 //Function that instanciates a new JSON file
 async function createFile() {
-	var places = {
-		markers: [],
+	var locations = {
+		maps: [
+			//maps of the user
+			{
+				id: 1,
+				name: "default",
+				locations: [
+					//markers
+				],
+			},
+		],
 	};
 
-	const blob = new Blob([JSON.stringify(places, null, 2)], {
+	const blob = new Blob([JSON.stringify(locations, null, 2)], {
 		type: "application/json",
 	});
 
-	var file = new File([blob], "places.json", { type: blob.type });
+	var file = new File([blob], "locations.json", { type: blob.type });
 	return file;
 }
 
 //Function that creates the file where places will be stored
-async function createNewPlacesFile(podUrl, session, marker) {
+async function createNewPlacesFile(podUrl, session, marker, mapId) {
+	//Create the directory for friends
+	await createContainerAt(podUrl.replace("locations.json", ""), {
+		fetch: session.fetch,
+	});
 	//Create the file
 	const file = await createFile();
 	//We create the file on path /private/ inside user's pod
-	const path = podUrl.replace("places.json", "");
+	const path = podUrl.replace("locations.json", "");
 	//Save the file
 	await createPlaces(file, path, session);
 	//Add the first marker
-	addNewMarker(file, podUrl, session, marker);
+	addNewMarker(file, podUrl, session, marker, mapId);
 }
 
-//Function that checks if places.json file exists
-async function checkIfPlacesFileExists(podUrl, session, marker) {
+//Function that checks if locations.json file exists
+async function checkIfPlacesFileExists(podUrl, session, marker, webId, mapId) {
 	try {
 		//file exists
 		let file = await getFile(podUrl, { fetch: session.fetch });
-		addNewMarker(file, podUrl, session, marker);
+		await addNewMarker(file, podUrl, session, marker, mapId);
+		//We update the permissions of the folder where we will store the markers
+		await updatePermissions(session, webId);
 	} catch (error) {
 		//file doesn't exist
-		createNewPlacesFile(podUrl, session, marker);
+		await createNewPlacesFile(podUrl, session, marker, mapId);
+		//We update the permissions of the folder where we will store the markers
+		await updatePermissions(session, webId);
 	}
 }
 
@@ -97,16 +115,27 @@ async function updatePlacesFile(newFile, podUrl, session) {
 	}
 }
 
+//Searches the position of the mark and returns it
+function getMapValue(maps, mapId) {
+	for (let i = 0; i < maps.length; i++) {
+		if (maps[i].id == mapId) return i;
+	}
+	return -1;
+}
+
 //Function that adds a new marker to the pod
-async function addNewMarker(file, podUrl, session, marker) {
+async function addNewMarker(file, podUrl, session, marker, mapId) {
 	let jsonMarkers = JSON.parse(await file.text());
-	jsonMarkers.markers.push(marker);
+
+	const i = getMapValue(jsonMarkers.maps, mapId);
+
+	jsonMarkers.maps[i].locations.push(marker);
 
 	const blob = new Blob([JSON.stringify(jsonMarkers, null, 2)], {
 		type: "application/json",
 	});
 
-	var newFile = new File([blob], "places.json", { type: blob.type });
+	var newFile = new File([blob], "locations.json", { type: blob.type });
 
 	return updatePlacesFile(newFile, podUrl, session); //returns true if everything was ok or false if there was an error
 }
@@ -129,23 +158,30 @@ export async function insertNewMarker(
 	description,
 	podUrl,
 	session,
-	webId
+	webId,
+	category
 ) {
 	//We create the new place in JSON format
 	const marker = {
+		id: Date.now(),
 		name: name,
+		category: category,
+		latitude: coords[0].lat,
+		longitude: coords[0].lng,
 		description: description,
-		lat: coords[0].lat,
-		lng: coords[0].lng,
+		comments: [], //comments that other users make on the marker
+		reviewScores: [], //scores that other users give to the marker
+		date: Date.now(),
 	};
 
-	//Check if is a new user or not -> creates a new places file if it is new OR adds the marker if exists
-	await checkIfPlacesFileExists(podUrl, session, marker);
+	const mapId = 1;
 
-	createFriendsFolder(webId, session);
+	//Check if is a new user or not -> creates a new places file if it is new OR adds the marker if exists
+	await checkIfPlacesFileExists(podUrl, session, marker, webId, mapId);
 }
 
-async function createFriendsFolder(webId, session) {
+//Function that creates a directory only for friends
+async function updatePermissions(session, webId) {
 	const friends = await listFriends(webId);
 	const folderUrl = webId.replace("/profile/card#me", "/justforfriends/");
 	const myDatasetWithAcl = await getSolidDatasetWithAcl(folderUrl, {
@@ -177,7 +213,6 @@ async function createFriendsFolder(webId, session) {
 
 	// Give friends Control access to the given Resource:
 	for (let i = 0; i < friends.length; i++) {
-		console.log(friends[i]);
 		const updatedAcl = setAgentResourceAccess(
 			resourceAcl,
 			friends[i], //webId of a specific friend

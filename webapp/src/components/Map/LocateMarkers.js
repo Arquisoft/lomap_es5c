@@ -35,7 +35,10 @@ function LocationMarkers({ coords }) {
 	const { session } = useSession(); // Hook for providing access to the session in the component
 	const { webId } = session.info; // User's webId
 	//Url of the places that user has on his pod
-	const podUrl = webId.replace("/profile/card#me", "/private/places.json");
+	const podUrl = webId.replace(
+		"/profile/card#me",
+		"/justforfriends/locations.json"
+	);
 
 	const handleFetch = async () => {
 		const response = await fetch("http://localhost:5001/place/list").then(
@@ -108,7 +111,15 @@ function LocationMarkers({ coords }) {
 	//Function to save a new place into user's pod
 	async function insertThing(coords, name, description) {
 		{
-			insertNewMarker(coords, name, description, podUrl, session, webId);
+			insertNewMarker(
+				coords,
+				name,
+				description,
+				podUrl,
+				session,
+				webId,
+				"basicCategory" //WE HAVE TO ADD THIS
+			);
 		}
 	}
 
