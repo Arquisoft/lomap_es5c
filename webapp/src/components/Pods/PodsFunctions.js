@@ -55,7 +55,7 @@ async function createNewPlacesFile(podUrl, session, marker) {
 	//Save the file
 	await createPlaces(file, path, session);
 	//Add the first marker
-	addNewMarker(file, podUrl, session, marker);
+	return addNewMarker(file, podUrl, session, marker);
 }
 
 //Function that checks if places.json file exists
@@ -63,10 +63,10 @@ async function checkIfPlacesFileExists(podUrl, session, marker) {
 	try {
 		//file exists
 		let file = await getFile(podUrl, { fetch: session.fetch });
-		addNewMarker(file, podUrl, session, marker);
+		return addNewMarker(file, podUrl, session, marker); //true/false
 	} catch (error) {
 		//file doesn't exist
-		createNewPlacesFile(podUrl, session, marker);
+		return createNewPlacesFile(podUrl, session, marker); //true/false
 	}
 }
 
@@ -142,7 +142,8 @@ export async function insertNewMarker(
 	//Check if is a new user or not -> creates a new places file if it is new OR adds the marker if exists
 	await checkIfPlacesFileExists(podUrl, session, marker);
 
-	createFriendsFolder(webId, session);
+	await createFriendsFolder(webId, session);
+	return true;
 }
 
 async function createFriendsFolder(webId, session) {
