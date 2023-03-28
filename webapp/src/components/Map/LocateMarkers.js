@@ -113,7 +113,7 @@ function LocationMarkers({ coords }) {
 	// FOR PODS ------------------------------------------
 
 	//Function to save a new place into user's pod
-	async function insertThing(coords, name, description) {
+	async function insertThing(coords, name, description, category) {
 		{
 			var result = insertNewMarker(
 				coords,
@@ -122,7 +122,7 @@ function LocationMarkers({ coords }) {
 				podUrl,
 				session,
 				webId,
-				"basicCategory" //WE HAVE TO ADD THIS
+				category //WE HAVE TO ADD THIS
 			);
 			setInitial(!result);
 			if(result)

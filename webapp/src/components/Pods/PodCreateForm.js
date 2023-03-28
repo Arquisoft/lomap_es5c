@@ -30,6 +30,15 @@ const PodCreateForm = ({ coords, saveData}) => {
   } = useInput((value) => value.trim() !== "");
 
   const {
+    value: enteredCategory,
+    isValid: validCategory,
+    hasError: categoryInputHasError,
+    valueChangeHandler: categoryChangeHandler,
+    inputBlurHandler: categoryBlurHandler,
+    reset: resetCategoryInput,
+  } = useInput((value) => value.trim() !== "");
+
+  const {
     value: enteredEmail,
     isValid: validEmail,
     hasError: emailInputHasError,
@@ -54,6 +63,10 @@ const PodCreateForm = ({ coords, saveData}) => {
     ? "form-control invalid"
     : "form-control";
 
+   const categoryInputClasses = categoryInputHasError
+    ? "form-control invalid"
+    : "form-control";
+
   // Form submission handler
   const formSubmissionHandler = (event) => {
     event.preventDefault();
@@ -69,7 +82,7 @@ const PodCreateForm = ({ coords, saveData}) => {
     }
 
     // We should save the data to pod in here
-    saveData(coords, enteredTitle, enteredDescription).then(succes, failure);
+    saveData(coords, enteredTitle, enteredDescription,enteredCategory).then(succes, failure);
   };
 
   function succes(resultado) {
@@ -80,6 +93,7 @@ const PodCreateForm = ({ coords, saveData}) => {
     // Reset input fields
     resetTitleInput();
     resetDescriptionInput();
+    resetCategoryInput()
   }
   
   function failure(error) {
@@ -91,6 +105,7 @@ const PodCreateForm = ({ coords, saveData}) => {
   useEffect(() => {
     resetTitleInput();
     resetDescriptionInput();
+    resetCategoryInput();
     setCorrectPointCreation(true);
   }, [coords]);
 
@@ -128,6 +143,24 @@ const PodCreateForm = ({ coords, saveData}) => {
                     maxLength="150"
                   ></textarea>
                   {descriptionInputHasError && (
+                    <p className="error-text">Description not valid!</p>
+                  )}
+                </div>
+
+                <div className={categoryInputClasses}>
+                  <label htmlFor="category">Category</label>
+                  <select type="combo" name="category" id="category" className={styles.categoryContainer}
+                    onChange={categoryChangeHandler}
+                    onBlur={categoryBlurHandler}
+                    value={enteredCategory}
+                    required>
+                    <option value="no-state"> None </option>
+                    <option value="landscape">Landscape</option>
+                    <option value="monument">Monument</option>
+                    <option value="shop">Shop</option>
+                    <option value="bar">Bar</option>
+                  </select>
+                  {categoryInputHasError && (
                     <p className="error-text">Description not valid!</p>
                   )}
                 </div>

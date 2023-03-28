@@ -16,6 +16,7 @@
   text-align: center;
   padding: 2rem;
   width: 100%;
+  font-size: 1rem;
 
   background-color: white;
   border-radius: 10px;
@@ -28,13 +29,16 @@
   .mainContainer {
     justify-items: flex-end;
     justify-content: center;
+    right: -70px;
+    height: 1rem;
   }
   .infoContainer {
     position: absolute;
     height: 100%;
     width: 95%;
-    min-height: 5rem;
-    max-height: 30rem;
+    min-height: 6rem;
+    max-height: 15rem;
     bottom: 0;
+    font-size: 1.2rem;
   }
 }
