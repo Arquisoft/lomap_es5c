@@ -4,8 +4,11 @@ import styles from "./PodCreateForm.module.css";
 
 import useInput from "../../hooks/use-input";
 
-const PodCreateForm = ({ coords, saveData }) => {
+const PodCreateForm = ({ coords, saveData}) => {
   const [showForm, setShowForm] = useState(true);
+
+  // true until is there a problem creating a point
+  const [correctPointCreation, setCorrectPointCreation] = useState(true);
 
   // useInput for each input
   const {
@@ -66,16 +69,29 @@ const PodCreateForm = ({ coords, saveData }) => {
     }
 
     // We should save the data to pod in here
-    saveData(coords.slice(-1), enteredTitle, enteredDescription);
+    saveData(coords, enteredTitle, enteredDescription).then(succes, failure);
+  };
+
+  function succes(resultado) {
+    console.log("TODO BIEN: " + resultado);
+    setCorrectPointCreation(true);
+    setShowForm(false);
 
     // Reset input fields
     resetTitleInput();
     resetDescriptionInput();
-  };
+  }
+  
+  function failure(error) {
+    console.log(error);
+    setCorrectPointCreation(false);
+    //setShowForm(true);
+  }
 
   useEffect(() => {
     resetTitleInput();
     resetDescriptionInput();
+    setCorrectPointCreation(true);
   }, [coords]);
 
   return (
@@ -117,10 +133,13 @@ const PodCreateForm = ({ coords, saveData }) => {
                 </div>
               </div>
 
-              <div className="form-actions">
-                <button className={styles.button} disabled={!formIsValid}>
+              <div className={styles.submit}>
+                <button type="submit" className={styles.button} disabled={!formIsValid}>
                   SUBMIT
                 </button>
+                {!correctPointCreation && (
+                  <p className={styles.error}>Error in POD addition!</p>
+                )}
               </div>
             </form>
           </div>

@@ -75,3 +75,10 @@
   border-color: #ccc;
   cursor: not-allowed;
 }
+
+.error{
+  font: inherit;
+  color: rgb(208, 65, 65);
+  padding: 0.5rem 1.5rem;
+  font-size: 1rem;
+}

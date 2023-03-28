@@ -19,6 +19,8 @@ function LocationMarkers({ coords }) {
 	const [clicked, setClicked] = useState(false);
 	const [initial, setInitial] = useState(false);
 
+	const [actualMarker, setActualMarker] = useState();
+
 	const customIcon = new L.Icon({
 		iconUrl: icon,
 		iconSize: [30, 40],
@@ -87,7 +89,7 @@ function LocationMarkers({ coords }) {
 
 	const form = (
 		<div className={styles.info_container}>
-			<PodCreateForm coords={markers} saveData={insertThing} />
+			<PodCreateForm coords={actualMarker} saveData={insertThing}/>
 		</div>
 	);
 
@@ -100,7 +102,9 @@ function LocationMarkers({ coords }) {
 				if (aux === e.originalEvent.target.attributes[0].nodeValue) {
 					setClicked(false);
 					setInitial(true);
-					setMarkers((prevValue) => [...prevValue, e.latlng]);
+					setActualMarker(e.latlng)
+					//setMarkers((prevValue) => [...prevValue, e.latlng]);
+					
 				}
 			}
 		},
@@ -111,7 +115,7 @@ function LocationMarkers({ coords }) {
 	//Function to save a new place into user's pod
 	async function insertThing(coords, name, description) {
 		{
-			insertNewMarker(
+			var result = insertNewMarker(
 				coords,
 				name,
 				description,
@@ -120,7 +124,11 @@ function LocationMarkers({ coords }) {
 				webId,
 				"basicCategory" //WE HAVE TO ADD THIS
 			);
-		}
+			setInitial(!result);
+			if(result)
+				setMarkers((prevValue) => [...prevValue, actualMarker]);
+			return result
+		} 
 	}
 
 	return (
@@ -135,6 +143,7 @@ function LocationMarkers({ coords }) {
 					},
 				}}
 			></Marker>
+
 			{markers.map((marker, i) => (
 				<Marker
 					key={i}
@@ -144,6 +153,7 @@ function LocationMarkers({ coords }) {
 						click: (e) => {
 							setInitial(false);
 							getCurrentCityName(e.latlng.lat, e.latlng.lng);
+							
 						},
 					}}
 				>
@@ -167,6 +177,18 @@ function LocationMarkers({ coords }) {
 			))}
 			{clicked && load}
 			{initial && form}
+			{initial &&
+			<Marker
+				icon={customIcon}
+				position={actualMarker}
+				eventHandlers={{
+					click: (e) => {
+						setInitial(false);
+						getCurrentCityName(e.latlng.lat, e.latlng.lng);
+					},
+				}}
+			></Marker>
+			}
 		</React.Fragment>
 	);
 }
