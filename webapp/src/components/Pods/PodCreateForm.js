@@ -4,8 +4,11 @@ import styles from "./PodCreateForm.module.css";
 
 import useInput from "../../hooks/use-input";
 
-const PodCreateForm = ({ coords, saveData }) => {
+const PodCreateForm = ({ coords, saveData}) => {
   const [showForm, setShowForm] = useState(true);
+
+  // true until is there a problem creating a point
+  const [correctPointCreation, setCorrectPointCreation] = useState(true);
 
   // useInput for each input
   const {
@@ -24,6 +27,15 @@ const PodCreateForm = ({ coords, saveData }) => {
     valueChangeHandler: descriptionChangeHandler,
     inputBlurHandler: descriptionBlurHandler,
     reset: resetDescriptionInput,
+  } = useInput((value) => value.trim() !== "");
+
+  const {
+    value: enteredCategory,
+    isValid: validCategory,
+    hasError: categoryInputHasError,
+    valueChangeHandler: categoryChangeHandler,
+    inputBlurHandler: categoryBlurHandler,
+    reset: resetCategoryInput,
   } = useInput((value) => value.trim() !== "");
 
   const {
@@ -51,6 +63,10 @@ const PodCreateForm = ({ coords, saveData }) => {
     ? "form-control invalid"
     : "form-control";
 
+   const categoryInputClasses = categoryInputHasError
+    ? "form-control invalid"
+    : "form-control";
+
   // Form submission handler
   const formSubmissionHandler = (event) => {
     event.preventDefault();
@@ -66,16 +82,31 @@ const PodCreateForm = ({ coords, saveData }) => {
     }
 
     // We should save the data to pod in here
-    saveData(coords.slice(-1), enteredTitle, enteredDescription);
+    saveData(coords, enteredTitle, enteredDescription,enteredCategory).then(succes, failure);
+  };
+
+  function succes(resultado) {
+    console.log("TODO BIEN: " + resultado);
+    setCorrectPointCreation(true);
+    setShowForm(false);
 
     // Reset input fields
     resetTitleInput();
     resetDescriptionInput();
-  };
+    resetCategoryInput()
+  }
+  
+  function failure(error) {
+    console.log(error);
+    setCorrectPointCreation(false);
+    //setShowForm(true);
+  }
 
   useEffect(() => {
     resetTitleInput();
     resetDescriptionInput();
+    resetCategoryInput();
+    setCorrectPointCreation(true);
   }, [coords]);
 
   return (
@@ -115,12 +146,33 @@ const PodCreateForm = ({ coords, saveData }) => {
                     <p className="error-text">Description not valid!</p>
                   )}
                 </div>
+
+                <div className={categoryInputClasses}>
+                  <label htmlFor="category">Category</label>
+                  <select type="combo" name="category" id="category" className={styles.categoryContainer}
+                    onChange={categoryChangeHandler}
+                    onBlur={categoryBlurHandler}
+                    value={enteredCategory}
+                    required>
+                    <option value="no-state"> None </option>
+                    <option value="landscape">Landscape</option>
+                    <option value="monument">Monument</option>
+                    <option value="shop">Shop</option>
+                    <option value="bar">Bar</option>
+                  </select>
+                  {categoryInputHasError && (
+                    <p className="error-text">Description not valid!</p>
+                  )}
+                </div>
               </div>
 
-              <div className="form-actions">
-                <button className={styles.button} disabled={!formIsValid}>
+              <div className={styles.submit}>
+                <button type="submit" className={styles.button} disabled={!formIsValid}>
                   SUBMIT
                 </button>
+                {!correctPointCreation && (
+                  <p className={styles.error}>Error in POD addition!</p>
+                )}
               </div>
             </form>
           </div>
