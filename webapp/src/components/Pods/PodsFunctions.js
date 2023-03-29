@@ -69,7 +69,7 @@ async function createNewPlacesFile(podUrl, session, marker, mapId) {
 	//Save the file
 	await createPlaces(file, path, session);
 	//Add the first marker
-	addNewMarker(file, podUrl, session, marker, mapId);
+	return addNewMarker(file, podUrl, session, marker, mapId);
 }
 
 //Function that checks if locations.json file exists
@@ -79,12 +79,12 @@ async function checkIfPlacesFileExists(podUrl, session, marker, webId, mapId) {
 		let file = await getFile(podUrl, { fetch: session.fetch });
 		await addNewMarker(file, podUrl, session, marker, mapId);
 		//We update the permissions of the folder where we will store the markers
-		await updatePermissions(session, webId);
+		return await updatePermissions(session, webId);
 	} catch (error) {
 		//file doesn't exist
 		await createNewPlacesFile(podUrl, session, marker, mapId);
 		//We update the permissions of the folder where we will store the markers
-		await updatePermissions(session, webId);
+		return await updatePermissions(session, webId);
 	}
 }
 
@@ -166,8 +166,8 @@ export async function insertNewMarker(
 		id: Date.now(),
 		name: name,
 		category: category,
-		latitude: coords[0].lat,
-		longitude: coords[0].lng,
+		latitude: coords.lat,
+		longitude: coords.lng,
 		description: description,
 		comments: [], //comments that other users make on the marker
 		reviewScores: [], //scores that other users give to the marker
@@ -177,7 +177,7 @@ export async function insertNewMarker(
 	const mapId = 1;
 
 	//Check if is a new user or not -> creates a new places file if it is new OR adds the marker if exists
-	await checkIfPlacesFileExists(podUrl, session, marker, webId, mapId);
+	return await checkIfPlacesFileExists(podUrl, session, marker, webId, mapId);
 }
 
 //Function that creates a directory only for friends
@@ -221,5 +221,5 @@ async function updatePermissions(session, webId) {
 
 		// Now save the ACL:
 		await saveAclFor(myDatasetWithAcl, updatedAcl, { fetch: session.fetch });
-	}
+	}return true;
 }
