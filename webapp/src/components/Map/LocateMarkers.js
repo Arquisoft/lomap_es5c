@@ -39,7 +39,7 @@ function LocationMarkers({ coords }) {
 	//Url of the places that user has on his pod
 	const podUrl = webId.replace(
 		"/profile/card#me",
-		"/justforfriends/locations.json"
+		"/justforfriends7/locations.json"
 	);
 
 	const handleFetch = async () => {
@@ -89,7 +89,7 @@ function LocationMarkers({ coords }) {
 
 	const form = (
 		<div className={styles.info_container}>
-			<PodCreateForm coords={actualMarker} saveData={insertThing}/>
+			<PodCreateForm coords={actualMarker} saveData={insertThing} />
 		</div>
 	);
 
@@ -102,9 +102,8 @@ function LocationMarkers({ coords }) {
 				if (aux === e.originalEvent.target.attributes[0].nodeValue) {
 					setClicked(false);
 					setInitial(true);
-					setActualMarker(e.latlng)
+					setActualMarker(e.latlng);
 					//setMarkers((prevValue) => [...prevValue, e.latlng]);
-					
 				}
 			}
 		},
@@ -125,10 +124,9 @@ function LocationMarkers({ coords }) {
 				category //WE HAVE TO ADD THIS
 			);
 			setInitial(!result);
-			if(result)
-				setMarkers((prevValue) => [...prevValue, actualMarker]);
-			return result
-		} 
+			if (result) setMarkers((prevValue) => [...prevValue, actualMarker]);
+			return result;
+		}
 	}
 
 	return (
@@ -153,7 +151,6 @@ function LocationMarkers({ coords }) {
 						click: (e) => {
 							setInitial(false);
 							getCurrentCityName(e.latlng.lat, e.latlng.lng);
-							
 						},
 					}}
 				>
@@ -177,18 +174,18 @@ function LocationMarkers({ coords }) {
 			))}
 			{clicked && load}
 			{initial && form}
-			{initial &&
-			<Marker
-				icon={customIcon}
-				position={actualMarker}
-				eventHandlers={{
-					click: (e) => {
-						setInitial(false);
-						getCurrentCityName(e.latlng.lat, e.latlng.lng);
-					},
-				}}
-			></Marker>
-			}
+			{initial && (
+				<Marker
+					icon={customIcon}
+					position={actualMarker}
+					eventHandlers={{
+						click: (e) => {
+							setInitial(false);
+							getCurrentCityName(e.latlng.lat, e.latlng.lng);
+						},
+					}}
+				></Marker>
+			)}
 		</React.Fragment>
 	);
 }

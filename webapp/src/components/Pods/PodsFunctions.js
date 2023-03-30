@@ -16,7 +16,10 @@ import {
 	getResourceAcl,
 	setAgentResourceAccess,
 	saveAclFor,
+	acp_ess_2,
 } from "@inrupt/solid-client";
+
+import * as solid from "@inrupt/solid-client";
 
 import { FOAF } from "@inrupt/lit-generated-vocab-common";
 
@@ -176,14 +179,66 @@ export async function insertNewMarker(
 
 	const mapId = 1;
 
+	await listLocationsOfAUser(
+		"https://uo285176.inrupt.net/profile/card#me",
+		mapId,
+		session
+	);
+	console.log("Segundo...");
+	await listLocationsOfAUser(
+		"https://lomap5c.inrupt.net/profile/card#me",
+		mapId,
+		session
+	);
+
 	//Check if is a new user or not -> creates a new places file if it is new OR adds the marker if exists
 	return await checkIfPlacesFileExists(podUrl, session, marker, webId, mapId);
 }
 
-//Function that creates a directory only for friends
+//Function that stablish permissions of the folder and the locations file
 async function updatePermissions(session, webId) {
+	await updatePermissionsOfFolder(session, webId);
+	await updatePermissionsOfFile(session, webId);
+}
+
+async function givePermissionsToUser(friend, session, file, control) {
+	let resourceAcl = solid.createAcl(file);
+
+	const updatedAcl = solid.setAgentResourceAccess(resourceAcl, friend, {
+		read: true,
+		append: false,
+		write: true,
+		control: control,
+	});
+
+	await solid.saveAclFor(file, updatedAcl, { fetch: session.fetch });
+}
+
+//Function that modifies permissions of the locations file
+async function updatePermissionsOfFile(session, webId) {
+	const fileUrl = webId.replace(
+		"/profile/card#me",
+		"/justforfriends7/locations.json"
+	);
+	//Get the friends of the user
 	const friends = await listFriends(webId);
-	const folderUrl = webId.replace("/profile/card#me", "/justforfriends/");
+	try {
+		let file = await solid.getFile(fileUrl, { fetch: session.fetch });
+		givePermissionsToUser(webId, session, file, true); //give you permissions
+		//Give your friends permissions
+		for (var i in friends) {
+			givePermissionsToUser(friends[i], session, file, false);
+		}
+	} catch (error) {
+		console.log("Fallo");
+		console.log(error);
+	}
+}
+
+//Function that modifies permissions only for friends
+async function updatePermissionsOfFolder(session, webId) {
+	const friends = await listFriends(webId);
+	const folderUrl = webId.replace("/profile/card#me", "/justforfriends7/");
 	const myDatasetWithAcl = await getSolidDatasetWithAcl(folderUrl, {
 		fetch: session.fetch,
 	});
@@ -221,5 +276,29 @@ async function updatePermissions(session, webId) {
 
 		// Now save the ACL:
 		await saveAclFor(myDatasetWithAcl, updatedAcl, { fetch: session.fetch });
-	}return true;
+	}
+	return true;
+}
+
+//Function that extracts all the locations added by a user of a concrete map
+//If the extension of multiple maps is not implemented the default mapId is 1
+async function listLocationsOfAUser(webId, mapId, session) {
+	const podUrl = webId.replace(
+		"/profile/card#me",
+		"/justforfriends7/locations.json"
+	);
+	//We extract the file of the concrete user if exists
+	const file = await getPlacesFileAsJSON(podUrl, session);
+	//We extract the map that we want to show locations of it
+	const i = getMapValue(file.maps, mapId);
+	//We obtain locations of that specific map
+	const locs = file.maps[i].locations;
+	console.log("Locations of user: " + webId + "\n");
+	console.log(printlocations(locs));
+}
+
+function printlocations(locations) {
+	for (let i = 0; i < locations.length; i++) {
+		console.log(locations[i].name + " ");
+	}
 }
