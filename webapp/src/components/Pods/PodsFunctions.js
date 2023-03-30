@@ -160,8 +160,6 @@ export async function insertNewMarker(
 	//Remove this if we implement multiple maps on the app
 	const mapId = 1;
 
-	console.log(await getMarker(webId, session, mapId, 1680190579115));
-
 	//Check if is a new user or not -> creates a new places file if it is new OR adds the marker if exists
 	return await checkIfPlacesFileExists(podUrl, session, marker, webId, mapId);
 }
@@ -312,4 +310,16 @@ function searchMarker(locations, markerId) {
 		}
 	}
 	return null;
+}
+
+//Function that lists comments of a concrete marker
+async function listCommentsOfMarker(webId, session, mapId, markerId) {
+	const marker = await getMarker(webId, session, mapId, markerId);
+	return marker.comments;
+}
+
+//Function that lists reviewScores of a concrete marker
+async function listReviewScoresOfMarker(webId, session, mapId, markerId) {
+	const marker = await getMarker(webId, session, mapId, markerId);
+	return marker.reviewScores;
 }
