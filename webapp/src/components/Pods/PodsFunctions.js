@@ -289,3 +289,41 @@ async function getFriendInfo(friendWebId, session) {
     console.log(error);
   }
 }
+
+//Function that searches a marker by its id of a map
+async function getMarker(webId, session, mapId, markerId) {
+  const podUrl = webId.replace(
+    "/profile/card#me",
+    "/justforfriends7/locations.json"
+  );
+  const file = await getPlacesFileAsJSON(podUrl, session);
+  const i = getMapValue(file.maps, mapId);
+
+  const locations = file.maps[i].locations;
+
+  const marker = searchMarker(locations, markerId);
+
+  return marker;
+}
+
+//Function that searches a concrete marker in the array of locations of a map
+function searchMarker(locations, markerId) {
+  for (let i = 0; i < locations.length; i++) {
+    if (locations[i].id == markerId) {
+      return locations[i];
+    }
+  }
+  return null;
+}
+
+//Function that lists comments of a concrete marker
+async function listCommentsOfMarker(webId, session, mapId, markerId) {
+  const marker = await getMarker(webId, session, mapId, markerId);
+  return marker.comments;
+}
+
+//Function that lists reviewScores of a concrete marker
+async function listReviewScoresOfMarker(webId, session, mapId, markerId) {
+  const marker = await getMarker(webId, session, mapId, markerId);
+  return marker.reviewScores;
+}
