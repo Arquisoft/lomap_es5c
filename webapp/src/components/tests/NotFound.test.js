@@ -1,14 +1,10 @@
 import {render} from "@testing-library/react";
 import NotFound from "../Pages/NotFound";
-import NotLoggedText from "../UI/NotLoggedText";
 
 
-test("The phrase saying that it´s not logged is rendered", async () => {
-
-    const NotFound = render(
-        <NotFound> </NotFound>
-    )
-
-    expect(NotLoggedText.container).toHaveTextContent('Page not found!')
-
+describe(NotFound, () => {
+    it("The phrase saying that the page not found", () => {
+        const {NotFound} = render(<NotFound> </NotFound>);
+        expect(NotFound.container).toHaveTextContent('Page not found!')
+    })
 });

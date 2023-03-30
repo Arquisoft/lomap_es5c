@@ -29,7 +29,9 @@ beforeAll(async () => {
     .on("error", (error: Error) => {
       console.error("Error occured: " + error.message);
     });
-    mongoose.connect(uri)
+
+
+  mongoose.connect(uri)
     .then(() => {
             console.log('Conexion correcta a la BD')
     }).catch((err:any) => {
@@ -39,6 +41,7 @@ beforeAll(async () => {
 
 afterAll(async () => {
   server.close(); //close the server
+  mongoose.connection.close(); //close de connection to mongodb
 });
 
 /**
