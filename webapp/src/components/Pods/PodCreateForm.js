@@ -4,7 +4,7 @@ import styles from "./PodCreateForm.module.css";
 
 import useInput from "../../hooks/use-input";
 
-const PodCreateForm = ({ coords, saveData}) => {
+const PodCreateForm = ({ coords, saveData }) => {
   const [showForm, setShowForm] = useState(true);
 
   // true until is there a problem creating a point
@@ -63,7 +63,7 @@ const PodCreateForm = ({ coords, saveData}) => {
     ? "form-control invalid"
     : "form-control";
 
-   const categoryInputClasses = categoryInputHasError
+  const categoryInputClasses = categoryInputHasError
     ? "form-control invalid"
     : "form-control";
 
@@ -82,7 +82,10 @@ const PodCreateForm = ({ coords, saveData}) => {
     }
 
     // We should save the data to pod in here
-    saveData(coords, enteredTitle, enteredDescription,enteredCategory).then(succes, failure);
+    saveData(coords, enteredTitle, enteredDescription, enteredCategory).then(
+      succes,
+      failure
+    );
   };
 
   function succes(resultado) {
@@ -93,9 +96,9 @@ const PodCreateForm = ({ coords, saveData}) => {
     // Reset input fields
     resetTitleInput();
     resetDescriptionInput();
-    resetCategoryInput()
+    resetCategoryInput();
   }
-  
+
   function failure(error) {
     console.log(error);
     setCorrectPointCreation(false);
@@ -114,7 +117,7 @@ const PodCreateForm = ({ coords, saveData}) => {
       {showForm && (
         <div className={styles.mainContainer}>
           <div className={styles.infoContainer}>
-            <h4>Create location</h4>
+            <h4 className={styles.header}>Create location</h4>
             <form onSubmit={formSubmissionHandler}>
               <div className="control-group">
                 <div className={titleInputClasses}>
@@ -149,11 +152,16 @@ const PodCreateForm = ({ coords, saveData}) => {
 
                 <div className={categoryInputClasses}>
                   <label htmlFor="category">Category</label>
-                  <select type="combo" name="category" id="category" className={styles.categoryContainer}
+                  <select
+                    type="combo"
+                    name="category"
+                    id="category"
+                    className={styles.categoryContainer}
                     onChange={categoryChangeHandler}
                     onBlur={categoryBlurHandler}
                     value={enteredCategory}
-                    required>
+                    required
+                  >
                     <option value="no-state"> None </option>
                     <option value="landscape">Landscape</option>
                     <option value="monument">Monument</option>
@@ -167,7 +175,11 @@ const PodCreateForm = ({ coords, saveData}) => {
               </div>
 
               <div className={styles.submit}>
-                <button type="submit" className={styles.button} disabled={!formIsValid}>
+                <button
+                  type="submit"
+                  className={styles.button}
+                  disabled={!formIsValid}
+                >
                   SUBMIT
                 </button>
                 {!correctPointCreation && (

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { LoginButton, LogoutButton } from "@inrupt/solid-ui-react";
-import { Button, FormGroup, Container } from "@material-ui/core";
-import styles from "./LogInButton.module.css";
+import Button from "react-bootstrap/Button";
 
 // This component is used to login to inrupt provider via button
 const LogInButton = ({ isLoggedIn }) => {
@@ -14,31 +13,21 @@ const LogInButton = ({ isLoggedIn }) => {
   }, [setCurrentUrl]);
 
   return (
-    <Container fixed className={styles.containerButton}>
-      <FormGroup className={styles.formgroup}>
-        {!isLoggedIn ? (
-          <LoginButton oidcIssuer={idp} redirectUrl={currentUrl}>
-            <Button
-              variant="contained"
-              color="primary"
-              className={styles.loginButton}
-            >
-              Login
-            </Button>
-          </LoginButton>
-        ) : (
-          <LogoutButton>
-            <Button
-              variant="contained"
-              color="primary"
-              className={styles.loginButton}
-            >
-              Logout
-            </Button>
-          </LogoutButton>
-        )}
-      </FormGroup>
-    </Container>
+    <>
+      {!isLoggedIn ? (
+        <LoginButton oidcIssuer={idp} redirectUrl={currentUrl}>
+          <Button variant="primary" className="mx-4">
+            LOGIN
+          </Button>
+        </LoginButton>
+      ) : (
+        <LogoutButton>
+          <Button variant="danger" className="mx-4">
+            LOGOUT
+          </Button>
+        </LogoutButton>
+      )}
+    </>
   );
 };
 

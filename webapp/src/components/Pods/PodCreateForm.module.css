@@ -16,18 +16,22 @@
   text-align: center;
   padding: 2rem;
   width: 85%;
+  font-size: 0.5rem;
 
   background-color: rgb(255, 255, 255);
   border-radius: 25px;
   /* box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2); */
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   z-index: 1000;
+}
 
+.header {
+  font-size: 1rem;
 }
 
 .categoryContainer {
   background-color: rgb(255, 255, 255);
-  max-height: 5rem;
+  max-height: 2.5rem;
 }
 
 .buttonContainer {
@@ -83,11 +87,9 @@
   cursor: not-allowed;
 }
 
-.error{
+.error {
   font: inherit;
   color: rgb(208, 65, 65);
   padding: 0.5rem 1.5rem;
   font-size: 1rem;
 }
-
-

@@ -9,7 +9,6 @@
     "@inrupt/solid-ui-react": "^2.8.2",
     "@inrupt/vocab-common-rdf": "^1.0.5",
     "@inrupt/vocab-solid": "^1.0.4",
-    "@material-ui/core": "^4.12.4",
     "@mobiscroll/react-lite": "^4.10.9",
     "@rdfjs/data-model": "^2.0.1",
     "@testing-library/jest-dom": "^5.16.5",
