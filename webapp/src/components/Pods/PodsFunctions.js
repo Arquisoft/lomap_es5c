@@ -160,9 +160,7 @@ export async function insertNewMarker(
 	//Remove this if we implement multiple maps on the app
 	const mapId = 1;
 
-	console.log(
-		await getFriendInfo("https://lomap5c.inrupt.net/profile/card#me", session)
-	);
+	console.log(await getMarker(webId, session, mapId, 1680190579115));
 
 	//Check if is a new user or not -> creates a new places file if it is new OR adds the marker if exists
 	return await checkIfPlacesFileExists(podUrl, session, marker, webId, mapId);
@@ -282,9 +280,36 @@ async function getFriendInfo(friendWebId, session) {
 		const data = {
 			name: nameF,
 			imageUrl: imageUrlF,
+			webId: friendWebId,
 		};
 		return data;
 	} catch (error) {
 		console.log(error);
 	}
+}
+
+//Function that searches a marker by its id of a map
+async function getMarker(webId, session, mapId, markerId) {
+	const podUrl = webId.replace(
+		"/profile/card#me",
+		"/justforfriends7/locations.json"
+	);
+	const file = await getPlacesFileAsJSON(podUrl, session);
+	const i = getMapValue(file.maps, mapId);
+
+	const locations = file.maps[i].locations;
+
+	const marker = searchMarker(locations, markerId);
+
+	return marker;
+}
+
+//Function that searches a concrete marker in the array of locations of a map
+function searchMarker(locations, markerId) {
+	for (let i = 0; i < locations.length; i++) {
+		if (locations[i].id == markerId) {
+			return locations[i];
+		}
+	}
+	return null;
 }
