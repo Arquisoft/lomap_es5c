@@ -1,32 +1,11 @@
-import {
-	overwriteFile,
-	getSolidDataset,
-	getThing,
-	getUrlAll,
-	getFile,
-	saveFileInContainer,
-	createContainerAt,
-	//For acl permissions
-	getSolidDatasetWithAcl,
-	hasResourceAcl,
-	hasFallbackAcl,
-	hasAccessibleAcl,
-	createAcl,
-	createAclFromFallbackAcl,
-	getResourceAcl,
-	setAgentResourceAccess,
-	saveAclFor,
-	acp_ess_2,
-} from "@inrupt/solid-client";
-
 import * as solid from "@inrupt/solid-client";
 
-import { FOAF } from "@inrupt/lit-generated-vocab-common";
+import { FOAF, VCARD } from "@inrupt/lit-generated-vocab-common";
 
 //Function that creates the file and saves it to the pod
 async function createPlaces(file, path, session) {
 	try {
-		let savedFile = await saveFileInContainer(path, file, {
+		let savedFile = await solid.saveFileInContainer(path, file, {
 			slug: file.name,
 			contentType: file.type,
 			fetch: session.fetch,
@@ -62,7 +41,7 @@ async function createFile() {
 //Function that creates the file where places will be stored
 async function createNewPlacesFile(podUrl, session, marker, mapId) {
 	//Create the directory for friends
-	await createContainerAt(podUrl.replace("locations.json", ""), {
+	await solid.createContainerAt(podUrl.replace("locations.json", ""), {
 		fetch: session.fetch,
 	});
 	//Create the file
@@ -79,7 +58,7 @@ async function createNewPlacesFile(podUrl, session, marker, mapId) {
 async function checkIfPlacesFileExists(podUrl, session, marker, webId, mapId) {
 	try {
 		//file exists
-		let file = await getFile(podUrl, { fetch: session.fetch });
+		let file = await solid.getFile(podUrl, { fetch: session.fetch });
 		await addNewMarker(file, podUrl, session, marker, mapId);
 		//We update the permissions of the folder where we will store the markers
 		return await updatePermissions(session, webId);
@@ -94,12 +73,12 @@ async function checkIfPlacesFileExists(podUrl, session, marker, webId, mapId) {
 //Function that obtains a complete list of friends of the user pod
 async function listFriends(webId) {
 	// Get the Solid dataset of the profile
-	const profileDataset = await getSolidDataset(webId);
+	const profileDataset = await solid.getSolidDataset(webId);
 
-	const thing = getThing(profileDataset, webId);
+	const thing = solid.getThing(profileDataset, webId);
 
 	// Get all the Things (resources) in the dataset that have the "knows" property
-	const friends = getUrlAll(thing, FOAF.knows);
+	const friends = solid.getUrlAll(thing, FOAF.knows);
 
 	return friends;
 }
@@ -107,7 +86,7 @@ async function listFriends(webId) {
 //Funtion that updates the existing file of places on the user's pod
 async function updatePlacesFile(newFile, podUrl, session) {
 	try {
-		var overwrittenFile = await overwriteFile(podUrl, newFile, {
+		var overwrittenFile = await solid.overwriteFile(podUrl, newFile, {
 			contentType: newFile.type,
 			fetch: session.fetch,
 		});
@@ -146,7 +125,7 @@ async function addNewMarker(file, podUrl, session, marker, mapId) {
 //Function that returns the file as JSON parsed
 async function getPlacesFileAsJSON(podUrl, session) {
 	try {
-		let file = await getFile(podUrl, { fetch: session.fetch });
+		let file = await solid.getFile(podUrl, { fetch: session.fetch });
 		let jsonMarkers = JSON.parse(await file.text());
 		return jsonMarkers;
 	} catch (error) {
@@ -177,18 +156,12 @@ export async function insertNewMarker(
 		date: Date.now(),
 	};
 
+	//This is the map by default
+	//Remove this if we implement multiple maps on the app
 	const mapId = 1;
 
-	await listLocationsOfAUser(
-		"https://uo285176.inrupt.net/profile/card#me",
-		mapId,
-		session
-	);
-	console.log("Segundo...");
-	await listLocationsOfAUser(
-		"https://lomap5c.inrupt.net/profile/card#me",
-		mapId,
-		session
+	console.log(
+		await getFriendInfo("https://lomap5c.inrupt.net/profile/card#me", session)
 	);
 
 	//Check if is a new user or not -> creates a new places file if it is new OR adds the marker if exists
@@ -230,7 +203,6 @@ async function updatePermissionsOfFile(session, webId) {
 			givePermissionsToUser(friends[i], session, file, false);
 		}
 	} catch (error) {
-		console.log("Fallo");
 		console.log(error);
 	}
 }
@@ -239,20 +211,20 @@ async function updatePermissionsOfFile(session, webId) {
 async function updatePermissionsOfFolder(session, webId) {
 	const friends = await listFriends(webId);
 	const folderUrl = webId.replace("/profile/card#me", "/justforfriends7/");
-	const myDatasetWithAcl = await getSolidDatasetWithAcl(folderUrl, {
+	const myDatasetWithAcl = await solid.getSolidDatasetWithAcl(folderUrl, {
 		fetch: session.fetch,
 	});
 
 	// Obtain the SolidDataset's own ACL, if available,
 	// or initialise a new one, if possible:
 	let resourceAcl;
-	if (!hasResourceAcl(myDatasetWithAcl)) {
-		if (!hasAccessibleAcl(myDatasetWithAcl)) {
+	if (!solid.hasResourceAcl(myDatasetWithAcl)) {
+		if (!solid.hasAccessibleAcl(myDatasetWithAcl)) {
 			throw new Error(
 				"The current user does not have permission to change access rights to this Resource."
 			);
 		}
-		if (!hasFallbackAcl(myDatasetWithAcl)) {
+		if (!solid.hasFallbackAcl(myDatasetWithAcl)) {
 			throw new Error(
 				"The current user does not have permission to see who currently has access to this Resource."
 			);
@@ -261,21 +233,23 @@ async function updatePermissionsOfFolder(session, webId) {
 			// **nobody will ever be able to change Access permissions in the future**:
 			// resourceAcl = createAcl(myDatasetWithAcl);
 		}
-		resourceAcl = createAclFromFallbackAcl(myDatasetWithAcl);
+		resourceAcl = solid.createAclFromFallbackAcl(myDatasetWithAcl);
 	} else {
-		resourceAcl = getResourceAcl(myDatasetWithAcl);
+		resourceAcl = solid.getResourceAcl(myDatasetWithAcl);
 	}
 
 	// Give friends Control access to the given Resource:
 	for (let i = 0; i < friends.length; i++) {
-		const updatedAcl = setAgentResourceAccess(
+		const updatedAcl = solid.setAgentResourceAccess(
 			resourceAcl,
 			friends[i], //webId of a specific friend
 			{ read: true, append: true, write: true, control: false } // permissions
 		);
 
 		// Now save the ACL:
-		await saveAclFor(myDatasetWithAcl, updatedAcl, { fetch: session.fetch });
+		await solid.saveAclFor(myDatasetWithAcl, updatedAcl, {
+			fetch: session.fetch,
+		});
 	}
 	return true;
 }
@@ -293,12 +267,24 @@ async function listLocationsOfAUser(webId, mapId, session) {
 	const i = getMapValue(file.maps, mapId);
 	//We obtain locations of that specific map
 	const locs = file.maps[i].locations;
-	console.log("Locations of user: " + webId + "\n");
-	console.log(printlocations(locs));
+	return locs;
 }
 
-function printlocations(locations) {
-	for (let i = 0; i < locations.length; i++) {
-		console.log(locations[i].name + " ");
+//Function that returns in JSON the username, name, surname and image of a friend
+async function getFriendInfo(friendWebId, session) {
+	try {
+		const friendDataset = await solid.getSolidDataset(friendWebId, {
+			fetch: session.fetch,
+		});
+		const friend = solid.getThing(friendDataset, friendWebId);
+		const nameF = solid.getStringNoLocale(friend, FOAF.name.iri.value);
+		const imageUrlF = solid.getUrl(friend, VCARD.hasPhoto.iri.value);
+		const data = {
+			name: nameF,
+			imageUrl: imageUrlF,
+		};
+		return data;
+	} catch (error) {
+		console.log(error);
 	}
 }
