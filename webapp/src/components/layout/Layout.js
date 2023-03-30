@@ -25,7 +25,7 @@ const Layout = ({ isLoggedIn }) => {
       />
       <main className={styles.main}>
         <Outlet />
-        <Footer themeStyle={style} />
+        {/* <Footer themeStyle={style} /> */}
       </main>
       {/* <Footer /> */}
     </React.Fragment>
