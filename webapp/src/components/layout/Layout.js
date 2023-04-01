@@ -16,19 +16,26 @@ const Layout = ({ isLoggedIn }) => {
   };
 
   return (
-    <React.Fragment>
-      <MainNavigation
-        isLoggedIn={isLoggedIn}
-        themeHandler={handleStyle}
-        isChecked={isChecked}
-        themeStyle={style}
-      />
-      <main className={styles.main}>
+    <div style={{ height: "100vh" }}>
+      <div
+        className={style.header}
+        // style={{ height: "11%", minHeight: 50 }}
+      >
+        <MainNavigation
+          isLoggedIn={isLoggedIn}
+          themeHandler={handleStyle}
+          isChecked={isChecked}
+          themeStyle={style}
+        />
+      </div>
+      {/* <main className={styles.main}> */}
+      <div style={{ height: "89%" }}>
         <Outlet />
-        {/* <Footer themeStyle={style} /> */}
-      </main>
+      </div>
+      {/* <Footer themeStyle={style} /> */}
+      {/* </main> */}
       {/* <Footer /> */}
-    </React.Fragment>
+    </div>
   );
 };
 

@@ -9,3 +9,14 @@
   top: 0;
   left: 0;
 }
+
+.header {
+  height: 11%;
+  min-height: 50px;
+}
+
+/* @media (max-width: 400px) {
+  .header {
+    height: 10%;
+  }
+} */

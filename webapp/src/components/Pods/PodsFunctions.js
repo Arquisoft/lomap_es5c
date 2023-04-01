@@ -126,6 +126,7 @@ async function addNewMarker(file, podUrl, session, marker, mapId) {
 async function getPlacesFileAsJSON(podUrl, session) {
   try {
     let file = await solid.getFile(podUrl, { fetch: session.fetch });
+    console.log("test");
     let jsonMarkers = JSON.parse(await file.text());
     return jsonMarkers;
   } catch (error) {
@@ -257,13 +258,15 @@ async function updatePermissionsOfFolder(session, webId) {
 //Function that extracts all the locations added by a user of a concrete map
 //If the extension of multiple maps is not implemented the default mapId is 1
 export async function listLocationsOfAUser(webId, session, mapId = 1) {
-  console.log("mapId: " + mapId);
   const podUrl = webId.replace(
     "/profile/card#me",
     "/justforfriends7/locations.json"
   );
+  console.log(podUrl);
+
   //We extract the file of the concrete user if exists
   const file = await getPlacesFileAsJSON(podUrl, session);
+  console.log(file);
   //We extract the map that we want to show locations of it
   const i = getMapValue(file.maps, mapId);
   //We obtain locations of that specific map
@@ -288,42 +291,4 @@ async function getFriendInfo(friendWebId, session) {
   } catch (error) {
     console.log(error);
   }
-}
-
-//Function that searches a marker by its id of a map
-async function getMarker(webId, session, mapId, markerId) {
-  const podUrl = webId.replace(
-    "/profile/card#me",
-    "/justforfriends7/locations.json"
-  );
-  const file = await getPlacesFileAsJSON(podUrl, session);
-  const i = getMapValue(file.maps, mapId);
-
-  const locations = file.maps[i].locations;
-
-  const marker = searchMarker(locations, markerId);
-
-  return marker;
-}
-
-//Function that searches a concrete marker in the array of locations of a map
-function searchMarker(locations, markerId) {
-  for (let i = 0; i < locations.length; i++) {
-    if (locations[i].id == markerId) {
-      return locations[i];
-    }
-  }
-  return null;
-}
-
-//Function that lists comments of a concrete marker
-async function listCommentsOfMarker(webId, session, mapId, markerId) {
-  const marker = await getMarker(webId, session, mapId, markerId);
-  return marker.comments;
-}
-
-//Function that lists reviewScores of a concrete marker
-async function listReviewScoresOfMarker(webId, session, mapId, markerId) {
-  const marker = await getMarker(webId, session, mapId, markerId);
-  return marker.reviewScores;
 }

@@ -3,12 +3,36 @@ import React, { useEffect, useState } from "react";
 import styles from "./PodCreateForm.module.css";
 
 import useInput from "../../hooks/use-input";
+import { insertNewMarker } from "../Pods/PodsFunctions";
+import { useSession } from "@inrupt/solid-ui-react";
 
-const PodCreateForm = ({ coords, saveData }) => {
-  const [showForm, setShowForm] = useState(true);
-
+const PodCreateForm = ({ coords, saveData, close }) => {
+  const { session } = useSession(); // Hook for providing access to the session in the component
+  const { webId } = session.info; // User's webId
+  //Url of the places that user has on his pod
+  const podUrl = webId.replace(
+    "/profile/card#me",
+    "/justforfriends7/locations.json"
+  );
   // true until is there a problem creating a point
   const [correctPointCreation, setCorrectPointCreation] = useState(true);
+
+  async function insertThing(coords, name, description, category) {
+    {
+      var result = insertNewMarker(
+        coords,
+        name,
+        description,
+        podUrl,
+        session,
+        webId,
+        category //WE HAVE TO ADD THIS
+      );
+      // setInitial(!result);
+      // if (result) setMarkers((prevValue) => [...prevValue, actualMarker]);
+      return result;
+    }
+  }
 
   // useInput for each input
   const {
@@ -81,8 +105,10 @@ const PodCreateForm = ({ coords, saveData }) => {
       return;
     }
 
+    // console.log(coords);
+
     // We should save the data to pod in here
-    saveData(coords, enteredTitle, enteredDescription, enteredCategory).then(
+    insertThing(coords, enteredTitle, enteredDescription, enteredCategory).then(
       succes,
       failure
     );
@@ -91,7 +117,6 @@ const PodCreateForm = ({ coords, saveData }) => {
   function succes(resultado) {
     console.log("TODO BIEN: " + resultado);
     setCorrectPointCreation(true);
-    setShowForm(false);
 
     // Reset input fields
     resetTitleInput();
@@ -112,84 +137,96 @@ const PodCreateForm = ({ coords, saveData }) => {
     setCorrectPointCreation(true);
   }, [coords]);
 
+  useEffect(() => {
+    console.log(coords);
+  }, []);
+
+  const closeForm = () => {
+    close("read");
+  };
+
   return (
     <React.Fragment>
-      {showForm && (
-        <div className={styles.mainContainer}>
-          <div className={styles.infoContainer}>
-            <h4 className={styles.header}>Create location</h4>
-            <form onSubmit={formSubmissionHandler}>
-              <div className="control-group">
-                <div className={titleInputClasses}>
-                  <label htmlFor="title">Title</label>
-                  <input
-                    type="text"
-                    id="title"
-                    onChange={titleChangeHandler}
-                    onBlur={titleBlurHandler}
-                    value={enteredTitle}
-                  />
-                  {titleInputHasError && (
-                    <p className="error-text">Title not valid!</p>
-                  )}
-                </div>
-
-                <div className={descriptionInputClasses}>
-                  <label htmlFor="description">Description</label>
-                  <textarea
-                    type="text"
-                    name="description"
-                    id="description"
-                    onChange={descriptionChangeHandler}
-                    onBlur={descriptionBlurHandler}
-                    value={enteredDescription}
-                    maxLength="150"
-                  ></textarea>
-                  {descriptionInputHasError && (
-                    <p className="error-text">Description not valid!</p>
-                  )}
-                </div>
-
-                <div className={categoryInputClasses}>
-                  <label htmlFor="category">Category</label>
-                  <select
-                    type="combo"
-                    name="category"
-                    id="category"
-                    className={styles.categoryContainer}
-                    onChange={categoryChangeHandler}
-                    onBlur={categoryBlurHandler}
-                    value={enteredCategory}
-                    required
-                  >
-                    <option value="no-state"> None </option>
-                    <option value="landscape">Landscape</option>
-                    <option value="monument">Monument</option>
-                    <option value="shop">Shop</option>
-                    <option value="bar">Bar</option>
-                  </select>
-                  {categoryInputHasError && (
-                    <p className="error-text">Description not valid!</p>
-                  )}
-                </div>
-              </div>
-
-              <div className={styles.submit}>
-                <button
-                  type="submit"
-                  className={styles.button}
-                  disabled={!formIsValid}
-                >
-                  SUBMIT
-                </button>
-                {!correctPointCreation && (
-                  <p className={styles.error}>Error in POD addition!</p>
+      <div className={styles.mainContainer}>
+        <div className={styles.infoContainer}>
+          <button
+            type="button"
+            className="btn-close"
+            aria-label="Close"
+            onClick={closeForm}
+          ></button>
+          <h4 className={styles.header}>Create location</h4>
+          <form onSubmit={formSubmissionHandler}>
+            <div className="control-group">
+              <div className={titleInputClasses}>
+                <label htmlFor="title">Title</label>
+                <input
+                  type="text"
+                  id="title"
+                  onChange={titleChangeHandler}
+                  onBlur={titleBlurHandler}
+                  value={enteredTitle}
+                />
+                {titleInputHasError && (
+                  <p className="error-text">Title not valid!</p>
                 )}
               </div>
-            </form>
-          </div>
+
+              <div className={descriptionInputClasses}>
+                <label htmlFor="description">Description</label>
+                <textarea
+                  type="text"
+                  name="description"
+                  id="description"
+                  onChange={descriptionChangeHandler}
+                  onBlur={descriptionBlurHandler}
+                  value={enteredDescription}
+                  maxLength="150"
+                ></textarea>
+                {descriptionInputHasError && (
+                  <p className="error-text">Description not valid!</p>
+                )}
+              </div>
+
+              <div className={categoryInputClasses}>
+                <label htmlFor="category">Category</label>
+                <select
+                  type="combo"
+                  name="category"
+                  id="category"
+                  className={styles.categoryContainer}
+                  onChange={categoryChangeHandler}
+                  onBlur={categoryBlurHandler}
+                  value={enteredCategory}
+                  required
+                >
+                  <option value="no-state"> None </option>
+                  <option value="landscape">Landscape</option>
+                  <option value="monument">Monument</option>
+                  <option value="shop">Shop</option>
+                  <option value="bar">Bar</option>
+                </select>
+                {categoryInputHasError && (
+                  <p className="error-text">Description not valid!</p>
+                )}
+              </div>
+            </div>
+
+            <div className={styles.submit}>
+              <button
+                type="submit"
+                className={styles.button}
+                disabled={!formIsValid}
+              >
+                SUBMIT
+              </button>
+              {!correctPointCreation && (
+                <p className={styles.error}>Error in POD addition!</p>
+              )}
+            </div>
+          </form>
         </div>
-      )}
+      </div>
     </React.Fragment>
   );
 };

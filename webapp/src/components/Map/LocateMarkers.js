@@ -13,7 +13,7 @@ import { insertNewMarker } from "../Pods/PodsFunctions";
 import { listFriends } from "../Pods/PodsFunctions";
 import { listLocationsOfAUser } from "../Pods/PodsFunctions";
 
-function LocationMarkers({ coords }) {
+function LocationMarkers({ coords, markerEvent }) {
   const [markerName, setMarkerName] = useState();
   const initialMarker = new LatLng(coords.latitude, coords.longitude);
   // const { latitude, longitude } = coords;
@@ -88,10 +88,10 @@ function LocationMarkers({ coords }) {
     setPodMarkersLoaded(true);
   };
 
-  useEffect(() => {
-    handleFetch();
-    loadPodsMarkers();
-  }, []);
+  // useEffect(() => {
+  //   handleFetch();
+  //   loadPodsMarkers();
+  // }, []);
 
   async function getCurrentCityName(lat, long) {
     let url =
@@ -129,15 +129,16 @@ function LocationMarkers({ coords }) {
 
   const map = useMapEvents({
     click(e) {
-      if (e.originalEvent.target.attributes.length > 0) {
-        // if (aux === e.originalEvent.target.attributes[0].nodeValue) {
-        if (e.originalEvent.target.attributes[0].nodeValue.includes(aux)) {
-          setClicked(false);
-          setInitial(true);
-          setActualMarker(e.latlng);
-          //setMarkers((prevValue) => [...prevValue, e.latlng]);
-        }
-      }
+      markerEvent(e.latlng);
+      // if (e.originalEvent.target.attributes.length > 0) {
+      //   // if (aux === e.originalEvent.target.attributes[0].nodeValue) {
+      //   if (e.originalEvent.target.attributes[0].nodeValue.includes(aux)) {
+      //     setClicked(false);
+      //     setInitial(true);
+      //     setActualMarker(e.latlng);
+      //     //setMarkers((prevValue) => [...prevValue, e.latlng]);
+      //   }
+      // }
     },
   });
 

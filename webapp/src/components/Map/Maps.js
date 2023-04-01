@@ -12,7 +12,7 @@ import icon from "../../images/icon.png";
 import L from "leaflet";
 import LocationMarkers from "./LocateMarkers";
 
-export default function Map({ coords }) {
+export default function Map({ coords, markerEvent }) {
   const { latitude, longitude } = coords;
   const markers = [[latitude, longitude]];
 
@@ -51,7 +51,7 @@ export default function Map({ coords }) {
       {/* <Marker icon={customIcon} position={[latitude, longitude]}>
 				<Popup>{display_name}</Popup>
 			</Marker> */}
-      <LocationMarkers coords={coords} />
+      <LocationMarkers coords={coords} markerEvent={markerEvent} />
       <MapView />
     </MapContainer>
   );

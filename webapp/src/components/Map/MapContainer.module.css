@@ -23,6 +23,23 @@
   min-height: 200px;
 }
 
+.map_container {
+  min-height: 100%;
+  max-height: 100%;
+}
+
+.container_info {
+  height: 95%;
+  max-width: 100%;
+  border-radius: 10px;
+  width: 95%;
+  /* margin-right: 1rem; */
+  justify-self: center;
+  /* margin-top: 15px; */
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 0px 10px 5px;
+  overflow: auto;
+}
+
 @media (max-width: 400px) {
   .container {
     max-width: 100%;
@@ -33,5 +50,15 @@
     bottom: 0;
     right: 0;
     margin-bottom: 50px;
+  }
+
+  .container_info {
+    margin: 1rem;
+    /* max-height: 50%; */
+  }
+
+  .map_container {
+    min-height: 50%;
+    max-height: 50%;
   }
 }
