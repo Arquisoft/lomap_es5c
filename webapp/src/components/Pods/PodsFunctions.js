@@ -315,7 +315,7 @@ async function addReviewScore(webId, session, score, idLocation, mapId = 1) {
 			}
 		}
 	} else {
-		console.log("The score must be between 0 - 10");
+		console.log("The score must be between 0 - 5");
 	}
 }
 
