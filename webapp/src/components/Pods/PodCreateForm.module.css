@@ -16,6 +16,7 @@
   text-align: center;
   padding: 2rem;
   width: 100%;
+  /* height: 100%; */
   font-size: 0.5rem;
 
   background-color: rgb(255, 255, 255);
@@ -91,4 +92,10 @@
   color: rgb(208, 65, 65);
   padding: 0.5rem 1.5rem;
   font-size: 1rem;
+}
+
+@media (min-width: 769px) {
+  .infoContainer {
+    height: 100%;
+  }
 }

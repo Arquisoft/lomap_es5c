@@ -18,8 +18,8 @@ const Layout = ({ isLoggedIn }) => {
   return (
     <div style={{ height: "100vh" }}>
       <div
-        className={style.header}
-        // style={{ height: "11%", minHeight: 50 }}
+      // className={style.header}
+      // style={{ height: "11%", minHeight: 50 }}
       >
         <MainNavigation
           isLoggedIn={isLoggedIn}
@@ -29,7 +29,7 @@ const Layout = ({ isLoggedIn }) => {
         />
       </div>
       {/* <main className={styles.main}> */}
-      <div style={{ height: "89%" }}>
+      <div style={{ height: "90%" }}>
         <Outlet />
       </div>
       {/* <Footer themeStyle={style} /> */}

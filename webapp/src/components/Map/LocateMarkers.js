@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Marker, useMapEvents } from "react-leaflet";
 import { LatLng } from "leaflet";
 import icon from "../../images/icon.png";
 import iconRed from "../../images/redMarker.png";
+import iconYellow from "../../images/markerYellow.png";
 import L from "leaflet";
 import { useSession } from "@inrupt/solid-ui-react";
 import InfoCard from "../UI/InfoCard";
@@ -13,7 +14,11 @@ import { insertNewMarker } from "../Pods/PodsFunctions";
 import { listFriends } from "../Pods/PodsFunctions";
 import { listLocationsOfAUser } from "../Pods/PodsFunctions";
 
+import UserSessionContext from "../../store/session-context";
+
 function LocationMarkers({ coords, markerEvent }) {
+  const ctx = useContext(UserSessionContext);
+
   const [markerName, setMarkerName] = useState();
   const initialMarker = new LatLng(coords.latitude, coords.longitude);
   // const { latitude, longitude } = coords;
@@ -64,34 +69,24 @@ function LocationMarkers({ coords, markerEvent }) {
   };
 
   const loadPodsMarkers = async () => {
-    setPodMarkers([]);
-    var usersIds = await listFriends(webId);
-    console.log(usersIds);
-    var locations = [];
-    for (let i = 0; i < usersIds.length; i++) {
-      locations.push(await listLocationsOfAUser(usersIds[i], session));
-    }
-
-    locations.map((place) => {
-      for (let i = 0; i < place.length; i++) {
-        setPodMarkers((prevValue) => [
-          ...prevValue,
-          {
-            title: place[i].name,
-            coords: new LatLng(place[i].latitude, place[i].longitude),
-          },
-        ]);
-      }
-    });
-    console.log(podMarkers);
+    // setPodMarkers([]);
+    ctx.markers.map((place) =>
+      setPodMarkers((prevValue) => [
+        ...prevValue,
+        {
+          title: place.name,
+          coords: new LatLng(place.latitude, place.longitude),
+        },
+      ])
+    );
 
     setPodMarkersLoaded(true);
   };
 
-  // useEffect(() => {
-  //   handleFetch();
-  //   loadPodsMarkers();
-  // }, []);
+  useEffect(() => {
+    handleFetch();
+    // loadPodsMarkers();
+  }, []);
 
   async function getCurrentCityName(lat, long) {
     let url =
@@ -175,7 +170,7 @@ function LocationMarkers({ coords, markerEvent }) {
         }}
       ></Marker>
 
-      {markers.map((marker, i) => (
+      {/* {markers.map((marker, i) => (
         <Marker
           key={i}
           icon={customIcon}
@@ -186,10 +181,8 @@ function LocationMarkers({ coords, markerEvent }) {
               getCurrentCityName(e.latlng.lat, e.latlng.lng);
             },
           }}
-        >
-          {/* <Popup>Test</Popup> */}
-        </Marker>
-      ))}
+        ></Marker>
+      ))} */}
       {dbMarkers.map((marker, i) => (
         <Marker
           key={i}
@@ -207,28 +200,43 @@ function LocationMarkers({ coords, markerEvent }) {
           {/* <Popup>Test</Popup> */}
         </Marker>
       ))}
-      {podMarkersLoaded &&
-        podMarkers.map((marker, i) => (
+      {ctx.loaded &&
+        ctx.markers.map((marker, i) => (
           <Marker
             key={i}
-            icon={customDbIcon}
+            icon={customIcon}
             position={marker.coords}
             eventHandlers={{
-              click: (e) => {
-                setClicked(true);
-
-                // setInitial(false);
-                // getCurrentCityName(e.latitude, e.latlng.lng);
-                setMarkerName(marker.title);
-              },
+              click: (e) => {},
             }}
-          >
-            {/* <Popup>Test</Popup> */}
-          </Marker>
+          ></Marker>
         ))}
-      {clicked && load}
-      {initial && form}
-      {initial && (
+
+      {/* {podMarkersLoaded &&
+        podMarkers.map(
+          (marker, i) => (
+            console.log(marker),
+            (
+              <Marker
+                key={i}
+                icon={customDbIcon}
+                position={marker.coords}
+                eventHandlers={{
+                  click: (e) => {
+                    setClicked(true);
+
+                    // setInitial(false);
+                    // getCurrentCityName(e.latitude, e.latlng.lng);
+                    setMarkerName(marker.title);
+                  },
+                }}
+              ></Marker>
+            )
+          )
+        )} */}
+      {/* {clicked && load}
+      {initial && form} */}
+      {/* {initial && (
         <Marker
           icon={customIcon}
           position={actualMarker}
@@ -239,7 +247,7 @@ function LocationMarkers({ coords, markerEvent }) {
             },
           }}
         ></Marker>
-      )}
+      )} */}
     </React.Fragment>
   );
 }

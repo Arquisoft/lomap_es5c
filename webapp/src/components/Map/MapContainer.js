@@ -15,7 +15,7 @@ const MapContainer = () => {
   const [display_name, setName] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
   const [clickedMarker, setClickedMarker] = useState(false);
-  const [option, setOption] = useState("read");
+  const [option, setOption] = useState("userPods");
 
   function error() {
     setIsLoaded(false); // Change the isLoaded property to false
@@ -75,20 +75,20 @@ const MapContainer = () => {
     getLocation();
   }, []);
 
-  const style = {
-    maxHeight: "100%",
-    // Adding media query..
-    "@media (max-width: 400px)": {
-      maxHeight: "50%",
-    },
-  };
+  // const style = {
+  //   maxHeight: "100%",
+  //   // Adding media query..
+  //   "@media (max-width: 400px)": {
+  //     maxHeight: "50%",
+  //   },
+  // };
 
   return (
     // <div className={styles.container}>
     <>
       {isLoaded ? (
         <div
-          className="container-fluid px-0 mt-2 align-items-center"
+          className="container-fluid px-0 align-items-center"
           style={{ height: "100%" }}
         >
           <div
@@ -111,7 +111,7 @@ const MapContainer = () => {
                 />
               </div>
               <div
-                className={`col-md-4  d-flex overflow-auto align-items-center ${styles.map_container}`}
+                className={`col-md-4 d-flex align-items-center ${styles.map_container}`}
               >
                 <div className={styles.container_info}>
                   <SideMenu
