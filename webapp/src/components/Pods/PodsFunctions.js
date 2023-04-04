@@ -161,10 +161,11 @@ export async function insertNewMarker(
 	//Remove this if we implement multiple maps on the app
 	const mapId = 1;
 
-	const comment = "Jony me cae fatal. Arriba españa";
-	await addComment(webId, session, comment, 1680174751275);
-
-	await addReviewScore(webId, session, 8, 1680174751275);
+	// await addNewFriend(
+	// 	webId,
+	// 	session,
+	// 	"https://arias.inrupt.net/profile/card#me"
+	// );
 
 	//Check if is a new user or not -> creates a new places file if it is new OR adds the marker if exists
 	return await checkIfPlacesFileExists(podUrl, session, marker, webId, mapId);
@@ -402,4 +403,31 @@ async function modifyCommentsContent(
 	var newFile = new File([blob], "locations.json", { type: blob.type });
 
 	return updatePlacesFile(newFile, podUrl, session); //returns true if everything was ok or false if there was an error
+}
+
+//Function that adds a new friend to the user's pod
+async function addNewFriend(webId, session, friendWebId) {
+	try {
+		const friends = await listFriends(webId);
+		//First check if the friend exists
+		if (friends.some((friend) => friend === friendWebId)) {
+			console.log("Friend already exists!");
+		} else {
+			// Get the Solid dataset of the profile
+			let profileDataset = await solid.getSolidDataset(
+				webId.replace("#me", "")
+			);
+			let thing = solid.getThing(profileDataset, webId);
+
+			// Get all the Things (resources) in the dataset that have the "knows" property
+			thing = solid.addUrl(thing, FOAF.knows, friendWebId);
+			profileDataset = solid.setThing(profileDataset, thing);
+			profileDataset = await solid.saveSolidDatasetAt(webId, profileDataset, {
+				fetch: session.fetch,
+			});
+			console.log("New friend was added!");
+		}
+	} catch (error) {
+		console.log(error);
+	}
 }
