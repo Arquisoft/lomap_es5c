@@ -2,6 +2,7 @@
   "name": "pods-ejemplo",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "dependencies": {
     "@inrupt/lit-generated-vocab-common": "^0.3.11",
     "@inrupt/solid-client": "^1.25.2",
@@ -30,7 +31,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!@toolz/allow-react)/\" --env=jsdom",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -79,15 +80,9 @@
     "react-leaflet": "^4.2.1",
     "react-router-dom": "^6.8.2",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "@babel/plugin-transform-modules-commonjs": "^7.12.13",
+    "babel-jest": "^26.6.3"
   },
-  "proxy": "http://localhost:5000",
-  "jest": {
-  
-  "transformIgnorePatterns": [
-      "node_modules/(?!(node-fetch)/)",
-      "node_modules/(?!(monaco-editor)/)",
-      "^.+\\.module.(css||sass||scss)$"
-  ]
-  }
+  "proxy": "http://localhost:5000"
 }
