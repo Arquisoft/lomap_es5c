@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
 
 import UserCard from "./UserCard";
 
 import styles from "./About.module.css";
 
+import UserSessionContext from "../../store/session-context";
+
 const About = () => {
+  const ctx = useContext(UserSessionContext);
+
   // Here we create all developers
   const jonathan = {
     alt: "jonathan",
@@ -68,6 +72,10 @@ const About = () => {
   };
 
   const data = [jonathan, edu, laura, fer, xin];
+
+  useEffect(() => {
+    console.log("About:", window.localStorage.getItem("webId"));
+  }, []);
 
   return (
     <div className={styles.main_container}>

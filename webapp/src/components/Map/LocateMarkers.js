@@ -13,6 +13,7 @@ import { insertNewMarker } from "../Pods/PodsFunctions";
 
 import { listFriends } from "../Pods/PodsFunctions";
 import { listLocationsOfAUser } from "../Pods/PodsFunctions";
+import { addComment } from "../Pods/PodsFunctions";
 
 import UserSessionContext from "../../store/session-context";
 
@@ -129,8 +130,8 @@ function LocationMarkers({ coords, markerEvent }) {
       //   // if (aux === e.originalEvent.target.attributes[0].nodeValue) {
       //   if (e.originalEvent.target.attributes[0].nodeValue.includes(aux)) {
       //     setClicked(false);
-      //     setInitial(true);
-      //     setActualMarker(e.latlng);
+      setInitial(true);
+      setActualMarker(e.latlng);
       //     //setMarkers((prevValue) => [...prevValue, e.latlng]);
       //   }
       // }
@@ -166,6 +167,10 @@ function LocationMarkers({ coords, markerEvent }) {
           click: (e) => {
             setInitial(false);
             getCurrentCityName(e.latlng.lat, e.latlng.lng);
+            ctx.handleSelectedMarker({
+              title: "You are here",
+              coords: e.latlng,
+            });
           },
         }}
       ></Marker>
@@ -194,6 +199,7 @@ function LocationMarkers({ coords, markerEvent }) {
               setInitial(false);
               //   getCurrentCityName(e.latlng.lat, e.latlng.lng);
               setMarkerName(marker.title);
+              ctx.handleSelectedMarker(marker);
             },
           }}
         >
@@ -207,7 +213,11 @@ function LocationMarkers({ coords, markerEvent }) {
             icon={customIcon}
             position={marker.coords}
             eventHandlers={{
-              click: (e) => {},
+              click: (e) => {
+                // console.log("clicked:", marker);
+                // addComment(webId, session, "Test", marker.id);
+                ctx.handleSelectedMarker(marker);
+              },
             }}
           ></Marker>
         ))}
@@ -236,7 +246,7 @@ function LocationMarkers({ coords, markerEvent }) {
         )} */}
       {/* {clicked && load}
       {initial && form} */}
-      {/* {initial && (
+      {initial && (
         <Marker
           icon={customIcon}
           position={actualMarker}
@@ -247,7 +257,7 @@ function LocationMarkers({ coords, markerEvent }) {
             },
           }}
         ></Marker>
-      )} */}
+      )}
     </React.Fragment>
   );
 }

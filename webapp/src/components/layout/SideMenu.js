@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 
-import { LatLng } from "leaflet";
+import { LatLng, setOptions } from "leaflet";
 import { useSession } from "@inrupt/solid-ui-react";
 import { listFriends } from "../Pods/PodsFunctions";
 import { listLocationsOfAUser } from "../Pods/PodsFunctions";
@@ -31,13 +31,16 @@ const SideMenu = ({ option, coords, handleOption }) => {
 
     locations.map((place) => {
       for (let i = 0; i < place.length; i++) {
+        console.log(place[i]);
         setMarkersList((prevValue) => [
           ...prevValue,
           {
+            id: place[i].id,
             title: place[i].name,
             coords: new LatLng(place[i].latitude, place[i].longitude),
             description: place[i].description,
             category: place[i].category,
+            comments: place[i].comments,
           },
         ]);
       }
@@ -85,6 +88,12 @@ const SideMenu = ({ option, coords, handleOption }) => {
     }
   }, []);
 
+  useEffect(() => {
+    if (ctx.selectedMarker !== null) {
+      handleOption("markerInfo");
+    }
+  }, [ctx.selectedMarker]);
+
   return (
     <>
       {option === "userPods" && !loadedUserPods && (
@@ -110,6 +119,7 @@ const SideMenu = ({ option, coords, handleOption }) => {
         markersList.map((marker, i) => {
           return <MarkerCard key={i} marker={marker} />;
         })}
+      {option === "markerInfo" && <MarkerCard marker={ctx.selectedMarker} />}
     </>
   );
 };

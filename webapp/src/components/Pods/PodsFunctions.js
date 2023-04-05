@@ -348,7 +348,7 @@ async function modifyScoresContent(
 }
 
 //Function that adds a new comment on a location that you specify
-async function addComment(webId, session, comment, idLocation, mapId = 1) {
+export async function addComment(webId, session, comment, idLocation, mapId = 1) {
 	const fileUrl = webId.replace(
 		"/profile/card#me",
 		"/justforfriends7/locations.json"
