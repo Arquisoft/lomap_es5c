@@ -28,7 +28,7 @@ function App() {
 
   useEffect(() => {
     if (isLoggedIn) {
-      // console.log("Logged in");
+      console.log("Logged in");
       window.localStorage.setItem("webId", session.info.webId);
       // ctx.handleSessionWebId(session.info.webId);
     }

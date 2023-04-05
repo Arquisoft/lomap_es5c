@@ -31,7 +31,6 @@ const SideMenu = ({ option, coords, handleOption }) => {
 
     locations.map((place) => {
       for (let i = 0; i < place.length; i++) {
-        console.log(place[i]);
         setMarkersList((prevValue) => [
           ...prevValue,
           {
@@ -119,7 +118,24 @@ const SideMenu = ({ option, coords, handleOption }) => {
         markersList.map((marker, i) => {
           return <MarkerCard key={i} marker={marker} />;
         })}
-      {option === "markerInfo" && <MarkerCard marker={ctx.selectedMarker} />}
+      {option === "markerInfo" && (
+        <>
+          <div className="d-flex justify-content-end">
+            <button
+              type="button"
+              className="btn-close mx-3 mt-2"
+              style={{ fontSize: "1rem" }}
+              aria-label="Close"
+              onClick={() => {
+                console.log("close");
+                handleOption("userPods");
+                ctx.handleSelectedMarker(null);
+              }}
+            ></button>
+          </div>
+          <MarkerCard marker={ctx.selectedMarker} />
+        </>
+      )}
     </>
   );
 };

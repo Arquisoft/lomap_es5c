@@ -113,12 +113,11 @@ const MapContainer = () => {
               <div
                 className={`col-md-4 d-flex align-items-center ${styles.map_container}`}
               >
-                <div className={styles.container_info}>
+                <div className={`dark ${styles.container_info}`}>
                   <SideMenu
                     option={option}
                     coords={newCoords}
                     handleOption={(opt) => {
-                      console.log(opt);
                       setOption(opt);
                     }}
                   />

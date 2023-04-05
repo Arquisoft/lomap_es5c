@@ -4,6 +4,7 @@ import { LatLng } from "leaflet";
 import icon from "../../images/icon.png";
 import iconRed from "../../images/redMarker.png";
 import iconYellow from "../../images/markerYellow.png";
+import addMarkIcon from "../../images/addMarkerIcon.png";
 import L from "leaflet";
 import { useSession } from "@inrupt/solid-ui-react";
 import InfoCard from "../UI/InfoCard";
@@ -40,7 +41,19 @@ function LocationMarkers({ coords, markerEvent }) {
 
   const customDbIcon = new L.Icon({
     iconUrl: iconRed,
-    iconSize: [25, 35],
+    iconSize: [35, 35],
+    iconAnchor: [5, 30],
+  });
+
+  const yellowIcon = new L.Icon({
+    iconUrl: iconYellow,
+    iconSize: [35, 35],
+    iconAnchor: [5, 30],
+  });
+
+  const addMarkerIcon = new L.Icon({
+    iconUrl: addMarkIcon,
+    iconSize: [35, 35],
     iconAnchor: [5, 30],
   });
 
@@ -210,7 +223,7 @@ function LocationMarkers({ coords, markerEvent }) {
         ctx.markers.map((marker, i) => (
           <Marker
             key={i}
-            icon={customIcon}
+            icon={yellowIcon}
             position={marker.coords}
             eventHandlers={{
               click: (e) => {
@@ -248,7 +261,7 @@ function LocationMarkers({ coords, markerEvent }) {
       {initial && form} */}
       {initial && (
         <Marker
-          icon={customIcon}
+          icon={addMarkerIcon}
           position={actualMarker}
           eventHandlers={{
             click: (e) => {

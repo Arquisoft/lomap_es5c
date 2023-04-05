@@ -30,7 +30,6 @@ export default function Map({ coords, markerEvent }) {
 
   function MapView() {
     let map = useMap();
-    console.log(map);
     map.setView([latitude - 0.005, longitude], map.getZoom());
 
     return null;
