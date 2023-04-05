@@ -4,14 +4,19 @@ import UserCard from "./UserCard";
 
 import styles from "./About.module.css";
 
+import {useTranslation} from "react-i18next"
+
+
+
 const About = () => {
+  const[t, i18n] = useTranslation("translation");
   // Here we create all developers
   const jonathan = {
     alt: "jonathan",
     width: "10%",
     username: "Jonathan Arias Busto",
-    userTitle: "React developer",
-    description: "Student and frontend developer",
+    userTitle: t("About.jonathan.userTitle"),
+    description: t("About.jonathan.description"),
     mail: "uo283586",
     githubLink: "https://github.com/JonathanAriass",
     twitterLink: "https://twitter.com/_jonyy_",
@@ -22,8 +27,8 @@ const About = () => {
     alt: "edu",
     width: "10%",
     username: "Eduardo Blanco Bielsa",
-    userTitle: "Linux administrator",
-    description: "Student and cibersecurity lover",
+    userTitle: t("About.edu.userTitle"),
+    description: t("About.edu.description"),
     mail: "uo285176",
     githubLink: "https://github.com/gitblanc",
     twitterLink: "https://twitter.com/gitblanc",
@@ -35,8 +40,8 @@ const About = () => {
     alt: "laura",
     width: "10%",
     username: "Laura Cordero Castrillo",
-    userTitle: "Java developer",
-    description: "Student and Java developer",
+    userTitle: t("About.laura.userTitle"),
+    description: t("About.laura.description"),
     mail: "uo275955",
     githubLink: "https://github.com/lauracc97",
     twitterLink: {},
@@ -47,8 +52,8 @@ const About = () => {
     alt: "fer",
     width: "10%",
     username: "Fernando José González Sierra",
-    userTitle: "Backend developer",
-    description: "Student and backend enthusiast",
+    userTitle: t("About.fer.userTitle"),
+    description: t("About.fer.description"),
     mail: "uo277938",
     githubLink: "https://github.com/UO277938",
     twitterLink: "https://twitter.com/FerJ0ta",
@@ -59,8 +64,8 @@ const About = () => {
     alt: "xin",
     width: "10%",
     username: "Chen Xin Pan Wang",
-    userTitle: "Software developer",
-    description: "Stackoverflow lover",
+    userTitle: t("About.xin.userTitle"),
+    description: t("About.jonathan.description"),
     mail: "uo276967",
     githubLink: "https://github.com/iimxinn",
     twitterLink: "https://twitter.com/iimxinn",

@@ -1,0 +1,25 @@
+{
+    "About":{
+            "jonathan":{
+                "userTitle": "React developer",
+                "description": "Student and frontend developer"
+            },
+            "laura":{
+                "userTitle": "Java Developer",
+                "description": "Student and Java developer"
+            },
+            "edu":{
+                "userTitle": "Linux administrator",
+                "description": "Student and cibersecurity lover"
+            },
+            "fer":{
+                "userTitle": "Backend developer",
+                "description": "Student and backend enthusiast"
+            },
+            "xin":{
+                "userTitle": "Software Developer",
+                "description": "Stackoverflow lover"
+            },
+            "title":"LoMap team ⭐️"
+        }
+}

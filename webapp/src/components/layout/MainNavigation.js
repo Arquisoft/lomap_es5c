@@ -10,12 +10,18 @@ import LogInButton from "../LogInButton";
 //import logo from "../../images/test.png";
 import logo from "../../images/logo.png";
 
+import esp from "../../images/esp.svg";
+import uk from "../../images/uk.png";
+import {useTranslation} from "react-i18next"
+
+
 const MainNavigation = ({
   isLoggedIn,
   themeHandler,
   isChecked,
   themeStyle,
 }) => {
+  const[t, i18n] = useTranslation("translation");
   return (
     <>
       <Navbar
@@ -52,6 +58,8 @@ const MainNavigation = ({
               onChange={themeHandler}
               checked={isChecked}
             />
+            <button onClick={()=> i18n.changeLanguage("es")}><img src={esp} alt="Español" /></button>
+            <button onClick={()=> i18n.changeLanguage("en")}><img src={uk} alt="English" /></button>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
