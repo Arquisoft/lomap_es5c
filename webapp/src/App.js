@@ -12,42 +12,42 @@ import { useSession } from "@inrupt/solid-ui-react/dist";
 import UserSessionContext from "./store/session-context";
 
 function App() {
-  const ctx = useContext(UserSessionContext);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const { session } = useSession();
+	const ctx = useContext(UserSessionContext);
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const { session } = useSession();
 
-  //We have logged in
-  session.onLogin(() => {
-    setIsLoggedIn(true);
-  });
+	//We have logged in
+	session.onLogin(() => {
+		setIsLoggedIn(true);
+	});
 
-  //We have logged out
-  session.onLogout(() => {
-    setIsLoggedIn(false);
-  });
+	//We have logged out
+	session.onLogout(() => {
+		setIsLoggedIn(false);
+	});
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      console.log("Logged in");
-      window.localStorage.setItem("webId", session.info.webId);
-      // ctx.handleSessionWebId(session.info.webId);
-    }
-  }, [isLoggedIn]);
+	useEffect(() => {
+		if (isLoggedIn) {
+			console.log("Logged in");
+			window.localStorage.setItem("webId", session.info.webId);
+			// ctx.handleSessionWebId(session.info.webId);
+		}
+	}, [isLoggedIn]);
 
-  return (
-    <>
-      <SessionProvider sessionId="log-in-example">
-        <Routes>
-          <Route element={<Layout isLoggedIn={isLoggedIn} />}>
-            <Route index element={<Content isLoggedIn={isLoggedIn} />}></Route>
-            {/* <Route path="/home" element={<Content />} /> */}
-            <Route path="/about" element={<About />} />
-            <Route path="*" element={<NotFound />} />
-          </Route>
-        </Routes>
-      </SessionProvider>
-    </>
-  );
+	return (
+		<>
+			<SessionProvider sessionId="log-in-example">
+				<Routes>
+					<Route element={<Layout isLoggedIn={isLoggedIn} />}>
+						<Route index element={<Content isLoggedIn={isLoggedIn} />}></Route>
+						{/* <Route path="/home" element={<Content />} /> */}
+						<Route path="/about" element={<About />} />
+						<Route path="*" element={<NotFound />} />
+					</Route>
+				</Routes>
+			</SessionProvider>
+		</>
+	);
 }
 
 export default App;
