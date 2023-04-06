@@ -188,7 +188,7 @@ async function givePermissionsToUser(friend, session, file, control) {
 async function updatePermissionsOfFile(session, webId) {
 	const fileUrl = webId.replace(
 		"/profile/card#me",
-		"/justforfriends7/locations.json"
+		"/justforfriends/locations.json"
 	);
 	//Get the friends of the user
 	const friends = await listFriends(webId);
@@ -256,7 +256,7 @@ async function updatePermissionsOfFolder(session, webId) {
 export async function listLocationsOfAUser(webId, session, mapId = 1) {
 	const podUrl = webId.replace(
 		"/profile/card#me",
-		"/justforfriends7/locations.json"
+		"/justforfriends/locations.json"
 	);
 	console.log(podUrl);
 
@@ -293,7 +293,7 @@ async function addReviewScore(webId, session, score, idLocation, mapId = 1) {
 	if (score >= 0 && score <= 5) {
 		const fileUrl = webId.replace(
 			"/profile/card#me",
-			"/justforfriends7/locations.json"
+			"/justforfriends/locations.json"
 		);
 		let file = await solid.getFile(fileUrl, { fetch: session.fetch });
 		let jsonMarkers = JSON.parse(await file.text());
@@ -356,7 +356,7 @@ export async function addComment(
 ) {
 	const fileUrl = webId.replace(
 		"/profile/card#me",
-		"/justforfriends7/locations.json"
+		"/justforfriends/locations.json"
 	);
 	let file = await solid.getFile(fileUrl, { fetch: session.fetch });
 	let jsonMarkers = JSON.parse(await file.text());
