@@ -1,12 +1,12 @@
 .mainContainer {
   display: flex;
   width: 100%;
-  /* height: 100%; */
-  position: absolute;
-  justify-content: end;
+  height: 100%;
+  /* position: absolute; */
+  /* justify-content: end; */
   /* margin-top: 4vw; */
-  min-width: 600px;
-  right: 20px;
+  /* min-width: 600px; */
+  /* right: 20px; */
 }
 
 .infoContainer {
@@ -16,12 +16,22 @@
   text-align: center;
   padding: 2rem;
   width: 100%;
+  /* height: 100%; */
+  font-size: 0.5rem;
 
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   border-radius: 10px;
   /* box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2); */
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  z-index: 1000;
+}
+
+.header {
+  font-size: 1rem;
+}
+
+.categoryContainer {
+  background-color: rgb(255, 255, 255);
+  max-height: 2.5rem;
 }
 
 .buttonContainer {
@@ -30,16 +40,17 @@
 
 @media (max-width: 400px) {
   .mainContainer {
-    justify-items: flex-end;
-    justify-content: center;
+    /* justify-items: flex-end;
+    justify-content: right; */
+    /* right: -40px; */
   }
   .infoContainer {
-    position: absolute;
+    /* position: relative; */
     height: 100%;
-    width: 95%;
-    min-height: 5rem;
-    max-height: 30rem;
-    bottom: 0;
+    /* width: 50%; */
+    /* min-height: 2rem;
+    max-height: 40rem;
+    bottom: 0; */
   }
 }
 
@@ -76,9 +87,15 @@
   cursor: not-allowed;
 }
 
-.error{
+.error {
   font: inherit;
   color: rgb(208, 65, 65);
   padding: 0.5rem 1.5rem;
   font-size: 1rem;
+}
+
+@media (min-width: 769px) {
+  .infoContainer {
+    height: 100%;
+  }
 }

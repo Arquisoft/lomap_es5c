@@ -92,3 +92,22 @@
   object-position: center;
   display: block;
 }
+
+.header_logo_text {
+  font-size: 1.65rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 0;
+}
+
+@media (max-width: 600px) {
+  .header_logo_text {
+    display: none;
+  }
+  .header_img {
+    width: 50%;
+    height: auto;
+    min-width: 5rem;
+  }
+}

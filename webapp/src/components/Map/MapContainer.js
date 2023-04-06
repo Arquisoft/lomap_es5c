@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./MapContainer.module.css";
 import Map from "./Maps";
 import LoadingSpinner from "../UI/LoadingSpinner";
+import SideMenu from "../layout/SideMenu";
 
 // This component is used when the user is not logged in
 const MapContainer = () => {
@@ -10,9 +11,11 @@ const MapContainer = () => {
     latitude: null,
     longitude: null,
   });
+  const [newCoords, setNewCoords] = useState({});
   const [display_name, setName] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
   const [clickedMarker, setClickedMarker] = useState(false);
+  const [option, setOption] = useState("userPods");
 
   function error() {
     setIsLoaded(false); // Change the isLoaded property to false
@@ -72,23 +75,68 @@ const MapContainer = () => {
     getLocation();
   }, []);
 
+  // const style = {
+  //   maxHeight: "100%",
+  //   // Adding media query..
+  //   "@media (max-width: 400px)": {
+  //     maxHeight: "50%",
+  //   },
+  // };
+
   return (
-    <div className={styles.container}>
+    // <div className={styles.container}>
+    <>
       {isLoaded ? (
-        <React.Fragment>
-          <Map
-            coords={coords}
-            display_name={display_name}
-            // getPositionName={getCurrentCityName}
-          />
-          {/* <div className={styles.info_container}>
-						<InfoCard position={display_name}></InfoCard>
-					</div> */}
-        </React.Fragment>
+        <div
+          className="container-fluid px-0 align-items-center"
+          style={{ height: "100%" }}
+        >
+          <div
+            className="row gx-3 flex-row flex-grow-1"
+            style={{ height: "100%" }}
+          >
+            <React.Fragment>
+              <div
+                className="col-md-8 d-flex"
+                style={{ maxHeight: "100%", minHeight: "50%" }}
+              >
+                <Map
+                  coords={coords}
+                  display_name={display_name}
+                  markerEvent={(e) => {
+                    setOption("create");
+                    console.log("create");
+                    setNewCoords(e);
+                  }}
+                />
+              </div>
+              <div
+                className={`col-md-4 d-flex align-items-center ${styles.map_container}`}
+              >
+                <div className={`dark ${styles.container_info}`}>
+                  <SideMenu
+                    option={option}
+                    coords={newCoords}
+                    handleOption={(opt) => {
+                      setOption(opt);
+                    }}
+                  />
+                </div>
+              </div>
+            </React.Fragment>
+          </div>
+        </div>
       ) : (
-        <LoadingSpinner />
+        <div className="container-fluid px-0 text-center">
+          <div
+            className="d-flex justify-content-center"
+            style={{ height: "100%" }}
+          >
+            <LoadingSpinner />
+          </div>
+        </div>
       )}
-    </div>
+    </>
   );
 };
 

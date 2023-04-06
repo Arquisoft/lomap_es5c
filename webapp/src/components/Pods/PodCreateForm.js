@@ -3,12 +3,36 @@ import React, { useEffect, useState } from "react";
 import styles from "./PodCreateForm.module.css";
 
 import useInput from "../../hooks/use-input";
+import { insertNewMarker } from "../Pods/PodsFunctions";
+import { useSession } from "@inrupt/solid-ui-react";
 
-const PodCreateForm = ({ coords, saveData }) => {
-  const [showForm, setShowForm] = useState(true);
-
+const PodCreateForm = ({ coords, saveData, close }) => {
+  const { session } = useSession(); // Hook for providing access to the session in the component
+  const { webId } = session.info; // User's webId
+  //Url of the places that user has on his pod
+  const podUrl = webId.replace(
+    "/profile/card#me",
+    "/justforfriends7/locations.json"
+  );
   // true until is there a problem creating a point
   const [correctPointCreation, setCorrectPointCreation] = useState(true);
+
+  async function insertThing(coords, name, description, category) {
+    {
+      var result = insertNewMarker(
+        coords,
+        name,
+        description,
+        podUrl,
+        session,
+        webId,
+        category //WE HAVE TO ADD THIS
+      );
+      // setInitial(!result);
+      // if (result) setMarkers((prevValue) => [...prevValue, actualMarker]);
+      return result;
+    }
+  }
 
   // useInput for each input
   const {
@@ -27,6 +51,15 @@ const PodCreateForm = ({ coords, saveData }) => {
     valueChangeHandler: descriptionChangeHandler,
     inputBlurHandler: descriptionBlurHandler,
     reset: resetDescriptionInput,
+  } = useInput((value) => value.trim() !== "");
+
+  const {
+    value: enteredCategory,
+    isValid: validCategory,
+    hasError: categoryInputHasError,
+    valueChangeHandler: categoryChangeHandler,
+    inputBlurHandler: categoryBlurHandler,
+    reset: resetCategoryInput,
   } = useInput((value) => value.trim() !== "");
 
   const {
@@ -54,6 +87,10 @@ const PodCreateForm = ({ coords, saveData }) => {
     ? "form-control invalid"
     : "form-control";
 
+  const categoryInputClasses = categoryInputHasError
+    ? "form-control invalid"
+    : "form-control";
+
   // Form submission handler
   const formSubmissionHandler = (event) => {
     event.preventDefault();
@@ -68,21 +105,26 @@ const PodCreateForm = ({ coords, saveData }) => {
       return;
     }
 
-    // We should save the data to pod in here
-    saveData(coords.slice(-1), enteredTitle, enteredDescription).then(succes, failure);
+    // console.log(coords);
 
+    // We should save the data to pod in here
+    insertThing(coords, enteredTitle, enteredDescription, enteredCategory).then(
+      succes,
+      failure
+    );
   };
 
   function succes(resultado) {
     console.log("TODO BIEN: " + resultado);
     setCorrectPointCreation(true);
-    setShowForm(false);
+    // TODO: maybe update the whole list of markers and not just the one that we have created
 
     // Reset input fields
     resetTitleInput();
     resetDescriptionInput();
+    resetCategoryInput();
   }
-  
+
   function failure(error) {
     console.log(error);
     setCorrectPointCreation(false);
@@ -92,61 +134,103 @@ const PodCreateForm = ({ coords, saveData }) => {
   useEffect(() => {
     resetTitleInput();
     resetDescriptionInput();
+    resetCategoryInput();
     setCorrectPointCreation(true);
   }, [coords]);
 
+  useEffect(() => {
+    console.log(coords);
+  }, []);
+
+  const closeForm = () => {
+    close("userPods");
+  };
+
   return (
     <React.Fragment>
-      {showForm && (
-        <div className={styles.mainContainer}>
-          <div className={styles.infoContainer}>
-            <h4>Create location</h4>
-            <form onSubmit={formSubmissionHandler}>
-              <div className="control-group">
-                <div className={titleInputClasses}>
-                  <label htmlFor="title">Title</label>
-                  <input
-                    type="text"
-                    id="title"
-                    onChange={titleChangeHandler}
-                    onBlur={titleBlurHandler}
-                    value={enteredTitle}
-                  />
-                  {titleInputHasError && (
-                    <p className="error-text">Title not valid!</p>
-                  )}
-                </div>
-
-                <div className={descriptionInputClasses}>
-                  <label htmlFor="description">Description</label>
-                  <textarea
-                    type="text"
-                    name="description"
-                    id="description"
-                    onChange={descriptionChangeHandler}
-                    onBlur={descriptionBlurHandler}
-                    value={enteredDescription}
-                    maxLength="150"
-                  ></textarea>
-                  {descriptionInputHasError && (
-                    <p className="error-text">Description not valid!</p>
-                  )}
-                </div>
-              </div>
-
-              <div className={styles.submit}>
-              
-                <button type="submit" className={styles.button} disabled={!formIsValid}>
-                  SUBMIT
-                </button>
-                {!correctPointCreation && (
-                    <p className={styles.error}>Error in POD addition!</p>
-                  )}
-              </div>
-            </form>
-          </div>
+      {/* <div className={styles.mainContainer}> */}
+      <div className={styles.infoContainer}>
+        <div className="d-flex justify-content-end">
+          <button
+            type="button"
+            className="btn-close"
+            style={{ fontSize: "1rem" }}
+            aria-label="Close"
+            onClick={closeForm}
+          ></button>
         </div>
-      )}
+        <h4 className={styles.header}>Create location</h4>
+        <form onSubmit={formSubmissionHandler}>
+          <div className="control-group">
+            <div className={titleInputClasses}>
+              <label htmlFor="title">Title</label>
+              <input
+                type="text"
+                id="title"
+                onChange={titleChangeHandler}
+                onBlur={titleBlurHandler}
+                value={enteredTitle}
+              />
+              {titleInputHasError && (
+                <p className="error-text">Title not valid!</p>
+              )}
+            </div>
+
+            <div className={descriptionInputClasses}>
+              <label htmlFor="description">Description</label>
+              <textarea
+                type="text"
+                name="description"
+                id="description"
+                onChange={descriptionChangeHandler}
+                onBlur={descriptionBlurHandler}
+                value={enteredDescription}
+                maxLength="150"
+              ></textarea>
+              {descriptionInputHasError && (
+                <p className="error-text">Description not valid!</p>
+              )}
+            </div>
+
+            <div className={categoryInputClasses}>
+              <label htmlFor="category">Category</label>
+              <select
+                type="combo"
+                name="category"
+                id="category"
+                className={styles.categoryContainer}
+                onChange={categoryChangeHandler}
+                onBlur={categoryBlurHandler}
+                value={enteredCategory}
+                required
+              >
+                <option value="no-state"> None </option>
+                <option value="landscape">Landscape</option>
+                <option value="monument">Monument</option>
+                <option value="shop">Shop</option>
+                <option value="bar">Bar</option>
+              </select>
+              {categoryInputHasError && (
+                <p className="error-text">Description not valid!</p>
+              )}
+            </div>
+          </div>
+
+          <div className={styles.submit}>
+            <button
+              type="submit"
+              className={styles.button}
+              disabled={!formIsValid}
+            >
+              SUBMIT
+            </button>
+            {!correctPointCreation && (
+              <p className={styles.error}>Error in POD addition!</p>
+            )}
+          </div>
+        </form>
+      </div>
+      {/* </div> */}
     </React.Fragment>
   );
 };

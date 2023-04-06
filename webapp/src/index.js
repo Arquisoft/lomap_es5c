@@ -3,15 +3,17 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import Header from "./components/UI/Header";
 import { BrowserRouter } from "react-router-dom";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import { UserSessionProvider } from "./store/session-context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
+  <UserSessionProvider>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </UserSessionProvider>
 );
 
 // We add the header tag to the ReactDOM
