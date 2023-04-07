@@ -13,7 +13,7 @@ const MarkerCard = ({ marker }) => {
     color: "#fbc634",
   };
 
-  const listScore = marker.score;
+  //const listScore = marker.score;
 
   const { session } = useSession(); // Hook for providing access to the session in the component
   const { webId } = session.info; // User's webId
@@ -72,20 +72,20 @@ if (validScore) {
     resetScoreInput();
   }
 
-  let meanScore;
+  /*let meanScore;
   let acc = 0;
   
   for(var i=0;i<listScore.length; i++){
     acc += Number(listScore[i].score);
   };
-  meanScore =acc / listScore.length
+  meanScore =acc / listScore.length*/
 
   //marker.rating = meanScore; // this should be obtained from the pod's rating
 
   // Remember to calculate the rating of the pod and pass it to the marker object (int number)
   let stars = [];
   for (let i = 0.5; i < 5.5; ++i) {
-    if (i < meanScore) {
+    if (i < 3) {
       stars.push(<i className="fa fa-star" style={rating_color} key={i}></i>);
     } else {
       stars.push(<i className="fa fa-star" key={i}></i>);
