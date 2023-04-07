@@ -163,7 +163,7 @@ function LocationMarkers({ coords, markerEvent }) {
         podUrl,
         session,
         webId,
-        category //WE HAVE TO ADD THIS
+        category
       );
       setInitial(!result);
       if (result) setMarkers((prevValue) => [...prevValue, actualMarker]);
@@ -227,8 +227,8 @@ function LocationMarkers({ coords, markerEvent }) {
             position={marker.coords}
             eventHandlers={{
               click: (e) => {
-                // console.log("clicked:", marker);
-                // addComment(webId, session, "Test", marker.id);
+                console.log("clicked:", marker);
+                //addComment(webId, session, "Test", marker.id);
                 ctx.handleSelectedMarker(marker);
               },
             }}

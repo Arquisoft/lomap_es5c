@@ -118,7 +118,7 @@ const PodCreateForm = ({ coords, saveData, close }) => {
     console.log("TODO BIEN: " + resultado);
     setCorrectPointCreation(true);
     // TODO: maybe update the whole list of markers and not just the one that we have created
-
+    
     // Reset input fields
     resetTitleInput();
     resetDescriptionInput();
@@ -204,15 +204,14 @@ const PodCreateForm = ({ coords, saveData, close }) => {
                 value={enteredCategory}
                 required
               >
-                <option value="no-state"> None </option>
+                <option value=""> </option>
+
                 <option value="landscape">Landscape</option>
                 <option value="monument">Monument</option>
                 <option value="shop">Shop</option>
                 <option value="bar">Bar</option>
+                <option value="other">Other...</option>
               </select>
-              {categoryInputHasError && (
-                <p className="error-text">Description not valid!</p>
-              )}
             </div>
           </div>
 

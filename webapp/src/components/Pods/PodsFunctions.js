@@ -289,7 +289,7 @@ async function getFriendInfo(friendWebId, session) {
 }
 
 //Function that adds a new review Score to an specific location
-async function addReviewScore(webId, session, score, idLocation, mapId = 1) {
+export async function addReviewScore(webId, session, score, idLocation, mapId = 1) {
   if (score >= 0 && score <= 5) {
     const fileUrl = webId.replace(
       "/profile/card#me",
