@@ -12,7 +12,7 @@ const PodCreateForm = ({ coords, saveData, close }) => {
   //Url of the places that user has on his pod
   const podUrl = webId.replace(
     "/profile/card#me",
-    "/justforfriends7/locations.json"
+    "/justforfriends/locations.json"
   );
   // true until is there a problem creating a point
   const [correctPointCreation, setCorrectPointCreation] = useState(true);
