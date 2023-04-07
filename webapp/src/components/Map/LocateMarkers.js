@@ -1,10 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Marker, useMapEvents } from "react-leaflet";
 import { LatLng } from "leaflet";
-import icon from "../../images/icon.png";
 import iconRed from "../../images/redMarker.png";
-import iconYellow from "../../images/markerYellow.png";
-import addMarkIcon from "../../images/addMarkerIcon.png";
+import addMarkIcon from "../../images/newplace.png";
+import iconMonument from "../../images/monument.png";
+import iconLandscape from "../../images/landscape.png";
+import iconShop from "../../images/shop.png";
+import iconBar from "../../images/bar.png";
+import iconCurrentLocation from "../../images/current_location.png";
+import iconFriends from "../../images/friends.png";
+import unknownIcon from "../../images/unknown.png";
 import L from "leaflet";
 import { useSession } from "@inrupt/solid-ui-react";
 import InfoCard from "../UI/InfoCard";
@@ -34,8 +39,8 @@ function LocationMarkers({ coords, markerEvent }) {
 	const [actualMarker, setActualMarker] = useState();
 
 	const customIcon = new L.Icon({
-		iconUrl: icon,
-		iconSize: [30, 40],
+		iconUrl: iconCurrentLocation,
+		iconSize: [35, 35],
 		iconAnchor: [5, 30],
 	});
 
@@ -45,8 +50,33 @@ function LocationMarkers({ coords, markerEvent }) {
 		iconAnchor: [5, 30],
 	});
 
-	const yellowIcon = new L.Icon({
-		iconUrl: iconYellow,
+	const monumentIcon = new L.Icon({
+		// iconUrl: iconYellow,
+		iconUrl: iconMonument,
+		iconSize: [35, 35],
+		iconAnchor: [5, 30],
+	});
+
+	const shopIcon = new L.Icon({
+		iconUrl: iconShop,
+		iconSize: [35, 35],
+		iconAnchor: [5, 30],
+	});
+
+	const barIcon = new L.Icon({
+		iconUrl: iconBar,
+		iconSize: [35, 35],
+		iconAnchor: [5, 30],
+	});
+
+	const landscapeIcon = new L.Icon({
+		iconUrl: iconLandscape,
+		iconSize: [35, 35],
+		iconAnchor: [5, 30],
+	});
+
+	const defaultIcon = new L.Icon({
+		iconUrl: unknownIcon,
 		iconSize: [35, 35],
 		iconAnchor: [5, 30],
 	});
@@ -223,7 +253,18 @@ function LocationMarkers({ coords, markerEvent }) {
 				ctx.markers.map((marker, i) => (
 					<Marker
 						key={i}
-						icon={yellowIcon}
+						// icon={monumentIcon}
+						icon={
+							marker.category === "shop"
+								? shopIcon
+								: marker.category === "bar"
+								? barIcon
+								: marker.category === "monument"
+								? monumentIcon
+								: marker.category === "landscape"
+								? landscapeIcon
+								: defaultIcon
+						}
 						position={marker.coords}
 						eventHandlers={{
 							click: (e) => {
