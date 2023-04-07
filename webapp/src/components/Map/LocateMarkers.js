@@ -1,10 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Marker, useMapEvents } from "react-leaflet";
 import { LatLng } from "leaflet";
-import icon from "../../images/icon.png";
 import iconRed from "../../images/redMarker.png";
-import iconYellow from "../../images/markerYellow.png";
-import addMarkIcon from "../../images/addMarkerIcon.png";
+import addMarkIcon from "../../images/newplace.png";
+import iconMonument from "../../images/monument.png";
+import iconLandscape from "../../images/landscape.png";
+import iconShop from "../../images/shop.png";
+import iconBar from "../../images/bar.png";
+import iconCurrentLocation from "../../images/current_location.png";
+import iconFriends from "../../images/friends.png";
+import unknownIcon from "../../images/unknown.png";
 import L from "leaflet";
 import { useSession } from "@inrupt/solid-ui-react";
 import InfoCard from "../UI/InfoCard";
@@ -19,176 +24,201 @@ import { addComment } from "../Pods/PodsFunctions";
 import UserSessionContext from "../../store/session-context";
 
 function LocationMarkers({ coords, markerEvent }) {
-  const ctx = useContext(UserSessionContext);
+	const ctx = useContext(UserSessionContext);
 
-  const [markerName, setMarkerName] = useState();
-  const initialMarker = new LatLng(coords.latitude, coords.longitude);
-  // const { latitude, longitude } = coords;
-  const [markers, setMarkers] = useState([]);
-  const [dbMarkers, setDbMarkes] = useState([]);
-  const [podMarkers, setPodMarkers] = useState([]);
-  const [podMarkersLoaded, setPodMarkersLoaded] = useState(false);
-  const [clicked, setClicked] = useState(false);
-  const [initial, setInitial] = useState(false);
+	const [markerName, setMarkerName] = useState();
+	const initialMarker = new LatLng(coords.latitude, coords.longitude);
+	// const { latitude, longitude } = coords;
+	const [markers, setMarkers] = useState([]);
+	const [dbMarkers, setDbMarkes] = useState([]);
+	const [podMarkers, setPodMarkers] = useState([]);
+	const [podMarkersLoaded, setPodMarkersLoaded] = useState(false);
+	const [clicked, setClicked] = useState(false);
+	const [initial, setInitial] = useState(false);
 
-  const [actualMarker, setActualMarker] = useState();
+	const [actualMarker, setActualMarker] = useState();
 
-  const customIcon = new L.Icon({
-    iconUrl: icon,
-    iconSize: [30, 40],
-    iconAnchor: [5, 30],
-  });
+	const customIcon = new L.Icon({
+		iconUrl: iconCurrentLocation,
+		iconSize: [35, 35],
+		iconAnchor: [5, 30],
+	});
 
-  const customDbIcon = new L.Icon({
-    iconUrl: iconRed,
-    iconSize: [35, 35],
-    iconAnchor: [5, 30],
-  });
+	const customDbIcon = new L.Icon({
+		iconUrl: iconRed,
+		iconSize: [35, 35],
+		iconAnchor: [5, 30],
+	});
 
-  const yellowIcon = new L.Icon({
-    iconUrl: iconYellow,
-    iconSize: [35, 35],
-    iconAnchor: [5, 30],
-  });
+	const monumentIcon = new L.Icon({
+		// iconUrl: iconYellow,
+		iconUrl: iconMonument,
+		iconSize: [35, 35],
+		iconAnchor: [5, 30],
+	});
 
-  const addMarkerIcon = new L.Icon({
-    iconUrl: addMarkIcon,
-    iconSize: [35, 35],
-    iconAnchor: [5, 30],
-  });
+	const shopIcon = new L.Icon({
+		iconUrl: iconShop,
+		iconSize: [35, 35],
+		iconAnchor: [5, 30],
+	});
 
-  //PODS
-  const { session } = useSession(); // Hook for providing access to the session in the component
-  const { webId } = session.info; // User's webId
-  //Url of the places that user has on his pod
-  const podUrl = webId.replace(
-    "/profile/card#me",
-    "/justforfriends7/locations.json"
-  );
+	const barIcon = new L.Icon({
+		iconUrl: iconBar,
+		iconSize: [35, 35],
+		iconAnchor: [5, 30],
+	});
 
-  const handleFetch = async () => {
-    const response = await fetch("http://localhost:5001/place/list").then(
-      (res) => res.json()
-    );
+	const landscapeIcon = new L.Icon({
+		iconUrl: iconLandscape,
+		iconSize: [35, 35],
+		iconAnchor: [5, 30],
+	});
 
-    response.map((place) =>
-      setDbMarkes((prevValue) => [
-        ...prevValue,
-        {
-          title: place.name,
-          coords: new LatLng(place.latitude, place.longitude),
-        },
-      ])
-    );
-  };
+	const defaultIcon = new L.Icon({
+		iconUrl: unknownIcon,
+		iconSize: [35, 35],
+		iconAnchor: [5, 30],
+	});
 
-  const loadPodsMarkers = async () => {
-    // setPodMarkers([]);
-    ctx.markers.map((place) =>
-      setPodMarkers((prevValue) => [
-        ...prevValue,
-        {
-          title: place.name,
-          coords: new LatLng(place.latitude, place.longitude),
-        },
-      ])
-    );
+	const addMarkerIcon = new L.Icon({
+		iconUrl: addMarkIcon,
+		iconSize: [35, 35],
+		iconAnchor: [5, 30],
+	});
 
-    setPodMarkersLoaded(true);
-  };
+	//PODS
+	const { session } = useSession(); // Hook for providing access to the session in the component
+	const { webId } = session.info; // User's webId
+	//Url of the places that user has on his pod
+	const podUrl = webId.replace(
+		"/profile/card#me",
+		"/justforfriends/locations.json"
+	);
 
-  useEffect(() => {
-    handleFetch();
-    // loadPodsMarkers();
-  }, []);
+	const handleFetch = async () => {
+		const response = await fetch("http://localhost:5001/place/list").then(
+			(res) => res.json()
+		);
 
-  async function getCurrentCityName(lat, long) {
-    let url =
-      "https://nominatim.openstreetmap.org/reverse?format=jsonv2" +
-      "&lat=" +
-      lat +
-      "&lon=" +
-      long;
+		response.map((place) =>
+			setDbMarkes((prevValue) => [
+				...prevValue,
+				{
+					title: place.name,
+					coords: new LatLng(place.latitude, place.longitude),
+				},
+			])
+		);
+	};
 
-    const response = await fetch(url, {
-      method: "GET",
-      mode: "cors",
-      headers: {
-        "Access-Control-Allow-Origin": "https://o2cj2q.csb.app",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => setMarkerName(data.display_name));
-    setClicked(true);
-  }
+	const loadPodsMarkers = async () => {
+		// setPodMarkers([]);
+		ctx.markers.map((place) =>
+			setPodMarkers((prevValue) => [
+				...prevValue,
+				{
+					title: place.name,
+					coords: new LatLng(place.latitude, place.longitude),
+				},
+			])
+		);
 
-  const load = (
-    <div className={styles.info_container}>
-      <InfoCard position={markerName}></InfoCard>
-    </div>
-  );
+		setPodMarkersLoaded(true);
+	};
 
-  const form = (
-    <div className={styles.info_container}>
-      <PodCreateForm coords={actualMarker} saveData={insertThing} />
-    </div>
-  );
+	useEffect(() => {
+		handleFetch();
+		// loadPodsMarkers();
+	}, []);
 
-  const aux = "leaflet-container leaflet-touch";
+	async function getCurrentCityName(lat, long) {
+		let url =
+			"https://nominatim.openstreetmap.org/reverse?format=jsonv2" +
+			"&lat=" +
+			lat +
+			"&lon=" +
+			long;
 
-  const map = useMapEvents({
-    click(e) {
-      markerEvent(e.latlng);
-      // if (e.originalEvent.target.attributes.length > 0) {
-      //   // if (aux === e.originalEvent.target.attributes[0].nodeValue) {
-      //   if (e.originalEvent.target.attributes[0].nodeValue.includes(aux)) {
-      //     setClicked(false);
-      setInitial(true);
-      setActualMarker(e.latlng);
-      //     //setMarkers((prevValue) => [...prevValue, e.latlng]);
-      //   }
-      // }
-    },
-  });
+		const response = await fetch(url, {
+			method: "GET",
+			mode: "cors",
+			headers: {
+				"Access-Control-Allow-Origin": "https://o2cj2q.csb.app",
+			},
+		})
+			.then((response) => response.json())
+			.then((data) => setMarkerName(data.display_name));
+		setClicked(true);
+	}
 
-  // FOR PODS ------------------------------------------
+	const load = (
+		<div className={styles.info_container}>
+			<InfoCard position={markerName}></InfoCard>
+		</div>
+	);
 
-  //Function to save a new place into user's pod
-  async function insertThing(coords, name, description, category) {
-    {
-      var result = insertNewMarker(
-        coords,
-        name,
-        description,
-        podUrl,
-        session,
-        webId,
-        category
-      );
-      setInitial(!result);
-      if (result) setMarkers((prevValue) => [...prevValue, actualMarker]);
-      return result;
-    }
-  }
+	const form = (
+		<div className={styles.info_container}>
+			<PodCreateForm coords={actualMarker} saveData={insertThing} />
+		</div>
+	);
 
-  return (
-    <React.Fragment>
-      <Marker
-        icon={customIcon}
-        position={initialMarker}
-        eventHandlers={{
-          click: (e) => {
-            setInitial(false);
-            getCurrentCityName(e.latlng.lat, e.latlng.lng);
-            ctx.handleSelectedMarker({
-              title: "You are here",
-              coords: e.latlng,
-            });
-          },
-        }}
-      ></Marker>
+	const aux = "leaflet-container leaflet-touch";
 
-      {/* {markers.map((marker, i) => (
+	const map = useMapEvents({
+		click(e) {
+			markerEvent(e.latlng);
+			// if (e.originalEvent.target.attributes.length > 0) {
+			//   // if (aux === e.originalEvent.target.attributes[0].nodeValue) {
+			//   if (e.originalEvent.target.attributes[0].nodeValue.includes(aux)) {
+			//     setClicked(false);
+			setInitial(true);
+			setActualMarker(e.latlng);
+			//     //setMarkers((prevValue) => [...prevValue, e.latlng]);
+			//   }
+			// }
+		},
+	});
+
+	// FOR PODS ------------------------------------------
+
+	//Function to save a new place into user's pod
+	async function insertThing(coords, name, description, category) {
+		{
+			var result = insertNewMarker(
+				coords,
+				name,
+				description,
+				podUrl,
+				session,
+				webId,
+				category //WE HAVE TO ADD THIS
+			);
+			setInitial(!result);
+			if (result) setMarkers((prevValue) => [...prevValue, actualMarker]);
+			return result;
+		}
+	}
+
+	return (
+		<React.Fragment>
+			<Marker
+				icon={customIcon}
+				position={initialMarker}
+				eventHandlers={{
+					click: (e) => {
+						setInitial(false);
+						getCurrentCityName(e.latlng.lat, e.latlng.lng);
+						ctx.handleSelectedMarker({
+							title: "You are here",
+							coords: e.latlng,
+						});
+					},
+				}}
+			></Marker>
+
+			{/* {markers.map((marker, i) => (
         <Marker
           key={i}
           icon={customIcon}
@@ -201,41 +231,52 @@ function LocationMarkers({ coords, markerEvent }) {
           }}
         ></Marker>
       ))} */}
-      {dbMarkers.map((marker, i) => (
-        <Marker
-          key={i}
-          icon={customDbIcon}
-          position={marker.coords}
-          eventHandlers={{
-            click: (e) => {
-              setClicked(true);
-              setInitial(false);
-              //   getCurrentCityName(e.latlng.lat, e.latlng.lng);
-              setMarkerName(marker.title);
-              ctx.handleSelectedMarker(marker);
-            },
-          }}
-        >
-          {/* <Popup>Test</Popup> */}
-        </Marker>
-      ))}
-      {ctx.loaded &&
-        ctx.markers.map((marker, i) => (
-          <Marker
-            key={i}
-            icon={yellowIcon}
-            position={marker.coords}
-            eventHandlers={{
-              click: (e) => {
-                console.log("clicked:", marker);
-                //addComment(webId, session, "Test", marker.id);
-                ctx.handleSelectedMarker(marker);
-              },
-            }}
-          ></Marker>
-        ))}
+			{dbMarkers.map((marker, i) => (
+				<Marker
+					key={i}
+					icon={customDbIcon}
+					position={marker.coords}
+					eventHandlers={{
+						click: (e) => {
+							setClicked(true);
+							setInitial(false);
+							//   getCurrentCityName(e.latlng.lat, e.latlng.lng);
+							setMarkerName(marker.title);
+							ctx.handleSelectedMarker(marker);
+						},
+					}}
+				>
+					{/* <Popup>Test</Popup> */}
+				</Marker>
+			))}
+			{ctx.loaded &&
+				ctx.markers.map((marker, i) => (
+					<Marker
+						key={i}
+						// icon={monumentIcon}
+						icon={
+							marker.category === "shop"
+								? shopIcon
+								: marker.category === "bar"
+								? barIcon
+								: marker.category === "monument"
+								? monumentIcon
+								: marker.category === "landscape"
+								? landscapeIcon
+								: defaultIcon
+						}
+						position={marker.coords}
+						eventHandlers={{
+							click: (e) => {
+								// console.log("clicked:", marker);
+								// addComment(webId, session, "Test", marker.id);
+								ctx.handleSelectedMarker(marker);
+							},
+						}}
+					></Marker>
+				))}
 
-      {/* {podMarkersLoaded &&
+			{/* {podMarkersLoaded &&
         podMarkers.map(
           (marker, i) => (
             console.log(marker),
@@ -257,22 +298,22 @@ function LocationMarkers({ coords, markerEvent }) {
             )
           )
         )} */}
-      {/* {clicked && load}
+			{/* {clicked && load}
       {initial && form} */}
-      {initial && (
-        <Marker
-          icon={addMarkerIcon}
-          position={actualMarker}
-          eventHandlers={{
-            click: (e) => {
-              setInitial(false);
-              getCurrentCityName(e.latlng.lat, e.latlng.lng);
-            },
-          }}
-        ></Marker>
-      )}
-    </React.Fragment>
-  );
+			{initial && (
+				<Marker
+					icon={addMarkerIcon}
+					position={actualMarker}
+					eventHandlers={{
+						click: (e) => {
+							setInitial(false);
+							getCurrentCityName(e.latlng.lat, e.latlng.lng);
+						},
+					}}
+				></Marker>
+			)}
+		</React.Fragment>
+	);
 }
 
 export default LocationMarkers;

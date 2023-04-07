@@ -9,6 +9,8 @@ const UserSessionContext = createContext({
   loaded: false,
   selectedMarker: null,
   handleSelectedMarker: () => {},
+  pageStyle: "dark",
+  handleStyle: () => {},
 });
 
 export const UserSessionProvider = ({ children }) => {
@@ -18,6 +20,8 @@ export const UserSessionProvider = ({ children }) => {
   const [loaded, setLoaded] = useState(false);
 
   const [selectedMarker, setSelectedMarker] = useState(null);
+
+  const [pageStyle, setPageStyle] = useState("dark");
 
   const handleSessionWebId = (webId) => {
     window.localStorage.setItem("webId", webId);
@@ -50,6 +54,10 @@ export const UserSessionProvider = ({ children }) => {
     setSelectedMarker(marker);
   };
 
+  const handleStyle = (style) => {
+    setPageStyle(style);
+  };
+
   return (
     <UserSessionContext.Provider
       value={{
@@ -60,6 +68,8 @@ export const UserSessionProvider = ({ children }) => {
         selectedMarker,
         handleSelectedMarker,
         handleSessionWebId,
+        pageStyle,
+        handleStyle,
       }}
     >
       {children}
