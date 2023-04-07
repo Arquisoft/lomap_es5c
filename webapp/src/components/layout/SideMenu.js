@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { LatLng, setOptions } from "leaflet";
 import { useSession } from "@inrupt/solid-ui-react";
@@ -11,6 +11,8 @@ import LoadingSpinner from "../UI/LoadingSpinner";
 
 import UserSessionContext from "../../store/session-context";
 
+import Button from '@material-ui/core/Button';
+
 const SideMenu = ({ option, coords, handleOption }) => {
   const ctx = useContext(UserSessionContext);
 
@@ -22,6 +24,9 @@ const SideMenu = ({ option, coords, handleOption }) => {
 
   const [firstLoad, setFirstLoad] = React.useState(true);
   const [markersList, setMarkersList] = React.useState([]);
+
+  const [showOptions, setShowOptions] = useState(false);
+  const filterOptions = ['Other', 'Landscape', 'Monument', 'Shop', 'Bar'];
 
   const loadUserPodsMarkers = async () => {
     setMarkersList([]);
@@ -94,22 +99,34 @@ const SideMenu = ({ option, coords, handleOption }) => {
     }
   }, [ctx.selectedMarker]);
 
+
+  const filter = () => {
+    setShowOptions(!showOptions);
+  }
+
   return (
     <>
       <div className="d-flex justify-content-center align-items-center mx-4">
-        <button onClick="listFriends()">
+        <Button color="primary" variant = "contained" onClick="listFriends()">
           Listar amigos
-        </button>
+        </Button>
       </div>
       <div className="d-flex justify-content-center align-items-center mx-4">
-        <button onClick="filter()">
-          Filtrar
-        </button>
-      </div>
-      <div className="d-flex justify-content-center align-items-center mx-4">
-        <button onClick="myPoints()">
+        <Button color="primary" variant = "contained" onClick="myPoints()">
           Mis puntos
-        </button>
+        </Button>
+      </div>
+      <div className="d-flex justify-content-center align-items-center mx-4">
+        <Button color="primary" variant = "contained" onClick="filter()">
+          Filtrar por categoria
+          </Button>
+          {!showOptions &&
+            <select>
+              {filterOptions.map(option => (
+                <option key={option}> {option}</option>
+              ))}
+            </select>
+          }
       </div>
 
 
