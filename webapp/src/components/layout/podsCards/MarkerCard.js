@@ -12,7 +12,7 @@ const MarkerCard = ({ marker }) => {
   const rating_color = {
     color: "#fbc634",
   };
-
+  
   //const listScore = marker.score;
 
   const { session } = useSession(); // Hook for providing access to the session in the component
@@ -115,7 +115,9 @@ if (validScore) {
         <li className="list-group-item">Latitude: {marker.coords.lat}</li>
         <li className="list-group-item">Longitude: {marker.coords.lng}</li>
       </ul>
-
+      
+      {marker.id!=="" && marker.id!== undefined && (
+        <>
       <form onSubmit={formAddCommentHandler} className={styles.commentText}>
         <div className="commentText">
           <textarea
@@ -166,6 +168,9 @@ if (validScore) {
           </button>
         </div>
       </form>
+      </>
+      )}
+      
       
       {marker.comments !== undefined && marker.comments.length !== 0 && (
         <div className="card-body">
