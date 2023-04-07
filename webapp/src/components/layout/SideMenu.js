@@ -96,6 +96,23 @@ const SideMenu = ({ option, coords, handleOption }) => {
 
   return (
     <>
+      <div className="d-flex justify-content-center align-items-center mx-4">
+        <button onClick="listFriends()">
+          Listar amigos
+        </button>
+      </div>
+      <div className="d-flex justify-content-center align-items-center mx-4">
+        <button onClick="filter()">
+          Filtrar
+        </button>
+      </div>
+      <div className="d-flex justify-content-center align-items-center mx-4">
+        <button onClick="myPoints()">
+          Mis puntos
+        </button>
+      </div>
+
+
       {option === "userPods" && !loadedUserPods && (
         <div className="d-flex justify-content-center align-items-center h-100">
           <LoadingSpinner />
