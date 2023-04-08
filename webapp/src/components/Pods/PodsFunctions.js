@@ -60,13 +60,9 @@ async function checkIfPlacesFileExists(podUrl, session, marker, webId, mapId) {
 		//file exists
 		let file = await solid.getFile(podUrl, { fetch: session.fetch });
 		await addNewMarker(file, podUrl, session, marker, mapId);
-		//We update the permissions of the folder where we will store the markers
-		return await updatePermissions(session, webId);
 	} catch (error) {
 		//file doesn't exist
 		await createNewPlacesFile(podUrl, session, marker, mapId);
-		//We update the permissions of the folder where we will store the markers
-		return await updatePermissions(session, webId);
 	}
 }
 
@@ -289,16 +285,22 @@ export async function getFriendInfo(friendWebId, session) {
 }
 
 //Function that adds a new review Score to an specific location
-export async function addReviewScore(webId, session, score, idLocation, mapId = 1) {
-  if (score >= 0 && score <= 5) {
-    const fileUrl = webId.replace(
-      "/profile/card#me",
-      "/justforfriends7/locations.json"
-    );
-    let file = await solid.getFile(fileUrl, { fetch: session.fetch });
-    let jsonMarkers = JSON.parse(await file.text());
-    const x = getMapValue(jsonMarkers.maps, mapId);
-    const locations = jsonMarkers.maps[x].locations;
+export async function addReviewScore(
+	webId,
+	session,
+	score,
+	idLocation,
+	mapId = 1
+) {
+	if (score >= 0 && score <= 5) {
+		const fileUrl = webId.replace(
+			"/profile/card#me",
+			"/justforfriends7/locations.json"
+		);
+		let file = await solid.getFile(fileUrl, { fetch: session.fetch });
+		let jsonMarkers = JSON.parse(await file.text());
+		const x = getMapValue(jsonMarkers.maps, mapId);
+		const locations = jsonMarkers.maps[x].locations;
 
 		for (let i = 0; i < locations.length; i++) {
 			if (locations[i].id == idLocation) {
@@ -425,6 +427,8 @@ async function addNewFriend(webId, session, friendWebId) {
 				fetch: session.fetch,
 			});
 			console.log("New friend was added!");
+			//We update the permissions of the folder where we will store the markers
+			return await updatePermissions(session, webId);
 		}
 	} catch (error) {
 		console.log(error);
@@ -450,6 +454,8 @@ async function deleteFriend(webId, session, friendWebId) {
 				fetch: session.fetch,
 			});
 			console.log("Friend was removed!");
+			//We update the permissions of the folder where we will store the markers
+			return await updatePermissions(session, webId);
 		} else {
 			console.log("Friend doesn't exist!");
 		}
