@@ -107,17 +107,17 @@ const SideMenu = ({ option, coords, handleOption }) => {
   return (
     <>
       <div className="d-flex justify-content-center align-items-center mx-4">
-        <Button color="primary" variant = "contained" onClick="listFriends()">
+        <Button style={{ margin: '10px 0' }} color="primary" variant = "contained" onClick="listFriends()">
           Listar amigos
         </Button>
       </div>
       <div className="d-flex justify-content-center align-items-center mx-4">
-        <Button classname = "btn-margin" color="primary" variant = "contained" onClick="myPoints()">
+        <Button style={{ margin: '10px 0' }} color="primary" variant = "contained" onClick="myPoints()">
           Mis puntos
         </Button>
       </div>
       <div className="d-flex justify-content-center align-items-center mx-4">
-        <Button classname = "btn-margin" color="primary" variant = "contained" onClick="filter()">
+        <Button style={{ margin: '10px 0' }} color="primary" variant = "contained" onClick="filter()">
           Filtrar por categoria
           </Button>
           {!showOptions &&
