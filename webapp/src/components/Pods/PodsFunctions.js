@@ -60,13 +60,9 @@ async function checkIfPlacesFileExists(podUrl, session, marker, webId, mapId) {
 		//file exists
 		let file = await solid.getFile(podUrl, { fetch: session.fetch });
 		await addNewMarker(file, podUrl, session, marker, mapId);
-		//We update the permissions of the folder where we will store the markers
-		return await updatePermissions(session, webId);
 	} catch (error) {
 		//file doesn't exist
 		await createNewPlacesFile(podUrl, session, marker, mapId);
-		//We update the permissions of the folder where we will store the markers
-		return await updatePermissions(session, webId);
 	}
 }
 
@@ -188,7 +184,7 @@ async function givePermissionsToUser(friend, session, file, control) {
 async function updatePermissionsOfFile(session, webId) {
 	const fileUrl = webId.replace(
 		"/profile/card#me",
-		"/justforfriends7/locations.json"
+		"/justforfriends/locations.json"
 	);
 	//Get the friends of the user
 	const friends = await listFriends(webId);
@@ -256,13 +252,12 @@ async function updatePermissionsOfFolder(session, webId) {
 export async function listLocationsOfAUser(webId, session, mapId = 1) {
 	const podUrl = webId.replace(
 		"/profile/card#me",
-		"/justforfriends7/locations.json"
+		"/justforfriends/locations.json"
 	);
 	console.log(podUrl);
 
 	//We extract the file of the concrete user if exists
 	const file = await getPlacesFileAsJSON(podUrl, session);
-	console.log(file);
 	//We extract the map that we want to show locations of it
 	const i = getMapValue(file.maps, mapId);
 	//We obtain locations of that specific map
@@ -271,7 +266,7 @@ export async function listLocationsOfAUser(webId, session, mapId = 1) {
 }
 
 //Function that returns in JSON the username, name, surname and image of a friend
-async function getFriendInfo(friendWebId, session) {
+export async function getFriendInfo(friendWebId, session) {
 	try {
 		const friendDataset = await solid.getSolidDataset(friendWebId, {
 			fetch: session.fetch,
@@ -290,11 +285,17 @@ async function getFriendInfo(friendWebId, session) {
 }
 
 //Function that adds a new review Score to an specific location
-async function addReviewScore(webId, session, score, idLocation, mapId = 1) {
+export async function addReviewScore(
+	webId,
+	session,
+	score,
+	idLocation,
+	mapId = 1
+) {
 	if (score >= 0 && score <= 5) {
 		const fileUrl = webId.replace(
 			"/profile/card#me",
-			"/justforfriends7/locations.json"
+			"/justforfriends/locations.json"
 		);
 		let file = await solid.getFile(fileUrl, { fetch: session.fetch });
 		let jsonMarkers = JSON.parse(await file.text());
@@ -348,10 +349,16 @@ async function modifyScoresContent(
 }
 
 //Function that adds a new comment on a location that you specify
-export async function addComment(webId, session, comment, idLocation, mapId = 1) {
+export async function addComment(
+	webId,
+	session,
+	comment,
+	idLocation,
+	mapId = 1
+) {
 	const fileUrl = webId.replace(
 		"/profile/card#me",
-		"/justforfriends7/locations.json"
+		"/justforfriends/locations.json"
 	);
 	let file = await solid.getFile(fileUrl, { fetch: session.fetch });
 	let jsonMarkers = JSON.parse(await file.text());
@@ -420,6 +427,8 @@ async function addNewFriend(webId, session, friendWebId) {
 				fetch: session.fetch,
 			});
 			console.log("New friend was added!");
+			//We update the permissions of the folder where we will store the markers
+			return await updatePermissions(session, webId);
 		}
 	} catch (error) {
 		console.log(error);
@@ -445,10 +454,27 @@ async function deleteFriend(webId, session, friendWebId) {
 				fetch: session.fetch,
 			});
 			console.log("Friend was removed!");
+			//We update the permissions of the folder where we will store the markers
+			return await updatePermissions(session, webId);
 		} else {
 			console.log("Friend doesn't exist!");
 		}
 	} catch (error) {
 		console.log(error);
 	}
+}
+
+//Function that filters user's pod by category
+export async function filterByCategory(category, webId, session, mapId = 1) {
+	let placesFiltered = [];
+	//We get the locations file as a JSON
+	const locationsMap = await listLocationsOfAUser(webId, session, mapId);
+	//We filter the locations by category
+	for (let i = 0; i < locationsMap.length; i++) {
+		if (locationsMap[i].category == category) {
+			placesFiltered.push(locationsMap[i]); //we add the location to the array
+		}
+	}
+
+	return placesFiltered;
 }

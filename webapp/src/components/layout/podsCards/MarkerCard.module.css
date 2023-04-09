@@ -1,0 +1,146 @@
+.button {
+  font: inherit;
+  background-color: #3f51b5;
+  color: white;
+  border: 1px solid #3f51b5;
+  padding: 0.5rem 1.5rem;
+  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+    0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.800rem;
+  font-weight: 500;
+  line-height: 1.75;
+  letter-spacing: 0.02857em;
+  text-transform: uppercase;
+}
+
+.button:hover,
+.button:active {
+  background-color: #33059e;
+  border-color: #33059e;
+}
+
+.button:disabled,
+.button:disabled:hover,
+.button:disabled:active {
+  background-color: #ccc;
+  color: #292929;
+  border-color: #ccc;
+  cursor: not-allowed;
+}
+
+.commentText {
+  padding-top: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.commentTextArea {
+  position: relative;
+  resize: vertical;
+  height: 3.5rem;
+  min-height: 2rem;
+  max-height: 8rem;
+  min-width: 12rem;
+}
+
+@media (max-width: 900px) {
+  .commentText {
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .commentTextArea {
+    position: relative;
+    resize: vertical;
+    height: 3.5rem;
+    min-height: 2rem;
+    max-height: 8rem;
+    min-width: 8rem;
+    width: 8rem;
+  }
+
+}
+
+@media (max-width: 769px) {
+  .commentText {
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .commentTextArea {
+    position: relative;
+    resize: vertical;
+    width: 15rem;
+    height: 3.5rem;
+    min-height: 2rem;
+    max-height: 8rem;
+    min-width: 8rem;
+  }
+}
+
+@media (min-width:769px){
+  @media(max-width: 990px){
+    .scoreGroup{
+      flex-direction: column;
+    }
+    .rating{
+      padding-left: 2rem;
+    }
+  }
+}
+
+.scoreGroup {
+  padding-top: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rating {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  padding-right: 2.1rem;
+}
+
+.rating>input {
+  display: none
+}
+
+.rating>label {
+  position: relative;
+  width: 1em;
+  font-size: 30px;
+  font-weight: 300;
+  color: #FFD600;
+  cursor: pointer
+}
+
+.rating>label::before {
+  content: "\2605";
+  position: absolute;
+  opacity: 0
+}
+
+.rating>label:hover:before,
+.rating>label:hover~label:before {
+  opacity: 1 !important
+}
+
+.rating>input:checked~label:before {
+  opacity: 1
+}
+
+.rating:hover>input:checked~label:before {
+  opacity: 0.4
+}
+
+
+.stars {
+  padding-right: 2rem;
+}
+
