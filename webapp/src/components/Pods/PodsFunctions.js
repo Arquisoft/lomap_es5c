@@ -428,7 +428,7 @@ async function addNewFriend(webId, session, friendWebId) {
 			});
 			console.log("New friend was added!");
 			//We update the permissions of the folder where we will store the markers
-			return await updatePermissions(session, webId);
+			await updatePermissions(session, webId);
 		}
 	} catch (error) {
 		console.log(error);
@@ -455,7 +455,7 @@ async function deleteFriend(webId, session, friendWebId) {
 			});
 			console.log("Friend was removed!");
 			//We update the permissions of the folder where we will store the markers
-			return await updatePermissions(session, webId);
+			await updatePermissions(session, webId);
 		} else {
 			console.log("Friend doesn't exist!");
 		}
