@@ -74,21 +74,18 @@ const MarkerCard = ({ marker }) => {
 		resetScoreInput();
 	};
 
-	if (marker.score !== undefined) {
-		let listScore = marker.score;
-		let meanScore;
-		let acc = 0;
+  if(marker.score!== undefined){
+    let listScore = marker.score
+    let meanScore;
+    let acc = 0;
+    
+    for(var i=0;i<listScore.length; i++){
+      acc += Number(listScore[i].score);
+    };
+    meanScore =acc / listScore.length
 
-		for (var i = 0; i < listScore.length; i++) {
-			console.log("NOTA: " + listScore[i].score);
-			acc += Number(listScore[i].score);
-		}
-		console.log("SUMA NOTAS: " + acc);
-		meanScore = acc / listScore.length;
-
-		marker.rating = meanScore; // this should be obtained from the pod's rating
-		console.log(marker.rating);
-	}
+    marker.rating = meanScore; // this should be obtained from the pod's rating
+  }
 
 	// Remember to calculate the rating of the pod and pass it to the marker object (int number)
 	let stars = [];
@@ -150,23 +147,20 @@ const MarkerCard = ({ marker }) => {
 					</form>
 
 					<form onSubmit={formAddScoreHandler} className={styles.scoreGroup}>
-						<div
-							className={styles.stars}
-							id="stars"
-							onChange={scoreChangeHandler}
-							value={enteredScore}
-						>
-							<input type="radio" name="rating" id="star1" value="1" />
-							<label for="star1"></label>
-							<input type="radio" name="rating" id="star2" value="2" />
-							<label for="star2"></label>
-							<input type="radio" name="rating" id="star3" value="3" />
-							<label for="star3"></label>
-							<input type="radio" name="rating" id="star4" value="4" />
-							<label for="star4"></label>
-							<input type="radio" name="rating" id="star5" value="5" />
-							<label for="star5"></label>
-						</div>
+          <div className={styles.rating} id="stars"
+            onChange={scoreChangeHandler}
+            value={enteredScore}>
+            <input type="radio" name="rating" id="star5" value="5" />
+            <label for="star5">☆</label>
+            <input type="radio" name="rating" id="star4" value="4" />
+            <label for="star4">☆</label>
+            <input type="radio" name="rating" id="star3" value="3" />
+            <label for="star3">☆</label>
+            <input type="radio" name="rating" id="star2" value="2" />
+            <label for="star2">☆</label>
+            <input type="radio" name="rating" id="star1" value="1" />
+            <label for="star1">☆</label>
+          </div>
 
 						<div className={styles.commentButton}>
 							<button
