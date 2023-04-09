@@ -11,7 +11,7 @@ import LoadingSpinner from "../UI/LoadingSpinner";
 
 import UserSessionContext from "../../store/session-context";
 
-import Button from '@material-ui/core/Button';
+import FilterButton from "./FilterButton";
 
 const SideMenu = ({ option, coords, handleOption }) => {
   const ctx = useContext(UserSessionContext);
@@ -24,9 +24,6 @@ const SideMenu = ({ option, coords, handleOption }) => {
 
   const [firstLoad, setFirstLoad] = React.useState(true);
   const [markersList, setMarkersList] = React.useState([]);
-
-  const [showOptions, setShowOptions] = useState(false);
-  const filterOptions = ['Other', 'Landscape', 'Monument', 'Shop', 'Bar'];
 
   const loadUserPodsMarkers = async () => {
     setMarkersList([]);
@@ -87,6 +84,7 @@ const SideMenu = ({ option, coords, handleOption }) => {
     setFirstLoad(!firstLoad);
   };
 
+
   useEffect(() => {
     if (firstLoad) {
       loadUserPodsMarkers();
@@ -100,35 +98,13 @@ const SideMenu = ({ option, coords, handleOption }) => {
   }, [ctx.selectedMarker]);
 
 
-  const filter = () => {
-    setShowOptions(!showOptions);
-  }
 
   return (
     <>
-      <div className="d-flex justify-content-center align-items-center mx-4">
-        <Button style={{ margin: '10px 0' }} color="primary" variant = "contained" onClick="listFriends()">
-          Listar amigos
-        </Button>
-      </div>
-      <div className="d-flex justify-content-center align-items-center mx-4">
-        <Button style={{ margin: '10px 0' }} color="primary" variant = "contained" onClick="myPoints()">
-          Mis puntos
-        </Button>
-      </div>
-      <div className="d-flex justify-content-center align-items-center mx-4">
-        <Button style={{ margin: '10px 0' }} color="primary" variant = "contained" onClick="filter()">
-          Filtrar por categoria
-          </Button>
-          {!showOptions &&
-            <select>
-              {filterOptions.map(option => (
-                <option key={option}> {option}</option>
-              ))}
-            </select>
-          }
-      </div>
-
+      <FilterButton
+        title="Filtros"
+        content=""
+      />
 
       {option === "userPods" && !loadedUserPods && (
         <div className="d-flex justify-content-center align-items-center h-100">
