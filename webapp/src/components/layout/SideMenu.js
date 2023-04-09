@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { LatLng, setOptions } from "leaflet";
 import { useSession } from "@inrupt/solid-ui-react";
@@ -11,7 +11,10 @@ import LoadingSpinner from "../UI/LoadingSpinner";
 
 import UserSessionContext from "../../store/session-context";
 
+
 import FriendsList from "../Friends/FriendsList";
+import FilterButton from "./FilterButton";
+
 
 const SideMenu = ({ option, coords, handleOption }) => {
 	const ctx = useContext(UserSessionContext);
@@ -47,6 +50,7 @@ const SideMenu = ({ option, coords, handleOption }) => {
         ]);
       }
     });
+
 
 
 		// console.log(l);
@@ -109,6 +113,56 @@ const SideMenu = ({ option, coords, handleOption }) => {
 			{loadedUserPods &&
 				option === "userPods" &&
 				markersList.map((marker, i) => {
+    setLoaded(true);
+  };
+
+  const handleClick = () => {
+    setFirstLoad(!firstLoad);
+  };
+
+
+  useEffect(() => {
+    if (firstLoad) {
+      loadUserPodsMarkers();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (ctx.selectedMarker !== null) {
+      handleOption("markerInfo");
+    }
+  }, [ctx.selectedMarker]);
+
+
+
+  return (
+    <>
+      <FilterButton
+        title="Filtros"
+        content=""
+      />
+
+      {option === "userPods" && !loadedUserPods && (
+        <div className="d-flex justify-content-center align-items-center h-100">
+          <LoadingSpinner />
+        </div>
+      )}
+      {loadedUserPods &&
+        option === "userPods" &&
+        markersList.map((marker, i) => {
+          return <MarkerCard key={i} marker={marker} />;
+        })}
+      {option === "create" && (
+        <PodCreateForm coords={coords} close={handleOption} />
+      )}
+      {option === "read" && !loaded && (
+        <div className="d-flex justify-content-center align-items-center h-100">
+          <LoadingSpinner />
+        </div>
+      )}
+      {option === "read" &&
+        loaded &&
+        markersList.map((marker, i) => {
           return <MarkerCard key={i} marker={marker} />;
 				})}
 			{option === "create" && (
