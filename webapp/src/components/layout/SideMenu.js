@@ -102,38 +102,7 @@ const SideMenu = ({ option, coords, handleOption }) => {
 			handleOption("markerInfo");
 		}
 	}, [ctx.selectedMarker]);
-
-	return (
-		<>
-			{option === "userPods" && !loadedUserPods && (
-				<div className="d-flex justify-content-center align-items-center h-100">
-					<LoadingSpinner />
-				</div>
-			)}
-			{loadedUserPods &&
-				option === "userPods" &&
-				markersList.map((marker, i) => {
-    setLoaded(true);
-  };
-
-  const handleClick = () => {
-    setFirstLoad(!firstLoad);
-  };
-
-
-  useEffect(() => {
-    if (firstLoad) {
-      loadUserPodsMarkers();
-    }
-  }, []);
-
-  useEffect(() => {
-    if (ctx.selectedMarker !== null) {
-      handleOption("markerInfo");
-    }
-  }, [ctx.selectedMarker]);
-
-
+			
 
   return (
     <>
@@ -143,10 +112,11 @@ const SideMenu = ({ option, coords, handleOption }) => {
       />
 
       {option === "userPods" && !loadedUserPods && (
-        <div className="d-flex justify-content-center align-items-center h-100">
-          <LoadingSpinner />
-        </div>
-      )}
+				<div className="d-flex justify-content-center align-items-center h-100">
+					<LoadingSpinner />
+				</div>
+			)}
+
       {loadedUserPods &&
         option === "userPods" &&
         markersList.map((marker, i) => {
