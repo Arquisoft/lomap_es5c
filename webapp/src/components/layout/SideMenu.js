@@ -13,6 +13,8 @@ import UserSessionContext from "../../store/session-context";
 
 import FriendsList from "../Friends/FriendsList";
 
+import FilterButton from "./FilterButton";
+
 const SideMenu = ({ option, coords, handleOption }) => {
 	const ctx = useContext(UserSessionContext);
 
@@ -101,6 +103,11 @@ const SideMenu = ({ option, coords, handleOption }) => {
 
 	return (
 		<>
+
+			<FilterButton
+        		title="Filters"
+        		content=""
+      		/>
 			{option === "userPods" && !loadedUserPods && (
 				<div className="d-flex justify-content-center align-items-center h-100">
 					<LoadingSpinner />
