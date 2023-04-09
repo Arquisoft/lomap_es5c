@@ -295,7 +295,7 @@ export async function addReviewScore(
 	if (score >= 0 && score <= 5) {
 		const fileUrl = webId.replace(
 			"/profile/card#me",
-			"/justforfriends7/locations.json"
+			"/justforfriends/locations.json"
 		);
 		let file = await solid.getFile(fileUrl, { fetch: session.fetch });
 		let jsonMarkers = JSON.parse(await file.text());

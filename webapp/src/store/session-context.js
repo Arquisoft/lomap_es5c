@@ -42,6 +42,7 @@ export const UserSessionProvider = ({ children }) => {
             description: place[i].description,
             category: place[i].category,
             comments: place[i].comments,
+            score: place[i].reviewScores
           },
         ]);
       }

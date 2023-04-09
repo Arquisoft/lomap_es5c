@@ -73,6 +73,8 @@ const SideMenu = ({ option, coords, handleOption }) => {
 						coords: new LatLng(place[i].latitude, place[i].longitude),
 						description: place[i].description,
 						category: place[i].category,
+						comments: place[i].comments,
+            			score: place[i].reviewScores
 					},
 				]);
 			}
