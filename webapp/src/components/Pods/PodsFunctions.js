@@ -157,6 +157,8 @@ export async function insertNewMarker(
 	//Remove this if we implement multiple maps on the app
 	const mapId = 1;
 
+	console.log(await filterByCategory("landscape", webId, session, mapId));
+
 	//Check if is a new user or not -> creates a new places file if it is new OR adds the marker if exists
 	return await checkIfPlacesFileExists(podUrl, session, marker, webId, mapId);
 }
@@ -462,4 +464,19 @@ async function deleteFriend(webId, session, friendWebId) {
 	} catch (error) {
 		console.log(error);
 	}
+}
+
+//Function that filters user's pod by category
+export async function filterByCategory(category, webId, session, mapId = 1) {
+	let placesFiltered = [];
+	//We get the locations file as a JSON
+	const locationsMap = await listLocationsOfAUser(webId, session, mapId);
+	//We filter the locations by category
+	for (let i = 0; i < locationsMap.length; i++) {
+		if (locationsMap[i].category == category) {
+			placesFiltered.push(locationsMap[i]); //we add the location to the array
+		}
+	}
+
+	return placesFiltered;
 }
