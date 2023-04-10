@@ -73,19 +73,87 @@ const About = () => {
 
   const data = [jonathan, edu, laura, fer, xin];
 
-  useEffect(() => {
-    console.log("About:", window.localStorage.getItem("webId"));
-  }, []);
-
   return (
-    <div className={styles.main_container}>
-      <h1 className={styles.h1}>LoMap team ⭐️</h1>
-      <div className={styles.info_container}>
-        {data.map((component, i) => (
-          <UserCard key={i} user={component}></UserCard>
-        ))}
+    <React.Fragment>
+      <div className="container-fluid py-2" style={{ height: "100%" }}>
+        <h1 className={styles.h1}>LoMap team ⭐️</h1>
+        <div
+          className="d-flex flex-row flex-nowrap justify-self-center"
+          style={{ overflowX: "auto", overflowY: "hidden", height: "100%" }}
+        >
+          {data.map((user, i) => (
+            <div
+              key={i}
+              className="card card-body"
+              style={{
+                borderRadius: "15px",
+                minHeight: "550px",
+                maxHeight: "550px",
+                minWidth: "350px",
+                maxWidth: "350px",
+                boxShadow: "0 0 20px 0 rgba(0, 0, 0, 0.1)",
+                marginRight: "10px",
+              }}
+            >
+              <div className="card-body text-center">
+                <div className="mt-3 mb-4">
+                  <img
+                    src={require(`../../images/${user.alt}.png`)}
+                    alt={user.alt}
+                    className="rounded-circle img-fluid"
+                    style={{
+                      width: "150px",
+                      height: "150px",
+                    }}
+                  />
+                </div>
+                <div style={{ minHeight: "225px", maxHeight: "300px" }}>
+                  <h4 className="mb-2">{user.username}</h4>
+                  <p className="text-muted mb-0">{user.userTitle}</p>
+                  <p className="text-muted mb-0">{user.description}</p>
+                  <p className="text-muted">{user.mail}</p>
+                </div>
+                <div className="mb-4 pb-2">
+                  <a href={user.githubLink}>
+                    <button
+                      type="button"
+                      className="btn btn-outline-primary btn-floating"
+                    >
+                      <i className="fab fa-github fa-lg"></i>
+                    </button>
+                  </a>
+                  <a href={user.linkedinLink}>
+                    <button
+                      type="button"
+                      className="btn btn-outline-primary btn-floating mx-2"
+                    >
+                      <i className="fab fa-linkedin-in fa-lg"></i>
+                    </button>
+                  </a>
+                  <a href={user.twitterLink}>
+                    <button
+                      type="button"
+                      className="btn btn-outline-primary btn-floating"
+                    >
+                      <i className="fab fa-twitter fa-lg"></i>
+                    </button>
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </React.Fragment>
+
+    // <div classNameName={styles.main_container}>
+    //   <h1 className={styles.h1}>LoMap team ⭐️</h1>
+    //   <div className={styles.info_container}>
+    //     {data.map((component, i) => (
+    //       <UserCard key={i} user={component}></UserCard>
+    //     ))}
+    //   </div>
+    // </div>
   );
 };
 

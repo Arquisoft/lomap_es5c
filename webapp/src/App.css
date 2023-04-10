@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+.dark h1 {
+  color: #fff;
+}
+
+.ligh h1 {
+  color: #000;
+}

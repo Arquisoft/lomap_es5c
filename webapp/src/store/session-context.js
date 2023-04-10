@@ -25,9 +25,7 @@ export const UserSessionProvider = ({ children }) => {
 
   const handleSessionWebId = (webId) => {
     window.localStorage.setItem("webId", webId);
-    console.log("WebId: " + webId);
     setWebId(webId);
-    console.log("WebId: " + webId);
   };
 
   const handleMarkers = (newMarkers) => {
