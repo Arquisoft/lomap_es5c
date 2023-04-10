@@ -29,9 +29,6 @@ const filter = () => {
     setInfo("Que pasa aqui");
 }
 
-function listFriends() {
-  return <div className="new-card"> These are your friends</div>;
-}
 
 const handleButtonFriendsClick = () => {
   setShowFriendsCard(true);
@@ -48,7 +45,7 @@ return (
             <Button style={{ margin: '10px 0' }} color="primary" variant = "contained" onClick={handleButtonFriendsClick}>
               My friends
             </Button>
-            {showFriendsCard && <listFriends />}
+            {showFriendsCard && <ListFriends />}
           </div>
         <div className="d-flex justify-content-center align-items-center mx-4">
           <Button style={{ margin: '10px 0' }} color="primary" variant = "contained" onClick="myPoints()">
@@ -80,5 +77,14 @@ return (
 );
 
 };
+
+function ListFriends() {
+  return (
+    <div>
+      <h2>Información adicional</h2>
+      <p>Aquí va la información adicional que quieres mostrar.</p>
+    </div>
+  );
+}
 
 export default Card;
