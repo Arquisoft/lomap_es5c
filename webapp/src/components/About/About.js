@@ -62,17 +62,17 @@ const About = () => {
 		linkedinLink: "https://www.linkedin.com/in/fer-glez-869844236/",
 	};
 
-	const xin = {
-		alt: "xin",
-		width: "10%",
-		username: "Chen Xin Pan Wang",
-		userTitle: t("About.xin.userTitle"),
-		description: t("About.jonathan.description"),
-		mail: "uo276967",
-		githubLink: "https://github.com/iimxinn",
-		twitterLink: "https://twitter.com/iimxinn",
-		linkedinLink: "https://www.linkedin.com/in/chen-xin-pan-wang-4b5939233/",
-	};
+  const xin = {
+    alt: "xin",
+    width: "10%",
+    username: "Chen Xin Pan Wang",
+    userTitle: t("About.xin.userTitle"),
+    description: t("About.xin.description"),
+    mail: "uo276967",
+    githubLink: "https://github.com/iimxinn",
+    twitterLink: "https://twitter.com/iimxinn",
+    linkedinLink: "https://www.linkedin.com/in/chen-xin-pan-wang-4b5939233/",
+  };
 
 	const data = [jonathan, edu, laura, fer, xin];
 

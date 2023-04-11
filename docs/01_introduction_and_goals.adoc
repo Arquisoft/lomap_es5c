@@ -111,6 +111,7 @@ Table with role names, person names, and their expectations with respect to the 
 |Jonathan Arias Busto|uo283586@uniovi.es| Learn new skills and learn how to work as a team on big projects
 |Laura Cordero Castrillo|uo275955@uniovi.es| Build a useful app and learn new technologies
 |Fernando José González Sierra|uo277938@uniovi.es|Learn new frontend skills and build a nice app
+|Chen Xin Pan Wang|uo276967@uniovi.es|Learn some new technologies and work in a good team
 |Cristian Augusto|augustocristian@uniovi.es|A full functional and decentralized app
 |Irene Cid|cidirene@uniovi.es|A full functional and decentralized app
 |===
