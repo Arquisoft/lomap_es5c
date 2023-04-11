@@ -67,7 +67,7 @@ const About = () => {
     width: "10%",
     username: "Chen Xin Pan Wang",
     userTitle: t("About.xin.userTitle"),
-    description: t("About.jonathan.description"),
+    description: t("About.xin.description"),
     mail: "uo276967",
     githubLink: "https://github.com/iimxinn",
     twitterLink: "https://twitter.com/iimxinn",
