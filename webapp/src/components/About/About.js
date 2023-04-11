@@ -5,7 +5,7 @@ import UserCard from "./UserCard";
 import styles from "./About.module.css";
 
 import UserSessionContext from "../../store/session-context";
-import {useTranslation} from "react-i18next"
+import {useTranslation} from "react-i18next";
 
 const About = () => {
   const ctx = useContext(UserSessionContext);

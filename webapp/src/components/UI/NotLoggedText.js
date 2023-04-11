@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 
 import styles from "./NotLoggedText.module.css";
+import {useTranslation} from "react-i18next";
 
 // This component is used when the user is not logged in
 const NotLoggedText = () => {
+  const[t, i18n] = useTranslation("translation");
   return (
     <div className={styles.notLoggedTextContainer}>
-      <p>Not logged, please login!</p>
+      <p>{t("NotLoggedText")}</p>
 
       {/* <div className={styles.waviy}>
         <span style={{ "--i": 1 }}>N</span>

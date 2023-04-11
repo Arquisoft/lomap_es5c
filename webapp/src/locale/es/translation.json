@@ -61,5 +61,12 @@
         },
         "submit": "Crear",
         "error-submit": "¡Error al crear el lugar! Por inténtelo más tarde."
+    },
+
+    "NotLoggedText": "¡No has iniciado sesión! Por favor, inicia sesión",
+
+    "LoginButton":{
+        "in":"Iniciar Sesión",
+        "out": "Cerrar Sesión"
     }
 }

@@ -61,5 +61,12 @@
         },
         "submit": "Create",
         "error-submit": "Error creating location! Please try again later"
+    },
+
+    "NotLoggedText": "Not logged, please login!",
+
+    "LoginButton":{
+        "in":"Login",
+        "out": "Logout"
     }
 }
