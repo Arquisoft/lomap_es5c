@@ -1,12 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 
 import styles from "./NotLoggedText.module.css";
+import UserSessionContext from "../../store/session-context";
+
+// display: flex;
+//   align-items: center;
+//   justify-content: center;
+/* margin-top: 5rem; */
 
 // This component is used when the user is not logged in
 const NotLoggedText = () => {
+  const ctx = useContext(UserSessionContext);
+
+  let styleText = ctx.pageStyle === "light" ? "#000" : "#fff";
+
   return (
-    <div className={styles.notLoggedTextContainer}>
-      <p>Not logged, please login!</p>
+    <div
+      className="d-flex justify-content-center align-items-center"
+      style={{ height: "80%" }}
+    >
+      <p
+        className="text-center"
+        style={{ fontSize: "2rem", fontWeight: 550, color: styleText }}
+      >
+        Not logged, please login!
+      </p>
 
       {/* <div className={styles.waviy}>
         <span style={{ "--i": 1 }}>N</span>

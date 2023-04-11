@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useDebugValue, useEffect } from "react";
 
 import styles from "./Layout.module.css";
 import MainNavigation from "./MainNavigation";
@@ -14,11 +14,19 @@ const Layout = ({ isLoggedIn }) => {
   const [style, setStyle] = React.useState("dark");
 
   const handleStyle = () => {
-    console.log("handleStyle");
     setIsChecked(!isChecked);
     setStyle(style === "dark" ? "light" : "dark");
     ctx.handleStyle(style === "dark" ? "light" : "dark");
+    window.localStorage.setItem(
+      "themeStyle",
+      style === "dark" ? "light" : "dark"
+    );
   };
+
+  useEffect(() => {
+    setStyle(ctx.pageStyle);
+    setIsChecked(ctx.pageStyle === "dark" ? true : false);
+  }, [ctx.pageStyle]);
 
   const backgroundStyle = {
     backgroundColor: style === "dark" ? "#212529" : "#f8f9fa",
@@ -27,6 +35,9 @@ const Layout = ({ isLoggedIn }) => {
   return (
     <div
       style={{
+        // height: "100%",
+        // maxHeight: "100%",
+        // minHeight: "100vh",
         height: "100vh",
         backgroundColor: backgroundStyle.backgroundColor,
       }}
@@ -43,7 +54,14 @@ const Layout = ({ isLoggedIn }) => {
         />
       </div>
       {/* <main className={styles.main}> */}
-      <div style={{ height: "91%", backgroundStyle }}>
+      <div
+        style={{
+          // maxHeight: "90vh",
+          minHeight: "90vh",
+          height: "max-content",
+          backgroundColor: backgroundStyle.backgroundColor,
+        }}
+      >
         <Outlet />
       </div>
       {/* <Footer themeStyle={style} /> */}

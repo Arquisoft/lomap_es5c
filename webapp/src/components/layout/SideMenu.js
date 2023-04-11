@@ -23,6 +23,7 @@ const SideMenu = ({ option, coords, handleOption }) => {
 
   const [loaded, setLoaded] = React.useState(false);
   const [loadedUserPods, setLoadedUserPods] = React.useState(false);
+  const [loadedFriends, setLoadedFriends] = React.useState(false);
 
   const { session } = useSession(); // Hook for providing access to the session in the component
   const { webId } = session.info; // User's webId
@@ -53,7 +54,6 @@ const SideMenu = ({ option, coords, handleOption }) => {
       }
     });
 
-    // console.log(l);
     ctx.handleMarkers(locations); // we add the markers to the context
     setLoadedUserPods(true);
     setFirstLoad(false);
@@ -103,6 +103,11 @@ const SideMenu = ({ option, coords, handleOption }) => {
     }
   }, [ctx.selectedMarker]);
 
+  let styleButton =
+    ctx.pageStyle === "light"
+      ? "btn-close mx-3 mt-2"
+      : "btn-close mx-3 mt-2 btn-close-white";
+
   return (
     <>
       <OptionsMenu
@@ -116,8 +121,14 @@ const SideMenu = ({ option, coords, handleOption }) => {
         </div>
       )}
       {loadedUserPods &&
+        ctx.filteredMarkers.length === 0 &&
         option === "userPods" &&
         markersList.map((marker, i) => {
+          return <MarkerCard key={i} marker={marker} />;
+        })}
+      {option === "userPods" &&
+        ctx.filteredMarkers.length > 0 &&
+        ctx.filteredMarkers.map((marker, i) => {
           return <MarkerCard key={i} marker={marker} />;
         })}
       {option === "create" && (
@@ -128,8 +139,30 @@ const SideMenu = ({ option, coords, handleOption }) => {
           <LoadingSpinner />
         </div>
       )}
-      {option === "friends" && <FriendsList close={handleOption} />}
       {option === "friends" && (
+        <>
+          <div className="d-flex justify-content-end">
+            <button
+              type="button"
+              // className="btn-close mx-3 mt-2"
+              className={styleButton}
+              style={{ fontSize: "1rem" }}
+              aria-label="Close"
+              onClick={() => {
+                handleOption("userPods");
+                ctx.handleSelectedMarker(null);
+              }}
+            ></button>
+          </div>
+          <FriendsList
+            close={handleOption}
+            handleLoad={(opt) => {
+              setLoadedFriends(opt);
+            }}
+          />
+        </>
+      )}
+      {option === "friends" && !loadedFriends && (
         <div className="d-flex justify-content-center align-items-center h-100">
           <LoadingSpinner />
         </div>
@@ -144,11 +177,11 @@ const SideMenu = ({ option, coords, handleOption }) => {
           <div className="d-flex justify-content-end">
             <button
               type="button"
-              className="btn-close mx-3 mt-2"
+              // className="btn-close mx-3 mt-2"
+              className={styleButton}
               style={{ fontSize: "1rem" }}
               aria-label="Close"
               onClick={() => {
-                console.log("close");
                 handleOption("userPods");
                 ctx.handleSelectedMarker(null);
               }}
@@ -157,7 +190,24 @@ const SideMenu = ({ option, coords, handleOption }) => {
           <MarkerCard marker={ctx.selectedMarker} />
         </>
       )}
-      {option === "filter" && <FilterCard />}
+      {option === "filter" && (
+        <>
+          <div className="d-flex justify-content-end my-2">
+            <button
+              type="button"
+              // className="btn-close mx-3 mt-2"
+              className={styleButton}
+              style={{ fontSize: "1rem" }}
+              aria-label="Close"
+              onClick={() => {
+                handleOption("userPods");
+                ctx.handleSelectedMarker(null);
+              }}
+            ></button>
+          </div>
+          <FilterCard />
+        </>
+      )}
     </>
   );
 };

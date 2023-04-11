@@ -98,7 +98,7 @@ const MarkerCard = ({ marker }) => {
   }
 
   return (
-    <div className="card my-2 mx-2 ">
+    <div className="card my-2 mx-2">
       <img
         className="card-img-top mt-2 mx-2"
         src={img}
@@ -106,9 +106,16 @@ const MarkerCard = ({ marker }) => {
         style={{ maxWidth: "100px" }}
       />
       <div className="card-body">
-        <h1 className="card-title">{marker.title}</h1>
+        <h1 className="card-title" style={{ color: "#000" }}>
+          {marker.title}
+        </h1>
         {marker.description !== "" && (
-          <p className="card-text">{marker.description}</p>
+          <p className="card-text" style={{ marginBottom: 0 }}>
+            {marker.description}
+          </p>
+        )}
+        {marker.id !== "" && marker.id !== undefined && (
+          <div className="mt-2 ratings">Rating: {stars}</div>
         )}
       </div>
       {marker.category !== "" && marker.category !== undefined && (
@@ -154,15 +161,15 @@ const MarkerCard = ({ marker }) => {
               value={enteredScore}
             >
               <input type="radio" name="rating" id="star5" value="5" />
-              <label for="star5">☆</label>
+              <label htmlFor="star5">☆</label>
               <input type="radio" name="rating" id="star4" value="4" />
-              <label for="star4">☆</label>
+              <label htmlFor="star4">☆</label>
               <input type="radio" name="rating" id="star3" value="3" />
-              <label for="star3">☆</label>
+              <label htmlFor="star3">☆</label>
               <input type="radio" name="rating" id="star2" value="2" />
-              <label for="star2">☆</label>
+              <label htmlFor="star2">☆</label>
               <input type="radio" name="rating" id="star1" value="1" />
-              <label for="star1">☆</label>
+              <label htmlFor="star1">☆</label>
             </div>
 
             <div className={styles.commentButton}>
@@ -199,9 +206,6 @@ const MarkerCard = ({ marker }) => {
             );
           })}
         </div>
-      )}
-      {marker.id !== "" && marker.id !== undefined && (
-        <div className="card-body ratings">{stars}</div>
       )}
     </div>
   );

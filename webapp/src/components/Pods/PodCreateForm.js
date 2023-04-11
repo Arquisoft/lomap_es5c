@@ -96,12 +96,10 @@ const PodCreateForm = ({ coords, saveData, close }) => {
     event.preventDefault();
     //Check validity and log in case of error
     if (!validTitle) {
-      console.log("Title is invalid");
       return;
     }
 
     if (!validDescription) {
-      console.log("Description is invalid");
       return;
     }
 
@@ -126,7 +124,6 @@ const PodCreateForm = ({ coords, saveData, close }) => {
   }
 
   function failure(error) {
-    console.log(error);
     setCorrectPointCreation(false);
     //setShowForm(true);
   }
@@ -137,10 +134,6 @@ const PodCreateForm = ({ coords, saveData, close }) => {
     resetCategoryInput();
     setCorrectPointCreation(true);
   }, [coords]);
-
-  useEffect(() => {
-    console.log(coords);
-  }, []);
 
   const closeForm = () => {
     close("userPods");
