@@ -1,0 +1,76 @@
+{
+    "About":{
+            "jonathan":{
+                "userTitle": "React developer",
+                "description": "Student and frontend developer"
+            },
+            "laura":{
+                "userTitle": "Java Developer",
+                "description": "Student and Java developer"
+            },
+            "edu":{
+                "userTitle": "Linux administrator",
+                "description": "Student and cibersecurity lover"
+            },
+            "fer":{
+                "userTitle": "Backend developer",
+                "description": "Student and backend enthusiast"
+            },
+            "xin":{
+                "userTitle": "Software Developer",
+                "description": "Stackoverflow lover"
+            },
+            "title":"LoMap team ⭐️"
+        },
+    
+    "Menu":{
+        "home": "HOME",
+        "about": "ABOUT"
+    },
+
+    "FriendsList":{
+        "list": "List of friends"
+    },
+
+    "MarkerCard":{
+        "comment": "Comment",
+        "score": "Score",
+        "inComm":{
+            "title": "Comments",
+            "by": "By: ",
+            "on": "on "
+        },
+        "lat": "Latitude:",
+        "long": "Longitude:",
+        "rating": "Rating: "
+    },
+
+    "LocateMarkers":{
+        "here": "You are here"
+    },
+
+    "PodCreateForm":{
+        "create": "Create location",
+        "title": "Title",
+        "error-title": "Title not valid!",
+        "description": "Description",
+        "error-descrp": "Description not valid!",
+        "category":{
+            "title":"Category",
+            "landscape": "Landscape",
+            "monument": "Monument",
+            "shop": "Shop",
+            "bar": "Bar",
+            "other": "Other"
+        },
+        "submit": "Create",
+        "error-submit": "Error creating location! Please try again later"
+    },
+
+    "NotLoggedText": "Not logged, please login!",
+
+    "LoginButton":{
+        "in":"Login",
+        "out": "Logout"
+    }
+}

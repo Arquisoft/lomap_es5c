@@ -22,6 +22,7 @@ import { listLocationsOfAUser } from "../Pods/PodsFunctions";
 import { addComment } from "../Pods/PodsFunctions";
 
 import UserSessionContext from "../../store/session-context";
+import {useTranslation} from "react-i18next"
 
 function LocationMarkers({ coords, markerEvent }) {
 	const ctx = useContext(UserSessionContext);
@@ -181,6 +182,8 @@ function LocationMarkers({ coords, markerEvent }) {
 		},
 	});
 
+	const[t, i18n] = useTranslation("translation");
+
 	// FOR PODS ------------------------------------------
 
 	//Function to save a new place into user's pod
@@ -211,7 +214,7 @@ function LocationMarkers({ coords, markerEvent }) {
 						setInitial(false);
 						getCurrentCityName(e.latlng.lat, e.latlng.lng);
 						ctx.handleSelectedMarker({
-							title: "You are here",
+							title: t("LocateMarkers.here"),
 							coords: e.latlng,
 						});
 					},

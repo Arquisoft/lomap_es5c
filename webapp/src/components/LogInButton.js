@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { LoginButton, LogoutButton } from "@inrupt/solid-ui-react";
 import Button from "react-bootstrap/Button";
+import {useTranslation} from "react-i18next";
 
 import {
   handleIncomingRedirect,
@@ -19,19 +20,21 @@ const LogInButton = ({ isLoggedIn }) => {
     setCurrentUrl(window.location.href);
   }, [setCurrentUrl]);
 
+  const[t, i18n] = useTranslation("translation");
+
   return (
     <>
       {!isLoggedIn ? (
         // <LoginButton oidcIssuer={idp} redirectUrl={currentUrl}>
         <LoginButton oidcIssuer={idp} redirectUrl={currentUrl}>
           <Button variant="primary" className="mx-4">
-            LOGIN
+            {t("LoginButton.in")}
           </Button>
         </LoginButton>
       ) : (
         <LogoutButton>
           <Button variant="danger" className="mx-4">
-            LOGOUT
+          {t("LoginButton.out")}
           </Button>
         </LogoutButton>
       )}
