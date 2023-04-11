@@ -1,15 +1,27 @@
 import {render} from "@testing-library/react";
-import Layout from "../../components/layout/Layout";
+import Layout from "../../components/layout/Layout"; 
+import { I18nextProvider } from "react-i18next";
+import i18n from "i18next";
 
+test("The layout of the page is rendered and charged in english", async () => {
+    i18n.changeLanguage("en");
+    const {getByText} = render(<Layout/>);
+    expect(getByText('LoMap')).toBeInTheDocument();
+    expect(getByText('HOME')).toBeInTheDocument();
+    expect(getByText('ABOUT')).toBeInTheDocument();
+    expect(getByText('LOGIN')).toBeInTheDocument();
+});
 
-/*describe(NotLoggedText, () => {
-    it("The phrase saying that you need to log in to start is correct", () => {
-        const NotLoggedText = render(<NotLoggedText/>)
-        expect(NotLoggedText.container).toHaveTextContent('Not logged, please login!')
-    })
-})*/
+test("The layout of the page is rendered and charged in spanish", async() => {
+    i18n.changeLanguage("es");
+    const {getByText} = render(
+        <I18nextProvider i18n={i18n}>
+            <Layout/>
+        </I18nextProvider>
+    );
 
-test("The phrase saying that you need to log in to start is correct", async () => {
-    const {container} = render(<Layout/>);
-    expect(getByText('Not logged, please login!')).toBeInTheDocument();
+    expect(getByText('LoMap')).toBeInTheDocument();
+    expect(getByText('INICIO')).toBeInTheDocument();
+    expect(getByText('NOSOTROS')).toBeInTheDocument();
+    expect(getByText('INICIAR SESIÓN')).toBeInTheDocument();
 });
