@@ -2,7 +2,6 @@
   "name": "pods-ejemplo",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
   "dependencies": {
     "@inrupt/lit-generated-vocab-common": "^0.3.11",
     "@inrupt/solid-client": "^1.25.2",
