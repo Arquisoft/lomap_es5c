@@ -14,6 +14,7 @@ import i18n from "i18next";
 
 //It is in english by default
 test("The phrase saying that you need to log in to start is correct and by default in english", async () => {
+    i18n.changeLanguage("en");
     const {getByText} = render(<NotLoggedText/>);
     expect(getByText('Not logged, please login!')).toBeInTheDocument();
 });
