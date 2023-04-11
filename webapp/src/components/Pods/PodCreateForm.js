@@ -118,7 +118,7 @@ const PodCreateForm = ({ coords, saveData, close }) => {
     console.log("TODO BIEN: " + resultado);
     setCorrectPointCreation(true);
     // TODO: maybe update the whole list of markers and not just the one that we have created
-    
+
     // Reset input fields
     resetTitleInput();
     resetDescriptionInput();
@@ -149,7 +149,7 @@ const PodCreateForm = ({ coords, saveData, close }) => {
   return (
     <React.Fragment>
       {/* <div className={styles.mainContainer}> */}
-      <div className={styles.infoContainer}>
+      <div className={`mx-2 ${styles.infoContainer}`}>
         <div className="d-flex justify-content-end">
           <button
             type="button"
@@ -160,8 +160,8 @@ const PodCreateForm = ({ coords, saveData, close }) => {
           ></button>
         </div>
         <h4 className={styles.header}>Create location</h4>
-        <form onSubmit={formSubmissionHandler}>
-          <div className="control-group">
+        <form style={{ overflow: "auto" }} onSubmit={formSubmissionHandler}>
+          <div className="control-group" style={{ overflow: "auto" }}>
             <div className={titleInputClasses}>
               <label htmlFor="title">Title</label>
               <input
