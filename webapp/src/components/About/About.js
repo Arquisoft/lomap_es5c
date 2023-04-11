@@ -82,7 +82,7 @@ const About = () => {
 
   return (
     <div className={styles.main_container}>
-      <h1 className={styles.h1}>LoMap team ⭐️</h1>
+      <h1 className={styles.h1}>{t("About.title")}</h1>
       <div className={styles.info_container}>
         {data.map((component, i) => (
           <UserCard key={i} user={component}></UserCard>

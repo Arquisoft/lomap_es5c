@@ -21,5 +21,45 @@
                 "description": "Stackoverflow lover"
             },
             "title":"LoMap team ⭐️"
+        },
+    
+    "Menu":{
+        "home": "HOME",
+        "about": "ABOUT"
+    },
+
+    "FriendsList":{
+        "list": "List of friends"
+    },
+
+    "MarkerCard":{
+        "comment": "Comment",
+        "score": "Score",
+        "inComm":{
+            "by": "By: ",
+            "on": "on "
         }
+    },
+
+    "LocateMarkers":{
+        "here": "You are here"
+    },
+
+    "PodCreateForm":{
+        "create": "Create location",
+        "title": "Title",
+        "error-title": "Title not valid!",
+        "description": "Description",
+        "error-descrp": "Description not valid!",
+        "category":{
+            "title":"Category",
+            "landscape": "Landscape",
+            "monument": "Monument",
+            "shop": "Shop",
+            "bar": "Bar",
+            "other": "Other"
+        },
+        "submit": "Create",
+        "error-submit": "Error creating location! Please try again later"
+    }
 }

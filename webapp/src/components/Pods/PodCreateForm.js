@@ -5,8 +5,12 @@ import styles from "./PodCreateForm.module.css";
 import useInput from "../../hooks/use-input";
 import { insertNewMarker } from "../Pods/PodsFunctions";
 import { useSession } from "@inrupt/solid-ui-react";
+import {useTranslation} from "react-i18next"
 
 const PodCreateForm = ({ coords, saveData, close }) => {
+
+  const[t, i18n] = useTranslation("translation");
+
   const { session } = useSession(); // Hook for providing access to the session in the component
   const { webId } = session.info; // User's webId
   //Url of the places that user has on his pod
@@ -159,11 +163,11 @@ const PodCreateForm = ({ coords, saveData, close }) => {
             onClick={closeForm}
           ></button>
         </div>
-        <h4 className={styles.header}>Create location</h4>
+        <h4 className={styles.header}>{t("PodCreateForm.create")}</h4>
         <form onSubmit={formSubmissionHandler}>
           <div className="control-group">
             <div className={titleInputClasses}>
-              <label htmlFor="title">Title</label>
+              <label htmlFor="title">{t("PodCreateForm.title")}</label>
               <input
                 type="text"
                 id="title"
@@ -172,12 +176,12 @@ const PodCreateForm = ({ coords, saveData, close }) => {
                 value={enteredTitle}
               />
               {titleInputHasError && (
-                <p className="error-text">Title not valid!</p>
+                <p className="error-text">{t("PodCreateForm.error-title")}</p>
               )}
             </div>
 
             <div className={descriptionInputClasses}>
-              <label htmlFor="description">Description</label>
+              <label htmlFor="description">{t("PodCreateForm.description")}</label>
               <textarea
                 type="text"
                 name="description"
@@ -188,12 +192,12 @@ const PodCreateForm = ({ coords, saveData, close }) => {
                 maxLength="150"
               ></textarea>
               {descriptionInputHasError && (
-                <p className="error-text">Description not valid!</p>
+                <p className="error-text">{t("PodCreateForm.error-descrp")}</p>
               )}
             </div>
 
             <div className={categoryInputClasses}>
-              <label htmlFor="category">Category</label>
+              <label htmlFor="category">{t("PodCreateForm.category.title")}</label>
               <select
                 type="combo"
                 name="category"
@@ -206,11 +210,11 @@ const PodCreateForm = ({ coords, saveData, close }) => {
               >
                 <option value=""> </option>
 
-                <option value="landscape">Landscape</option>
-                <option value="monument">Monument</option>
-                <option value="shop">Shop</option>
-                <option value="bar">Bar</option>
-                <option value="other">Other...</option>
+                <option value="landscape">{t("PodCreateForm.category.landscape")}</option>
+                <option value="monument">{t("PodCreateForm.category.monument")}</option>
+                <option value="shop">{t("PodCreateForm.category.shop")}</option>
+                <option value="bar">{t("PodCreateForm.category.bar")}</option>
+                <option value="other">{t("PodCreateForm.category.other")}</option>
               </select>
             </div>
           </div>
@@ -221,10 +225,10 @@ const PodCreateForm = ({ coords, saveData, close }) => {
               className={styles.button}
               disabled={!formIsValid}
             >
-              SUBMIT
+              {t("PodCreateForm.submit")}
             </button>
             {!correctPointCreation && (
-              <p className={styles.error}>Error in POD addition!</p>
+              <p className={styles.error}>{t("PodCreateForm.error-submit")}</p>
             )}
           </div>
         </form>

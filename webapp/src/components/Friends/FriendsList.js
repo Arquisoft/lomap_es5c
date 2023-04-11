@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { listFriends, getFriendInfo } from "../Pods/PodsFunctions";
 import { useSession } from "@inrupt/solid-ui-react";
+import {useTranslation} from "react-i18next"
 
 const FriendsList = ({ close }) => {
 	const { session } = useSession(); // Hook for providing access to the session in the component
@@ -33,6 +34,8 @@ const FriendsList = ({ close }) => {
 		console.log(friends);
 	}, []);
 
+	const[t, i18n] = useTranslation("translation");
+
 	return (
 		<React.Fragment>
 			<div className="d-flex justify-content-end mx-2 my-2">
@@ -45,7 +48,7 @@ const FriendsList = ({ close }) => {
 				></button>
 			</div>
 			<div className="mx-2">
-				<h3>List of friends</h3>
+				<h3>{t("FriendsList.list")}</h3>
 			</div>
 			<div className="my-2 mx-2" style={{ width: "95%" }}>
 				{friends.map((friend, i) => {

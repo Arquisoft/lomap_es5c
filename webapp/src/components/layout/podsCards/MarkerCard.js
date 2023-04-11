@@ -8,6 +8,8 @@ import styles from "./MarkerCard.module.css";
 
 import img from "../../../images/test.png";
 
+import {useTranslation} from "react-i18next"
+
 const MarkerCard = ({ marker }) => {
   const rating_color = {
     color: "#fbc634",
@@ -35,6 +37,8 @@ const MarkerCard = ({ marker }) => {
     inputBlurHandler: scoreBlurHandler,
     reset: resetScoreInput,
   } = useInput((value) => value.trim() !== "");
+
+  const[t, i18n] = useTranslation("translation");
 
 // Check for global validity of the form
 let commentIsValid = false;
@@ -141,7 +145,7 @@ if (validScore) {
             className={styles.button}
             disabled={!commentIsValid}
           >
-            Add Comment
+            {t("MarkerCard.comment")}
           </button>
         </div>
       </form>
@@ -168,7 +172,7 @@ if (validScore) {
             className={styles.button}
             disabled={!scoreIsValid}
           >
-            Add Score
+            {t("MarkerCard.score")}
           </button>
         </div>
       </form>
@@ -187,7 +191,7 @@ if (validScore) {
                     {comment.comment}
                   </p>
                   <p className="card-text" style={{ fontSize: "0.7rem" }}>
-                    By: {comment.author} on{" "}
+                    {t("MarkerCard.inComm.by")} {comment.author} {t("MarkerCard.inComm.on")}{" "}
                     {new Date(comment.date).toDateString()}
                   </p>
                 </div>

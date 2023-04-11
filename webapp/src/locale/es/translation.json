@@ -21,6 +21,45 @@
             "description": "Amante de Stackoverflow"
         },
         "title":"Equipo LoMap ⭐️"
-        
+    },
+
+    "Menu":{
+        "home": "INICIO",
+        "about": "NOSOTROS"
+    },
+
+    "FriendsList":{
+        "list": "Lista de amigos"
+    },
+
+    "MarkerCard":{
+        "comment": "Comentar",
+        "score": "Puntuar",
+        "inComm":{
+            "by": "De: ",
+            "on": "el "
+        }
+    },
+
+    "LocateMarkers":{
+        "here": "Estás aquí"
+    },
+
+    "PodCreateForm":{
+        "create": "Crear lugar",
+        "title": "Título",
+        "error-title": "¡Título no válido!",
+        "description": "Descripción",
+        "error-descrp": "¡Descripción no válida!",
+        "category":{
+            "title":"Categoría",
+            "landscape": "Paisaje",
+            "monument": "Monumento",
+            "shop": "Tienda",
+            "bar": "Bar",
+            "other": "Otro"
+        },
+        "submit": "Crear",
+        "error-submit": "¡Error al crear el lugar! Por inténtelo más tarde."
     }
 }
