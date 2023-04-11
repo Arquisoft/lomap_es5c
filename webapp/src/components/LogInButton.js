@@ -11,16 +11,19 @@ import {
 // This component is used to login to inrupt provider via button
 const LogInButton = ({ isLoggedIn }) => {
   const [idp, setIdp] = useState("https://inrupt.net");
-  const [currentUrl, setCurrentUrl] = useState("https://localhost:3000");
+  // const [currentUrl, setCurrentUrl] = useState(window.location.href);
+  const [currentUrl, setCurrentUrl] = useState("https://localhost:3000/");
 
   useEffect(() => {
-    setCurrentUrl(window.location.href);
+    // window.localStorage.setItem("currentUrl", window.location.href);
     console.log("LogInButton.js: ", currentUrl);
+    setCurrentUrl(window.location.href);
   }, [setCurrentUrl]);
 
   return (
     <>
       {!isLoggedIn ? (
+        // <LoginButton oidcIssuer={idp} redirectUrl={currentUrl}>
         <LoginButton oidcIssuer={idp} redirectUrl={currentUrl}>
           <Button variant="primary" className="mx-4">
             LOGIN

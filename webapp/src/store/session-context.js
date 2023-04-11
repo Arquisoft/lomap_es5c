@@ -1,45 +1,76 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useState } from "react";
 
 import { LatLng } from "leaflet";
 
-import { useSession } from "@inrupt/solid-ui-react/dist";
-
 const UserSessionContext = createContext({
+  webId: "",
   markers: [],
   handleMarkers: () => {},
   loaded: false,
+  selectedMarker: null,
+  handleSelectedMarker: () => {},
+  pageStyle: "dark",
+  handleStyle: () => {},
 });
 
 export const UserSessionProvider = ({ children }) => {
+  const [webId, setWebId] = useState("");
+
   const [markers, setMarkers] = useState([]);
   const [loaded, setLoaded] = useState(false);
+
+  const [selectedMarker, setSelectedMarker] = useState(null);
+
+  const [pageStyle, setPageStyle] = useState("dark");
+
+  const handleSessionWebId = (webId) => {
+    window.localStorage.setItem("webId", webId);
+    console.log("WebId: " + webId);
+    setWebId(webId);
+    console.log("WebId: " + webId);
+  };
 
   const handleMarkers = (newMarkers) => {
     newMarkers.map((place) => {
       for (let i = 0; i < place.length; i++) {
-        console.log(place[i].name);
         setMarkers((prevValue) => [
           ...prevValue,
           {
+            id: place[i].id,
             title: place[i].name,
             coords: new LatLng(place[i].latitude, place[i].longitude),
             description: place[i].description,
             category: place[i].category,
+            comments: place[i].comments,
+            score: place[i].reviewScores
           },
         ]);
       }
     });
 
     setLoaded(true);
-    console.log(markers);
+  };
+
+  const handleSelectedMarker = (marker) => {
+    setSelectedMarker(marker);
+  };
+
+  const handleStyle = (style) => {
+    setPageStyle(style);
   };
 
   return (
     <UserSessionContext.Provider
       value={{
+        webId,
         markers,
         handleMarkers,
         loaded,
+        selectedMarker,
+        handleSelectedMarker,
+        handleSessionWebId,
+        pageStyle,
+        handleStyle,
       }}
     >
       {children}

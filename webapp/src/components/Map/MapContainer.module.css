@@ -38,6 +38,7 @@
   /* margin-top: 15px; */
   box-shadow: rgba(0, 0, 0, 0.35) 0px 0px 10px 5px;
   overflow: auto;
+  background-color: white;
 }
 
 @media (max-width: 767px) {
