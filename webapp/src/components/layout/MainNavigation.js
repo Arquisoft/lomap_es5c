@@ -26,6 +26,8 @@ const MainNavigation = ({
 
 	const viewBoxStyle = themeStyle === "light" ? "0 0 25 25" : "0 0 18 18";
 
+  const[t, i18n] = useTranslation("translation");
+  
 	return (
 		<>
 			<Navbar
