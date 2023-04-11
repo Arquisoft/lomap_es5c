@@ -12,4 +12,4 @@ import Layout from "../../components/layout/Layout";
 test("The phrase saying that you need to log in to start is correct", async () => {
     const {container} = render(<Layout/>);
     expect(getByText('Not logged, please login!')).toBeInTheDocument();
-})
+});
