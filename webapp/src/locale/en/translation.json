@@ -36,9 +36,13 @@
         "comment": "Comment",
         "score": "Score",
         "inComm":{
+            "title": "Comments",
             "by": "By: ",
             "on": "on "
-        }
+        },
+        "lat": "Latitude",
+        "long": "Longitude",
+        "rating": "Rating: "
     },
 
     "LocateMarkers":{
