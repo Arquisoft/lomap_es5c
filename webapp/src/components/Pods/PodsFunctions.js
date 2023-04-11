@@ -122,7 +122,6 @@ async function addNewMarker(file, podUrl, session, marker, mapId) {
 async function getPlacesFileAsJSON(podUrl, session) {
 	try {
 		let file = await solid.getFile(podUrl, { fetch: session.fetch });
-		console.log("test");
 		let jsonMarkers = JSON.parse(await file.text());
 		return jsonMarkers;
 	} catch (error) {
@@ -254,7 +253,6 @@ export async function listLocationsOfAUser(webId, session, mapId = 1) {
 		"/profile/card#me",
 		"/justforfriends/locations.json"
 	);
-	console.log(podUrl);
 
 	//We extract the file of the concrete user if exists
 	const file = await getPlacesFileAsJSON(podUrl, session);
@@ -428,7 +426,7 @@ async function addNewFriend(webId, session, friendWebId) {
 			});
 			console.log("New friend was added!");
 			//We update the permissions of the folder where we will store the markers
-			return await updatePermissions(session, webId);
+			await updatePermissions(session, webId);
 		}
 	} catch (error) {
 		console.log(error);
@@ -436,7 +434,7 @@ async function addNewFriend(webId, session, friendWebId) {
 }
 
 //Function that deletes an existing friend of the user's pod
-async function deleteFriend(webId, session, friendWebId) {
+export async function deleteFriend(webId, session, friendWebId) {
 	try {
 		const friends = await listFriends(webId);
 		//First check if the friend exists
@@ -455,11 +453,26 @@ async function deleteFriend(webId, session, friendWebId) {
 			});
 			console.log("Friend was removed!");
 			//We update the permissions of the folder where we will store the markers
-			return await updatePermissions(session, webId);
+			await updatePermissions(session, webId);
 		} else {
 			console.log("Friend doesn't exist!");
 		}
 	} catch (error) {
 		console.log(error);
 	}
+}
+
+//Function that filters user's pod by category
+export async function filterByCategory(category, webId, session, mapId = 1) {
+	let placesFiltered = [];
+	//We get the locations file as a JSON
+	const locationsMap = await listLocationsOfAUser(webId, session, mapId);
+	//We filter the locations by category
+	for (let i = 0; i < locationsMap.length; i++) {
+		if (locationsMap[i].category == category) {
+			placesFiltered.push(locationsMap[i]); //we add the location to the array
+		}
+	}
+
+	return placesFiltered;
 }

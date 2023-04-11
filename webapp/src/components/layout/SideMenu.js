@@ -18,6 +18,7 @@ const SideMenu = ({ option, coords, handleOption }) => {
 
 	const [loaded, setLoaded] = React.useState(false);
 	const [loadedUserPods, setLoadedUserPods] = React.useState(false);
+	const [loadedFriends, setLoadedFriends] = React.useState(false);
 
 	const { session } = useSession(); // Hook for providing access to the session in the component
 	const { webId } = session.info; // User's webId
@@ -25,34 +26,34 @@ const SideMenu = ({ option, coords, handleOption }) => {
 	const [firstLoad, setFirstLoad] = React.useState(true);
 	const [markersList, setMarkersList] = React.useState([]);
 
+	const [updatePoints, setUpdatePoints] = React.useState(false);
+
 	const loadUserPodsMarkers = async () => {
 		setMarkersList([]);
 		var locations = [];
 
 		locations.push(await listLocationsOfAUser(webId, session));
+		locations.map((place) => {
+			for (let i = 0; i < place.length; i++) {
+				setMarkersList((prevValue) => [
+					...prevValue,
+					{
+						id: place[i].id,
+						title: place[i].name,
+						coords: new LatLng(place[i].latitude, place[i].longitude),
+						description: place[i].description,
+						category: place[i].category,
+						comments: place[i].comments,
+						score: place[i].reviewScores,
+					},
+				]);
+			}
+		});
 
-    locations.map((place) => {
-      for (let i = 0; i < place.length; i++) {
-        setMarkersList((prevValue) => [
-          ...prevValue,
-          {
-            id: place[i].id,
-            title: place[i].name,
-            coords: new LatLng(place[i].latitude, place[i].longitude),
-            description: place[i].description,
-            category: place[i].category,
-            comments: place[i].comments,
-            score: place[i].reviewScores
-          },
-        ]);
-      }
-    });
-
-
-		// console.log(l);
 		ctx.handleMarkers(locations); // we add the markers to the context
 		setLoadedUserPods(true);
 		setFirstLoad(false);
+		setUpdatePoints(false);
 	};
 
 	const loadPodsMarkers = async () => {
@@ -74,12 +75,11 @@ const SideMenu = ({ option, coords, handleOption }) => {
 						description: place[i].description,
 						category: place[i].category,
 						comments: place[i].comments,
-            			score: place[i].reviewScores
+						score: place[i].reviewScores,
 					},
 				]);
 			}
 		});
-
 		setLoaded(true);
 	};
 
@@ -94,10 +94,21 @@ const SideMenu = ({ option, coords, handleOption }) => {
 	}, []);
 
 	useEffect(() => {
+		if (updatePoints) {
+			loadUserPodsMarkers();
+		}
+	}, [updatePoints]);
+
+	useEffect(() => {
 		if (ctx.selectedMarker !== null) {
 			handleOption("markerInfo");
 		}
 	}, [ctx.selectedMarker]);
+
+	let styleButton =
+		ctx.pageStyle === "light"
+			? "btn-close mx-3 mt-2"
+			: "btn-close mx-3 mt-2 btn-close-white";
 
 	return (
 		<>
@@ -109,18 +120,44 @@ const SideMenu = ({ option, coords, handleOption }) => {
 			{loadedUserPods &&
 				option === "userPods" &&
 				markersList.map((marker, i) => {
-          return <MarkerCard key={i} marker={marker} />;
+					return <MarkerCard key={i} marker={marker} />;
 				})}
 			{option === "create" && (
-				<PodCreateForm coords={coords} close={handleOption} />
+				<PodCreateForm
+					coords={coords}
+					close={handleOption}
+					needsUpdate={setUpdatePoints}
+				/>
 			)}
 			{option === "read" && !loaded && (
 				<div className="d-flex justify-content-center align-items-center h-100">
 					<LoadingSpinner />
 				</div>
 			)}
-			{option === "friends" && <FriendsList close={handleOption} />}
 			{option === "friends" && (
+				<>
+					<div className="d-flex justify-content-end">
+						<button
+							type="button"
+							// className="btn-close mx-3 mt-2"
+							className={styleButton}
+							style={{ fontSize: "1rem" }}
+							aria-label="Close"
+							onClick={() => {
+								handleOption("userPods");
+								ctx.handleSelectedMarker(null);
+							}}
+						></button>
+					</div>
+					<FriendsList
+						close={handleOption}
+						handleLoad={(opt) => {
+							setLoadedFriends(opt);
+						}}
+					/>
+				</>
+			)}
+			{option === "friends" && !loadedFriends && (
 				<div className="d-flex justify-content-center align-items-center h-100">
 					<LoadingSpinner />
 				</div>
@@ -130,16 +167,16 @@ const SideMenu = ({ option, coords, handleOption }) => {
 				markersList.map((marker, i) => {
 					return <MarkerCard key={i} marker={marker} />;
 				})}
-			{option === "markerInfo" && ( 
+			{option === "markerInfo" && (
 				<>
 					<div className="d-flex justify-content-end">
 						<button
 							type="button"
-							className="btn-close mx-3 mt-2"
+							// className="btn-close mx-3 mt-2"
+							className={styleButton}
 							style={{ fontSize: "1rem" }}
 							aria-label="Close"
 							onClick={() => {
-								console.log("close");
 								handleOption("userPods");
 								ctx.handleSelectedMarker(null);
 							}}

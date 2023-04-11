@@ -17,7 +17,6 @@ const LogInButton = ({ isLoggedIn }) => {
 
   useEffect(() => {
     // window.localStorage.setItem("currentUrl", window.location.href);
-    console.log("LogInButton.js: ", currentUrl);
     setCurrentUrl(window.location.href);
   }, [setCurrentUrl]);
 
