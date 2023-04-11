@@ -40,8 +40,8 @@
             "by": "By: ",
             "on": "on "
         },
-        "lat": "Latitude",
-        "long": "Longitude",
+        "lat": "Latitude:",
+        "long": "Longitude:",
         "rating": "Rating: "
     },
 

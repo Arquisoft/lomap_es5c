@@ -38,7 +38,10 @@
         "inComm":{
             "by": "De: ",
             "on": "el "
-        }
+        },
+        "lat": "Latitud:",
+        "long": "Longitud:",
+        "rating": "Valoración: "
     },
 
     "LocateMarkers":{

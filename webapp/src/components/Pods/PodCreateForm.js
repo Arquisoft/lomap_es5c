@@ -7,7 +7,7 @@ import { insertNewMarker, listLocationsOfAUser } from "../Pods/PodsFunctions";
 import { useSession } from "@inrupt/solid-ui-react";
 import {useTranslation} from "react-i18next"
 
-const PodCreateForm = ({ coords, saveData, close }) => {
+const PodCreateForm = ({ coords, close, needsUpdate }) => {
 
   const[t, i18n] = useTranslation("translation");
 
