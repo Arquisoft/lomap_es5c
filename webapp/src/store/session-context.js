@@ -12,6 +12,8 @@ const UserSessionContext = createContext({
   handleFilterOption: () => {},
   loaded: false,
   selectedMarker: null,
+  createMarker: false,
+  handleCreateMarker: () => {},
   handleSelectedMarker: () => {},
   pageStyle: "dark",
   handleStyle: () => {},
@@ -23,6 +25,7 @@ export const UserSessionProvider = ({ children }) => {
   const [markers, setMarkers] = useState([]);
   const [filteredMarkers, setFilteredMarkers] = useState([]);
   const [loaded, setLoaded] = useState(false);
+  const [createMarker, setCreateMarker] = useState(null);
 
   const [filterOption, setFilterOption] = useState("all");
 
@@ -36,6 +39,7 @@ export const UserSessionProvider = ({ children }) => {
   };
 
   const handleMarkers = (newMarkers) => {
+    setMarkers([]);
     newMarkers.map((place) => {
       for (let i = 0; i < place.length; i++) {
         setMarkers((prevValue) => [
@@ -63,7 +67,6 @@ export const UserSessionProvider = ({ children }) => {
     }
     setFilteredMarkers([]);
     newMarkers.map((place) => {
-      console.log(place);
       setFilteredMarkers((prevValue) => [
         ...prevValue,
         {
@@ -77,15 +80,18 @@ export const UserSessionProvider = ({ children }) => {
         },
       ]);
     });
-    console.log(filteredMarkers);
+  };
+
+  const handleCreateMarker = (marker) => {
+    setCreateMarker(marker);
   };
 
   const handleFilterOption = (option) => {
     setFilterOption(option);
   };
 
-  const handleSelectedMarker = (marker) => {
-    setSelectedMarker(marker);
+  const handleSelectedMarker = (bool) => {
+    setSelectedMarker(bool);
   };
 
   const handleStyle = (style) => {
@@ -101,6 +107,8 @@ export const UserSessionProvider = ({ children }) => {
         loaded,
         filteredMarkers,
         handleFilteredMarkers,
+        createMarker,
+        handleCreateMarker,
         filterOption,
         handleFilterOption,
         selectedMarker,

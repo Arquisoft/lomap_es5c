@@ -35,7 +35,7 @@ function LocationMarkers({ coords, markerEvent }) {
   const [podMarkers, setPodMarkers] = useState([]);
   const [podMarkersLoaded, setPodMarkersLoaded] = useState(false);
   const [clicked, setClicked] = useState(false);
-  const [initial, setInitial] = useState(false);
+  const [initial, setInitial] = useState(false); // manage to move this to the sidemenu component
 
   const [actualMarker, setActualMarker] = useState();
 
@@ -255,7 +255,6 @@ function LocationMarkers({ coords, markerEvent }) {
       {ctx.loaded &&
         ctx.filteredMarkers.length === 0 &&
         ctx.markers.map((marker, i) => {
-          console.log(ctx.filteredMarkers);
           return (
             <Marker
               key={i}
@@ -284,7 +283,6 @@ function LocationMarkers({ coords, markerEvent }) {
         })}
       {ctx.filteredMarkers.length > 0 &&
         ctx.filteredMarkers.map((marker, i) => {
-          console.log(marker);
           return (
             <Marker
               key={i}
@@ -336,7 +334,19 @@ function LocationMarkers({ coords, markerEvent }) {
         )} */}
       {/* {clicked && load}
       {initial && form} */}
-      {initial && (
+      {/* {initial && (
+        <Marker
+          icon={addMarkerIcon}
+          position={actualMarker}
+          eventHandlers={{
+            click: (e) => {
+              setInitial(false);
+              getCurrentCityName(e.latlng.lat, e.latlng.lng);
+            },
+          }}
+        ></Marker>
+      )} */}
+      {ctx.createMarker && (
         <Marker
           icon={addMarkerIcon}
           position={actualMarker}

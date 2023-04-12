@@ -45,14 +45,14 @@ const Card = ({ title, content }) => {
           Filter by category
         </Button>
         <div>
-          <select>
+          <select defaultValue={ctx.filterOption}>
             {filterOptions.map((option) => (
               <option
                 key={option}
                 onClick={() => {
                   handleFilter(option);
                 }}
-                selected={ctx.filterOption === option}
+                // selected={ctx.filterOption === option}
               >
                 {" "}
                 {option}
