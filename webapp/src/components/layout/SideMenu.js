@@ -13,6 +13,11 @@ import UserSessionContext from "../../store/session-context";
 
 import FriendsList from "../Friends/FriendsList";
 
+import { Button } from "react-bootstrap";
+
+import OptionsMenu from "./OptionsMenu";
+import FilterCard from "./FilterCard";
+
 const SideMenu = ({ option, coords, handleOption }) => {
 	const ctx = useContext(UserSessionContext);
 
@@ -80,6 +85,7 @@ const SideMenu = ({ option, coords, handleOption }) => {
 				]);
 			}
 		});
+
 		setLoaded(true);
 	};
 
@@ -112,22 +118,29 @@ const SideMenu = ({ option, coords, handleOption }) => {
 
 	return (
 		<>
+			<OptionsMenu
+				changeOption={(opt) => {
+					handleOption(opt);
+				}}
+			/>
 			{option === "userPods" && !loadedUserPods && (
 				<div className="d-flex justify-content-center align-items-center h-100">
 					<LoadingSpinner />
 				</div>
 			)}
 			{loadedUserPods &&
+				ctx.filteredMarkers.length === 0 &&
 				option === "userPods" &&
 				markersList.map((marker, i) => {
 					return <MarkerCard key={i} marker={marker} />;
 				})}
+			{option === "userPods" &&
+				ctx.filteredMarkers.length > 0 &&
+				ctx.filteredMarkers.map((marker, i) => {
+					return <MarkerCard key={i} marker={marker} />;
+				})}
 			{option === "create" && (
-				<PodCreateForm
-					coords={coords}
-					close={handleOption}
-					needsUpdate={setUpdatePoints}
-				/>
+				<PodCreateForm coords={coords} close={handleOption} />
 			)}
 			{option === "read" && !loaded && (
 				<div className="d-flex justify-content-center align-items-center h-100">
@@ -183,6 +196,24 @@ const SideMenu = ({ option, coords, handleOption }) => {
 						></button>
 					</div>
 					<MarkerCard marker={ctx.selectedMarker} />
+				</>
+			)}
+			{option === "filter" && (
+				<>
+					<div className="d-flex justify-content-end my-2">
+						<button
+							type="button"
+							// className="btn-close mx-3 mt-2"
+							className={styleButton}
+							style={{ fontSize: "1rem" }}
+							aria-label="Close"
+							onClick={() => {
+								handleOption("userPods");
+								ctx.handleSelectedMarker(null);
+							}}
+						></button>
+					</div>
+					<FilterCard />
 				</>
 			)}
 		</>

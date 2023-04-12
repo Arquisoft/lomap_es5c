@@ -4,6 +4,10 @@
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
 
+import { TextEncoder, TextDecoder } from 'util';
+global.TextEncoder = TextEncoder;
+global.TextDecoder = TextDecoder;
+
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import { render } from "@testing-library/react";
@@ -17,7 +21,7 @@ i18n
   .use(initReactI18next)
   // init i18next
   .init({
-    debug: true,
+    debug: true, 
     fallbackLng: 'en',
     interpolation: {
       escapeValue: false, // not needed for react as it escapes by default
