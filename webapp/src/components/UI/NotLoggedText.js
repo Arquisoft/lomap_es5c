@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import styles from "./NotLoggedText.module.css";
 import UserSessionContext from "../../store/session-context";
 import { useTranslation } from "react-i18next";
+import backgroundImage from "../../images/wallpaper.jpg";
 
 // display: flex;
 //   align-items: center;
@@ -22,6 +23,10 @@ const NotLoggedText = () => {
 			className="d-flex justify-content-center align-items-center"
 			style={{
 				height: "80%",
+				minHeight: "90vh",
+				backgroundImage: `url(${backgroundImage})`,
+				backgroundSize: "cover",
+				backgroundPosition: "center",
 			}}
 		>
 			<p
