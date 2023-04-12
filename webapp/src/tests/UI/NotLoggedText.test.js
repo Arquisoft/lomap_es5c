@@ -22,4 +22,5 @@ describe("NotLoggedText", () => {
       );
       expect(getByText('¡No has iniciado sesión! Por favor, inicia sesión')).toBeInTheDocument();
   });
+
 });
