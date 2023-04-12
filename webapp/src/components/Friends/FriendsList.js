@@ -148,6 +148,14 @@ const FriendsList = ({ close, handleLoad }) => {
 										}}
 									></img>
 								)}
+								<div className="d-flex justify-content-start mx-2 mb-2 ">
+									<p
+										className="card-title"
+										style={{ fontSize: "1.175rem", marginBottom: 0 }}
+									>
+										{friend.friendData.name}
+									</p>
+								</div>
 								<div className="d-flex w-100 align-items-center justify-content-end mx-2">
 									<button
 										className="btn btn-danger btn-sm rounded-10"
@@ -163,14 +171,6 @@ const FriendsList = ({ close, handleLoad }) => {
 										<i className="fa fa-trash" style={{ fontSize: "20px" }}></i>
 									</button>{" "}
 								</div>
-							</div>
-							<div className="d-flex justify-content-start mx-2 mb-2 ">
-								<p
-									className="card-title"
-									style={{ fontSize: "1.175rem", marginBottom: 0 }}
-								>
-									{friend.friendData.name}
-								</p>
 							</div>
 						</div>
 					);
