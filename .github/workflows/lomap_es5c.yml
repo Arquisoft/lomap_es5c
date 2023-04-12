@@ -22,7 +22,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   e2e-tests:
-    needs: [unit-test-webapp, unit-test-restapi]
+    needs: [unit-test-webapp]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
