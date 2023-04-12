@@ -29,7 +29,10 @@
 	},
 
 	"FriendsList": {
-		"list": "List of friends"
+		"list": "List of friends",
+		"add": "Add friend",
+		"enter": "Enter friend webId",
+		"submit": "Add"
 	},
 
 	"MarkerCard": {
@@ -77,6 +80,17 @@
 	"OptionsMenu": {
 		"markers": "Markers",
 		"friends": "Friends",
-		"filters": "Filter"
+		"filters": "Filter",
+		"friendsMarkers": "Friends Markers"
+	},
+
+	"FilterCard": {
+		"category": "Filter by category",
+		"all": "All",
+		"landscape": "Landscape",
+		"monument": "Monument",
+		"shop": "Shop",
+		"bar": "Bar",
+		"other": "Other"
 	}
 }
