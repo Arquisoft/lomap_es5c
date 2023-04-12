@@ -3,10 +3,10 @@ import React, { useEffect, useState } from "react";
 import styles from "./PodCreateForm.module.css";
 
 import useInput from "../../hooks/use-input";
-import { insertNewMarker } from "../Pods/PodsFunctions";
+import { insertNewMarker, listLocationsOfAUser } from "../Pods/PodsFunctions";
 import { useSession } from "@inrupt/solid-ui-react";
 
-const PodCreateForm = ({ coords, saveData, close }) => {
+const PodCreateForm = ({ coords, close, needsUpdate }) => {
   const { session } = useSession(); // Hook for providing access to the session in the component
   const { webId } = session.info; // User's webId
   //Url of the places that user has on his pod
@@ -121,6 +121,9 @@ const PodCreateForm = ({ coords, saveData, close }) => {
     resetTitleInput();
     resetDescriptionInput();
     resetCategoryInput();
+
+    //We reload the map
+    needsUpdate(true);
   }
 
   function failure(error) {
@@ -142,7 +145,7 @@ const PodCreateForm = ({ coords, saveData, close }) => {
   return (
     <React.Fragment>
       {/* <div className={styles.mainContainer}> */}
-      <div className={`mx-2 ${styles.infoContainer}`}>
+      <div className={styles.infoContainer}>
         <div className="d-flex justify-content-end">
           <button
             type="button"
@@ -153,8 +156,8 @@ const PodCreateForm = ({ coords, saveData, close }) => {
           ></button>
         </div>
         <h4 className={styles.header}>Create location</h4>
-        <form style={{ overflow: "auto" }} onSubmit={formSubmissionHandler}>
-          <div className="control-group" style={{ overflow: "auto" }}>
+        <form onSubmit={formSubmissionHandler}>
+          <div className="control-group">
             <div className={titleInputClasses}>
               <label htmlFor="title">Title</label>
               <input

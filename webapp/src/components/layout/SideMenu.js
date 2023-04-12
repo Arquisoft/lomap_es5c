@@ -31,12 +31,13 @@ const SideMenu = ({ option, coords, handleOption }) => {
   const [firstLoad, setFirstLoad] = React.useState(true);
   const [markersList, setMarkersList] = React.useState([]);
 
+  const [updatePoints, setUpdatePoints] = React.useState(false);
+
   const loadUserPodsMarkers = async () => {
     setMarkersList([]);
     var locations = [];
 
     locations.push(await listLocationsOfAUser(webId, session));
-
     locations.map((place) => {
       for (let i = 0; i < place.length; i++) {
         setMarkersList((prevValue) => [
@@ -57,6 +58,7 @@ const SideMenu = ({ option, coords, handleOption }) => {
     ctx.handleMarkers(locations); // we add the markers to the context
     setLoadedUserPods(true);
     setFirstLoad(false);
+    setUpdatePoints(false);
   };
 
   const loadPodsMarkers = async () => {
@@ -96,6 +98,12 @@ const SideMenu = ({ option, coords, handleOption }) => {
       loadUserPodsMarkers();
     }
   }, []);
+
+  useEffect(() => {
+    if (updatePoints) {
+      loadUserPodsMarkers();
+    }
+  }, [updatePoints]);
 
   useEffect(() => {
     if (ctx.selectedMarker !== null) {
