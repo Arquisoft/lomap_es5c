@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 
 import styles from "./PodCreateForm.module.css";
 
@@ -7,7 +7,10 @@ import { insertNewMarker, listLocationsOfAUser } from "../Pods/PodsFunctions";
 import { useSession } from "@inrupt/solid-ui-react";
 import { useTranslation } from "react-i18next";
 
+import UserSessionContext from "../../store/session-context";
+
 const PodCreateForm = ({ coords, close, needsUpdate }) => {
+  const ctx = useContext(UserSessionContext);
   const [t, i18n] = useTranslation("translation");
 
   const { session } = useSession(); // Hook for providing access to the session in the component
@@ -106,8 +109,6 @@ const PodCreateForm = ({ coords, close, needsUpdate }) => {
       return;
     }
 
-    // console.log(coords);
-
     // We should save the data to pod in here
     insertThing(coords, enteredTitle, enteredDescription, enteredCategory).then(
       succes,
@@ -116,7 +117,6 @@ const PodCreateForm = ({ coords, close, needsUpdate }) => {
   };
 
   function succes(resultado) {
-    console.log("TODO BIEN: " + resultado);
     setCorrectPointCreation(true);
     // TODO: maybe update the whole list of markers and not just the one that we have created
 
@@ -126,6 +126,7 @@ const PodCreateForm = ({ coords, close, needsUpdate }) => {
     resetCategoryInput();
 
     //We reload the map
+    ctx.handleCreateMarker(false);
     needsUpdate(true);
   }
 
@@ -147,98 +148,111 @@ const PodCreateForm = ({ coords, close, needsUpdate }) => {
 
   return (
     <React.Fragment>
-      {/* <div className={styles.mainContainer}> */}
-      <div className={styles.infoContainer}>
-        <div className="d-flex justify-content-end">
-          <button
-            type="button"
-            className="btn-close"
-            style={{ fontSize: "1rem" }}
-            aria-label="Close"
-            onClick={closeForm}
-          ></button>
-        </div>
-        <h4 className={styles.header}>{t("PodCreateForm.create")}</h4>
-        <form onSubmit={formSubmissionHandler}>
-          <div className="control-group">
-            <div className={titleInputClasses}>
-              <label htmlFor="title">{t("PodCreateForm.title")}</label>
-              <input
-                type="text"
-                id="title"
-                onChange={titleChangeHandler}
-                onBlur={titleBlurHandler}
-                value={enteredTitle}
-              />
-              {titleInputHasError && (
-                <p className="error-text">{t("PodCreateForm.error-title")}</p>
-              )}
-            </div>
-
-            <div className={descriptionInputClasses}>
-              <label htmlFor="description">
-                {t("PodCreateForm.description")}
-              </label>
-              <textarea
-                type="text"
-                name="description"
-                id="description"
-                onChange={descriptionChangeHandler}
-                onBlur={descriptionBlurHandler}
-                value={enteredDescription}
-                maxLength="150"
-              ></textarea>
-              {descriptionInputHasError && (
-                <p className="error-text">{t("PodCreateForm.error-descrp")}</p>
-              )}
-            </div>
-
-            <div className={categoryInputClasses}>
-              <label htmlFor="category">
-                {t("PodCreateForm.category.title")}
-              </label>
-              <select
-                type="combo"
-                name="category"
-                id="category"
-                className={styles.categoryContainer}
-                onChange={categoryChangeHandler}
-                onBlur={categoryBlurHandler}
-                value={enteredCategory}
-                required
-              >
-                <option value=""> </option>
-
-                <option value="landscape">
-                  {t("PodCreateForm.category.landscape")}
-                </option>
-                <option value="monument">
-                  {t("PodCreateForm.category.monument")}
-                </option>
-                <option value="shop">{t("PodCreateForm.category.shop")}</option>
-                <option value="bar">{t("PodCreateForm.category.bar")}</option>
-                <option value="other">
-                  {t("PodCreateForm.category.other")}
-                </option>
-              </select>
-            </div>
-          </div>
-
-          <div className={styles.submit}>
+      <div
+        className="d-flex justify-content-center  mx-2"
+        style={{ width: "95%", backgroundColor: "white", borderRadius: "10px" }}
+      >
+        <div
+          className="mx-2 my-2"
+          style={{ overflow: "auto", textAlign: "center" }}
+        >
+          <div className="d-flex justify-content-end">
             <button
-              type="submit"
-              className={styles.button}
-              disabled={!formIsValid}
-            >
-              {t("PodCreateForm.submit")}
-            </button>
-            {!correctPointCreation && (
-              <p className={styles.error}>{t("PodCreateForm.error-submit")}</p>
-            )}
+              type="button"
+              className="btn-close"
+              style={{ fontSize: "1rem" }}
+              aria-label="Close"
+              onClick={closeForm}
+            ></button>
           </div>
-        </form>
+          <h4 className={styles.header}>{t("PodCreateForm.create")}</h4>
+          <form onSubmit={formSubmissionHandler}>
+            <div className="control-group">
+              <div className={titleInputClasses}>
+                <label htmlFor="title">{t("PodCreateForm.title")}</label>
+                <input
+                  type="text"
+                  id="title"
+                  onChange={titleChangeHandler}
+                  onBlur={titleBlurHandler}
+                  value={enteredTitle}
+                />
+                {titleInputHasError && (
+                  <p className="error-text">{t("PodCreateForm.error-title")}</p>
+                )}
+              </div>
+
+              <div className={descriptionInputClasses}>
+                <label htmlFor="description">
+                  {t("PodCreateForm.description")}
+                </label>
+                <textarea
+                  type="text"
+                  name="description"
+                  id="description"
+                  onChange={descriptionChangeHandler}
+                  onBlur={descriptionBlurHandler}
+                  value={enteredDescription}
+                  maxLength="150"
+                ></textarea>
+                {descriptionInputHasError && (
+                  <p className="error-text">
+                    {t("PodCreateForm.error-descrp")}
+                  </p>
+                )}
+              </div>
+
+              <div className={categoryInputClasses}>
+                <label htmlFor="category">
+                  {t("PodCreateForm.category.title")}
+                </label>
+                <select
+                  type="combo"
+                  name="category"
+                  id="category"
+                  className={styles.categoryContainer}
+                  onChange={categoryChangeHandler}
+                  onBlur={categoryBlurHandler}
+                  value={enteredCategory}
+                  required
+                >
+                  <option value=""> </option>
+
+                  <option value="landscape">
+                    {t("PodCreateForm.category.landscape")}
+                  </option>
+                  <option value="monument">
+                    {t("PodCreateForm.category.monument")}
+                  </option>
+                  <option value="shop">
+                    {t("PodCreateForm.category.shop")}
+                  </option>
+                  <option value="bar">{t("PodCreateForm.category.bar")}</option>
+                  <option value="other">
+                    {t("PodCreateForm.category.other")}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div className="mb-2">
+              <div className={styles.submit}>
+                <button
+                  type="submit"
+                  className={styles.button}
+                  disabled={!formIsValid}
+                >
+                  {t("PodCreateForm.submit")}
+                </button>
+                {!correctPointCreation && (
+                  <p className={styles.error}>
+                    {t("PodCreateForm.error-submit")}
+                  </p>
+                )}
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
-      {/* </div> */}
     </React.Fragment>
   );
 };

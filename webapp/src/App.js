@@ -39,9 +39,13 @@ function App() {
   }, [isLoggedIn]);
 
   useEffect(() => {
-    console.log("ctx.pageStyle", ctx.pageStyle);
+    // console.log("ctx.pageStyle", ctx.pageStyle);
     document.body.className = window.localStorage.getItem("themeStyle");
   }, [ctx.pageStyle]);
+
+  useEffect(() => {
+    ctx.handleStyle(window.localStorage.getItem("themeStyle"));
+  }, []);
 
   return (
     <>

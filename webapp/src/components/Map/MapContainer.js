@@ -117,6 +117,7 @@ const MapContainer = () => {
                   display_name={display_name}
                   markerEvent={(e) => {
                     setOption("create");
+                    ctx.handleCreateMarker(true);
                     setNewCoords(e);
                   }}
                 />

@@ -5,13 +5,30 @@ import {
   deleteFriend,
 } from "../Pods/PodsFunctions";
 import { useSession } from "@inrupt/solid-ui-react";
-import {useTranslation} from "react-i18next"
+import { useTranslation } from "react-i18next";
+
+import { Button } from "react-bootstrap";
+
+import useInput from "../../hooks/use-input";
+
+import { addNewFriend } from "../Pods/PodsFunctions";
 
 const FriendsList = ({ close, handleLoad }) => {
   const { session } = useSession(); // Hook for providing access to the session in the component
   const { webId } = session.info; // User's webId
 
   const [friendsWebIds, setFriendsWebIds] = useState([]);
+
+  let formIsValid = false;
+
+  const {
+    value: enteredFriendWebId,
+    isValid: validFriendWebId,
+    hasError: friendWebIdInputHasError,
+    valueChangeHandler: friendWebIdChangeHandler,
+    inputBlurHandler: friendWebIdBlurHandler,
+    reset: resetFriendWebIdInput,
+  } = useInput((value) => value.trim() !== "");
 
   const getFriendsWebIds = async () => {
     setFriendsWebIds([]);
@@ -36,17 +53,69 @@ const FriendsList = ({ close, handleLoad }) => {
     getFriendsWebIds();
   };
 
+  if (validFriendWebId) formIsValid = true;
+
+  const addFriendHandler = async (event) => {
+    event.preventDefault();
+    // Check if the input is valid
+    if (!validFriendWebId) {
+      return;
+    }
+
+    handleLoad(false);
+
+    // Add the new friend
+    var exit = await addNewFriend(webId, session, enteredFriendWebId);
+
+    if (exit) {
+      getFriendsWebIds();
+    } else {
+      alert("Friend not added");
+    }
+    // Reset the input
+    resetFriendWebIdInput();
+  };
+
   useEffect(() => {
     getFriendsWebIds();
   }, []);
 
-  const[t, i18n] = useTranslation("translation");
+  const [t, i18n] = useTranslation("translation");
 
   let headerStyle =
     window.localStorage.getItem("themeStyle") === "dark" ? "#fff " : "#000 ";
-  
+
   return (
     <>
+      <div className="d-flex mx-2 justify-content-center">
+        <h3 style={{ color: headerStyle }}>Add friend</h3>
+      </div>
+      <div className="my-2 mx-2" style={{ width: "95%" }}>
+        <div className="card my-2">
+          <div className="form-group mx-2 my-2">
+            <form onSubmit={addFriendHandler}>
+              <label htmlFor="exampleInputEmail1">Enter friend webID</label>
+              <input
+                type="text"
+                className="form-control"
+                id="inputFriendWebId"
+                aria-describedby="friendWebIdHelp"
+                placeholder="Enter friend webID"
+                onChange={friendWebIdChangeHandler}
+              />
+              <Button
+                type="submit"
+                className={
+                  formIsValid ? "btn-btn-primary" : "btn btn-secondary"
+                }
+                disabled={!formIsValid}
+              >
+                Submit
+              </Button>
+            </form>
+          </div>
+        </div>
+      </div>
       <div className="d-flex mx-2 justify-content-center">
         <h3 style={{ color: headerStyle }}>{t("FriendsList.list")}</h3>
       </div>

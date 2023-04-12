@@ -12,31 +12,32 @@ import backgroundImage from "../../images/wallpaper.jpg";
 
 // This component is used when the user is not logged in
 const NotLoggedText = () => {
-	const ctx = useContext(UserSessionContext);
+  const ctx = useContext(UserSessionContext);
 
-	const [t, i18n] = useTranslation("translation");
+  const [t, i18n] = useTranslation("translation");
 
-	let styleText = ctx.pageStyle === "light" ? "#000" : "#fff";
+  let styleText = ctx.pageStyle === "light" ? "#000" : "#fff";
 
-	return (
-		<div
-			className="d-flex justify-content-center align-items-center"
-			style={{
-				height: "80%",
-				minHeight: "90vh",
-				backgroundImage: `url(${backgroundImage})`,
-				backgroundSize: "cover",
-				backgroundPosition: "center",
-			}}
-		>
-			<p
-				className="text-center"
-				style={{ fontSize: "2rem", fontWeight: 550, color: styleText }}
-			>
-				{t("NotLoggedText")}
-			</p>
+  return (
+    <div
+      className="d-flex justify-content-center align-items-center"
+      style={{
+        // height: "80%",
+        minHeight: "90vh",
+        height: "max-content",
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <p
+        className="text-center"
+        style={{ fontSize: "2rem", fontWeight: 550, color: styleText }}
+      >
+        {t("NotLoggedText")}
+      </p>
 
-			{/* <div className={styles.waviy}>
+      {/* <div className={styles.waviy}>
         <span style={{ "--i": 1 }}>N</span>
         <span style={{ "--i": 2 }}>o</span>
         <span style={{ "--i": 3 }}>t</span>
@@ -64,14 +65,14 @@ const NotLoggedText = () => {
         <span style={{ "--i": 24 }}>n</span>
         <span style={{ "--i": 25 }}>!</span>
       </div> */}
-			{/* <h1 className={styles.header}>
+      {/* <h1 className={styles.header}>
         <span>Not logged, please login!</span>
         <div className={styles.message}>
           <div className={styles.word1}> login!</div>
         </div>
       </h1> */}
-		</div>
-	);
+    </div>
+  );
 };
 
 export default NotLoggedText;
