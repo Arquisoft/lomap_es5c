@@ -43,7 +43,7 @@ test("The about page is rendered in English by default", async() => {
     const buttons = screen.getAllByRole('button');
     expect(buttons.length).toBe(15);
     
-})
+});
 
 /*
 test("The about page is rendered and now we change the language to spanish", async() => {
