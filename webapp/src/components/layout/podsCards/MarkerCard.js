@@ -149,6 +149,7 @@ const MarkerCard = ({ marker }) => {
                 onChange={commentChangeHandler}
                 value={enteredComment}
                 maxLength="150"
+                data-testid="commentTextArea"
               ></textarea>
             </div>
 
@@ -157,6 +158,7 @@ const MarkerCard = ({ marker }) => {
                 type="submit"
                 className={styles.button}
                 disabled={!commentIsValid}
+                data-testid="commentSubmit"
               >
                 {t("MarkerCard.comment")}
               </button>

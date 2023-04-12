@@ -76,6 +76,7 @@ image::Technical.png[]
 |Docker| Used for the system deployment
 |AWS| Used for the system deployment
 |MongoDB| Used for store some aditional data.
+|Bootstrap| Simplifies the use of CSS and HTML, using the HTLM5 standards.
 |=======================
 
 We use OpenStreet Maps as the main API for the project to visualize the maps.
