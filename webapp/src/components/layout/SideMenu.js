@@ -19,226 +19,228 @@ import OptionsMenu from "./OptionsMenu";
 import FilterCard from "./FilterCard";
 
 const SideMenu = ({ option, coords, handleOption }) => {
-  const ctx = useContext(UserSessionContext);
+	const ctx = useContext(UserSessionContext);
 
-  const [loaded, setLoaded] = React.useState(false);
-  const [loadedUserPods, setLoadedUserPods] = React.useState(false);
-  const [loadedFriends, setLoadedFriends] = React.useState(false);
+	const [loaded, setLoaded] = React.useState(false);
+	const [loadedUserPods, setLoadedUserPods] = React.useState(false);
+	const [loadedFriends, setLoadedFriends] = React.useState(false);
 
-  const { session } = useSession(); // Hook for providing access to the session in the component
-  const { webId } = session.info; // User's webId
+	const { session } = useSession(); // Hook for providing access to the session in the component
+	const { webId } = session.info; // User's webId
 
-  const [firstLoad, setFirstLoad] = React.useState(true);
-  const [markersList, setMarkersList] = React.useState([]);
+	const [firstLoad, setFirstLoad] = React.useState(true);
+	const [markersList, setMarkersList] = React.useState([]);
 
-  const [updatePoints, setUpdatePoints] = React.useState(false);
+	const [updatePoints, setUpdatePoints] = React.useState(false);
 
-  const loadUserPodsMarkers = async () => {
-    setLoaded(false);
-    setMarkersList([]);
-    var locations = [];
+	const loadUserPodsMarkers = async () => {
+		setLoaded(false);
+		setMarkersList([]);
+		var locations = [];
 
-    locations.push(await listLocationsOfAUser(webId, session));
+		locations.push(await listLocationsOfAUser(webId, session));
 
-    locations.map((place) => {
-      for (let i = 0; i < place.length; i++) {
-        setMarkersList((prevValue) => [
-          ...prevValue,
-          {
-            id: place[i].id,
-            title: place[i].name,
-            coords: new LatLng(place[i].latitude, place[i].longitude),
-            description: place[i].description,
-            category: place[i].category,
-            comments: place[i].comments,
-            score: place[i].reviewScores,
-          },
-        ]);
-      }
-    });
+		locations.map((place) => {
+			for (let i = 0; i < place.length; i++) {
+				setMarkersList((prevValue) => [
+					...prevValue,
+					{
+						id: place[i].id,
+						title: place[i].name,
+						coords: new LatLng(place[i].latitude, place[i].longitude),
+						description: place[i].description,
+						category: place[i].category,
+						comments: place[i].comments,
+						score: place[i].reviewScores,
+					},
+				]);
+			}
+		});
 
-    ctx.handleMarkers(locations); // we add the markers to the context
-    setLoadedUserPods(true);
-    setFirstLoad(false);
-    setUpdatePoints(false);
-  };
+		ctx.handleMarkers(locations); // we add the markers to the context
+		setLoadedUserPods(true);
+		setFirstLoad(false);
+		setUpdatePoints(false);
+	};
 
-  const loadPodsMarkers = async () => {
-    setMarkersList([]);
-    var usersIds = await listFriends(webId);
-    usersIds.push(webId);
-    var locations = [];
-    for (let i = 0; i < usersIds.length; i++) {
-      locations.push(await listLocationsOfAUser(usersIds[i], session));
-    }
+	const loadPodsMarkers = async () => {
+		setMarkersList([]);
+		var usersIds = await listFriends(webId);
+		// usersIds.push(webId); uncomment if u want to also load your own markers
+		var locations = [];
+		for (let i = 0; i < usersIds.length; i++) {
+			let aux = await listLocationsOfAUser(usersIds[i], session);
+			if (aux !== null) {
+				locations.push(aux);
+			}
+		}
 
-    locations.map((place) => {
-      console.log(place);
-      for (let i = 0; i < place.length; i++) {
-        setMarkersList((prevValue) => [
-          ...prevValue,
-          {
-            id: place[i].id,
-            title: place[i].name,
-            coords: new LatLng(place[i].latitude, place[i].longitude),
-            description: place[i].description,
-            category: place[i].category,
-            comments: place[i].comments,
-            score: place[i].reviewScores,
-          },
-        ]);
-      }
-    });
+		locations.map((place) => {
+			for (let i = 0; i < place.length; i++) {
+				setMarkersList((prevValue) => [
+					...prevValue,
+					{
+						id: place[i].id,
+						title: place[i].name,
+						coords: new LatLng(place[i].latitude, place[i].longitude),
+						description: place[i].description,
+						category: place[i].category,
+						comments: place[i].comments,
+						score: place[i].reviewScores,
+					},
+				]);
+			}
+		});
 
-    setLoadedUserPods(false);
-    ctx.handleMarkers(locations);
-    setLoaded(true);
-    setUpdatePoints(false);
-  };
+		setLoadedUserPods(false);
+		ctx.handleMarkers(locations);
+		setLoaded(true);
+		setUpdatePoints(false);
+	};
 
-  const handleClick = () => {
-    setFirstLoad(!firstLoad);
-  };
+	const handleClick = () => {
+		setFirstLoad(!firstLoad);
+	};
 
-  useEffect(() => {
-    if (firstLoad) {
-      loadUserPodsMarkers();
-    }
-  }, []);
+	useEffect(() => {
+		if (firstLoad) {
+			loadUserPodsMarkers();
+		}
+	}, []);
 
-  useEffect(() => {
-    if (option === "read") {
-      setLoaded(false);
-      loadPodsMarkers();
-    } else if (option === "userPods") {
-      loadUserPodsMarkers();
-    }
-  }, [option]);
+	useEffect(() => {
+		if (option === "read") {
+			setLoaded(false);
+			loadPodsMarkers();
+		} else if (option === "userPods") {
+			loadUserPodsMarkers();
+		}
+	}, [option]);
 
-  useEffect(() => {
-    if (updatePoints) {
-      loadUserPodsMarkers();
-    }
-  }, [updatePoints]);
+	useEffect(() => {
+		if (updatePoints) {
+			loadUserPodsMarkers();
+		}
+	}, [updatePoints]);
 
-  useEffect(() => {
-    if (ctx.selectedMarker !== null) {
-      handleOption("markerInfo");
-    }
-  }, [ctx.selectedMarker]);
+	useEffect(() => {
+		if (ctx.selectedMarker !== null) {
+			handleOption("markerInfo");
+		}
+	}, [ctx.selectedMarker]);
 
-  let styleButton =
-    ctx.pageStyle === "light"
-      ? "btn-close mx-3 mt-2"
-      : "btn-close mx-3 mt-2 btn-close-white";
+	let styleButton =
+		ctx.pageStyle === "light"
+			? "btn-close mx-3 mt-2"
+			: "btn-close mx-3 mt-2 btn-close-white";
 
-  return (
-    <>
-      <OptionsMenu
-        changeOption={(opt) => {
-          handleOption(opt);
-        }}
-      />
-      {option === "userPods" && !loadedUserPods && (
-        <div className="d-flex justify-content-center align-items-center h-100">
-          <LoadingSpinner />
-        </div>
-      )}
-      {loadedUserPods &&
-        ctx.filteredMarkers.length === 0 &&
-        option === "userPods" &&
-        markersList.map((marker, i) => {
-          return <MarkerCard key={i} marker={marker} />;
-        })}
-      {option === "userPods" &&
-        ctx.filteredMarkers.length > 0 &&
-        ctx.filteredMarkers.map((marker, i) => {
-          return <MarkerCard key={i} marker={marker} />;
-        })}
+	return (
+		<>
+			<OptionsMenu
+				changeOption={(opt) => {
+					handleOption(opt);
+				}}
+			/>
+			{option === "userPods" && !loadedUserPods && (
+				<div className="d-flex justify-content-center align-items-center h-100">
+					<LoadingSpinner />
+				</div>
+			)}
+			{loadedUserPods &&
+				ctx.filteredMarkers.length === 0 &&
+				option === "userPods" &&
+				markersList.map((marker, i) => {
+					return <MarkerCard key={i} marker={marker} />;
+				})}
+			{option === "userPods" &&
+				ctx.filteredMarkers.length > 0 &&
+				ctx.filteredMarkers.map((marker, i) => {
+					return <MarkerCard key={i} marker={marker} />;
+				})}
 
-      {option === "create" && (
-        <PodCreateForm
-          coords={coords}
-          close={handleOption}
-          needsUpdate={setUpdatePoints}
-        />
-      )}
-      {option === "read" && !loaded && (
-        <div className="d-flex justify-content-center align-items-center h-100">
-          <LoadingSpinner />
-        </div>
-      )}
-      {option === "friends" && (
-        <>
-          <div className="d-flex justify-content-end">
-            <button
-              type="button"
-              // className="btn-close mx-3 mt-2"
-              className={styleButton}
-              style={{ fontSize: "1rem" }}
-              aria-label="Close"
-              onClick={() => {
-                handleOption("userPods");
-                ctx.handleSelectedMarker(null);
-              }}
-            ></button>
-          </div>
-          <FriendsList
-            close={handleOption}
-            handleLoad={(opt) => {
-              setLoadedFriends(opt);
-            }}
-          />
-        </>
-      )}
-      {option === "friends" && !loadedFriends && (
-        <div className="d-flex justify-content-center align-items-center h-100">
-          <LoadingSpinner />
-        </div>
-      )}
-      {option === "read" &&
-        loaded &&
-        markersList.map((marker, i) => {
-          return <MarkerCard key={i} marker={marker} />;
-        })}
-      {option === "markerInfo" && (
-        <>
-          <div className="d-flex justify-content-end">
-            <button
-              type="button"
-              // className="btn-close mx-3 mt-2"
-              className={styleButton}
-              style={{ fontSize: "1rem" }}
-              aria-label="Close"
-              onClick={() => {
-                handleOption("userPods");
-                ctx.handleSelectedMarker(null);
-              }}
-            ></button>
-          </div>
-          <MarkerCard marker={ctx.selectedMarker} />
-        </>
-      )}
-      {option === "filter" && (
-        <>
-          <div className="d-flex justify-content-end my-2">
-            <button
-              type="button"
-              // className="btn-close mx-3 mt-2"
-              className={styleButton}
-              style={{ fontSize: "1rem" }}
-              aria-label="Close"
-              onClick={() => {
-                handleOption("userPods");
-                ctx.handleSelectedMarker(null);
-              }}
-            ></button>
-          </div>
-          <FilterCard />
-        </>
-      )}
-    </>
-  );
+			{option === "create" && (
+				<PodCreateForm
+					coords={coords}
+					close={handleOption}
+					needsUpdate={setUpdatePoints}
+				/>
+			)}
+			{option === "read" && !loaded && (
+				<div className="d-flex justify-content-center align-items-center h-100">
+					<LoadingSpinner />
+				</div>
+			)}
+			{option === "friends" && (
+				<>
+					<div className="d-flex justify-content-end">
+						<button
+							type="button"
+							// className="btn-close mx-3 mt-2"
+							className={styleButton}
+							style={{ fontSize: "1rem" }}
+							aria-label="Close"
+							onClick={() => {
+								handleOption("userPods");
+								ctx.handleSelectedMarker(null);
+							}}
+						></button>
+					</div>
+					<FriendsList
+						close={handleOption}
+						handleLoad={(opt) => {
+							setLoadedFriends(opt);
+						}}
+					/>
+				</>
+			)}
+			{option === "friends" && !loadedFriends && (
+				<div className="d-flex justify-content-center align-items-center h-100">
+					<LoadingSpinner />
+				</div>
+			)}
+			{option === "read" &&
+				loaded &&
+				markersList.map((marker, i) => {
+					return <MarkerCard key={i} marker={marker} />;
+				})}
+			{option === "markerInfo" && (
+				<>
+					<div className="d-flex justify-content-end">
+						<button
+							type="button"
+							// className="btn-close mx-3 mt-2"
+							className={styleButton}
+							style={{ fontSize: "1rem" }}
+							aria-label="Close"
+							onClick={() => {
+								handleOption("userPods");
+								ctx.handleSelectedMarker(null);
+							}}
+						></button>
+					</div>
+					<MarkerCard marker={ctx.selectedMarker} />
+				</>
+			)}
+			{option === "filter" && (
+				<>
+					<div className="d-flex justify-content-end my-2">
+						<button
+							type="button"
+							// className="btn-close mx-3 mt-2"
+							className={styleButton}
+							style={{ fontSize: "1rem" }}
+							aria-label="Close"
+							onClick={() => {
+								handleOption("userPods");
+								ctx.handleSelectedMarker(null);
+							}}
+						></button>
+					</div>
+					<FilterCard />
+				</>
+			)}
+		</>
+	);
 };
 
 export default SideMenu;
