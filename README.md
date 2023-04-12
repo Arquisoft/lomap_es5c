@@ -1,5 +1,5 @@
 # LoMap Es5c
-<img src="/assets/LOMAP_presentation.png" width="50%" height="50%"/>
+<img src="/assets/LOMAP_presentation.png" width="70%" height="70%"/>
 
 
 [![CI for LOMAP ES5C](https://github.com/Arquisoft/lomap_es5c/actions/workflows/lomap_es5c.yml/badge.svg)](https://github.com/Arquisoft/lomap_es5c/actions/workflows/lomap_es5c.yml)
