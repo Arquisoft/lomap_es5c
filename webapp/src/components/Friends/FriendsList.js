@@ -5,6 +5,7 @@ import {
   deleteFriend,
 } from "../Pods/PodsFunctions";
 import { useSession } from "@inrupt/solid-ui-react";
+import {useTranslation} from "react-i18next"
 
 const FriendsList = ({ close, handleLoad }) => {
   const { session } = useSession(); // Hook for providing access to the session in the component
@@ -39,13 +40,15 @@ const FriendsList = ({ close, handleLoad }) => {
     getFriendsWebIds();
   }, []);
 
+  const[t, i18n] = useTranslation("translation");
+
   let headerStyle =
     window.localStorage.getItem("themeStyle") === "dark" ? "#fff " : "#000 ";
-
+  
   return (
     <>
       <div className="d-flex mx-2 justify-content-center">
-        <h3 style={{ color: headerStyle }}>List of friends</h3>
+        <h3 style={{ color: headerStyle }}>{t("FriendsList.list")}</h3>
       </div>
       <div className="my-2 mx-2" style={{ width: "95%" }}>
         {friendsWebIds.map((friend, i) => {

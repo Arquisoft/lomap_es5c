@@ -12,6 +12,8 @@ import styles from "./MarkerCard.module.css";
 
 import img from "../../../images/test.png";
 
+import { useTranslation } from "react-i18next";
+
 const MarkerCard = ({ marker }) => {
   const rating_color = {
     color: "#fbc634",
@@ -39,6 +41,8 @@ const MarkerCard = ({ marker }) => {
     inputBlurHandler: scoreBlurHandler,
     reset: resetScoreInput,
   } = useInput((value) => value.trim() !== "");
+
+  const [t, i18n] = useTranslation("translation");
 
   // Check for global validity of the form
   let commentIsValid = false;
@@ -98,7 +102,7 @@ const MarkerCard = ({ marker }) => {
   }
 
   return (
-    <div className="card my-2 mx-2">
+    <div className="card my-2 mx-2 " style={{ width: "95%" }}>
       <img
         className="card-img-top mt-2 mx-2"
         src={img}
@@ -115,7 +119,9 @@ const MarkerCard = ({ marker }) => {
           </p>
         )}
         {marker.id !== "" && marker.id !== undefined && (
-          <div className="mt-2 ratings">Rating: {stars}</div>
+          <div className="mt-2 ratings">
+            {t("MarkerCard.rating")} {stars}
+          </div>
         )}
       </div>
       {marker.category !== "" && marker.category !== undefined && (
@@ -124,8 +130,12 @@ const MarkerCard = ({ marker }) => {
         </ul>
       )}
       <ul className="list-group list-group-flush">
-        <li className="list-group-item">Latitude: {marker.coords.lat}</li>
-        <li className="list-group-item">Longitude: {marker.coords.lng}</li>
+        <li className="list-group-item">
+          {t("MarkerCard.lat")} {marker.coords.lat}
+        </li>
+        <li className="list-group-item">
+          {t("MarkerCard.long")} {marker.coords.lng}
+        </li>
       </ul>
       {marker.id !== "" && marker.id !== undefined && (
         <>
@@ -148,7 +158,7 @@ const MarkerCard = ({ marker }) => {
                 className={styles.button}
                 disabled={!commentIsValid}
               >
-                Add Comment
+                {t("MarkerCard.comment")}
               </button>
             </div>
           </form>
@@ -178,7 +188,7 @@ const MarkerCard = ({ marker }) => {
                 className={styles.button}
                 disabled={!scoreIsValid}
               >
-                Add Score
+                {t("MarkerCard.score")}
               </button>
             </div>
           </form>
@@ -186,7 +196,7 @@ const MarkerCard = ({ marker }) => {
       )}
       {marker.comments !== undefined && marker.comments.length !== 0 && (
         <div className="card-body">
-          <h5 className="card-title">Comments</h5>
+          <h5 className="card-title">{t("MarkerCard.inComm.title")}</h5>
           {marker.comments.map((comment, i) => {
             return (
               <div key={i} className="card mb-2">
@@ -195,11 +205,12 @@ const MarkerCard = ({ marker }) => {
                     {comment.comment}
                   </p>
                   <p className="card-text" style={{ fontSize: "0.7rem" }}>
-                    By:{" "}
+                    {t("MarkerCard.inComm.by")}{" "}
                     {comment.author
                       .replace("https://", "")
                       .replace(".inrupt.net/profile/card#me", "")}{" "}
-                    on {new Date(comment.date).toDateString()}
+                    {t("MarkerCard.inComm.on")}{" "}
+                    {new Date(comment.date).toDateString()}
                   </p>
                 </div>
               </div>
