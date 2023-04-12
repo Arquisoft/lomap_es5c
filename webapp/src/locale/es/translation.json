@@ -72,5 +72,11 @@
 	"LoginButton": {
 		"in": "INICIAR SESIÓN",
 		"out": "CERRAR SESIÓN"
+	},
+
+	"OptionsMenu": {
+		"markers": "Marcadores",
+		"friends": "Amigos",
+		"filters": "Filtrar"
 	}
 }

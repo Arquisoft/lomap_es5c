@@ -72,5 +72,11 @@
 	"LoginButton": {
 		"in": "LOGIN",
 		"out": "LOGOUT"
+	},
+
+	"OptionsMenu": {
+		"markers": "Markers",
+		"friends": "Friends",
+		"filters": "Filter"
 	}
 }

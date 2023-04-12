@@ -1,44 +1,48 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 
+import { useTranslation } from "react-i18next";
+
 const OptionsMenu = ({ changeOption }) => {
-  const handleOptionChange = (option) => {
-    changeOption(option);
-  };
+	const handleOptionChange = (option) => {
+		changeOption(option);
+	};
 
-  return (
-    <div className="card mx-2 my-2">
-      <div className="container">
-        <div className="row">
-          <div className="col-sm" style={{ textAlign: "center" }}>
-            <Button
-              className="btn my-2"
-              onClick={() => handleOptionChange("userPods")}
-            >
-              Markers
-            </Button>
-          </div>
-          <div className="col-sm" style={{ textAlign: "center" }}>
-            <Button
-              className="btn my-2"
-              onClick={() => handleOptionChange("friends")}
-            >
-              Friends
-            </Button>
-          </div>
-          <div className="col-sm" style={{ textAlign: "center" }}>
-            <Button
-              className="btn my-2"
-              onClick={() => handleOptionChange("filter")}
-            >
-              Filters
-            </Button>
-          </div>
-        </div>
-      </div>
-      <div className=""></div>
+	const [t, i18n] = useTranslation("translation");
 
-      {/* <div className="d-flex mx-2 my-2 align-items-center">
+	return (
+		<div className="card mx-2 my-2">
+			<div className="container">
+				<div className="row">
+					<div className="col-sm" style={{ textAlign: "center" }}>
+						<Button
+							className="btn my-2"
+							onClick={() => handleOptionChange("userPods")}
+						>
+							{t("OptionsMenu.markers")}
+						</Button>
+					</div>
+					<div className="col-sm" style={{ textAlign: "center" }}>
+						<Button
+							className="btn my-2"
+							onClick={() => handleOptionChange("friends")}
+						>
+							{t("OptionsMenu.friends")}
+						</Button>
+					</div>
+					<div className="col-sm" style={{ textAlign: "center" }}>
+						<Button
+							className="btn my-2"
+							onClick={() => handleOptionChange("filter")}
+						>
+							{t("OptionsMenu.filters")}
+						</Button>
+					</div>
+				</div>
+			</div>
+			<div className=""></div>
+
+			{/* <div className="d-flex mx-2 my-2 align-items-center">
         <svg
           width="25px"
           height="25px"
@@ -151,8 +155,8 @@ const OptionsMenu = ({ changeOption }) => {
           Locations
         </a>
       </div> */}
-    </div>
-  );
+		</div>
+	);
 };
 
 export default OptionsMenu;
