@@ -17,7 +17,7 @@ jest.mock("@inrupt/solid-ui-react", () => ({
 
 describe("PodCreateForm", () => {
     const needsUpdate = jest.fn();
-    //const insertNewMarkerM = jest.spyOn(markers, "insertNewMarker")
+    //const insertNewMarker = jest.spyOn(markers, "insertNewMarker")
 
     test("The form to create a new point in the map in default, english", async () => {
         i18n.changeLanguage("en");
@@ -49,8 +49,8 @@ describe("PodCreateForm", () => {
         expect(screen.getByText("Crear")).toBeInTheDocument();
     });
 
-
-    /*test("Form submission handler is called with correct data", async () => {
+    /*
+    test("Form create a point is called with correct data", async () => {
       i18n.changeLanguage("en");
       // Mock necessary functions
       
@@ -78,7 +78,7 @@ describe("PodCreateForm", () => {
       // submit the form
       fireEvent.click(screen.getByText("Create"));
   
-      expect(insertNewMarkerM).toHaveBeenCalledWith(
+      expect(insertNewMarker).toHaveBeenCalledWith(
         { lat: 0, lng: 0 },
         "Test title",
         "Test description",
