@@ -36,5 +36,5 @@ Potentially more columns in case you need translations.
 |	MVC	|	Pattern in software design commonly used to implement user interfaces, data, and controlling logic. It emphasizes a separation between the software's business logic and display.
 |	POD	|	Pods are like secure personal web servers for data. When data is stored in someone's Pod, they control which people and applications can access it.
 |	SOLID	|	SOLID is an acronym for the first five object-oriented design principleS. These principles establish practices that lend to developing software with considerations for maintaining and extending as the project grows.
-
+|   Bootstrap   |  A multiplatform library, open source toolbox to design web applications.
 |===
