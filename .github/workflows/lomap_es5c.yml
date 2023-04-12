@@ -1,16 +1,7 @@
 name: CI for LOMAP ES5C
 
-on:
-  release:
-    types: [published]
-  pull_requests:
-    branches:
-    - master
-    - develop
-  push:
-    branches:
-    - develop
-    - master
+on: [push, pull_request]
+  
 jobs:
   unit-test-webapp:
     runs-on: ubuntu-latest
