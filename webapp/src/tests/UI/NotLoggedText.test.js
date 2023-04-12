@@ -9,6 +9,8 @@ describe("NotLoggedText", () => {
       i18n.changeLanguage("en");
       const {getByText} = render(<NotLoggedText/>);
       expect(getByText('Not logged, please login!')).toBeInTheDocument();
+      const textElement = getByText(/Not Logged/i);
+      expect(textElement).toHaveStyle('color: #fff');
   });
 
   //Now we change the language to spanish
@@ -21,6 +23,6 @@ describe("NotLoggedText", () => {
 
       );
       expect(getByText('¡No has iniciado sesión! Por favor, inicia sesión')).toBeInTheDocument();
-  });
+    });
 
 });
