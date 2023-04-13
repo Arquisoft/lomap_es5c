@@ -1,44 +1,44 @@
 import React, { useState, useEffect } from "react";
 
 import { LoginButton, LogoutButton } from "@inrupt/solid-ui-react";
-import { Button, FormGroup, Container } from "@material-ui/core";
-import styles from "./LogInButton.module.css";
+import Button from "react-bootstrap/Button";
+import {useTranslation} from "react-i18next";
+
+import {
+  handleIncomingRedirect,
+  onSessionRestore,
+} from "@inrupt/solid-client-authn-browser";
 
 // This component is used to login to inrupt provider via button
 const LogInButton = ({ isLoggedIn }) => {
   const [idp, setIdp] = useState("https://inrupt.net");
-  const [currentUrl, setCurrentUrl] = useState("https://localhost:3000");
+  // const [currentUrl, setCurrentUrl] = useState(window.location.href);
+  const [currentUrl, setCurrentUrl] = useState("https://localhost:3000/");
 
   useEffect(() => {
+    // window.localStorage.setItem("currentUrl", window.location.href);
     setCurrentUrl(window.location.href);
   }, [setCurrentUrl]);
 
+  const[t, i18n] = useTranslation("translation");
+
   return (
-    <Container fixed className={styles.containerButton}>
-      <FormGroup className={styles.formgroup}>
-        {!isLoggedIn ? (
-          <LoginButton oidcIssuer={idp} redirectUrl={currentUrl}>
-            <Button
-              variant="contained"
-              color="primary"
-              className={styles.loginButton}
-            >
-              Login
-            </Button>
-          </LoginButton>
-        ) : (
-          <LogoutButton>
-            <Button
-              variant="contained"
-              color="primary"
-              className={styles.loginButton}
-            >
-              Logout
-            </Button>
-          </LogoutButton>
-        )}
-      </FormGroup>
-    </Container>
+    <>
+      {!isLoggedIn ? (
+        // <LoginButton oidcIssuer={idp} redirectUrl={currentUrl}>
+        <LoginButton oidcIssuer={idp} redirectUrl={currentUrl}>
+          <Button variant="primary" className="mx-4">
+            {t("LoginButton.in")}
+          </Button>
+        </LoginButton>
+      ) : (
+        <LogoutButton>
+          <Button variant="danger" className="mx-4">
+          {t("LoginButton.out")}
+          </Button>
+        </LogoutButton>
+      )}
+    </>
   );
 };
 

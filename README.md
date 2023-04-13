@@ -1,7 +1,12 @@
 # LoMap Es5c
+<img src="/assets/LOMAP_presentation.png" width="70%" height="70%"/>
 
-## Participant list
 
+[![CI for LOMAP ES5C](https://github.com/Arquisoft/lomap_es5c/actions/workflows/lomap_es5c.yml/badge.svg)](https://github.com/Arquisoft/lomap_es5c/actions/workflows/lomap_es5c.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_lomap_es5c&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Arquisoft_lomap_es5c)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_lomap_es5c&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Arquisoft_lomap_es5c)
+
+## 👨‍💻 Participant list
 [![Jony](https://img.shields.io/badge/UO283586-Jonathan%20Arias-yellow)](https://github.com/JonathanAriass)
 
 [![Edu](https://img.shields.io/badge/UO285176-Eduardo%20Blanco-blueviolet)](https://github.com/gitblanc)
@@ -12,17 +17,17 @@
 
 [![Xin](https://img.shields.io/badge/UO276967%20-Chen%20Xin%20Pan%20Wang-hotpink)](https://github.com/iimxinn)
 
-[![CI for LOMAP ES5C](https://github.com/Arquisoft/lomap_es5c/actions/workflows/lomap_es5c.yml/badge.svg)](https://github.com/Arquisoft/lomap_es5c/actions/workflows/lomap_es5c.yml)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_lomap_es5c&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Arquisoft_lomap_es5c)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_lomap_es5c&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Arquisoft_lomap_es5c)
+---
+## 💻 Technologies used
 
-<p float="left">
-<img src="https://blog.wildix.com/wp-content/uploads/2020/06/react-logo.jpg" height="100">
-<img src="https://miro.medium.com/max/1200/0*RbmfNyhuBb8G3LWh.png" height="100">
-<img src="https://miro.medium.com/max/365/1*Jr3NFSKTfQWRUyjblBSKeg.png" height="100">
-</p>
-
-This project is a basic example of website using **React** with **Typescript** and an endpoint using **NodeJS** with **express**.
+![](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
+![](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)
+![](https://img.shields.io/badge/Material--UI-0081CB?style=for-the-badge&logo=material-ui&logoColor=white)
+<img src="https://user-images.githubusercontent.com/87705461/217768979-69ceaa1b-27c4-48da-955d-40813377bb15.png" alt="solid" width="25"/>
+![](https://img.shields.io/badge/Amazon_AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white)
+![](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
 
 ## Quick start guide
 

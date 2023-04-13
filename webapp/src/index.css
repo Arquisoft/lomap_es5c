@@ -15,7 +15,7 @@ code {
 }
 
 html {
-  font-size: 15px;
+  font-size: 20px;
   scroll-behavior: smooth;
 }
 
@@ -67,8 +67,12 @@ a {
   left: 0;
 } */
 
+.container {
+  max-width: 100%;
+}
+
 .leaflet-container {
-  width: 97.5%;
+  width: 100%;
   /* height: 100%; */
 }
 
@@ -138,6 +142,7 @@ a {
 .form-control input,
 .form-control label {
   display: block;
+  font-size: 0.75rem;
 }
 
 .form-control label {

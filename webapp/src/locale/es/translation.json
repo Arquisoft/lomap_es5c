@@ -1,0 +1,96 @@
+{
+	"About": {
+		"jonathan": {
+			"userTitle": "Desarrollador React",
+			"description": "Estudiante y desarrollador frontend"
+		},
+		"laura": {
+			"userTitle": "Desarrolladora Java",
+			"description": "Estudiante y desarrolladora en Java"
+		},
+		"edu": {
+			"userTitle": "Administrador Linux",
+			"description": "Estudiante y amante de la ciberseguridad"
+		},
+		"fer": {
+			"userTitle": "Desarrollador backend",
+			"description": "Estudiante y entusiasta del backend"
+		},
+		"xin": {
+			"userTitle": "Desarrolladora software",
+			"description": "Amante de Stackoverflow"
+		},
+		"title": "Equipo LoMap 5c ⭐️"
+	},
+
+	"Menu": {
+		"home": "INICIO",
+		"about": "NOSOTROS"
+	},
+
+	"FriendsList": {
+		"list": "Lista de amigos",
+		"add": "Añadir amigo",
+		"enter": "Introduce el webId de tu amigo",
+		"submit": "Añadir"
+	},
+
+	"MarkerCard": {
+		"comment": "Comentar",
+		"score": "Puntuar",
+		"inComm": {
+			"title": "Comentarios",
+			"by": "De: ",
+			"on": "el "
+		},
+		"lat": "Latitud:",
+		"long": "Longitud:",
+		"rating": "Valoración: "
+	},
+
+	"LocateMarkers": {
+		"here": "Estás aquí"
+	},
+
+	"PodCreateForm": {
+		"create": "Crear lugar",
+		"title": "Título",
+		"error-title": "¡Título no válido!",
+		"description": "Descripción",
+		"error-descrp": "¡Descripción no válida!",
+		"category": {
+			"title": "Categoría",
+			"landscape": "Paisaje",
+			"monument": "Monumento",
+			"shop": "Tienda",
+			"bar": "Bar",
+			"other": "Otro"
+		},
+		"submit": "Crear",
+		"error-submit": "¡Error al crear el lugar! Por inténtelo más tarde."
+	},
+
+	"NotLoggedText": "¡No has iniciado sesión! Por favor, inicia sesión",
+
+	"LoginButton": {
+		"in": "INICIAR SESIÓN",
+		"out": "CERRAR SESIÓN"
+	},
+
+	"OptionsMenu": {
+		"markers": "Marcadores",
+		"friends": "Amigos",
+		"filters": "Filtrar",
+		"friendsMarkers": "Marcadores de amigos"
+	},
+
+	"FilterCard": {
+		"category": "Filtrar por categoría",
+		"all": "Todo",
+		"landscape": "Paisaje",
+		"monument": "Monumento",
+		"shop": "Tienda",
+		"bar": "Bar",
+		"other": "Otro"
+	}
+}
