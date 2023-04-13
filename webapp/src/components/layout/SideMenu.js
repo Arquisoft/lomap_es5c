@@ -52,6 +52,7 @@ const SideMenu = ({ option, coords, handleOption }) => {
 						category: place[i].category,
 						comments: place[i].comments,
 						score: place[i].reviewScores,
+						webId: place[i].webId,
 					},
 				]);
 			}
@@ -87,6 +88,7 @@ const SideMenu = ({ option, coords, handleOption }) => {
 						category: place[i].category,
 						comments: place[i].comments,
 						score: place[i].reviewScores,
+						webId: place[i].webId,
 					},
 				]);
 			}
@@ -150,6 +152,7 @@ const SideMenu = ({ option, coords, handleOption }) => {
 				ctx.filteredMarkers.length === 0 &&
 				option === "userPods" &&
 				markersList.map((marker, i) => {
+					console.log("marcador clicado webId: " + marker.webId)
 					return <MarkerCard key={i} marker={marker} />;
 				})}
 			{option === "userPods" &&

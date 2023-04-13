@@ -150,12 +150,14 @@ export async function insertNewMarker(
 		comments: [], //comments that other users make on the marker
 		reviewScores: [], //scores that other users give to the marker
 		date: Date.now(),
+		webId: webId
 	};
 
 	//This is the map by default
 	//Remove this if we implement multiple maps on the app
 	const mapId = 1;
 
+	console.log("Punto creado con webId: " + marker.webId)
 	//Check if is a new user or not -> creates a new places file if it is new OR adds the marker if exists
 	return await checkIfPlacesFileExists(podUrl, session, marker, webId, mapId);
 }
