@@ -162,7 +162,7 @@ export async function insertNewMarker(
 
 //Function that stablish permissions of the folder and the locations file
 async function updatePermissions(session, webId) {
-	await updatePermissionsOfFolder(session, webId);
+	//await updatePermissionsOfFolder(session, webId);
 	await updatePermissionsOfFile(session, webId);
 }
 
@@ -414,9 +414,11 @@ async function modifyCommentsContent(
 export async function addNewFriend(webId, session, friendWebId) {
 	try {
 		const friends = await listFriends(webId);
+		console.log(friends);
 		//First check if the friend exists
 		if (friends.some((friend) => friend === friendWebId)) {
 			console.log("Friend already exists!");
+			return false;
 		} else {
 			// Get the Solid dataset of the profile
 			let profileDataset = await solid.getSolidDataset(
@@ -432,10 +434,13 @@ export async function addNewFriend(webId, session, friendWebId) {
 			});
 			console.log("New friend was added!");
 			//We update the permissions of the folder where we will store the markers
-			await updatePermissions(session, webId);
+			try {
+				await updatePermissions(session, webId);
+			} catch (error) {}
 			return true;
 		}
 	} catch (error) {
+		console.log("entra");
 		console.log(error);
 		return false;
 	}
