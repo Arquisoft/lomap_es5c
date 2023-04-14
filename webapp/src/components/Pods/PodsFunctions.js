@@ -425,7 +425,14 @@ export async function addNewFriend(webId, session, friendWebId) {
 			);
 			let thing = solid.getThing(profileDataset, webId);
 
-			let name = solid.getStringNoLocale(thing, FOAF.name.iri.value);
+			//Get the friend profile
+			let friendProfileDataset = await solid.getSolidDataset(
+				friendWebId.replace("#me", "")
+			);
+			let friendThing = solid.getThing(friendProfileDataset, friendWebId);
+			let name = solid.getStringNoLocale(friendThing, FOAF.name.iri.value);
+
+			//Check if the new friend exists
 			if (name != null) {
 				// Get all the Things (resources) in the dataset that have the "knows" property
 				thing = solid.addUrl(thing, FOAF.knows, friendWebId);
