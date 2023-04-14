@@ -414,7 +414,6 @@ async function modifyCommentsContent(
 export async function addNewFriend(webId, session, friendWebId) {
 	try {
 		const friends = await listFriends(webId);
-		console.log(friends);
 		//First check if the friend exists
 		if (friends.some((friend) => friend === friendWebId)) {
 			console.log("Friend already exists!");
@@ -426,21 +425,26 @@ export async function addNewFriend(webId, session, friendWebId) {
 			);
 			let thing = solid.getThing(profileDataset, webId);
 
-			// Get all the Things (resources) in the dataset that have the "knows" property
-			thing = solid.addUrl(thing, FOAF.knows, friendWebId);
-			profileDataset = solid.setThing(profileDataset, thing);
-			profileDataset = await solid.saveSolidDatasetAt(webId, profileDataset, {
-				fetch: session.fetch,
-			});
-			console.log("New friend was added!");
-			//We update the permissions of the folder where we will store the markers
-			try {
-				await updatePermissions(session, webId);
-			} catch (error) {}
-			return true;
+			let name = solid.getStringNoLocale(thing, VCARD.fn.iri.value);
+			if (name != null) {
+				// Get all the Things (resources) in the dataset that have the "knows" property
+				thing = solid.addUrl(thing, FOAF.knows, friendWebId);
+				profileDataset = solid.setThing(profileDataset, thing);
+				profileDataset = await solid.saveSolidDatasetAt(webId, profileDataset, {
+					fetch: session.fetch,
+				});
+				console.log("New friend was added!");
+				//We update the permissions of the folder where we will store the markers
+				try {
+					await updatePermissions(session, webId);
+				} catch (error) {}
+				return true;
+			} else {
+				console.log("The user doesn't exist");
+				return false;
+			}
 		}
 	} catch (error) {
-		console.log("entra");
 		console.log(error);
 		return false;
 	}
