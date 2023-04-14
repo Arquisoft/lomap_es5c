@@ -137,7 +137,9 @@ export async function insertNewMarker(
 	podUrl,
 	session,
 	webId,
-	category
+	category,
+	images,
+	mapId = 1
 ) {
 	//We create the new place in JSON format
 	const marker = {
@@ -149,12 +151,9 @@ export async function insertNewMarker(
 		description: description,
 		comments: [], //comments that other users make on the marker
 		reviewScores: [], //scores that other users give to the marker
+		pictures: images, //pictures that the user uploads
 		date: Date.now(),
 	};
-
-	//This is the map by default
-	//Remove this if we implement multiple maps on the app
-	const mapId = 1;
 
 	//Check if is a new user or not -> creates a new places file if it is new OR adds the marker if exists
 	return await checkIfPlacesFileExists(podUrl, session, marker, webId, mapId);
@@ -499,4 +498,60 @@ export async function filterByCategory(category, webId, session, mapId = 1) {
 	}
 
 	return placesFiltered;
+}
+
+//Function that adds new pictures to a location
+export async function addPictures(
+	webId,
+	session,
+	images,
+	idLocation,
+	mapId = 1
+) {
+	const fileUrl = webId.replace(
+		"/profile/card#me",
+		"/justforfriends/locations.json"
+	);
+	let file = await solid.getFile(fileUrl, { fetch: session.fetch });
+	let jsonMarkers = JSON.parse(await file.text());
+	const x = getMapValue(jsonMarkers.maps, mapId);
+	const locations = jsonMarkers.maps[x].locations;
+
+	for (let i = 0; i < locations.length; i++) {
+		if (locations[i].id == idLocation) {
+			await modifyPicturesContent(
+				i,
+				webId,
+				session,
+				images,
+				jsonMarkers,
+				x,
+				fileUrl
+			);
+		}
+	}
+}
+
+//Function that modifies the content of the file with the new pictures
+async function modifyPicturesContent(
+	i,
+	webId,
+	session,
+	imagesToAdd,
+	jsonMarkers,
+	mapValue,
+	podUrl
+) {
+	const images = jsonMarkers.maps[mapValue].locations[i].pictures;
+	for (let j = 0; j < imagesToAdd.length; j++) {
+		images.push(imagesToAdd[j]);
+	}
+
+	const blob = new Blob([JSON.stringify(jsonMarkers, null, 2)], {
+		type: "application/json",
+	});
+
+	var newFile = new File([blob], "locations.json", { type: blob.type });
+
+	return updatePlacesFile(newFile, podUrl, session); //returns true if everything was ok or false if there was an error
 }
