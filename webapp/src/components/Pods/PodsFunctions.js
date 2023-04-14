@@ -425,7 +425,7 @@ export async function addNewFriend(webId, session, friendWebId) {
 			);
 			let thing = solid.getThing(profileDataset, webId);
 
-			let name = solid.getStringNoLocale(thing, VCARD.fn.iri.value);
+			let name = solid.getStringNoLocale(thing, FOAF.name.iri.value);
 			if (name != null) {
 				// Get all the Things (resources) in the dataset that have the "knows" property
 				thing = solid.addUrl(thing, FOAF.knows, friendWebId);
