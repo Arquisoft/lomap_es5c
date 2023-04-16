@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 
 import UserSessionContext from "../../store/session-context";
 
-const PodCreateForm = ({ coords, close, needsUpdate }) => {
+const PodCreateForm = ({ coords, prevOption, close, needsUpdate }) => {
   const ctx = useContext(UserSessionContext);
   const [t, i18n] = useTranslation("translation");
 
@@ -143,7 +143,7 @@ const PodCreateForm = ({ coords, close, needsUpdate }) => {
   }, [coords]);
 
   const closeForm = () => {
-    close("userPods");
+    close(prevOption);
   };
 
   return (
