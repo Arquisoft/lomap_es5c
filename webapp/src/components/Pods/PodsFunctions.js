@@ -164,7 +164,7 @@ export async function insertNewMarker(
 
 //Function that stablish permissions of the folder and the locations file
 async function updatePermissions(session, webId) {
-	await updatePermissionsOfFolder(session, webId);
+	//await updatePermissionsOfFolder(session, webId);
 	await updatePermissionsOfFile(session, webId);
 }
 
@@ -419,6 +419,7 @@ export async function addNewFriend(webId, session, friendWebId) {
 		//First check if the friend exists
 		if (friends.some((friend) => friend === friendWebId)) {
 			console.log("Friend already exists!");
+			return false;
 		} else {
 			// Get the Solid dataset of the profile
 			let profileDataset = await solid.getSolidDataset(
@@ -426,16 +427,31 @@ export async function addNewFriend(webId, session, friendWebId) {
 			);
 			let thing = solid.getThing(profileDataset, webId);
 
-			// Get all the Things (resources) in the dataset that have the "knows" property
-			thing = solid.addUrl(thing, FOAF.knows, friendWebId);
-			profileDataset = solid.setThing(profileDataset, thing);
-			profileDataset = await solid.saveSolidDatasetAt(webId, profileDataset, {
-				fetch: session.fetch,
-			});
-			console.log("New friend was added!");
-			//We update the permissions of the folder where we will store the markers
-			await updatePermissions(session, webId);
-			return true;
+			//Get the friend profile
+			let friendProfileDataset = await solid.getSolidDataset(
+				friendWebId.replace("#me", "")
+			);
+			let friendThing = solid.getThing(friendProfileDataset, friendWebId);
+			let name = solid.getStringNoLocale(friendThing, FOAF.name.iri.value);
+
+			//Check if the new friend exists
+			if (name != null) {
+				// Get all the Things (resources) in the dataset that have the "knows" property
+				thing = solid.addUrl(thing, FOAF.knows, friendWebId);
+				profileDataset = solid.setThing(profileDataset, thing);
+				profileDataset = await solid.saveSolidDatasetAt(webId, profileDataset, {
+					fetch: session.fetch,
+				});
+				console.log("New friend was added!");
+				//We update the permissions of the folder where we will store the markers
+				try {
+					await updatePermissions(session, webId);
+				} catch (error) {}
+				return true;
+			} else {
+				console.log("The user doesn't exist");
+				return false;
+			}
 		}
 	} catch (error) {
 		console.log(error);
