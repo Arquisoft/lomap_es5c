@@ -61,14 +61,14 @@ const MarkerCard = ({ marker }) => {
   // Commment form submission handler
   const formAddCommentHandler = (event) => {
     event.preventDefault();
-    addComment(marker.webId, session, enteredComment, marker.id);
+    addComment(webId, session, enteredComment, marker.id);
     resetCommentInput();
   };
 
   // Score form submission handler
   const formAddScoreHandler = (event) => {
     event.preventDefault();
-    addReviewScore(marker.webId, session, enteredScore, marker.id);
+    addReviewScore(webId, session, enteredScore, marker.id);
 
     //Resets the radios selected value
     const radioButtons = document.getElementsByName("rating");

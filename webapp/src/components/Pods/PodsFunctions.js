@@ -55,7 +55,7 @@ async function createNewPlacesFile(podUrl, session, marker, mapId) {
 }
 
 //Function that checks if locations.json file exists
-async function checkIfPlacesFileExists(podUrl, session, marker, webId, mapId) {
+async function checkIfPlacesFileExists(podUrl, session, marker, mapId) {
 	try {
 		//file exists
 		let file = await solid.getFile(podUrl, { fetch: session.fetch });
@@ -141,7 +141,7 @@ export async function insertNewMarker(
 ) {
 	//We create the new place in JSON format
 	const marker = {
-		id: Date.now(),
+		id: webId + "@" + Date.now(),
 		name: name,
 		category: category,
 		latitude: coords.lat,
@@ -150,14 +150,14 @@ export async function insertNewMarker(
 		comments: [], //comments that other users make on the marker
 		reviewScores: [], //scores that other users give to the marker
 		date: Date.now(),
-		webId: webId
+		//webId: webId
 	};
 
 	//This is the map by default
 	//Remove this if we implement multiple maps on the app
 	const mapId = 1;
 
-	console.log("Punto creado con webId: " + marker.webId)
+	console.log("Punto creado con webId: " + webId)
 	//Check if is a new user or not -> creates a new places file if it is new OR adds the marker if exists
 	return await checkIfPlacesFileExists(podUrl, session, marker, webId, mapId);
 }

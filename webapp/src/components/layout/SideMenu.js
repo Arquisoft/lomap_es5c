@@ -52,7 +52,7 @@ const SideMenu = ({ option, coords, handleOption }) => {
 						category: place[i].category,
 						comments: place[i].comments,
 						score: place[i].reviewScores,
-						webId: place[i].webId,
+						webId: place[i].id.split("@")[0]
 					},
 				]);
 			}
@@ -88,7 +88,7 @@ const SideMenu = ({ option, coords, handleOption }) => {
 						category: place[i].category,
 						comments: place[i].comments,
 						score: place[i].reviewScores,
-						webId: place[i].webId,
+						webId: place[i].id.split("@")[0],
 					},
 				]);
 			}
