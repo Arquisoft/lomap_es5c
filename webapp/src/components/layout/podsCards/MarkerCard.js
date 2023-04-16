@@ -21,7 +21,11 @@ const MarkerCard = ({ marker }) => {
 
   const { session } = useSession(); // Hook for providing access to the session in the component
   const webId = session.info;
-  const webIdM = marker.id.split("@")[0] // User's webId
+  let webIdM;
+  if(marker.id !== undefined)
+    webIdM = marker.id.split("@")[0] // User's webId.
+  else
+    webIdM = webId
 
   let canScore = true;
 
