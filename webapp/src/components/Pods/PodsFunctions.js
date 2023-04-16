@@ -63,6 +63,7 @@ async function checkIfPlacesFileExists(podUrl, session, marker, webId, mapId) {
 	} catch (error) {
 		//file doesn't exist
 		await createNewPlacesFile(podUrl, session, marker, mapId);
+		await updatePermissions(session, webId);
 	}
 }
 
@@ -103,16 +104,13 @@ function getMapValue(maps, mapId) {
 
 //Function that adds a new marker to the pod
 async function addNewMarker(file, podUrl, session, marker, mapId) {
+
 	let jsonMarkers = JSON.parse(await file.text());
-
 	const i = getMapValue(jsonMarkers.maps, mapId);
-
 	jsonMarkers.maps[i].locations.push(marker);
-
 	const blob = new Blob([JSON.stringify(jsonMarkers, null, 2)], {
 		type: "application/json",
 	});
-
 	var newFile = new File([blob], "locations.json", { type: blob.type });
 
 	return updatePlacesFile(newFile, podUrl, session); //returns true if everything was ok or false if there was an error
@@ -141,7 +139,7 @@ export async function insertNewMarker(
 ) {
 	//We create the new place in JSON format
 	const marker = {
-		id: Date.now(),
+		id: webId + "@" + Date.now(),
 		name: name,
 		category: category,
 		latitude: coords.lat,
@@ -150,12 +148,14 @@ export async function insertNewMarker(
 		comments: [], //comments that other users make on the marker
 		reviewScores: [], //scores that other users give to the marker
 		date: Date.now(),
+		//webId: webId
 	};
 
 	//This is the map by default
 	//Remove this if we implement multiple maps on the app
 	const mapId = 1;
 
+	console.log("Punto creado con webId: " + webId)
 	//Check if is a new user or not -> creates a new places file if it is new OR adds the marker if exists
 	return await checkIfPlacesFileExists(podUrl, session, marker, webId, mapId);
 }
