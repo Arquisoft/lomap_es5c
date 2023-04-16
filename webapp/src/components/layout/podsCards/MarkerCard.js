@@ -20,7 +20,7 @@ const MarkerCard = ({ marker }) => {
   };
 
   const { session } = useSession(); // Hook for providing access to the session in the component
-  const { webId } = session.info; // User's webId
+  const webId = marker.id.split("@")[0] // User's webId
 
   // useInput for each input
   const {

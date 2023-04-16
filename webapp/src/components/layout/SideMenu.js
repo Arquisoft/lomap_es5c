@@ -152,7 +152,6 @@ const SideMenu = ({ option, coords, handleOption }) => {
 				ctx.filteredMarkers.length === 0 &&
 				option === "userPods" &&
 				markersList.map((marker, i) => {
-					console.log("marcador clicado webId: " + marker.webId)
 					return <MarkerCard key={i} marker={marker} />;
 				})}
 			{option === "userPods" &&

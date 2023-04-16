@@ -55,7 +55,7 @@ async function createNewPlacesFile(podUrl, session, marker, mapId) {
 }
 
 //Function that checks if locations.json file exists
-async function checkIfPlacesFileExists(podUrl, session, marker, mapId) {
+async function checkIfPlacesFileExists(podUrl, session, marker, webId, mapId) {
 	try {
 		//file exists
 		let file = await solid.getFile(podUrl, { fetch: session.fetch });
@@ -63,6 +63,7 @@ async function checkIfPlacesFileExists(podUrl, session, marker, mapId) {
 	} catch (error) {
 		//file doesn't exist
 		await createNewPlacesFile(podUrl, session, marker, mapId);
+		await updatePermissions(session, webId);
 	}
 }
 
@@ -103,16 +104,13 @@ function getMapValue(maps, mapId) {
 
 //Function that adds a new marker to the pod
 async function addNewMarker(file, podUrl, session, marker, mapId) {
+
 	let jsonMarkers = JSON.parse(await file.text());
-
 	const i = getMapValue(jsonMarkers.maps, mapId);
-
 	jsonMarkers.maps[i].locations.push(marker);
-
 	const blob = new Blob([JSON.stringify(jsonMarkers, null, 2)], {
 		type: "application/json",
 	});
-
 	var newFile = new File([blob], "locations.json", { type: blob.type });
 
 	return updatePlacesFile(newFile, podUrl, session); //returns true if everything was ok or false if there was an error
