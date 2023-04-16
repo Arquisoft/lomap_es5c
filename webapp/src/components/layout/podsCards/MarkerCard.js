@@ -20,7 +20,7 @@ const MarkerCard = ({ marker }) => {
   };
 
   const { session } = useSession(); // Hook for providing access to the session in the component
-  const { webId } = session.info; // User's webId
+  const webId = marker.id.split("@")[0] // User's webId
 
   // useInput for each input
   const {
@@ -61,6 +61,7 @@ const MarkerCard = ({ marker }) => {
   // Commment form submission handler
   const formAddCommentHandler = (event) => {
     event.preventDefault();
+    console.log(webId)
     addComment(webId, session, enteredComment, marker.id);
     resetCommentInput();
   };
@@ -68,6 +69,7 @@ const MarkerCard = ({ marker }) => {
   // Score form submission handler
   const formAddScoreHandler = (event) => {
     event.preventDefault();
+    console.log("WEBID:"+ webId)
     addReviewScore(webId, session, enteredScore, marker.id);
 
     //Resets the radios selected value
