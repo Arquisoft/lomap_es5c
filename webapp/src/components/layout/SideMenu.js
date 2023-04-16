@@ -203,6 +203,7 @@ const SideMenu = ({ option, coords, handleOption }) => {
 			{option === "read" &&
 				loaded &&
 				markersList.map((marker, i) => {
+					console.log("pulsamos punto amigo: " + marker.webId)
 					return <MarkerCard key={i} marker={marker} />;
 				})}
 			{option === "markerInfo" && (
