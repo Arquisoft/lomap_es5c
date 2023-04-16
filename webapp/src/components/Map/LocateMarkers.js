@@ -221,19 +221,6 @@ function LocationMarkers({ coords, markerEvent }) {
         }}
       ></Marker>
 
-      {/* {markers.map((marker, i) => (
-        <Marker
-          key={i}
-          icon={customIcon}
-          position={marker}
-          eventHandlers={{
-            click: (e) => {
-              setInitial(false);
-              getCurrentCityName(e.latlng.lat, e.latlng.lng);
-            },
-          }}
-        ></Marker>
-      ))} */}
       {dbMarkers.map((marker, i) => (
         <Marker
           key={i}
@@ -243,14 +230,11 @@ function LocationMarkers({ coords, markerEvent }) {
             click: (e) => {
               setClicked(true);
               setInitial(false);
-              //   getCurrentCityName(e.latlng.lat, e.latlng.lng);
               setMarkerName(marker.title);
               ctx.handleSelectedMarker(marker);
             },
           }}
-        >
-          {/* <Popup>Test</Popup> */}
-        </Marker>
+        ></Marker>
       ))}
       {ctx.loaded &&
         ctx.filteredMarkers.length === 0 &&
@@ -258,7 +242,6 @@ function LocationMarkers({ coords, markerEvent }) {
           return (
             <Marker
               key={i}
-              // icon={monumentIcon}
               icon={
                 marker.category === "shop"
                   ? shopIcon
@@ -273,8 +256,6 @@ function LocationMarkers({ coords, markerEvent }) {
               position={marker.coords}
               eventHandlers={{
                 click: (e) => {
-                  // console.log("clicked:", marker);
-                  // addComment(webId, session, "Test", marker.id);
                   ctx.handleSelectedMarker(marker);
                 },
               }}
@@ -282,6 +263,7 @@ function LocationMarkers({ coords, markerEvent }) {
           );
         })}
       {ctx.filteredMarkers.length > 0 &&
+        ctx.changedFilter &&
         ctx.filteredMarkers.map((marker, i) => {
           return (
             <Marker
@@ -301,7 +283,6 @@ function LocationMarkers({ coords, markerEvent }) {
               position={marker.coords}
               eventHandlers={{
                 click: (e) => {
-                  console.log("clicked:", marker);
                   // addComment(webId, session, "Test", marker.id);
                   ctx.handleSelectedMarker(marker);
                 },
@@ -310,42 +291,6 @@ function LocationMarkers({ coords, markerEvent }) {
           );
         })}
 
-      {/* {podMarkersLoaded &&
-        podMarkers.map(
-          (marker, i) => (
-            console.log(marker),
-            (
-              <Marker
-                key={i}
-                icon={customDbIcon}
-                position={marker.coords}
-                eventHandlers={{
-                  click: (e) => {
-                    setClicked(true);
-
-                    // setInitial(false);
-                    // getCurrentCityName(e.latitude, e.latlng.lng);
-                    setMarkerName(marker.title);
-                  },
-                }}
-              ></Marker>
-            )
-          )
-        )} */}
-      {/* {clicked && load}
-      {initial && form} */}
-      {/* {initial && (
-        <Marker
-          icon={addMarkerIcon}
-          position={actualMarker}
-          eventHandlers={{
-            click: (e) => {
-              setInitial(false);
-              getCurrentCityName(e.latlng.lat, e.latlng.lng);
-            },
-          }}
-        ></Marker>
-      )} */}
       {ctx.createMarker && (
         <Marker
           icon={addMarkerIcon}
