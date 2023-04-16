@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import useInput from "../../../hooks/use-input";
 
 import {
@@ -20,7 +20,10 @@ const MarkerCard = ({ marker }) => {
   };
 
   const { session } = useSession(); // Hook for providing access to the session in the component
-  const webId = marker.id.split("@")[0] // User's webId
+  const webId = session.info;
+  const webIdM = marker.id.split("@")[0] // User's webId
+
+  let canScore = true;
 
   // useInput for each input
   const {
@@ -61,16 +64,16 @@ const MarkerCard = ({ marker }) => {
   // Commment form submission handler
   const formAddCommentHandler = (event) => {
     event.preventDefault();
-    console.log(webId)
-    addComment(webId, session, enteredComment, marker.id);
+    console.log(webIdM)
+    addComment(webIdM, session, enteredComment, marker.id);
     resetCommentInput();
   };
 
   // Score form submission handler
   const formAddScoreHandler = (event) => {
     event.preventDefault();
-    console.log("WEBID:"+ webId)
-    addReviewScore(webId, session, enteredScore, marker.id);
+    console.log("WEBIDM:"+ webIdM)
+    addReviewScore(webIdM, session, enteredScore, marker.id);
 
     //Resets the radios selected value
     const radioButtons = document.getElementsByName("rating");
@@ -84,13 +87,20 @@ const MarkerCard = ({ marker }) => {
     let listScore = marker.score;
     let meanScore;
     let acc = 0;
+    let ableToScore = true;
 
     for (var i = 0; i < listScore.length; i++) {
       acc += Number(listScore[i].score);
+      if(listScore[i].author == webId.webId) {
+        console.log("NO PUEDE SCORE")
+        ableToScore = false;
+      }
     }
     meanScore = acc / listScore.length;
 
     marker.rating = meanScore; // this should be obtained from the pod's rating
+    console.log("llega asta el final")
+    canScore = ableToScore
   }
 
   // Remember to calculate the rating of the pod and pass it to the marker object (int number)
@@ -167,7 +177,7 @@ const MarkerCard = ({ marker }) => {
             </div>
           </form>
 
-          <form onSubmit={formAddScoreHandler} className={styles.scoreGroup}>
+          <form onSubmit={formAddScoreHandler} className={styles.scoreGroup} hidden={!canScore}>
             <div
               className={styles.rating}
               id="stars"
@@ -190,7 +200,7 @@ const MarkerCard = ({ marker }) => {
               <button
                 type="submit"
                 className={styles.button}
-                disabled={!scoreIsValid}
+                disabled={!scoreIsValid }
               >
                 {t("MarkerCard.score")}
               </button>
