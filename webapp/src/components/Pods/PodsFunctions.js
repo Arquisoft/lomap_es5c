@@ -104,7 +104,6 @@ function getMapValue(maps, mapId) {
 
 //Function that adds a new marker to the pod
 async function addNewMarker(file, podUrl, session, marker, mapId) {
-
 	let jsonMarkers = JSON.parse(await file.text());
 	const i = getMapValue(jsonMarkers.maps, mapId);
 	jsonMarkers.maps[i].locations.push(marker);
@@ -155,7 +154,7 @@ export async function insertNewMarker(
 	//Remove this if we implement multiple maps on the app
 	const mapId = 1;
 
-	console.log("Punto creado con webId: " + webId)
+	console.log("Punto creado con webId: " + webId);
 	//Check if is a new user or not -> creates a new places file if it is new OR adds the marker if exists
 	return await checkIfPlacesFileExists(podUrl, session, marker, webId, mapId);
 }
@@ -499,4 +498,30 @@ export async function filterByCategory(category, webId, session, mapId = 1) {
 	}
 
 	return placesFiltered;
+}
+
+//Function that deletes a location of the pod of the user
+export async function removeMarker(webId, session, mapId = 1, markerId) {
+	const fileUrl = webId.replace(
+		"/profile/card#me",
+		"/justforfriends/locations.json"
+	);
+	let file = await solid.getFile(fileUrl, { fetch: session.fetch });
+	let jsonMarkers = JSON.parse(await file.text());
+	const x = getMapValue(jsonMarkers.maps, mapId);
+	const locations = jsonMarkers.maps[x].locations;
+
+	for (let i = 0; i < locations.length; i++) {
+		if (locations[i].id == markerId) {
+			jsonMarkers.maps[x].locations.splice(i, 1);
+		}
+	}
+
+	const blob = new Blob([JSON.stringify(jsonMarkers, null, 2)], {
+		type: "application/json",
+	});
+
+	var newFile = new File([blob], "locations.json", { type: blob.type });
+
+	return updatePlacesFile(newFile, fileUrl, session); //returns true if everything was ok or false if there was an error
 }
