@@ -41,6 +41,14 @@ const Card = ({ title, content }) => {
 			let filteredMarkers = [];
 			ctx.markers.map((marker) => {
 				if (
+					marker.category == undefined ||
+					marker.category == null ||
+					marker.category == ""
+				) {
+					marker.category = "Other";
+					filteredMarkers.push(marker);
+				}
+				if (
 					marker.category.toLowerCase() === option.target.value.toLowerCase()
 				) {
 					filteredMarkers.push(marker);
@@ -111,7 +119,6 @@ const Card = ({ title, content }) => {
 					<select defaultValue={ctx.filterOption} onChange={handleFilter}>
 						{filterOptions.map((option) => (
 							<option key={option} value={option}>
-								{" "}
 								{t(getLocalizatedOptionValue(option))}
 							</option>
 						))}
