@@ -334,7 +334,7 @@ async function modifyScoresContent(
 	podUrl
 ) {
 	const newReviewScore = {
-		author: webId,
+		author: session.info.webId,
 		score: score,
 		date: Date.now(),
 	};
@@ -394,7 +394,7 @@ async function modifyCommentsContent(
 	podUrl
 ) {
 	const newComment = {
-		author: webId,
+		author: session.info.webId,
 		comment: comment,
 		date: Date.now(),
 	};
