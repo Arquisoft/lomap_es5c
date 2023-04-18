@@ -27,7 +27,17 @@ const MarkerCard = ({ marker }) => {
   else
     webIdM = webId
 
+
+  const starsIds = ["star5", "star4", "star3", "star2", "star1"];
+
+  const randomId = function (length = 6) {
+    return Math.random()
+      .toString(36)
+      .substring(2, length + 2);
+  };
+
   let canScore = true;
+  const [canScore2, setCanScore2] = useState(true)
 
   // useInput for each input
   const {
@@ -85,6 +95,7 @@ const MarkerCard = ({ marker }) => {
       radioButtons[i].checked = false;
     }
     resetScoreInput();
+    setCanScore2(false)
   };
 
   if (marker.score !== undefined) {
@@ -180,24 +191,29 @@ const MarkerCard = ({ marker }) => {
               </button>
             </div>
           </form>
-
-          <form onSubmit={formAddScoreHandler} className={styles.scoreGroup} hidden={!canScore}>
-            <div
+          {canScore && canScore2 &&
+          <form onSubmit={formAddScoreHandler} className={styles.scoreGroup}>
+             <div
               className={styles.rating}
               id="stars"
               onChange={scoreChangeHandler}
               value={enteredScore}
             >
-              <input type="radio" name="rating" id="star5" value="5" />
-              <label htmlFor="star5">☆</label>
-              <input type="radio" name="rating" id="star4" value="4" />
-              <label htmlFor="star4">☆</label>
-              <input type="radio" name="rating" id="star3" value="3" />
-              <label htmlFor="star3">☆</label>
-              <input type="radio" name="rating" id="star2" value="2" />
-              <label htmlFor="star2">☆</label>
-              <input type="radio" name="rating" id="star1" value="1" />
-              <label htmlFor="star1">☆</label>
+              {starsIds.map((starId, i) => {
+                const id = randomId();
+                return (
+                  <>
+                    <input
+                      type="radio"
+                      name="rating"
+                      id={id}
+                      value={starId.charAt(4)}
+                      key={i}
+                    />
+                    <label htmlFor={id}>☆</label>
+                  </>
+                );
+              })}
             </div>
 
             <div className={styles.commentButton}>
@@ -210,6 +226,7 @@ const MarkerCard = ({ marker }) => {
               </button>
             </div>
           </form>
+          }
         </>
       )}
       {marker.comments !== undefined && marker.comments.length !== 0 && (
