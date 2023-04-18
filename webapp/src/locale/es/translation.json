@@ -106,5 +106,8 @@
 		"shop": "Tienda",
 		"bar": "Bar",
 		"other": "Otro"
+	},
+	"SideMenu": {
+		"nomarkers": "No hay marcadores"
 	}
 }

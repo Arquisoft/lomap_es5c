@@ -100,5 +100,9 @@
 
 	"FilterCard": {
 		"category": "Filter by category"
+	},
+
+	"SideMenu": {
+		"nomarkers": "No markers found"
 	}
 }
