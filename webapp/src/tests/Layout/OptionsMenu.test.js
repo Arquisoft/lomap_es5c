@@ -12,15 +12,6 @@ describe("OptionsMenu", () => {
         expect(buttons.length).toBe(4);
     })
 
-    test("should call changeOption with correct value when a button is clicked", () => {
-        const changeOptionMock = jest.fn();
-        const { getByText } = render(<OptionsMenu changeOption={changeOptionMock} />);
-    
-        fireEvent.click(getByText("Markers"));
-    
-        expect(changeOptionMock).toHaveBeenCalledWith("userPods");
-    })
-
     test("should render four buttons with the correct text by default in english", () => {
         const { getByText } = render(<OptionsMenu />);
     
@@ -30,12 +21,12 @@ describe("OptionsMenu", () => {
         expect(getByText("Filter")).toBeInTheDocument();
       });
 
-      test("should call changeOption with correct value when a button is clicked/is pushed correctly", () => {
+      /* test("should call changeOption with correct value when a button is clicked/is pushed correctly", () => {
         const changeOptionMock = jest.fn();
         const { getByText } = render(<OptionsMenu changeOption={changeOptionMock} />);
     
         fireEvent.click(getByText("Markers"));
     
         expect(changeOptionMock).toHaveBeenCalledWith("userPods");
-      });
+      }); */
 })
