@@ -63,6 +63,7 @@ async function checkIfPlacesFileExists(podUrl, session, marker, webId, mapId) {
 	} catch (error) {
 		//file doesn't exist
 		await createNewPlacesFile(podUrl, session, marker, mapId);
+		await updatePermissions(session, webId);
 	}
 }
 
@@ -104,15 +105,11 @@ function getMapValue(maps, mapId) {
 //Function that adds a new marker to the pod
 async function addNewMarker(file, podUrl, session, marker, mapId) {
 	let jsonMarkers = JSON.parse(await file.text());
-
 	const i = getMapValue(jsonMarkers.maps, mapId);
-
 	jsonMarkers.maps[i].locations.push(marker);
-
 	const blob = new Blob([JSON.stringify(jsonMarkers, null, 2)], {
 		type: "application/json",
 	});
-
 	var newFile = new File([blob], "locations.json", { type: blob.type });
 
 	return updatePlacesFile(newFile, podUrl, session); //returns true if everything was ok or false if there was an error
@@ -141,7 +138,7 @@ export async function insertNewMarker(
 ) {
 	//We create the new place in JSON format
 	const marker = {
-		id: Date.now(),
+		id: webId + "@" + Date.now(),
 		name: name,
 		category: category,
 		latitude: coords.lat,
@@ -150,19 +147,21 @@ export async function insertNewMarker(
 		comments: [], //comments that other users make on the marker
 		reviewScores: [], //scores that other users give to the marker
 		date: Date.now(),
+		//webId: webId
 	};
 
 	//This is the map by default
 	//Remove this if we implement multiple maps on the app
 	const mapId = 1;
 
+	console.log("Punto creado con webId: " + webId);
 	//Check if is a new user or not -> creates a new places file if it is new OR adds the marker if exists
 	return await checkIfPlacesFileExists(podUrl, session, marker, webId, mapId);
 }
 
 //Function that stablish permissions of the folder and the locations file
 async function updatePermissions(session, webId) {
-	await updatePermissionsOfFolder(session, webId);
+	//await updatePermissionsOfFolder(session, webId);
 	await updatePermissionsOfFile(session, webId);
 }
 
@@ -417,6 +416,7 @@ export async function addNewFriend(webId, session, friendWebId) {
 		//First check if the friend exists
 		if (friends.some((friend) => friend === friendWebId)) {
 			console.log("Friend already exists!");
+			return false;
 		} else {
 			// Get the Solid dataset of the profile
 			let profileDataset = await solid.getSolidDataset(
@@ -424,16 +424,31 @@ export async function addNewFriend(webId, session, friendWebId) {
 			);
 			let thing = solid.getThing(profileDataset, webId);
 
-			// Get all the Things (resources) in the dataset that have the "knows" property
-			thing = solid.addUrl(thing, FOAF.knows, friendWebId);
-			profileDataset = solid.setThing(profileDataset, thing);
-			profileDataset = await solid.saveSolidDatasetAt(webId, profileDataset, {
-				fetch: session.fetch,
-			});
-			console.log("New friend was added!");
-			//We update the permissions of the folder where we will store the markers
-			await updatePermissions(session, webId);
-			return true;
+			//Get the friend profile
+			let friendProfileDataset = await solid.getSolidDataset(
+				friendWebId.replace("#me", "")
+			);
+			let friendThing = solid.getThing(friendProfileDataset, friendWebId);
+			let name = solid.getStringNoLocale(friendThing, FOAF.name.iri.value);
+
+			//Check if the new friend exists
+			if (name != null) {
+				// Get all the Things (resources) in the dataset that have the "knows" property
+				thing = solid.addUrl(thing, FOAF.knows, friendWebId);
+				profileDataset = solid.setThing(profileDataset, thing);
+				profileDataset = await solid.saveSolidDatasetAt(webId, profileDataset, {
+					fetch: session.fetch,
+				});
+				console.log("New friend was added!");
+				//We update the permissions of the folder where we will store the markers
+				try {
+					await updatePermissions(session, webId);
+				} catch (error) {}
+				return true;
+			} else {
+				console.log("The user doesn't exist");
+				return false;
+			}
 		}
 	} catch (error) {
 		console.log(error);
@@ -483,4 +498,30 @@ export async function filterByCategory(category, webId, session, mapId = 1) {
 	}
 
 	return placesFiltered;
+}
+
+//Function that deletes a location of the pod of the user
+export async function removeMarker(webId, session, mapId = 1, markerId) {
+	const fileUrl = webId.replace(
+		"/profile/card#me",
+		"/justforfriends/locations.json"
+	);
+	let file = await solid.getFile(fileUrl, { fetch: session.fetch });
+	let jsonMarkers = JSON.parse(await file.text());
+	const x = getMapValue(jsonMarkers.maps, mapId);
+	const locations = jsonMarkers.maps[x].locations;
+
+	for (let i = 0; i < locations.length; i++) {
+		if (locations[i].id == markerId) {
+			jsonMarkers.maps[x].locations.splice(i, 1);
+		}
+	}
+
+	const blob = new Blob([JSON.stringify(jsonMarkers, null, 2)], {
+		type: "application/json",
+	});
+
+	var newFile = new File([blob], "locations.json", { type: blob.type });
+
+	return updatePlacesFile(newFile, fileUrl, session); //returns true if everything was ok or false if there was an error
 }

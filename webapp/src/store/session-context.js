@@ -8,9 +8,12 @@ const UserSessionContext = createContext({
   filteredMarkers: [],
   handleMarkers: () => {},
   handleFilteredMarkers: () => {},
+  changedFilter: false,
+  handleChangedFilter: () => {},
   filterOption: "all",
   handleFilterOption: () => {},
   loaded: false,
+  handleLoaded: () => {},
   selectedMarker: null,
   createMarker: false,
   handleCreateMarker: () => {},
@@ -27,6 +30,7 @@ export const UserSessionProvider = ({ children }) => {
   const [loaded, setLoaded] = useState(false);
   const [createMarker, setCreateMarker] = useState(null);
 
+  const [changedFilter, setChangedFilter] = useState(false);
   const [filterOption, setFilterOption] = useState("all");
 
   const [selectedMarker, setSelectedMarker] = useState(null);
@@ -39,25 +43,32 @@ export const UserSessionProvider = ({ children }) => {
   };
 
   const handleMarkers = (newMarkers) => {
-    setMarkers([]);
-    newMarkers.map((place) => {
-      for (let i = 0; i < place.length; i++) {
-        setMarkers((prevValue) => [
-          ...prevValue,
-          {
-            id: place[i].id,
-            title: place[i].name,
-            coords: new LatLng(place[i].latitude, place[i].longitude),
-            description: place[i].description,
-            category: place[i].category,
-            comments: place[i].comments,
-            score: place[i].reviewScores,
-          },
-        ]);
-      }
-    });
+    console.log(newMarkers);
+    if (newMarkers !== null) {
+      console.log("entra");
+      setMarkers([]);
+      newMarkers.map((place) => {
+        if (place !== null) {
+          console.log(place);
+          for (let i = 0; i < place.length; i++) {
+            setMarkers((prevValue) => [
+              ...prevValue,
+              {
+                id: place[i].id,
+                title: place[i].name,
+                coords: new LatLng(place[i].latitude, place[i].longitude),
+                description: place[i].description,
+                category: place[i].category,
+                comments: place[i].comments,
+                score: place[i].reviewScores,
+              },
+            ]);
+          }
+        }
+      });
 
-    setLoaded(true);
+      setLoaded(true);
+    }
   };
 
   const handleFilteredMarkers = (newMarkers) => {
@@ -82,8 +93,16 @@ export const UserSessionProvider = ({ children }) => {
     });
   };
 
+  const handleLoaded = (bool) => {
+    setLoaded(bool);
+  };
+
   const handleCreateMarker = (marker) => {
     setCreateMarker(marker);
+  };
+
+  const handleChangedFilter = (bool) => {
+    setChangedFilter(bool);
   };
 
   const handleFilterOption = (option) => {
@@ -105,10 +124,13 @@ export const UserSessionProvider = ({ children }) => {
         markers,
         handleMarkers,
         loaded,
+        handleLoaded,
         filteredMarkers,
         handleFilteredMarkers,
         createMarker,
         handleCreateMarker,
+        changedFilter,
+        handleChangedFilter,
         filterOption,
         handleFilterOption,
         selectedMarker,

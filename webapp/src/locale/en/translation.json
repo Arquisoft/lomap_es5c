@@ -60,10 +60,24 @@
 		"error-descrp": "Description not valid!",
 		"category": {
 			"title": "Category",
+			"all": "All",
 			"landscape": "Landscape",
 			"monument": "Monument",
 			"shop": "Shop",
 			"bar": "Bar",
+			"restaurant": "Restaurant",
+			"supermarket": "Supermarket",
+			"hotel": "Hotel",
+			"cinema": "Cinema",
+			"academicInstitution": "Academic Institution",
+			"publicInstitution": "Public Institution",
+			"sportsClub": "Sports Club",
+			"museum": "Museum",
+			"park": "Park",
+			"hospital": "Hospital",
+			"policeStation": "Police Station",
+			"transportCenter": "Transport Center",
+			"entertainment": "Entertainment",
 			"other": "Other"
 		},
 		"submit": "Create",
@@ -85,12 +99,10 @@
 	},
 
 	"FilterCard": {
-		"category": "Filter by category",
-		"all": "All",
-		"landscape": "Landscape",
-		"monument": "Monument",
-		"shop": "Shop",
-		"bar": "Bar",
-		"other": "Other"
+		"category": "Filter by category"
+	},
+
+	"SideMenu": {
+		"nomarkers": "No markers found"
 	}
 }

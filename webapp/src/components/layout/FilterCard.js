@@ -13,20 +13,44 @@ const Card = ({ title, content }) => {
 
 	const filterOptions = [
 		"All",
-		"Other",
+		"Bar",
+		"Restaurant",
+		"Shop",
+		"Supermarket",
+		"Hotel",
+		"Cinema",
+		"AcademicInstitution",
+		"PublicInstitution",
+		"SportsClub",
+		"Museum",
+		"Park",
 		"Landscape",
 		"Monument",
-		"Shop",
-		"Bar",
+		"Hospital",
+		"PoliceStation",
+		"TransportCenter",
+		"Entertainment",
+		"Other",
 	];
 
 	const handleFilter = (option) => {
+		ctx.handleChangedFilter(true);
 		ctx.handleFilterOption(option.target.value);
 		if (option.target.value !== "All") {
 			setFilterOption(option.target.value);
 			let filteredMarkers = [];
 			ctx.markers.map((marker) => {
-				if (marker.category === option.target.value.toLowerCase()) {
+				if (
+					marker.category == undefined ||
+					marker.category == null ||
+					marker.category == ""
+				) {
+					marker.category = "Other";
+					filteredMarkers.push(marker);
+				}
+				if (
+					marker.category.toLowerCase() === option.target.value.toLowerCase()
+				) {
 					filteredMarkers.push(marker);
 				}
 			});
@@ -40,18 +64,44 @@ const Card = ({ title, content }) => {
 
 	const getLocalizatedOptionValue = (option) => {
 		switch (option) {
-			case "Other":
-				return "FilterCard.other";
-			case "Landscape":
-				return "FilterCard.landscape";
-			case "Monument":
-				return "FilterCard.monument";
-			case "Shop":
-				return "FilterCard.shop";
+			case "All":
+				return "PodCreateForm.category.all";
 			case "Bar":
-				return "FilterCard.bar";
+				return "PodCreateForm.category.bar";
+			case "Restaurant":
+				return "PodCreateForm.category.restaurant";
+			case "Shop":
+				return "PodCreateForm.category.shop";
+			case "Supermarket":
+				return "PodCreateForm.category.supermarket";
+			case "Hotel":
+				return "PodCreateForm.category.hotel";
+			case "Cinema":
+				return "PodCreateForm.category.cinema";
+			case "AcademicInstitution":
+				return "PodCreateForm.category.academicInstitution";
+			case "PublicInstitution":
+				return "PodCreateForm.category.publicInstitution";
+			case "SportsClub":
+				return "PodCreateForm.category.sportsClub";
+			case "Museum":
+				return "PodCreateForm.category.museum";
+			case "Park":
+				return "PodCreateForm.category.park";
+			case "Landscape":
+				return "PodCreateForm.category.landscape";
+			case "Monument":
+				return "PodCreateForm.category.monument";
+			case "Hospital":
+				return "PodCreateForm.category.hospital";
+			case "PoliceStation":
+				return "PodCreateForm.category.policeStation";
+			case "TransportCenter":
+				return "PodCreateForm.category.transportCenter";
+			case "Entertainment":
+				return "PodCreateForm.category.entertainment";
 			default:
-				return "FilterCard.all";
+				return "PodCreateForm.category.other";
 		}
 	};
 
@@ -68,16 +118,7 @@ const Card = ({ title, content }) => {
 				<div>
 					<select defaultValue={ctx.filterOption} onChange={handleFilter}>
 						{filterOptions.map((option) => (
-							<option
-								key={option}
-								value={option}
-								// onClick={() => {
-								// 	console.log(option);
-								// 	handleFilter(option);
-								// }}
-								// selected={ctx.filterOption === option}
-							>
-								{" "}
+							<option key={option} value={option}>
 								{t(getLocalizatedOptionValue(option))}
 							</option>
 						))}

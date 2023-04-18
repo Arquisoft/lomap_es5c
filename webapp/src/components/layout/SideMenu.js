@@ -18,8 +18,12 @@ import { Button } from "react-bootstrap";
 import OptionsMenu from "./OptionsMenu";
 import FilterCard from "./FilterCard";
 
-const SideMenu = ({ option, coords, handleOption }) => {
+import { useTranslation } from "react-i18next";
+
+const SideMenu = ({ option, prevOption, coords, handleOption }) => {
 	const ctx = useContext(UserSessionContext);
+
+	const [t, i18n] = useTranslation("translation");
 
 	const [loaded, setLoaded] = React.useState(false);
 	const [loadedUserPods, setLoadedUserPods] = React.useState(false);
@@ -29,42 +33,33 @@ const SideMenu = ({ option, coords, handleOption }) => {
 	const { webId } = session.info; // User's webId
 
 	const [firstLoad, setFirstLoad] = React.useState(true);
-	const [markersList, setMarkersList] = React.useState([]);
 
 	const [updatePoints, setUpdatePoints] = React.useState(false);
 
+	const [closed, setClosed] = React.useState(false);
+
 	const loadUserPodsMarkers = async () => {
+		setClosed(false);
 		setLoaded(false);
-		setMarkersList([]);
+		ctx.handleLoaded(false);
+		ctx.handleFilterOption("all");
+
 		var locations = [];
 
 		locations.push(await listLocationsOfAUser(webId, session));
 
-		locations.map((place) => {
-			for (let i = 0; i < place.length; i++) {
-				setMarkersList((prevValue) => [
-					...prevValue,
-					{
-						id: place[i].id,
-						title: place[i].name,
-						coords: new LatLng(place[i].latitude, place[i].longitude),
-						description: place[i].description,
-						category: place[i].category,
-						comments: place[i].comments,
-						score: place[i].reviewScores,
-					},
-				]);
-			}
-		});
-
-		ctx.handleMarkers(locations); // we add the markers to the context
+		ctx.handleMarkers(locations);
+		ctx.handleFilteredMarkers([]); // we add the markers to the context
 		setLoadedUserPods(true);
 		setFirstLoad(false);
 		setUpdatePoints(false);
 	};
 
 	const loadPodsMarkers = async () => {
-		setMarkersList([]);
+		setClosed(false);
+		setLoaded(false);
+		ctx.handleLoaded(false);
+		ctx.handleFilterOption("all");
 		var usersIds = await listFriends(webId);
 		// usersIds.push(webId); uncomment if u want to also load your own markers
 		var locations = [];
@@ -75,25 +70,9 @@ const SideMenu = ({ option, coords, handleOption }) => {
 			}
 		}
 
-		locations.map((place) => {
-			for (let i = 0; i < place.length; i++) {
-				setMarkersList((prevValue) => [
-					...prevValue,
-					{
-						id: place[i].id,
-						title: place[i].name,
-						coords: new LatLng(place[i].latitude, place[i].longitude),
-						description: place[i].description,
-						category: place[i].category,
-						comments: place[i].comments,
-						score: place[i].reviewScores,
-					},
-				]);
-			}
-		});
-
 		setLoadedUserPods(false);
 		ctx.handleMarkers(locations);
+		ctx.handleFilteredMarkers([]);
 		setLoaded(true);
 		setUpdatePoints(false);
 	};
@@ -109,10 +88,10 @@ const SideMenu = ({ option, coords, handleOption }) => {
 	}, []);
 
 	useEffect(() => {
-		if (option === "read") {
+		if (option === "read" && !loaded) {
 			setLoaded(false);
 			loadPodsMarkers();
-		} else if (option === "userPods") {
+		} else if (option === "userPods" && !firstLoad && !loadedUserPods) {
 			loadUserPodsMarkers();
 		}
 	}, [option]);
@@ -134,6 +113,9 @@ const SideMenu = ({ option, coords, handleOption }) => {
 			? "btn-close mx-3 mt-2"
 			: "btn-close mx-3 mt-2 btn-close-white";
 
+	let headerStyle =
+		window.localStorage.getItem("themeStyle") === "dark" ? "#fff " : "#000 ";
+
 	return (
 		<>
 			<OptionsMenu
@@ -142,14 +124,22 @@ const SideMenu = ({ option, coords, handleOption }) => {
 				}}
 			/>
 			{option === "userPods" && !loadedUserPods && (
-				<div className="d-flex justify-content-center align-items-center h-100">
+				<div className="d-flex justify-content-center align-items-center">
 					<LoadingSpinner />
+				</div>
+			)}
+			{option === "userPods" && ctx.markers.length === 0 && loadedUserPods && (
+				<div
+					className="d-flex justify-content-center align-items-center"
+					style={{ height: "auto" }}
+				>
+					<h3 style={{ color: headerStyle }}>{t("SideMenu.nomarkers")}</h3>
 				</div>
 			)}
 			{loadedUserPods &&
 				ctx.filteredMarkers.length === 0 &&
 				option === "userPods" &&
-				markersList.map((marker, i) => {
+				ctx.markers.map((marker, i) => {
 					return <MarkerCard key={i} marker={marker} />;
 				})}
 			{option === "userPods" &&
@@ -162,14 +152,29 @@ const SideMenu = ({ option, coords, handleOption }) => {
 				<PodCreateForm
 					coords={coords}
 					close={handleOption}
+					prevOption={prevOption}
 					needsUpdate={setUpdatePoints}
 				/>
+			)}
+
+			{option === "read" && loaded && ctx.markers.length === 0 && (
+				<div
+					className="d-flex justify-content-center align-items-center"
+					style={{ height: "auto" }}
+				>
+					<h3 style={{ color: headerStyle }}>{t("SideMenu.nomarkers")}</h3>
+				</div>
 			)}
 			{option === "read" && !loaded && (
 				<div className="d-flex justify-content-center align-items-center h-100">
 					<LoadingSpinner />
 				</div>
 			)}
+			{option === "read" &&
+				loaded &&
+				ctx.markers.map((marker, i) => {
+					return <MarkerCard key={i} marker={marker} />;
+				})}
 			{option === "friends" && (
 				<>
 					<div className="d-flex justify-content-end">
@@ -180,7 +185,9 @@ const SideMenu = ({ option, coords, handleOption }) => {
 							style={{ fontSize: "1rem" }}
 							aria-label="Close"
 							onClick={() => {
-								handleOption("userPods");
+								// handleOption("userPods");
+								handleOption(prevOption);
+								setClosed(true);
 								ctx.handleSelectedMarker(null);
 							}}
 						></button>
@@ -190,6 +197,9 @@ const SideMenu = ({ option, coords, handleOption }) => {
 						handleLoad={(opt) => {
 							setLoadedFriends(opt);
 						}}
+						handleMarkersload={(opt) => {
+							setLoaded(opt);
+						}}
 					/>
 				</>
 			)}
@@ -198,11 +208,6 @@ const SideMenu = ({ option, coords, handleOption }) => {
 					<LoadingSpinner />
 				</div>
 			)}
-			{option === "read" &&
-				loaded &&
-				markersList.map((marker, i) => {
-					return <MarkerCard key={i} marker={marker} />;
-				})}
 			{option === "markerInfo" && (
 				<>
 					<div className="d-flex justify-content-end">
@@ -213,7 +218,9 @@ const SideMenu = ({ option, coords, handleOption }) => {
 							style={{ fontSize: "1rem" }}
 							aria-label="Close"
 							onClick={() => {
-								handleOption("userPods");
+								setClosed(true); // Search for memory leaks here MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 login listeners added.
+								// handleOption("userPods");
+								handleOption(prevOption);
 								ctx.handleSelectedMarker(null);
 							}}
 						></button>
@@ -231,7 +238,9 @@ const SideMenu = ({ option, coords, handleOption }) => {
 							style={{ fontSize: "1rem" }}
 							aria-label="Close"
 							onClick={() => {
-								handleOption("userPods");
+								setClosed(true);
+								// handleOption("userPods");
+								handleOption(prevOption);
 								ctx.handleSelectedMarker(null);
 							}}
 						></button>
