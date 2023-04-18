@@ -1,6 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 
 import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 
 import UserSessionContext from "../../store/session-context";
 
@@ -54,10 +55,16 @@ const Card = ({ title, content }) => {
         }
       });
       ctx.handleFilteredMarkers(filteredMarkers);
+      if (filteredMarkers.length === 0) {
+        ctx.handleFilterOption("all");
+        handleShow();
+      }
     } else {
       ctx.handleFilteredMarkers([]);
     }
   };
+
+  console.log("filterOption: " + ctx.filterOption);
 
   const [t, i18n] = useTranslation("translation");
 
@@ -104,37 +111,68 @@ const Card = ({ title, content }) => {
     }
   };
 
+  // PRUEBA DE MODAL
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => {
+    setShow(false);
+    ctx.handleFilterOption("All");
+  };
+  const handleShow = () => setShow(true);
+
   return (
-    <div className="card my-2 mx-2">
-      <div className="d-flex justify-content-center align-items-center mx-4">
-        <Button
-          style={{ margin: "10px 0" }}
-          color="primary"
-          variant="contained"
-        >
-          {t("FilterCard.category")}
-        </Button>
-        <div>
-          <select defaultValue={ctx.filterOption} onChange={handleFilter}>
-            {filterOptions.map((option) => (
-              <option key={option} value={option}>
-                {t(getLocalizatedOptionValue(option))}
-              </option>
-            ))}
-          </select>
+    <>
+      <div className="card my-2 mx-2">
+        <div className="d-flex justify-content-center align-items-center mx-4">
+          <Button
+            style={{ margin: "10px 0" }}
+            color="primary"
+            variant="contained"
+          >
+            {t("FilterCard.category")}
+          </Button>
+          <div>
+            <select
+              //   defaultValue={ctx.filterOption}
+              value={ctx.filterOption}
+              onChange={handleFilter}
+            >
+              {filterOptions.map((option) => (
+                <option key={option} value={option}>
+                  {t(getLocalizatedOptionValue(option))}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <div className="d-flex mx-2 my-2 justify-content-end">
+          <Button
+            className="btn btn-danger"
+            onClick={() => {
+              handleFilter("All");
+            }}
+          >
+            Reset
+          </Button>
         </div>
       </div>
-      <div className="d-flex mx-2 my-2 justify-content-end">
-        <Button
-          className="btn btn-danger"
-          onClick={() => {
-            handleFilter("All");
-          }}
-        >
-          Reset
-        </Button>
-      </div>
-    </div>
+      {ctx.filteredMarkers.length === 0 && (
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Modal heading</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={handleClose}>
+              Save Changes
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      )}
+    </>
   );
 };
 
