@@ -296,9 +296,6 @@ function LocationMarkers({ coords, markerEvent }) {
     }
   }
 
-  console.log("markers: ", ctx.markers);
-  console.log("markers loaded: ", ctx.loaded);
-
   return (
     <React.Fragment>
       <Marker

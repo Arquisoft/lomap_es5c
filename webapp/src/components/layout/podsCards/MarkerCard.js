@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import useInput from "../../../hooks/use-input";
 
 import {
@@ -14,7 +14,11 @@ import img from "../../../images/test.png";
 
 import { useTranslation } from "react-i18next";
 
-const MarkerCard = ({ marker }) => {
+import UserSessionContext from "../../../store/session-context";
+
+const MarkerCard = ({ marker, needsUpdate }) => {
+  const ctx = useContext(UserSessionContext);
+
   const rating_color = {
     color: "#fbc634",
   };
@@ -76,15 +80,21 @@ const MarkerCard = ({ marker }) => {
   // Commment form submission handler
   const formAddCommentHandler = (event) => {
     event.preventDefault();
-    console.log(webIdM);
+
     addComment(webIdM, session, enteredComment, marker.id);
     resetCommentInput();
+
+    ctx.handleAddComment(marker.id, {
+      author: webId.webId,
+      comment: enteredComment,
+      date: new Date(),
+    });
   };
 
   // Score form submission handler
   const formAddScoreHandler = (event) => {
     event.preventDefault();
-    console.log("WEBIDM:" + webIdM);
+
     addReviewScore(webIdM, session, enteredScore, marker.id);
 
     //Resets the radios selected value
@@ -94,9 +104,17 @@ const MarkerCard = ({ marker }) => {
     }
     resetScoreInput();
     setCanScore2(false);
+    // needsUpdate(true);
+
+    // ctx.handleAddRating(marker.id, {
+    //   author: webId.webId,
+    //   score: enteredScore,
+    //   date: new Date(),
+    // });
+    // marker.rating = undefined;
   };
 
-  if (marker.score !== undefined) {
+  if (marker.score !== undefined && marker.rating === undefined) {
     let listScore = marker.score;
     let meanScore;
     let acc = 0;
@@ -105,26 +123,51 @@ const MarkerCard = ({ marker }) => {
     for (var i = 0; i < listScore.length; i++) {
       acc += Number(listScore[i].score);
       if (listScore[i].author == webId.webId) {
-        console.log("NO PUEDE SCORE");
         ableToScore = false;
       }
     }
     meanScore = acc / listScore.length;
 
     marker.rating = meanScore; // this should be obtained from the pod's rating
-    console.log("llega asta el final");
+
     canScore = ableToScore;
   }
 
   // Remember to calculate the rating of the pod and pass it to the marker object (int number)
-  let stars = [];
-  for (let i = 0.5; i < 5.5; ++i) {
-    if (i < marker.rating) {
-      stars.push(<i className="fa fa-star" style={rating_color} key={i}></i>);
-    } else {
-      stars.push(<i className="fa fa-star" key={i}></i>);
+  //   for (let i = 0.5; i < 5.5; ++i) {
+  //     if (i < marker.rating) {
+  //       stars.push(<i className="fa fa-star" style={rating_color} key={i}></i>);
+  //     } else {
+  //       stars.push(<i className="fa fa-star" key={i}></i>);
+  //     }
+  //   }
+  var stars = [];
+
+  const calculateRating = () => {
+    stars = [];
+    console.log("marker.rating: " + marker.rating);
+    for (let i = 0.5; i < 5.5; ++i) {
+      if (i < marker.rating) {
+        stars.push(<i className="fa fa-star" style={rating_color} key={i}></i>);
+      } else {
+        stars.push(<i className="fa fa-star" key={i}></i>);
+      }
     }
-  }
+    console.log("stars: " + stars.map((s) => s.key));
+  };
+
+  calculateRating();
+
+  //   useEffect(() => {
+  //     console.log("marker.rating: " + marker.rating);
+  //     if (marker.rating !== undefined) {
+  //       calculateRating();
+  //     }
+  //   }, [marker.rating]);
+
+  //   useEffect(() => {
+  //     calculateRating();
+  //   }, []);
 
   return (
     <div className="card my-2 mx-2 " style={{ width: "95%" }}>

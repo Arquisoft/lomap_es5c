@@ -18,6 +18,8 @@ const UserSessionContext = createContext({
   createMarker: false,
   handleCreateMarker: () => {},
   handleSelectedMarker: () => {},
+  handleAddComment: () => {},
+  handleAddRating: () => {},
   pageStyle: "dark",
   handleStyle: () => {},
 });
@@ -93,6 +95,28 @@ export const UserSessionProvider = ({ children }) => {
     });
   };
 
+  const handleAddComment = (markerId, comment) => {
+    markers.map((marker) => {
+      if (marker.id === markerId) {
+        marker.comments.push(comment);
+      }
+    });
+
+    filteredMarkers.map((marker) => {
+      if (marker.id === markerId) {
+        marker.comments.push(comment);
+      }
+    });
+  };
+
+  const handleAddRating = (markerId, rating) => {
+    markers.map((marker) => {
+      if (marker.id === markerId) {
+        marker.score.push(rating);
+      }
+    });
+  };
+
   const handleLoaded = (bool) => {
     setLoaded(bool);
   };
@@ -136,6 +160,8 @@ export const UserSessionProvider = ({ children }) => {
         selectedMarker,
         handleSelectedMarker,
         handleSessionWebId,
+        handleAddComment,
+        handleAddRating,
         pageStyle,
         handleStyle,
       }}
