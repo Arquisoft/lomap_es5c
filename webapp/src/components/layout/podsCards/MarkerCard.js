@@ -5,6 +5,7 @@ import {
   addComment,
   addReviewScore,
   listScoreOfAUser,
+  removeMarker,
 } from "../../Pods/PodsFunctions";
 import { useSession } from "@inrupt/solid-ui-react";
 
@@ -16,7 +17,7 @@ import { useTranslation } from "react-i18next";
 
 import UserSessionContext from "../../../store/session-context";
 
-const MarkerCard = ({ marker, needsUpdate }) => {
+const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
   const ctx = useContext(UserSessionContext);
 
   const rating_color = {
@@ -165,18 +166,43 @@ const MarkerCard = ({ marker, needsUpdate }) => {
   //     }
   //   }, [marker.rating]);
 
-  //   useEffect(() => {
-  //     calculateRating();
-  //   }, []);
+  const handleDeleteMarker = async () => {
+    // TODO: need to check whether the marker is removed from the pod
+    await removeMarker(webIdM, session, marker.id);
+    needsUpdate(true);
+  };
+
+  useEffect(() => {
+    console.log("marker", ctx.markers);
+  }, [ctx.markers]);
 
   return (
     <div className="card my-2 mx-2 " style={{ width: "95%" }}>
-      <img
-        className="card-img-top mt-2 mx-2"
-        src={img}
-        alt="Card image cap"
-        style={{ maxWidth: "100px" }}
-      />
+      <div className="">
+        <img
+          className="card-img-top mt-2 mx-2"
+          src={img}
+          alt="Card image cap"
+          style={{ maxWidth: "100px" }}
+        />
+        {canDelete && (
+          <>
+            <button
+              className="btn btn-danger btn-sm rounded-10"
+              type="button"
+              data-toggle="tooltip"
+              data-placement="top"
+              title="Delete"
+              style={{ minWidth: "40px", minHeight: "40px" }}
+              onClick={() => {
+                handleDeleteMarker();
+              }}
+            >
+              <i className="fa fa-trash" style={{ fontSize: "20px" }}></i>
+            </button>{" "}
+          </>
+        )}
+      </div>
       <div className="card-body">
         <h1 className="card-title" style={{ color: "#000" }}>
           {marker.title}

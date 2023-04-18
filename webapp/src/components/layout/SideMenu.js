@@ -98,7 +98,6 @@ const SideMenu = ({ option, prevOption, coords, handleOption }) => {
 
   useEffect(() => {
     if (updatePoints) {
-      console.log("updatePoints");
       loadUserPodsMarkers();
     }
   }, [updatePoints]);
@@ -142,14 +141,24 @@ const SideMenu = ({ option, prevOption, coords, handleOption }) => {
         option === "userPods" &&
         ctx.markers.map((marker, i) => {
           return (
-            <MarkerCard key={i} marker={marker} needsUpdate={setUpdatePoints} />
+            <MarkerCard
+              key={i}
+              marker={marker}
+              needsUpdate={setUpdatePoints}
+              canDelete={true}
+            />
           );
         })}
       {option === "userPods" &&
         ctx.filteredMarkers.length > 0 &&
         ctx.filteredMarkers.map((marker, i) => {
           return (
-            <MarkerCard key={i} marker={marker} needsUpdate={setUpdatePoints} />
+            <MarkerCard
+              key={i}
+              marker={marker}
+              needsUpdate={setUpdatePoints}
+              canDelete={true}
+            />
           );
         })}
 
@@ -179,7 +188,12 @@ const SideMenu = ({ option, prevOption, coords, handleOption }) => {
         loaded &&
         ctx.markers.map((marker, i) => {
           return (
-            <MarkerCard key={i} marker={marker} needsUpdate={setUpdatePoints} />
+            <MarkerCard
+              key={i}
+              marker={marker}
+              needsUpdate={setUpdatePoints}
+              canDelete={false}
+            />
           );
         })}
       {option === "friends" && (
@@ -235,6 +249,7 @@ const SideMenu = ({ option, prevOption, coords, handleOption }) => {
           <MarkerCard
             marker={ctx.selectedMarker}
             needsUpdate={setUpdatePoints}
+            canDelete={false}
           />
         </>
       )}
