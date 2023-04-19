@@ -50,13 +50,13 @@ const MainNavigation = ({
 				<Navbar.Toggle aria-controls="navbarExample01" className="mx-3" />
 				<Navbar.Collapse id="navbaxExample01" className="mx-5">
 					<Nav className="text-center justify-content-end align-items-center flex-grow-1 me-auto my-2 my-lg-0 ">
-						<Nav.Link href="/" className="mx-4">
+						<Nav.Link href="/" className="mx-4" style={{fontSize:"0.9rem"}}>
 							{t("Menu.home")}
 						</Nav.Link>
-						<Nav.Link href="about" className="mx-4">
+						<Nav.Link href="about" className="mx-4" style={{fontSize:"0.9rem"}}>
 							{t("Menu.about")}
 						</Nav.Link>
-						<LogInButton isLoggedIn={isLoggedIn} />
+						<LogInButton isLoggedIn={isLoggedIn}/>
 						<div className="d-flex my-2">
 							<Form.Check
 								className=""

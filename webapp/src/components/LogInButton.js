@@ -14,25 +14,28 @@ import {
   onSessionRestore,
 } from "@inrupt/solid-client-authn-browser";
 import { DropdownButton } from "react-bootstrap";
+import Form from 'react-bootstrap/Form';
 
 
 // This component is used to login to inrupt provider via button
 const LogInButton = ({ isLoggedIn }) => {
 
   //const [idp, setIdp] = useState("https://inrupt.net");
-  const [idp, setIdp] = useState("https://solidcommunity.net/");
+  //const [idp, setIdp] = useState("https://solidcommunity.net/");
   // const [currentUrl, setCurrentUrl] = useState(window.location.href);
   const [currentUrl, setCurrentUrl] = useState("https://localhost:3000/");
 
-  const [checked, setChecked] = useState(false);
+  //const [checked, setChecked] = useState(false);
   const [radioValue, setRadioValue] = useState('https://inrupt.net/');
 
-  const radios = [
-    { name: 'inrupt.net', value: 'https://inrupt.net/' },
-    { name: 'solidcommunity.net', value: 'https://solidcommunity.net/' },
-    { name: 'auth.inrupt.com', value: 'https://auth.inrupt.com/login?response_type=code&client_id=291nuca1atm91cstojs8ndsbkh&scope=openid+openid+profile&redirect_uri=https%3A%2F%2Flogin.inrupt.com%2Fcallback&state=fab89d25-6d8c-41f1-b496-e3a398fe37d3' },
-    { name: 'solidweb.org', value: 'https://solidweb.org/' },
-  ];
+  const [radios, setRadios] = useState([
+    
+    { name: 'inrupt', value: 'https://inrupt.net/' },
+    { name: 'solidcommunity', value: 'https://solidcommunity.net/' },
+    //{ name: 'auth.inrupt', value: 'https://auth.inrupt.com/' },
+    { name: 'solidweb', value: 'https://solidweb.org/' },
+    
+  ])
 
   useEffect(() => {
     // window.localStorage.setItem("currentUrl", window.location.href);
@@ -41,28 +44,52 @@ const LogInButton = ({ isLoggedIn }) => {
 
   const[t, i18n] = useTranslation("translation");
 
+  const [texto, setTexto] = useState('');
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    let newProvider = {name: texto, value: texto}
+    setRadios([...radios, newProvider])
+
+    console.log(radios.length)
+    console.log(radios[radios.length-1])
+
+    // Aquí podrías enviar el texto a algún servidor o hacer algo con él
+  }
+
+  const handleChange = (event) => {
+    setTexto(event.target.value);
+    event.target.value = "";
+  }
   return (
     <>
+    
       {!isLoggedIn ? (
         <>
-        <DropdownButton
-            title="Log In"
-          >
-            {radios.map( (radio, idx) => {
-              <Dropdown.Item key={idx} id={'drop-${idx}'}>
+        {<DropdownButton id="dropdown-button" title="Log In" style={{paddingRight: "1.2rem"}}>
+            {radios.map( (radio, idx) => (
+              <Dropdown.Item 
+              key={idx}
+              id={'drop-item-${idx}'}>
                 <LoginButton oidcIssuer={radio.value} redirectUrl={currentUrl}>
-                  <Button variant="primary" className="mx-4">
-                   {t("LoginButton.out")}
-                  </Button>
+                  {radio.value}
                 </LoginButton>
               </Dropdown.Item>
-          }) }
-          </DropdownButton>
+          )) }
+          <div className="dropdown-divider"></div>
+          <Form className="d-flex flex-column" style={{padding: "0.5rem"}} onSubmit={handleSubmit}>
+            <Form.Control  id="form-control" type="text" placeholder="Other" value={texto} onChange={handleChange} />
+            <Button  variant="primary" type="submit">Add new provider</Button>
+          </Form>
+        </DropdownButton>}
 
 
-        <ButtonGroup>
+        {/*
+        <ButtonGroup style={{padding: "0.3rem"}}>
         {radios.map((radio, idx) => (
           <ToggleButton
+            style={{fontSize:"0.8rem"}}
             key={idx}
             id={`radio-${idx}`}
             type="radio"
@@ -75,13 +102,14 @@ const LogInButton = ({ isLoggedIn }) => {
             {radio.name}
           </ToggleButton>
         ))}
-      </ButtonGroup>
-      <LoginButton oidcIssuer={radioValue} redirectUrl={currentUrl}>
-          <Button variant="primary" className="mx-4">
+        </ButtonGroup> */}
+
+      {/*<LoginButton oidcIssuer={radioValue} redirectUrl={currentUrl}>
+          <Button variant="primary" className="mx-4" style={{fontSize:"0.8rem"}}>
             {t("LoginButton.in")}
           </Button>
         </LoginButton>
-         
+      */}
       </>
       ) : (
         <LogoutButton>
