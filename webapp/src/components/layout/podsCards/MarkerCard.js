@@ -187,23 +187,6 @@ const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
           alt="Card image cap"
           style={{ maxWidth: "100px" }}
         />
-        {canDelete && !ownMarker && (
-          <>
-            <button
-              className="btn btn-danger btn-sm rounded-10"
-              type="button"
-              data-toggle="tooltip"
-              data-placement="top"
-              title="Delete"
-              style={{ minWidth: "40px", minHeight: "40px" }}
-              onClick={() => {
-                handleDeleteMarker();
-              }}
-            >
-              <i className="fa fa-trash" style={{ fontSize: "20px" }}></i>
-            </button>{" "}
-          </>
-        )}
       </div>
       <div className="card-body">
         <h1 className="card-title" style={{ color: "#000" }}>
@@ -321,6 +304,27 @@ const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
             );
           })}
         </div>
+      )}
+      {canDelete && !ownMarker && (
+        <>
+          <button
+            className="btn btn-danger btn-sm mt-2"
+            type="button"
+            data-toggle="tooltip"
+            data-placement="top"
+            title="Delete"
+            style={{
+              minWidth: "40px",
+              minHeight: "40px",
+              borderRadius: "7px",
+            }}
+            onClick={() => {
+              handleDeleteMarker();
+            }}
+          >
+            <i className="fa fa-trash" style={{ fontSize: "20px" }}></i>
+          </button>{" "}
+        </>
       )}
     </div>
   );
