@@ -308,6 +308,7 @@ function LocationMarkers({ coords, markerEvent }) {
             ctx.handleSelectedMarker({
               title: t("LocateMarkers.here"),
               coords: e.latlng,
+              own: true,
             });
           },
         }}

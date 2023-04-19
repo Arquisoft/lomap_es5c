@@ -176,6 +176,8 @@ const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
     console.log("marker", ctx.markers);
   }, [ctx.markers]);
 
+  const ownMarker = marker.own !== undefined ? marker.own : false;
+  console.log("ownMarker", ownMarker);
   return (
     <div className="card my-2 mx-2 " style={{ width: "95%" }}>
       <div className="">
@@ -185,7 +187,7 @@ const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
           alt="Card image cap"
           style={{ maxWidth: "100px" }}
         />
-        {canDelete && (
+        {canDelete && !ownMarker && (
           <>
             <button
               className="btn btn-danger btn-sm rounded-10"

@@ -98,7 +98,9 @@ const SideMenu = ({ option, prevOption, coords, handleOption }) => {
 
   useEffect(() => {
     if (updatePoints) {
-      loadUserPodsMarkers();
+      loadUserPodsMarkers().then(() => {
+        handleOption("userPods");
+      });
     }
   }, [updatePoints]);
 
@@ -249,7 +251,7 @@ const SideMenu = ({ option, prevOption, coords, handleOption }) => {
           <MarkerCard
             marker={ctx.selectedMarker}
             needsUpdate={setUpdatePoints}
-            canDelete={false}
+            canDelete={true}
           />
         </>
       )}
