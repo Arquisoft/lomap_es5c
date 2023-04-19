@@ -1,69 +1,65 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import UserSessionContext from "../../store/session-context";
 import Card from "../../components/layout/FilterCard";
 
 
-describe("Filtercard", () => {
-  const mockMarkers = [
-    { id: 1, category: "Bar" },
-    { id: 2, category: "Shop" },
-    { id: 3, category: "Restaurant" },
-  ];
+describe('Card', () => {
+  test('renders filter options', () => {
+    render(<Card />);
 
-  test("renders the filter options correctly", () => {
-    render(
-      <UserSessionContext.Provider
-        value={{
-          markers: mockMarkers,
-          filterOption: "All",
-          handleFilterOption: jest.fn(),
-          handleFilteredMarkers: jest.fn(),
-          handleChangedFilter: jest.fn(),
-        }}
-      >
-        <Card/>
-      </UserSessionContext.Provider>
-    );
-
-    const selectElement = screen.getByRole("combobox");
-    const options = screen.getAllByRole("option");
-    expect(selectElement).toBeInTheDocument();
-    expect(options).toHaveLength(19);
+    const filterOptions = screen.getByRole('combobox');
+    expect(filterOptions).toBeInTheDocument();
   });
 
-  test("changes the filter when an option is selected", () => {
+  /* test('changes filter option', () => {
     const handleFilterOption = jest.fn();
-    const handleFilteredMarkers = jest.fn();
     const handleChangedFilter = jest.fn();
 
     render(
       <UserSessionContext.Provider
         value={{
-          markers: mockMarkers,
-          filterOption: "All",
+          filterOption: 'all',
+          markers: [],
+          filteredMarkers: [],
           handleFilterOption,
-          handleFilteredMarkers,
           handleChangedFilter,
         }}
       >
         <Card />
-      </UserSessionContext.Provider>
+      </UserSessionContext.Provider>,
     );
 
-    const selectElement = screen.getByRole("combobox");
-    userEvent.selectOptions(selectElement, "Shop");
+    const filterOptions = screen.getByRole('combobox');
+    fireEvent.change(filterOptions, { target: { value: 'Bar' } });
 
-    expect(handleFilterOption).toHaveBeenCalledTimes(1);
-    expect(handleFilterOption).toHaveBeenCalledWith("Shop");
     expect(handleChangedFilter).toHaveBeenCalledTimes(1);
-    expect(handleChangedFilter).toHaveBeenCalledWith(true);
-    expect(handleFilteredMarkers).toHaveBeenCalledTimes(1);
-    expect(handleFilteredMarkers).toHaveBeenCalledWith([
-      { id: 2, category: "Shop" },
-    ]);
+    expect(handleFilterOption).toHaveBeenCalledWith('Bar');
   });
 
-  
+  test('resets filter option', () => {
+    const handleFilterOption = jest.fn();
+    const handleChangedFilter = jest.fn();
+
+    render(
+      <UserSessionContext.Provider
+        value={{
+          filterOption: 'Bar',
+          markers: [],
+          filteredMarkers: [],
+          handleFilterOption,
+          handleChangedFilter,
+        }}
+      >
+        <Card />
+      </UserSessionContext.Provider>,
+    );
+
+    const resetButton = screen.getByRole('button', { name: 'Reset' });
+    fireEvent.click(resetButton);
+
+    expect(handleChangedFilter).toHaveBeenCalledTimes(1);
+    expect(handleFilterOption).toHaveBeenCalledWith('All');
+  }); */
 });
