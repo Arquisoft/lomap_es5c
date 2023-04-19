@@ -18,8 +18,12 @@ import { Button } from "react-bootstrap";
 import OptionsMenu from "./OptionsMenu";
 import FilterCard from "./FilterCard";
 
+import { useTranslation } from "react-i18next";
+
 const SideMenu = ({ option, prevOption, coords, handleOption }) => {
   const ctx = useContext(UserSessionContext);
+
+  const [t, i18n] = useTranslation("translation");
 
   const [loaded, setLoaded] = React.useState(false);
   const [loadedUserPods, setLoadedUserPods] = React.useState(false);
@@ -35,7 +39,6 @@ const SideMenu = ({ option, prevOption, coords, handleOption }) => {
   const [closed, setClosed] = React.useState(false);
 
   const loadUserPodsMarkers = async () => {
-    console.log("loadUserPodsMarkers");
     setClosed(false);
     setLoaded(false);
     ctx.handleLoaded(false);
@@ -95,7 +98,9 @@ const SideMenu = ({ option, prevOption, coords, handleOption }) => {
 
   useEffect(() => {
     if (updatePoints) {
-      loadUserPodsMarkers();
+      loadUserPodsMarkers().then(() => {
+        handleOption("userPods");
+      });
     }
   }, [updatePoints]);
 
@@ -110,6 +115,9 @@ const SideMenu = ({ option, prevOption, coords, handleOption }) => {
       ? "btn-close mx-3 mt-2"
       : "btn-close mx-3 mt-2 btn-close-white";
 
+  let headerStyle =
+    window.localStorage.getItem("themeStyle") === "dark" ? "#fff " : "#000 ";
+
   return (
     <>
       <OptionsMenu
@@ -118,21 +126,42 @@ const SideMenu = ({ option, prevOption, coords, handleOption }) => {
         }}
       />
       {option === "userPods" && !loadedUserPods && (
-        <div className="d-flex justify-content-center align-items-center h-100">
+        <div className="d-flex justify-content-center align-items-center">
           <LoadingSpinner />
+        </div>
+      )}
+      {option === "userPods" && ctx.markers.length === 0 && loadedUserPods && (
+        <div
+          className="d-flex justify-content-center align-items-center"
+          style={{ height: "auto" }}
+        >
+          <h3 style={{ color: headerStyle }}>{t("SideMenu.nomarkers")}</h3>
         </div>
       )}
       {loadedUserPods &&
         ctx.filteredMarkers.length === 0 &&
         option === "userPods" &&
         ctx.markers.map((marker, i) => {
-          console.log("marker", marker);
-          return <MarkerCard key={i} marker={marker} />;
+          return (
+            <MarkerCard
+              key={i}
+              marker={marker}
+              needsUpdate={setUpdatePoints}
+              canDelete={true}
+            />
+          );
         })}
       {option === "userPods" &&
         ctx.filteredMarkers.length > 0 &&
         ctx.filteredMarkers.map((marker, i) => {
-          return <MarkerCard key={i} marker={marker} />;
+          return (
+            <MarkerCard
+              key={i}
+              marker={marker}
+              needsUpdate={setUpdatePoints}
+              canDelete={true}
+            />
+          );
         })}
 
       {option === "create" && (
@@ -143,6 +172,15 @@ const SideMenu = ({ option, prevOption, coords, handleOption }) => {
           needsUpdate={setUpdatePoints}
         />
       )}
+
+      {option === "read" && loaded && ctx.markers.length === 0 && (
+        <div
+          className="d-flex justify-content-center align-items-center"
+          style={{ height: "auto" }}
+        >
+          <h3 style={{ color: headerStyle }}>{t("SideMenu.nomarkers")}</h3>
+        </div>
+      )}
       {option === "read" && !loaded && (
         <div className="d-flex justify-content-center align-items-center h-100">
           <LoadingSpinner />
@@ -151,7 +189,14 @@ const SideMenu = ({ option, prevOption, coords, handleOption }) => {
       {option === "read" &&
         loaded &&
         ctx.markers.map((marker, i) => {
-          return <MarkerCard key={i} marker={marker} />;
+          return (
+            <MarkerCard
+              key={i}
+              marker={marker}
+              needsUpdate={setUpdatePoints}
+              canDelete={false}
+            />
+          );
         })}
       {option === "friends" && (
         <>
@@ -174,6 +219,9 @@ const SideMenu = ({ option, prevOption, coords, handleOption }) => {
             close={handleOption}
             handleLoad={(opt) => {
               setLoadedFriends(opt);
+            }}
+            handleMarkersload={(opt) => {
+              setLoaded(opt);
             }}
           />
         </>
@@ -200,7 +248,11 @@ const SideMenu = ({ option, prevOption, coords, handleOption }) => {
               }}
             ></button>
           </div>
-          <MarkerCard marker={ctx.selectedMarker} />
+          <MarkerCard
+            marker={ctx.selectedMarker}
+            needsUpdate={setUpdatePoints}
+            canDelete={true}
+          />
         </>
       )}
       {option === "filter" && (

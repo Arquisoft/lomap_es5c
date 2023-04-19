@@ -45,7 +45,9 @@
 		},
 		"lat": "Latitude:",
 		"long": "Longitude:",
-		"rating": "Rating: "
+		"rating": "Rating: ",
+		"uploadImage": "Upload image:",
+		"upload": "Upload"
 	},
 
 	"LocateMarkers": {
@@ -60,10 +62,24 @@
 		"error-descrp": "Description not valid!",
 		"category": {
 			"title": "Category",
+			"all": "All",
 			"landscape": "Landscape",
 			"monument": "Monument",
 			"shop": "Shop",
 			"bar": "Bar",
+			"restaurant": "Restaurant",
+			"supermarket": "Supermarket",
+			"hotel": "Hotel",
+			"cinema": "Cinema",
+			"academicInstitution": "Academic Institution",
+			"publicInstitution": "Public Institution",
+			"sportsClub": "Sports Club",
+			"museum": "Museum",
+			"park": "Park",
+			"hospital": "Hospital",
+			"policeStation": "Police Station",
+			"transportCenter": "Transport Center",
+			"entertainment": "Entertainment",
 			"other": "Other"
 		},
 		"submit": "Create",
@@ -86,11 +102,12 @@
 
 	"FilterCard": {
 		"category": "Filter by category",
-		"all": "All",
-		"landscape": "Landscape",
-		"monument": "Monument",
-		"shop": "Shop",
-		"bar": "Bar",
-		"other": "Other"
+		"modalHeading": "No markers found",
+		"modalText": "No markers found with the selected filters",
+		"modalClose": "Close"
+	},
+
+	"SideMenu": {
+		"nomarkers": "No markers found"
 	}
 }

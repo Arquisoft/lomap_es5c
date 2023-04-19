@@ -18,6 +18,8 @@ const UserSessionContext = createContext({
   createMarker: false,
   handleCreateMarker: () => {},
   handleSelectedMarker: () => {},
+  handleAddComment: () => {},
+  handleAddRating: () => {},
   pageStyle: "dark",
   handleStyle: () => {},
 });
@@ -43,25 +45,32 @@ export const UserSessionProvider = ({ children }) => {
   };
 
   const handleMarkers = (newMarkers) => {
-    setMarkers([]);
-    newMarkers.map((place) => {
-      for (let i = 0; i < place.length; i++) {
-        setMarkers((prevValue) => [
-          ...prevValue,
-          {
-            id: place[i].id,
-            title: place[i].name,
-            coords: new LatLng(place[i].latitude, place[i].longitude),
-            description: place[i].description,
-            category: place[i].category,
-            comments: place[i].comments,
-            score: place[i].reviewScores,
-          },
-        ]);
-      }
-    });
+    console.log(newMarkers);
+    if (newMarkers !== null) {
+      console.log("entra");
+      setMarkers([]);
+      newMarkers.map((place) => {
+        if (place !== null) {
+          console.log(place);
+          for (let i = 0; i < place.length; i++) {
+            setMarkers((prevValue) => [
+              ...prevValue,
+              {
+                id: place[i].id,
+                title: place[i].name,
+                coords: new LatLng(place[i].latitude, place[i].longitude),
+                description: place[i].description,
+                category: place[i].category,
+                comments: place[i].comments,
+                score: place[i].reviewScores,
+              },
+            ]);
+          }
+        }
+      });
 
-    setLoaded(true);
+      setLoaded(true);
+    }
   };
 
   const handleFilteredMarkers = (newMarkers) => {
@@ -83,6 +92,28 @@ export const UserSessionProvider = ({ children }) => {
           score: place.score,
         },
       ]);
+    });
+  };
+
+  const handleAddComment = (markerId, comment) => {
+    markers.map((marker) => {
+      if (marker.id === markerId) {
+        marker.comments.push(comment);
+      }
+    });
+
+    filteredMarkers.map((marker) => {
+      if (marker.id === markerId) {
+        marker.comments.push(comment);
+      }
+    });
+  };
+
+  const handleAddRating = (markerId, rating) => {
+    markers.map((marker) => {
+      if (marker.id === markerId) {
+        marker.score.push(rating);
+      }
     });
   };
 
@@ -129,6 +160,8 @@ export const UserSessionProvider = ({ children }) => {
         selectedMarker,
         handleSelectedMarker,
         handleSessionWebId,
+        handleAddComment,
+        handleAddRating,
         pageStyle,
         handleStyle,
       }}
