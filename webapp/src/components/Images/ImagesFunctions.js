@@ -16,7 +16,7 @@ export async function uploadImages(
 	try {
 		const uploadPromises = images.map((image) => {
 			const imgExtension = image.name.split(".").slice().pop();
-			const imgId = randomId();
+			const imgId = webId + "%$%" + Date.now();
 			return uploadBytes(
 				ref(storage, `${LOCATIONS_BUCKET}/${imgId}.${imgExtension}`),
 				image
