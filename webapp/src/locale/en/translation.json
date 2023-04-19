@@ -90,7 +90,9 @@
 
 	"LoginButton": {
 		"in": "LOGIN",
-		"out": "LOGOUT"
+		"out": "LOGOUT",
+		"add": "Add provider",
+		"other": "Other provider"
 	},
 
 	"OptionsMenu": {
