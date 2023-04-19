@@ -150,6 +150,7 @@ export async function insertNewMarker(
 		description: description,
 		comments: [], //comments that other users make on the marker
 		reviewScores: [], //scores that other users give to the marker
+		pictures: [], //pictures that other users upload to the marker
 		date: Date.now(),
 		//webId: webId
 	};
@@ -158,7 +159,6 @@ export async function insertNewMarker(
 	//Remove this if we implement multiple maps on the app
 	const mapId = 1;
 
-	console.log("Punto creado con webId: " + webId);
 	//Check if is a new user or not -> creates a new places file if it is new OR adds the marker if exists
 	return await checkIfPlacesFileExists(podUrl, session, marker, webId, mapId);
 }
@@ -531,7 +531,13 @@ export async function removeMarker(webId, session, markerId, mapId = 1) {
 }
 
 //Function that adds new pictures to a location
-export async function addPicture(markerId, downloadUrl, session, webId, mapId) {
+export async function addPictures(
+	markerId,
+	downloadUrls,
+	session,
+	webId,
+	mapId
+) {
 	const fileUrl = webId.replace(
 		"/profile/card#me",
 		"/justforfriends/locations.json"
@@ -547,7 +553,7 @@ export async function addPicture(markerId, downloadUrl, session, webId, mapId) {
 				i,
 				webId,
 				session,
-				downloadUrl,
+				downloadUrls,
 				jsonMarkers,
 				x,
 				fileUrl
@@ -561,18 +567,18 @@ async function modifyPicturesContent(
 	i,
 	webId,
 	session,
-	imageToAdd,
+	imagesToAdd,
 	jsonMarkers,
 	mapValue,
 	podUrl
 ) {
-	const newImage = {
-		author: webId,
-		downloadUrl: imageToAdd,
-	};
-
-	const images = jsonMarkers.maps[mapValue].locations[i].pictures;
-	images.push(newImage);
+	imagesToAdd.forEach((url) => {
+		const newImage = {
+			author: webId,
+			downloadUrl: url,
+		};
+		jsonMarkers.maps[mapValue].locations[i].pictures.push(newImage);
+	});
 
 	const blob = new Blob([JSON.stringify(jsonMarkers, null, 2)], {
 		type: "application/json",
