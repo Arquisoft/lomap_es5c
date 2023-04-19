@@ -7,6 +7,9 @@ import {
   listScoreOfAUser,
   removeMarker,
 } from "../../Pods/PodsFunctions";
+
+import { uploadImages } from "../../Images/ImagesFunctions";
+
 import { useSession } from "@inrupt/solid-ui-react";
 
 import styles from "./MarkerCard.module.css";
@@ -16,6 +19,8 @@ import img from "../../../images/test.png";
 import { useTranslation } from "react-i18next";
 
 import UserSessionContext from "../../../store/session-context";
+
+import { Button } from "react-bootstrap";
 
 const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
   const ctx = useContext(UserSessionContext);
@@ -172,9 +177,28 @@ const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
     needsUpdate(true);
   };
 
+  const [file, setFile] = useState([]);
+
+  const handleChange = (e) => {
+    setFile([]);
+    console.log(e.target.files);
+    setFile(e.target.files[0]);
+    // let aux = e.target.files;
+    // console.log(aux[0]);
+    // setFile(URL.createObjectURL(e.target.files[0]));
+    // for (let i = 0; i < aux.length; i++) {
+    //   setFile((files) => [...files, aux[i]]);
+    // }
+  };
+
+  const submitFile = async () => {
+    console.log("submitFile");
+    await uploadImages(marker.id, file, session, webIdM);
+  };
+
   useEffect(() => {
-    console.log("marker", ctx.markers);
-  }, [ctx.markers]);
+    console.log("file", file);
+  }, [file]);
 
   const ownMarker = marker.own !== undefined ? marker.own : false;
   console.log("ownMarker", ownMarker);
@@ -215,7 +239,36 @@ const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
         <li className="list-group-item">
           {t("MarkerCard.long")} {marker.coords.lng}
         </li>
+        <li className="list-group-item">
+          <div className="my-2">
+            <label class="form-label" for="customFile">
+              {/* TODO: internacionalizar  */}
+              Upload image
+            </label>
+
+            <div className="d-flex align-items-center">
+              <input
+                className="form-control"
+                type="file"
+                id="formFileMultiple"
+                onChange={handleChange}
+                style={{ marginBottom: 0 }}
+                accept="image/*"
+                multiple
+              />
+              <Button
+                variant="primary"
+                className="mx-2"
+                onClick={submitFile}
+                // style={{ fontSize: "12px" }}
+              >
+                Upload
+              </Button>
+            </div>
+          </div>
+        </li>
       </ul>
+
       {marker.id !== "" && marker.id !== undefined && (
         <>
           <form onSubmit={formAddCommentHandler} className={styles.commentText}>
@@ -281,6 +334,7 @@ const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
           )}
         </>
       )}
+
       {marker.comments !== undefined && marker.comments.length !== 0 && (
         <div className="card-body">
           <h5 className="card-title">{t("MarkerCard.inComm.title")}</h5>
