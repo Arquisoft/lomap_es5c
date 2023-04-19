@@ -296,9 +296,6 @@ function LocationMarkers({ coords, markerEvent }) {
     }
   }
 
-  console.log("markers: ", ctx.markers);
-  console.log("markers loaded: ", ctx.loaded);
-
   return (
     <React.Fragment>
       <Marker
@@ -311,6 +308,7 @@ function LocationMarkers({ coords, markerEvent }) {
             ctx.handleSelectedMarker({
               title: t("LocateMarkers.here"),
               coords: e.latlng,
+              own: true,
             });
           },
         }}

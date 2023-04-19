@@ -45,7 +45,9 @@
 		},
 		"lat": "Latitude:",
 		"long": "Longitude:",
-		"rating": "Rating: "
+		"rating": "Rating: ",
+		"uploadImage": "Upload image:",
+		"upload": "Upload"
 	},
 
 	"LocateMarkers": {
@@ -99,7 +101,10 @@
 	},
 
 	"FilterCard": {
-		"category": "Filter by category"
+		"category": "Filter by category",
+		"modalHeading": "No markers found",
+		"modalText": "No markers found with the selected filters",
+		"modalClose": "Close"
 	},
 
 	"SideMenu": {

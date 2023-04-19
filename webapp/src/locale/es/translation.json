@@ -45,7 +45,9 @@
 		},
 		"lat": "Latitud:",
 		"long": "Longitud:",
-		"rating": "Valoración: "
+		"rating": "Valoración: ",
+		"uploadImage": "Cargar imagen:",
+		"upload": "Publicar"
 	},
 
 	"LocateMarkers": {
@@ -100,12 +102,9 @@
 
 	"FilterCard": {
 		"category": "Filtrar por categoría",
-		"all": "Todo",
-		"landscape": "Paisaje",
-		"monument": "Monumento",
-		"shop": "Tienda",
-		"bar": "Bar",
-		"other": "Otro"
+		"modalHeading": "No se han encontrado marcadores",
+		"modalText": "No se han encontrado marcadores con los filtros seleccionados",
+		"modalClose": "Cerrar"
 	},
 	"SideMenu": {
 		"nomarkers": "No hay marcadores"
