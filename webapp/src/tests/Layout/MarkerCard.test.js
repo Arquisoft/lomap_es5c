@@ -28,11 +28,23 @@ describe("MarkerCard", () => {
                 comment: "Test comment 2",
                 date: "2022-06-13",
             },
-        ]
+        ],
+        pictures: [],
     };
 
+    const mockSession = {
+        info: "user1",
+      };
+    
+    const mockHandleAddComment = jest.fn();
+    const mockNeedsUpdate = jest.fn();
+
+    beforeEach(() => {
+    jest.clearAllMocks();
+    });
+
     test("The marker card is rendered", async () => {
-        const {getByText} = render(<MarkerCard marker={marker}/>)
+        const {getByText} = render(<MarkerCard marker={marker} session={{session: mockSession}}/>)
         expect(getByText("Test Marker")).toBeInTheDocument();
         expect(getByText("Test Description")).toBeInTheDocument();
         expect(getByText("Rating:")).toBeInTheDocument();
