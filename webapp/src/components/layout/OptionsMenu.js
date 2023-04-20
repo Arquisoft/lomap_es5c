@@ -23,6 +23,7 @@ const OptionsMenu = ({ changeOption }) => {
             style={{ textAlign: "center" }}
           >
             <Button
+              id= "userPods"
               className="btn my-2"
               onClick={() => handleOptionChange("userPods")}
               disabled={ctx.loaded ? false : true}
@@ -35,6 +36,7 @@ const OptionsMenu = ({ changeOption }) => {
             style={{ textAlign: "center" }}
           >
             <Button
+              id="read"
               className="btn my-2"
               onClick={() => handleOptionChange("read")}
               disabled={ctx.loaded ? false : true}
@@ -48,6 +50,7 @@ const OptionsMenu = ({ changeOption }) => {
             style={{ textAlign: "center" }}
           >
             <Button
+              id="friends"
               className="btn my-2"
               onClick={() => handleOptionChange("friends")}
             >
@@ -59,6 +62,7 @@ const OptionsMenu = ({ changeOption }) => {
             style={{ textAlign: "center" }}
           >
             <Button
+              id="filter"
               className="btn my-2"
               onClick={() => handleOptionChange("filter")}
               disabled={ctx.loaded ? false : true}

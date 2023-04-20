@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from "react";
 
-import { LatLng, setOptions } from "leaflet";
 import { useSession } from "@inrupt/solid-ui-react";
 import { listFriends } from "../Pods/PodsFunctions";
 import { listLocationsOfAUser } from "../Pods/PodsFunctions";
@@ -12,8 +11,6 @@ import LoadingSpinner from "../UI/LoadingSpinner";
 import UserSessionContext from "../../store/session-context";
 
 import FriendsList from "../Friends/FriendsList";
-
-import { Button } from "react-bootstrap";
 
 import OptionsMenu from "./OptionsMenu";
 import FilterCard from "./FilterCard";
