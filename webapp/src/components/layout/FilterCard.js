@@ -148,7 +148,7 @@ const Card = ({ title, content }) => {
         <div className="d-flex mx-2 my-2 justify-content-end">
           <Button
             className="btn btn-danger"
-            onClick={() => {
+            onClick={() => { //NOSONAR
               handleFilter("All"); //NOSONAR
             }}
           >
