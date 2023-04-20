@@ -20,7 +20,8 @@ import { useTranslation } from "react-i18next";
 
 import UserSessionContext from "../../../store/session-context";
 
-import { Button, Carousel } from "react-bootstrap";
+import { Button, Carousel, Modal } from "react-bootstrap";
+
 import { maker } from "rdf-namespaces/dist/foaf";
 
 const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
@@ -111,6 +112,7 @@ const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
     }
     resetScoreInput();
     setCanScore2(false);
+    calculateRating();
     needsUpdate(true);
 
     // ctx.handleAddRating(marker.id, {
@@ -191,6 +193,7 @@ const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
 
   const submitFile = async () => {
     await uploadImages(marker.id, file, session, webIdM);
+    needsUpdate(true);
   };
 
   useEffect(() => {}, [file]);
@@ -219,6 +222,21 @@ const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
   //     getImages();
   //   }, []);
 
+  const [image, setImage] = useState(null);
+
+  const handleImageModal = (image) => {
+    setImage(null);
+    setShow(true);
+    setImage(image);
+  };
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => {
+    setShow(false);
+    ctx.handleFilterOption("All");
+  };
+
   const ownMarker = marker.own !== undefined ? marker.own : false;
   return (
     <div className="card my-2 mx-2 " style={{ width: "95%" }}>
@@ -227,7 +245,12 @@ const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
           <Carousel variant="dark" style={{ width: "200px" }}>
             {marker.pictures.map((image, i) => {
               return (
-                <Carousel.Item key={i}>
+                <Carousel.Item
+                  key={i}
+                  onClick={() => {
+                    handleImageModal(image.downloadUrl);
+                  }}
+                >
                   <img
                     src={image.downloadUrl}
                     alt={`Slide ${i}`}
@@ -237,6 +260,23 @@ const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
               );
             })}
           </Carousel>
+        )}
+        {show && image !== null && image !== undefined && (
+          <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>{t("MarkerCard.imageModalTitle")}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <div className="d-flex justify-content-center">
+                <img src={image} alt="Image modal" style={{ width: "100%" }} />
+              </div>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="danger" onClick={handleClose}>
+                {t("MarkerCard.imageModalClose")}
+              </Button>
+            </Modal.Footer>
+          </Modal>
         )}
       </div>
       <div className="card-body">

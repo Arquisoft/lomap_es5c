@@ -1,115 +1,117 @@
 {
-	"About": {
-		"jonathan": {
-			"userTitle": "React developer",
-			"description": "Student and frontend developer"
-		},
-		"laura": {
-			"userTitle": "Java Developer",
-			"description": "Student and Java developer"
-		},
-		"edu": {
-			"userTitle": "Linux administrator",
-			"description": "Student and cibersecurity lover"
-		},
-		"fer": {
-			"userTitle": "Backend developer",
-			"description": "Student and backend enthusiast"
-		},
-		"xin": {
-			"userTitle": "Software Developer",
-			"description": "Stackoverflow lover"
-		},
-		"title": "LoMap team 5c ⭐️"
-	},
+  "About": {
+    "jonathan": {
+      "userTitle": "React developer",
+      "description": "Student and frontend developer"
+    },
+    "laura": {
+      "userTitle": "Java Developer",
+      "description": "Student and Java developer"
+    },
+    "edu": {
+      "userTitle": "Linux administrator",
+      "description": "Student and cibersecurity lover"
+    },
+    "fer": {
+      "userTitle": "Backend developer",
+      "description": "Student and backend enthusiast"
+    },
+    "xin": {
+      "userTitle": "Software Developer",
+      "description": "Stackoverflow lover"
+    },
+    "title": "LoMap team 5c ⭐️"
+  },
 
-	"Menu": {
-		"home": "HOME",
-		"about": "ABOUT"
-	},
+  "Menu": {
+    "home": "HOME",
+    "about": "ABOUT"
+  },
 
-	"FriendsList": {
-		"list": "List of friends",
-		"add": "Add friend",
-		"enter": "Enter friend webId",
-		"submit": "Add"
-	},
+  "FriendsList": {
+    "list": "List of friends",
+    "add": "Add friend",
+    "enter": "Enter friend webId",
+    "submit": "Add"
+  },
 
-	"MarkerCard": {
-		"comment": "Comment",
-		"score": "Score",
-		"inComm": {
-			"title": "Comments",
-			"by": "By: ",
-			"on": "on "
-		},
-		"lat": "Latitude:",
-		"long": "Longitude:",
-		"rating": "Rating: ",
-		"uploadImage": "Upload image:",
-		"upload": "Upload"
-	},
+  "MarkerCard": {
+    "comment": "Comment",
+    "score": "Score",
+    "inComm": {
+      "title": "Comments",
+      "by": "By: ",
+      "on": "on "
+    },
+    "lat": "Latitude:",
+    "long": "Longitude:",
+    "rating": "Rating: ",
+    "uploadImage": "Upload image:",
+    "upload": "Upload",
+    "imageModalTitle": "Image",
+    "imageModalClose": "Close"
+  },
 
-	"LocateMarkers": {
-		"here": "You are here"
-	},
+  "LocateMarkers": {
+    "here": "You are here"
+  },
 
-	"PodCreateForm": {
-		"create": "Create location",
-		"title": "Title",
-		"error-title": "Title not valid!",
-		"description": "Description",
-		"error-descrp": "Description not valid!",
-		"category": {
-			"title": "Category",
-			"all": "All",
-			"landscape": "Landscape",
-			"monument": "Monument",
-			"shop": "Shop",
-			"bar": "Bar",
-			"restaurant": "Restaurant",
-			"supermarket": "Supermarket",
-			"hotel": "Hotel",
-			"cinema": "Cinema",
-			"academicInstitution": "Academic Institution",
-			"publicInstitution": "Public Institution",
-			"sportsClub": "Sports Club",
-			"museum": "Museum",
-			"park": "Park",
-			"hospital": "Hospital",
-			"policeStation": "Police Station",
-			"transportCenter": "Transport Center",
-			"entertainment": "Entertainment",
-			"other": "Other"
-		},
-		"submit": "Create",
-		"error-submit": "Error creating location! Please try again later"
-	},
+  "PodCreateForm": {
+    "create": "Create location",
+    "title": "Title",
+    "error-title": "Title not valid!",
+    "description": "Description",
+    "error-descrp": "Description not valid!",
+    "category": {
+      "title": "Category",
+      "all": "All",
+      "landscape": "Landscape",
+      "monument": "Monument",
+      "shop": "Shop",
+      "bar": "Bar",
+      "restaurant": "Restaurant",
+      "supermarket": "Supermarket",
+      "hotel": "Hotel",
+      "cinema": "Cinema",
+      "academicInstitution": "Academic Institution",
+      "publicInstitution": "Public Institution",
+      "sportsClub": "Sports Club",
+      "museum": "Museum",
+      "park": "Park",
+      "hospital": "Hospital",
+      "policeStation": "Police Station",
+      "transportCenter": "Transport Center",
+      "entertainment": "Entertainment",
+      "other": "Other"
+    },
+    "submit": "Create",
+    "error-submit": "Error creating location! Please try again later"
+  },
 
-	"NotLoggedText": "Not logged, please login!",
+  "NotLoggedText": "Not logged, please login!",
 
-	"LoginButton": {
-		"in": "LOGIN",
-		"out": "LOGOUT",
-		"add": "Add provider",
-		"other": "Other provider"
-	},
+  "LoginButton": {
+    "in": "LOGIN",
+    "out": "LOGOUT",
+    "add": "Add provider",
+    "other": "Other provider"
+  },
 
-	"OptionsMenu": {
-		"markers": "Markers",
-		"friends": "Friends",
-		"filters": "Filter",
-		"friendsMarkers": "Friends Markers"
-	},
+  "OptionsMenu": {
+    "markers": "Markers",
+    "friends": "Friends",
+    "filters": "Filter",
+    "friendsMarkers": "Friends Markers"
+  },
 
-	"FilterCard": {
-		"category": "Filter by category",
-		"modalHeading": "No markers found",
-		"modalText": "No markers found with the selected filters",
-		"modalClose": "Close"
-	},
+  "FilterCard": {
+    "category": "Filter by category",
+    "modalHeading": "No markers found",
+    "modalText": "No markers found with the selected filters",
+    "modalClose": "Close"
+  },
 
-	"SideMenu": {
-		"nomarkers": "No markers found"
-	}
+  "SideMenu": {
+    "nomarkers": "No markers found"
+  }
 }
