@@ -26,14 +26,7 @@ import iconRestaurant from "../../images/restaurant.png";
 import unknownIcon from "../../images/unknown.png";
 import L from "leaflet";
 import { useSession } from "@inrupt/solid-ui-react";
-import InfoCard from "../UI/InfoCard";
-import PodCreateForm from "../Pods/PodCreateForm";
-import styles from "./LocateMarkers.module.css";
 import { insertNewMarker } from "../Pods/PodsFunctions";
-
-import { listFriends } from "../Pods/PodsFunctions";
-import { listLocationsOfAUser } from "../Pods/PodsFunctions";
-import { addComment } from "../Pods/PodsFunctions";
 
 import UserSessionContext from "../../store/session-context";
 import { useTranslation } from "react-i18next";
@@ -46,10 +39,6 @@ function LocationMarkers({ coords, markerEvent }) {
   // const { latitude, longitude } = coords;
   const [markers, setMarkers] = useState([]);
   const [dbMarkers, setDbMarkes] = useState([]);
-  const [podMarkers, setPodMarkers] = useState([]);
-  const [podMarkersLoaded, setPodMarkersLoaded] = useState(false);
-  const [clicked, setClicked] = useState(false);
-  const [initial, setInitial] = useState(false); // manage to move this to the sidemenu component
 
   const [actualMarker, setActualMarker] = useState();
 
@@ -205,21 +194,6 @@ function LocationMarkers({ coords, markerEvent }) {
     );
   };
 
-  const loadPodsMarkers = async () => {
-    // setPodMarkers([]);
-    ctx.markers.map((place) =>
-      setPodMarkers((prevValue) => [
-        ...prevValue,
-        {
-          title: place.name,
-          coords: new LatLng(place.latitude, place.longitude),
-        },
-      ])
-    );
-
-    setPodMarkersLoaded(true);
-  };
-
   useEffect(() => {
     handleFetch();
     // loadPodsMarkers();
@@ -242,37 +216,8 @@ function LocationMarkers({ coords, markerEvent }) {
     })
       .then((response) => response.json())
       .then((data) => setMarkerName(data.display_name));
-    setClicked(true);
+    //setClicked(true);
   }
-
-  const load = (
-    <div className={styles.info_container}>
-      <InfoCard position={markerName}></InfoCard>
-    </div>
-  );
-
-  const form = (
-    <div className={styles.info_container}>
-      <PodCreateForm coords={actualMarker} saveData={insertThing} />
-    </div>
-  );
-
-  const aux = "leaflet-container leaflet-touch";
-
-  const map = useMapEvents({
-    click(e) {
-      markerEvent(e.latlng);
-      // if (e.originalEvent.target.attributes.length > 0) {
-      //   // if (aux === e.originalEvent.target.attributes[0].nodeValue) {
-      //   if (e.originalEvent.target.attributes[0].nodeValue.includes(aux)) {
-      //     setClicked(false);
-      setInitial(true);
-      setActualMarker(e.latlng);
-      //     //setMarkers((prevValue) => [...prevValue, e.latlng]);
-      //   }
-      // }
-    },
-  });
 
   const [t, i18n] = useTranslation("translation");
 
@@ -290,7 +235,6 @@ function LocationMarkers({ coords, markerEvent }) {
         webId,
         category //WE HAVE TO ADD THIS
       );
-      setInitial(!result);
       if (result) setMarkers((prevValue) => [...prevValue, actualMarker]);
       return result;
     }
@@ -303,7 +247,6 @@ function LocationMarkers({ coords, markerEvent }) {
         position={initialMarker}
         eventHandlers={{
           click: (e) => {
-            setInitial(false);
             getCurrentCityName(e.latlng.lat, e.latlng.lng);
             ctx.handleSelectedMarker({
               title: t("LocateMarkers.here"),
@@ -321,8 +264,6 @@ function LocationMarkers({ coords, markerEvent }) {
           position={marker.coords}
           eventHandlers={{
             click: (e) => {
-              setClicked(true);
-              setInitial(false);
               setMarkerName(marker.title);
               ctx.handleSelectedMarker(marker);
             },
@@ -443,7 +384,6 @@ function LocationMarkers({ coords, markerEvent }) {
           position={actualMarker}
           eventHandlers={{
             click: (e) => {
-              setInitial(false);
               getCurrentCityName(e.latlng.lat, e.latlng.lng);
             },
           }}
