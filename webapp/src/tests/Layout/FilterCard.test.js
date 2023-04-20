@@ -18,7 +18,7 @@ describe('Card', () => {
     const handleChangedFilter = jest.fn();
 
     render(
-      <UserSessionContext.Provider
+      <UserSessionContext.Providerw
         value={{
           filterOption: 'all',
           markers: [],

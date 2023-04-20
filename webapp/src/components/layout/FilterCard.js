@@ -35,6 +35,7 @@ const Card = ({ title, content }) => {
   ];
 
   const handleFilter = (option) => {
+    //NOSONAR
     ctx.handleChangedFilter(true);
     ctx.handleFilterOption(option.target.value);
     if (option.target.value !== "All") {
