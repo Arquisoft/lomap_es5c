@@ -48,6 +48,8 @@ const SideMenu = ({ option, prevOption, coords, handleOption }) => {
 
     locations.push(await listLocationsOfAUser(webId, session));
 
+    console.log(locations);
+
     ctx.handleMarkers(locations);
     ctx.handleFilteredMarkers([]); // we add the markers to the context
     setLoadedUserPods(true);

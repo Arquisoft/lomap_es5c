@@ -63,6 +63,7 @@ export const UserSessionProvider = ({ children }) => {
                 category: place[i].category,
                 comments: place[i].comments,
                 score: place[i].reviewScores,
+                pictures: place[i].pictures,
               },
             ]);
           }
@@ -90,6 +91,7 @@ export const UserSessionProvider = ({ children }) => {
           category: place.category,
           comments: place.comments,
           score: place.score,
+          pictures: place.pictures,
         },
       ]);
     });
