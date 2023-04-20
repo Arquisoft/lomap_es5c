@@ -111,7 +111,7 @@ const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
     }
     resetScoreInput();
     setCanScore2(false);
-    // needsUpdate(true);
+    needsUpdate(true);
 
     // ctx.handleAddRating(marker.id, {
     //   author: webId.webId,
@@ -223,7 +223,7 @@ const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
   return (
     <div className="card my-2 mx-2 " style={{ width: "95%" }}>
       <div className="d-flex mx-2 my-2 justify-content-center">
-        {marker.pictures.length > 0 && (
+        {!ownMarker && marker.pictures.length > 0 && (
           <Carousel variant="dark" style={{ width: "200px" }}>
             {marker.pictures.map((image, i) => {
               return (
