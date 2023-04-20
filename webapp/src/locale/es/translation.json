@@ -90,7 +90,9 @@
 
 	"LoginButton": {
 		"in": "INICIAR SESIÓN",
-		"out": "CERRAR SESIÓN"
+		"out": "CERRAR SESIÓN",
+		"add": "Añadir proveedor",
+		"other": "Otro proveedor"
 	},
 
 	"OptionsMenu": {
