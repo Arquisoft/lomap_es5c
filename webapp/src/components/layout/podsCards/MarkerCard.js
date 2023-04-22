@@ -426,7 +426,7 @@ const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
           })}
         </div>
       )}
-      {canDelete && !ownMarker && (
+      {canDelete && !ownMarker && marker.isOwnMarker && (
         <>
           <button
             className="btn btn-danger btn-sm mt-2"

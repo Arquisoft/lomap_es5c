@@ -44,10 +44,8 @@ export const UserSessionProvider = ({ children }) => {
     setWebId(webId);
   };
 
-  const handleMarkers = (newMarkers) => {
-    console.log(newMarkers);
+  const handleMarkers = (newMarkers, canDelete = false) => {
     if (newMarkers !== null) {
-      console.log("entra");
       setMarkers([]);
       newMarkers.map((place) => {
         if (place !== null) {
@@ -64,6 +62,7 @@ export const UserSessionProvider = ({ children }) => {
                 comments: place[i].comments,
                 score: place[i].reviewScores,
                 pictures: place[i].pictures,
+                isOwnMarker: canDelete,
               },
             ]);
           }

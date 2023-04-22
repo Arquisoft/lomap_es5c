@@ -47,7 +47,7 @@ const SideMenu = ({ option, prevOption, coords, handleOption }) => {
 
     console.log(locations);
 
-    ctx.handleMarkers(locations);
+    ctx.handleMarkers(locations, true);
     ctx.handleFilteredMarkers([]); // we add the markers to the context
     setLoadedUserPods(true);
     setFirstLoad(false);
