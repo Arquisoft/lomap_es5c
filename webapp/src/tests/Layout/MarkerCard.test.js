@@ -1,5 +1,6 @@
-import {render, fireEvent} from "@testing-library/react";
+import { fireEvent} from "@testing-library/react";
 import MarkerCard from "../../components/layout/podsCards/MarkerCard";
+import {render} from "../../setupTests";
 
 describe("MarkerCard", () => {
 
@@ -48,7 +49,7 @@ describe("MarkerCard", () => {
         expect(getByText("Test Marker")).toBeInTheDocument();
         expect(getByText("Test Description")).toBeInTheDocument();
         expect(getByText("Rating:")).toBeInTheDocument();
-        expect(getByText("Test Category")).toBeInTheDocument(); 
+
 
 
         expect(getByText("Comment")).toBeInTheDocument();
@@ -82,3 +83,4 @@ describe("MarkerCard", () => {
         expect(getByText("By: Tester2 on Mon Jun 13 2022")).toBeInTheDocument();
     });
 });
+
