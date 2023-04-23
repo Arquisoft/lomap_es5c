@@ -44,10 +44,8 @@ export const UserSessionProvider = ({ children }) => {
     setWebId(webId);
   };
 
-  const handleMarkers = (newMarkers) => {
-    console.log(newMarkers);
+  const handleMarkers = (newMarkers, canDelete = false) => {
     if (newMarkers !== null) {
-      console.log("entra");
       setMarkers([]);
       newMarkers.map((place) => {
         if (place !== null) {
@@ -63,6 +61,8 @@ export const UserSessionProvider = ({ children }) => {
                 category: place[i].category,
                 comments: place[i].comments,
                 score: place[i].reviewScores,
+                pictures: place[i].pictures,
+                isOwnMarker: canDelete,
               },
             ]);
           }
@@ -90,6 +90,7 @@ export const UserSessionProvider = ({ children }) => {
           category: place.category,
           comments: place.comments,
           score: place.score,
+          pictures: place.pictures,
         },
       ]);
     });

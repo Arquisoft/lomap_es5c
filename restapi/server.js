@@ -6,9 +6,6 @@ const bp = require("body-parser");
 const promBundle = require("express-prom-bundle");
 
 const route = require("./routes/routes");
-const routeComment = require("./routes/post/CommentRoutes");
-const routePhoto = require("./routes/post/PhotoRoutes");
-const routeScore = require("./routes/post/ScoreRoutes");
 
 let database = require("./persistence/mongoDB");
 
@@ -38,9 +35,6 @@ app.get("/aaa", cors(corsOptions), (req, res) => {
 app.use(bp.urlencoded({ extended: true }));
 
 app.use("/place", route);
-app.use("/comment", routeComment);
-app.use("/photo", routePhoto);
-app.use("/score", routeScore);
 
 app
   .listen(port, () => {
