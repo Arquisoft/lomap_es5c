@@ -1,0 +1,12 @@
+version: "3.5"
+services:
+  restapi:
+    image: ghcr.io/arquisoft/lomap_es5c/restapi:latest
+    ports:
+      - "5001:5001"
+  webapp:
+    image: ghcr.io/arquisoft/lomap_es5c/webapp:latest
+    ports:
+      - "3000:3000"
+    depends_on:
+      - restapi
