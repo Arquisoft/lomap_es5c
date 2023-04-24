@@ -10,7 +10,7 @@ export async function uploadImages(
 	images,
 	session,
 	webId,
-	mapId = 1
+	mapId = "1"
 ) {
 	try {
 		const promises = images.map((image) => {
