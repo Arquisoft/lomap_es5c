@@ -269,9 +269,6 @@ const PodCreateForm = ({ coords, prevOption, close, needsUpdate }) => {
 									<option value="entertainment">
 										{t("PodCreateForm.category.entertainment")}
 									</option>
-									<option value="restaurant">
-										{t("PodCreateForm.category.restaurant")}
-									</option>
 								</select>
 							</div>
 						</div>

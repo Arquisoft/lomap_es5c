@@ -140,6 +140,47 @@ function LocationMarkers({ coords, markerEvent }) {
 		setPodMarkersLoaded(true);
 	};
 
+	const getOptionIcon = (option) => {
+		switch (option) {
+			case "bar":
+				return barIcon;
+			case "restaurant":
+				return restaurantIcon;
+			case "shop":
+				return shopIcon;
+			case "supermarket":
+				return supermarketIcon;
+			case "hotel":
+				return hotelIcon;
+			case "cinema":
+				return cinemaIcon;
+			case "academicInstitution":
+				return academicInstitutionIcon;
+			case "publicInstitution":
+				return publicInstitutionIcon;
+			case "sportsClub":
+				return sportsClubIcon;
+			case "museum":
+				return museumIcon;
+			case "park":
+				return parkIcon;
+			case "landscape":
+				return landscapeIcon;
+			case "monument":
+				return monumentIcon;
+			case "hospital":
+				return hospitalIcon;
+			case "policeStation":
+				return policeStationIcon;
+			case "transportCenter":
+				return transportCenterIcon;
+			case "entertainment":
+				return entertainmentIcon;
+			default:
+				return defaultIcon;
+		}
+	};
+
 	useEffect(() => {
 		handleFetch();
 		// loadPodsMarkers();
@@ -256,43 +297,7 @@ function LocationMarkers({ coords, markerEvent }) {
 					return (
 						<Marker
 							key={i}
-							icon={
-								marker.category === "shop"
-									? shopIcon
-									: marker.category === "bar"
-									? barIcon
-									: marker.category === "monument"
-									? monumentIcon
-									: marker.category === "landscape"
-									? landscapeIcon
-									: marker.category === "restaurant"
-									? restaurantIcon
-									: marker.category === "supermarket"
-									? supermarketIcon
-									: marker.category === "hotel"
-									? hotelIcon
-									: marker.category === "cinema"
-									? cinemaIcon
-									: marker.category === "academicInstitution"
-									? academicInstitutionIcon
-									: marker.category === "publicInstitution"
-									? publicInstitutionIcon
-									: marker.category === "sportsClub"
-									? sportsClubIcon
-									: marker.category === "museum"
-									? museumIcon
-									: marker.category === "park"
-									? parkIcon
-									: marker.category === "hospital"
-									? hospitalIcon
-									: marker.category === "policeStation"
-									? policeStationIcon
-									: marker.category === "transportCenter"
-									? transportCenterIcon
-									: marker.category === "entertainment"
-									? entertainmentIcon
-									: defaultIcon
-							}
+							icon={getOptionIcon(marker.category)}
 							position={marker.coords}
 							eventHandlers={{
 								click: (e) => {
@@ -308,44 +313,7 @@ function LocationMarkers({ coords, markerEvent }) {
 					return (
 						<Marker
 							key={i}
-							// icon={monumentIcon}
-							icon={
-								marker.category === "shop"
-									? shopIcon
-									: marker.category === "bar"
-									? barIcon
-									: marker.category === "monument"
-									? monumentIcon
-									: marker.category === "landscape"
-									? landscapeIcon
-									: marker.category === "restaurant"
-									? restaurantIcon
-									: marker.category === "supermarket"
-									? supermarketIcon
-									: marker.category === "hotel"
-									? hotelIcon
-									: marker.category === "cinema"
-									? cinemaIcon
-									: marker.category === "academicInstitution"
-									? academicInstitutionIcon
-									: marker.category === "publicInstitution"
-									? publicInstitutionIcon
-									: marker.category === "sportsClub"
-									? sportsClubIcon
-									: marker.category === "museum"
-									? museumIcon
-									: marker.category === "park"
-									? parkIcon
-									: marker.category === "hospital"
-									? hospitalIcon
-									: marker.category === "policeStation"
-									? policeStationIcon
-									: marker.category === "transportCenter"
-									? transportCenterIcon
-									: marker.category === "entertainment"
-									? entertainmentIcon
-									: defaultIcon
-							}
+							icon={getOptionIcon(marker.category)}
 							position={marker.coords}
 							eventHandlers={{
 								click: (e) => {
