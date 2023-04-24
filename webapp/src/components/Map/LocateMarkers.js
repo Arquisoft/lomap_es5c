@@ -8,7 +8,6 @@ import iconLandscape from "../../images/landscape.png";
 import iconShop from "../../images/shop.png";
 import iconBar from "../../images/bar.png";
 import iconCurrentLocation from "../../images/current_location.png";
-import iconFriends from "../../images/friends.png";
 import iconSupermarket from "../../images/supermarket.png";
 import iconHotel from "../../images/hotel.png";
 import iconCinema from "../../images/cinema.png";
@@ -31,10 +30,6 @@ import PodCreateForm from "../Pods/PodCreateForm";
 import styles from "./LocateMarkers.module.css";
 import { insertNewMarker } from "../Pods/PodsFunctions";
 
-import { listFriends } from "../Pods/PodsFunctions";
-import { listLocationsOfAUser } from "../Pods/PodsFunctions";
-import { addComment } from "../Pods/PodsFunctions";
-
 import UserSessionContext from "../../store/session-context";
 import { useTranslation } from "react-i18next";
 
@@ -43,7 +38,6 @@ function LocationMarkers({ coords, markerEvent }) {
 
 	const [markerName, setMarkerName] = useState();
 	const initialMarker = new LatLng(coords.latitude, coords.longitude);
-	// const { latitude, longitude } = coords;
 	const [markers, setMarkers] = useState([]);
 	const [dbMarkers, setDbMarkes] = useState([]);
 	const [podMarkers, setPodMarkers] = useState([]);
@@ -125,21 +119,6 @@ function LocationMarkers({ coords, markerEvent }) {
 		);
 	};
 
-	const loadPodsMarkers = async () => {
-		// setPodMarkers([]);
-		ctx.markers.map((place) =>
-			setPodMarkers((prevValue) => [
-				...prevValue,
-				{
-					title: place.name,
-					coords: new LatLng(place.latitude, place.longitude),
-				},
-			])
-		);
-
-		setPodMarkersLoaded(true);
-	};
-
 	const getOptionIcon = (option) => {
 		switch (option) {
 			case "bar":
@@ -183,7 +162,6 @@ function LocationMarkers({ coords, markerEvent }) {
 
 	useEffect(() => {
 		handleFetch();
-		// loadPodsMarkers();
 	}, []);
 
 	async function getCurrentCityName(lat, long) {
@@ -223,19 +201,12 @@ function LocationMarkers({ coords, markerEvent }) {
 	const map = useMapEvents({
 		click(e) {
 			markerEvent(e.latlng);
-			// if (e.originalEvent.target.attributes.length > 0) {
-			//   // if (aux === e.originalEvent.target.attributes[0].nodeValue) {
-			//   if (e.originalEvent.target.attributes[0].nodeValue.includes(aux)) {
-			//     setClicked(false);
 			setInitial(true);
 			setActualMarker(e.latlng);
-			//     //setMarkers((prevValue) => [...prevValue, e.latlng]);
-			//   }
-			// }
 		},
 	});
 
-	const [t, i18n] = useTranslation("translation");
+	const [t] = useTranslation("translation");
 
 	// FOR PODS ------------------------------------------
 
@@ -317,7 +288,6 @@ function LocationMarkers({ coords, markerEvent }) {
 							position={marker.coords}
 							eventHandlers={{
 								click: (e) => {
-									// addComment(webId, session, "Test", marker.id);
 									ctx.handleSelectedMarker(marker);
 								},
 							}}

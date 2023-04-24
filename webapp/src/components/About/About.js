@@ -1,16 +1,11 @@
-import React, { useEffect, useContext } from "react";
-
-import UserCard from "./UserCard";
+import React from "react";
 
 import styles from "./About.module.css";
 
-import UserSessionContext from "../../store/session-context";
 import { useTranslation } from "react-i18next";
 
 const About = () => {
-	const ctx = useContext(UserSessionContext);
-
-	const [t, i18n] = useTranslation("translation");
+	const [t] = useTranslation("translation");
 
 	// Here we create all developers
 	const jonathan = {
@@ -136,15 +131,6 @@ const About = () => {
 				</div>
 			</div>
 		</React.Fragment>
-
-		// <div classNameName={styles.main_container}>
-		//   <h1 className={styles.h1}>LoMap team ⭐️</h1>
-		//   <div className={styles.info_container}>
-		//     {data.map((component, i) => (
-		//       <UserCard key={i} user={component}></UserCard>
-		//     ))}
-		//   </div>
-		// </div>
 	);
 };
 
