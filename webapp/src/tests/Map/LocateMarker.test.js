@@ -2,48 +2,61 @@ import LocationMarkers from "../../components/Map/LocateMarkers";
 import {render} from "../../setupTests";
 import {screen, fireEvent, waitFor} from '@testing-library/react';
 import i18n from "i18next";
+import { useSession } from "@inrupt/solid-ui-react";
 import { MapContainer } from "react-leaflet";
-import {UserSessionProvider, UserSessionContext} from "../../store/session-context";
-import { Session } from '@inrupt/solid-client-authn-browser';
-import { getSolidDataset, getThingAll, getUrlAll } from '@inrupt/solid-client';
+import InfoCard from "../../components/UI/InfoCard";
 
-const fakeSession = {
-    info: {
-      webId: 'https://example.com/profile#me'
-    }
-  };
+//needed to load session
+jest.mock("@inrupt/solid-ui-react", () => ({
+  useSession: () => ({
+    session: {
+      info: {
+        webId: "https://uo277938.inrupt.net/profile/card#me",
+      },
+    },
+  }),
+}));
 
   describe("LocateMarker", () => {
-    test('renders without crashing', () => {
-       /* const coords = { latitude: 37.7749, longitude: -122.4194 };
-        const { getByTestId } = render(
-          <UserSessionProvider value={{fakeSession}}>
-            <LocationMarkers coords={coords} />
-          </UserSessionProvider>
-        );
-        const component = getByTestId("location-markers");
-        expect(component).toBeInTheDocument();*/
-      });
-
-    /*
-    test("renders LocationMarkers component without crashing", () => {
-        render(<LocationMarkers coords={{ latitude: 0, longitude: 0 }} />, {
-            wrapper: ({ children }) => (
-              <UserSessionContext value={fakeSession}>
-                {children}
-              </UserSessionContext>
-            ),
-          });
-        
-    });*/
-/*
-    test("displays a marker on the map", () => { 
-        render(
-        <MapContainer center={[40, -73]} zoom={13}>
-            <LocationMarkers coords={{ latitude: 40, longitude: -73 }} />
+    test("renders the component", async () => {
+      const coords = { latitude: 37.7749, longitude: -122.4194 };
+      render(
+        <MapContainer center={[coords.latitude, coords.longitude]} zoom={13}>
+          <LocationMarkers coords={coords} />
         </MapContainer>
-        );
-        const marker = document.querySelector(".leaflet-marker-icon");
-        expect(marker).toBeInTheDocument();
-    });*/
+      );
+    });
+
+    test("renders the marker from the database", async () => {
+      const coords = { latitude: 40.7128, longitude: -74.006 };
+      const dbMarkers = [
+        { id: 1, name: "Marker 1", latitude: 42.7128, longitude: -74.006, type: "shop" },
+      ];
+      jest.spyOn(global, "fetch").mockResolvedValue({
+        json: jest.fn().mockResolvedValue(dbMarkers),
+      });
+      render(<MapContainer center={[coords.latitude, coords.longitude]} zoom={13}>
+              <LocationMarkers coords={coords} />
+            </MapContainer>);
+      const marker1 = await screen.getByAltText("Marker");
+      expect(marker1).toBeInTheDocument();
+    }); 
+
+    test("renders the marker info when clicked", async () => {
+      const coords = { latitude: 40.7128, longitude: -74.006 };
+      const dbMarkers = [
+        { id: 1, name: "Marker 1", latitude: 42.7128, longitude: -74.006, type: "shop" },
+      ];
+      jest.spyOn(global, "fetch").mockResolvedValue({
+        json: jest.fn().mockResolvedValue(dbMarkers),
+      });
+      render(<MapContainer center={[coords.latitude, coords.longitude]} zoom={13}>
+              <LocationMarkers coords={coords} />
+            </MapContainer>);
+      
+      const marker1 = await screen.getByAltText("Marker");
+      fireEvent.click(marker1);
+      const {getByText} = render(<InfoCard position={dbMarkers[0].name}></InfoCard>);
+      expect(getByText("Marker 1")).toBeInTheDocument();
+    }); 
 });
