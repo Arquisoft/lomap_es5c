@@ -85,7 +85,7 @@ const FriendsList = ({ close, handleLoad, handleMarkersload }) => {
 		getFriendsWebIds();
 	}, []);
 
-	const [t, i18n] = useTranslation("translation");
+	const [t] = useTranslation("translation");
 
 	let headerStyle =
 		window.localStorage.getItem("themeStyle") === "dark" ? "#fff " : "#000 ";
@@ -132,7 +132,7 @@ const FriendsList = ({ close, handleLoad, handleMarkersload }) => {
 						<div key={i} className="card mb-2">
 							<div className="d-flex mx-2 my-2 align-items-center">
 								{friend.friendData.imageUrl != null ||
-								friend.friendData.imageUrl != undefined ? (
+								friend.friendData.imageUrl !== undefined ? (
 									<img
 										src={friend.friendData.imageUrl}
 										style={{

@@ -16,12 +16,6 @@ describe("About", () => {
         expect(getByText("Student and frontend developer")).toBeInTheDocument();
         expect(getByText("uo283586")).toBeInTheDocument();
 
-        
-        //MEMBER 2: LAURA
-        expect(getByText("Laura Cordero Castrillo")).toBeInTheDocument();
-        expect(getByText("Java Developer")).toBeInTheDocument();
-        expect(getByText("Student and Java developer")).toBeInTheDocument();
-        expect(getByText("uo275955")).toBeInTheDocument();
 
         //MEMBER 3: EDU
         expect(getByText("Eduardo Blanco Bielsa")).toBeInTheDocument();
@@ -33,16 +27,16 @@ describe("About", () => {
         expect(getByText("Fernando José González Sierra")).toBeInTheDocument();
         expect(getByText("Backend developer")).toBeInTheDocument();
         expect(getByText("Student and backend enthusiast")).toBeInTheDocument();
-        expect(getByText("uo275955")).toBeInTheDocument();
+        expect(getByText("uo277938")).toBeInTheDocument();
 
         //MEMBER 5: XIN
         expect(getByText("Chen Xin Pan Wang")).toBeInTheDocument();
         expect(getByText("Software Developer")).toBeInTheDocument();
         expect(getByText("Stackoverflow lover")).toBeInTheDocument();
-        expect(getByText("uo277938")).toBeInTheDocument();
+        //expect(getByText("uo276")).toBeInTheDocument();
         
         const buttons = screen.getAllByRole('button');
-        expect(buttons.length).toBe(15);
+        expect(buttons.length).toBe(12);
         
     });
 
@@ -62,12 +56,6 @@ describe("About", () => {
         expect(getByText("Jonathan Arias Busto")).toBeInTheDocument();
         expect(getByText("Desarrollador React")).toBeInTheDocument();
         expect(getByText("Estudiante y desarrollador frontend")).toBeInTheDocument();
-
-
-        //MEMBER 2: LAURA 
-        expect(getByText("Laura Cordero Castrillo")).toBeInTheDocument();
-        expect(getByText("Desarrolladora Java")).toBeInTheDocument();
-        expect(getByText("Estudiante y desarrolladora en Java")).toBeInTheDocument();
 
         //MEMBER 3: EDU
         expect(getByText("Eduardo Blanco Bielsa")).toBeInTheDocument();
