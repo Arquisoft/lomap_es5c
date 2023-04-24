@@ -21,7 +21,7 @@ async function createFile(webId) {
 		maps: [
 			//maps of the user
 			{
-				id: 1,
+				id: "1",
 				name: "default",
 				author: webId,
 				locations: [
@@ -97,11 +97,11 @@ async function updatePlacesFile(newFile, podUrl, session) {
 
 //Searches the position of the mark and returns it
 function getMapValue(maps, mapId) {
-	if (mapId === 1) {
+	if (mapId === "1") {
 		return 0;
 	} else {
 		for (let i = 1; i < maps.length; i++) {
-			if (maps[i].id === mapId) return i;
+			if (maps[i].id === mapId.toString()) return i;
 		}
 	}
 	return -1;
@@ -158,7 +158,7 @@ export async function insertNewMarker(
 
 	//This is the map by default
 	//Remove this if we implement multiple maps on the app
-	const mapId = 1;
+	const mapId = "1";
 
 	//Check if is a new user or not -> creates a new places file if it is new OR adds the marker if exists
 	return await checkIfPlacesFileExists(podUrl, session, marker, webId, mapId);
@@ -249,7 +249,7 @@ async function updatePermissionsOfFolder(session, webId) {
 
 //Function that extracts all the locations added by a user of a concrete map
 //If the extension of multiple maps is not implemented the default mapId is 1
-export async function listLocationsOfAUser(webId, session, mapId = 1) {
+export async function listLocationsOfAUser(webId, session, mapId = "1") {
 	const podUrl = webId.replace("/profile/card#me", "/lomap/locations.json");
 	//If needed, we update permissions of the folder and the file
 	//await updatePermissionsOfFile(session, webId);
@@ -292,7 +292,7 @@ export async function addReviewScore(
 	session,
 	score,
 	idLocation,
-	mapId = 1
+	mapId = "1"
 ) {
 	if (score >= 0 && score <= 5) {
 		const fileUrl = webId.replace("/profile/card#me", "/lomap/locations.json");
@@ -353,7 +353,7 @@ export async function addComment(
 	session,
 	comment,
 	idLocation,
-	mapId = 1
+	mapId = "1"
 ) {
 	const fileUrl = webId.replace("/profile/card#me", "/lomap/locations.json");
 	let file = await solid.getFile(fileUrl, { fetch: session.fetch });
@@ -479,7 +479,7 @@ export async function deleteFriend(webId, session, friendWebId) {
 }
 
 //Function that filters user's pod by category
-export async function filterByCategory(category, webId, session, mapId = 1) {
+export async function filterByCategory(category, webId, session, mapId = "1") {
 	let placesFiltered = [];
 	//We get the locations file as a JSON
 	const locationsMap = await listLocationsOfAUser(webId, session, mapId);
@@ -494,7 +494,7 @@ export async function filterByCategory(category, webId, session, mapId = 1) {
 }
 
 //Function that deletes a location of the pod of the user
-export async function removeMarker(webId, session, markerId, mapId = 1) {
+export async function removeMarker(webId, session, markerId, mapId = "1") {
 	const fileUrl = webId.replace("/profile/card#me", "/lomap/locations.json");
 	let file = await solid.getFile(fileUrl, { fetch: session.fetch });
 	let jsonMarkers = JSON.parse(await file.text());
