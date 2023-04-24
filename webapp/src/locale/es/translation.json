@@ -1,96 +1,116 @@
 {
-	"About": {
-		"jonathan": {
-			"userTitle": "Desarrollador React",
-			"description": "Estudiante y desarrollador frontend"
-		},
-		"laura": {
-			"userTitle": "Desarrolladora Java",
-			"description": "Estudiante y desarrolladora en Java"
-		},
-		"edu": {
-			"userTitle": "Administrador Linux",
-			"description": "Estudiante y amante de la ciberseguridad"
-		},
-		"fer": {
-			"userTitle": "Desarrollador backend",
-			"description": "Estudiante y entusiasta del backend"
-		},
-		"xin": {
-			"userTitle": "Desarrolladora software",
-			"description": "Amante de Stackoverflow"
-		},
-		"title": "Equipo LoMap 5c ⭐️"
-	},
+  "About": {
+    "jonathan": {
+      "userTitle": "Desarrollador React",
+      "description": "Estudiante y desarrollador frontend"
+    },
+    "laura": {
+      "userTitle": "Desarrolladora Java",
+      "description": "Estudiante y desarrolladora en Java"
+    },
+    "edu": {
+      "userTitle": "Administrador Linux",
+      "description": "Estudiante y amante de la ciberseguridad"
+    },
+    "fer": {
+      "userTitle": "Desarrollador backend",
+      "description": "Estudiante y entusiasta del backend"
+    },
+    "xin": {
+      "userTitle": "Desarrolladora software",
+      "description": "Amante de Stackoverflow"
+    },
+    "title": "Equipo LoMap 5c ⭐️"
+  },
 
-	"Menu": {
-		"home": "INICIO",
-		"about": "NOSOTROS"
-	},
+  "Menu": {
+    "home": "INICIO",
+    "about": "NOSOTROS"
+  },
 
-	"FriendsList": {
-		"list": "Lista de amigos",
-		"add": "Añadir amigo",
-		"enter": "Introduce el webId de tu amigo",
-		"submit": "Añadir"
-	},
+  "FriendsList": {
+    "list": "Lista de amigos",
+    "add": "Añadir amigo",
+    "enter": "Introduce el webId de tu amigo",
+    "submit": "Añadir"
+  },
 
-	"MarkerCard": {
-		"comment": "Comentar",
-		"score": "Puntuar",
-		"inComm": {
-			"title": "Comentarios",
-			"by": "De: ",
-			"on": "el "
-		},
-		"lat": "Latitud:",
-		"long": "Longitud:",
-		"rating": "Valoración: "
-	},
+  "MarkerCard": {
+    "comment": "Comentar",
+    "score": "Puntuar",
+    "inComm": {
+      "title": "Comentarios",
+      "by": "De: ",
+      "on": "el "
+    },
+    "lat": "Latitud:",
+    "long": "Longitud:",
+    "rating": "Valoración: ",
+    "uploadImage": "Cargar imagen:",
+    "upload": "Publicar",
+    "imageModalTitle": "Imagen",
+    "imageModalClose": "Cerrar"
+  },
 
-	"LocateMarkers": {
-		"here": "Estás aquí"
-	},
+  "LocateMarkers": {
+    "here": "Estás aquí"
+  },
 
-	"PodCreateForm": {
-		"create": "Crear lugar",
-		"title": "Título",
-		"error-title": "¡Título no válido!",
-		"description": "Descripción",
-		"error-descrp": "¡Descripción no válida!",
-		"category": {
-			"title": "Categoría",
-			"landscape": "Paisaje",
-			"monument": "Monumento",
-			"shop": "Tienda",
-			"bar": "Bar",
-			"other": "Otro"
-		},
-		"submit": "Crear",
-		"error-submit": "¡Error al crear el lugar! Por inténtelo más tarde."
-	},
+  "PodCreateForm": {
+    "create": "Crear lugar",
+    "title": "Título",
+    "error-title": "¡Título no válido!",
+    "description": "Descripción",
+    "error-descrp": "¡Descripción no válida!",
+    "category": {
+      "title": "Categoría",
+      "all": "Todo",
+      "landscape": "Paisaje",
+      "monument": "Monumento",
+      "shop": "Tienda",
+      "bar": "Bar",
+      "restaurant": "Restaurante",
+      "supermarket": "Supermercado",
+      "hotel": "Hotel",
+      "cinema": "Cine",
+      "academicInstitution": "Institución académica",
+      "publicInstitution": "Institución pública",
+      "sportsClub": "Club Deportivo",
+      "museum": "Museo",
+      "park": "Parque",
+      "hospital": "Hospital",
+      "policeStation": "Estación de policía",
+      "transportCenter": "Transportes",
+      "entertainment": "Entretenimiento",
+      "other": "Otro"
+    },
+    "submit": "Crear",
+    "error-submit": "¡Error al crear el lugar! Por inténtelo más tarde."
+  },
 
-	"NotLoggedText": "¡No has iniciado sesión! Por favor, inicia sesión",
+  "NotLoggedText": "¡No has iniciado sesión! Por favor, inicia sesión",
 
-	"LoginButton": {
-		"in": "INICIAR SESIÓN",
-		"out": "CERRAR SESIÓN"
-	},
+  "LoginButton": {
+    "in": "INICIAR SESIÓN",
+    "out": "CERRAR SESIÓN",
+    "add": "Añadir proveedor",
+    "other": "Otro proveedor"
+  },
 
-	"OptionsMenu": {
-		"markers": "Marcadores",
-		"friends": "Amigos",
-		"filters": "Filtrar",
-		"friendsMarkers": "Marcadores de amigos"
-	},
+  "OptionsMenu": {
+    "markers": "Marcadores",
+    "friends": "Amigos",
+    "filters": "Filtrar",
+    "friendsMarkers": "Marcadores de amigos"
+  },
 
-	"FilterCard": {
-		"category": "Filtrar por categoría",
-		"all": "Todo",
-		"landscape": "Paisaje",
-		"monument": "Monumento",
-		"shop": "Tienda",
-		"bar": "Bar",
-		"other": "Otro"
-	}
+  "FilterCard": {
+    "category": "Filtrar por categoría",
+    "modalHeading": "No se han encontrado marcadores",
+    "modalText": "No se han encontrado marcadores con los filtros seleccionados",
+    "modalClose": "Cerrar"
+  },
+  "SideMenu": {
+    "nomarkers": "No hay marcadores"
+  }
 }

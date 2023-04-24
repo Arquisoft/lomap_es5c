@@ -16,13 +16,14 @@ async function createPlaces(file, path, session) {
 }
 
 //Function that instanciates a new JSON file
-async function createFile() {
+async function createFile(webId) {
 	var locations = {
 		maps: [
 			//maps of the user
 			{
 				id: 1,
 				name: "default",
+				author: webId,
 				locations: [
 					//markers
 				],
@@ -39,13 +40,13 @@ async function createFile() {
 }
 
 //Function that creates the file where places will be stored
-async function createNewPlacesFile(podUrl, session, marker, mapId) {
+async function createNewPlacesFile(podUrl, session, webId, marker, mapId) {
 	//Create the directory for friends
 	await solid.createContainerAt(podUrl.replace("locations.json", ""), {
 		fetch: session.fetch,
 	});
 	//Create the file
-	const file = await createFile();
+	const file = await createFile(webId);
 	//We create the file on path /private/ inside user's pod
 	const path = podUrl.replace("locations.json", "");
 	//Save the file
@@ -62,7 +63,8 @@ async function checkIfPlacesFileExists(podUrl, session, marker, webId, mapId) {
 		await addNewMarker(file, podUrl, session, marker, mapId);
 	} catch (error) {
 		//file doesn't exist
-		await createNewPlacesFile(podUrl, session, marker, mapId);
+		await createNewPlacesFile(podUrl, session, webId, marker, mapId);
+		await updatePermissions(session, webId);
 	}
 }
 
@@ -95,8 +97,12 @@ async function updatePlacesFile(newFile, podUrl, session) {
 
 //Searches the position of the mark and returns it
 function getMapValue(maps, mapId) {
-	for (let i = 0; i < maps.length; i++) {
-		if (maps[i].id == mapId) return i;
+	if (mapId === 1) {
+		return 0;
+	} else {
+		for (let i = 1; i < maps.length; i++) {
+			if (maps[i].id == mapId) return i;
+		}
 	}
 	return -1;
 }
@@ -104,15 +110,11 @@ function getMapValue(maps, mapId) {
 //Function that adds a new marker to the pod
 async function addNewMarker(file, podUrl, session, marker, mapId) {
 	let jsonMarkers = JSON.parse(await file.text());
-
 	const i = getMapValue(jsonMarkers.maps, mapId);
-
 	jsonMarkers.maps[i].locations.push(marker);
-
 	const blob = new Blob([JSON.stringify(jsonMarkers, null, 2)], {
 		type: "application/json",
 	});
-
 	var newFile = new File([blob], "locations.json", { type: blob.type });
 
 	return updatePlacesFile(newFile, podUrl, session); //returns true if everything was ok or false if there was an error
@@ -141,7 +143,7 @@ export async function insertNewMarker(
 ) {
 	//We create the new place in JSON format
 	const marker = {
-		id: Date.now(),
+		id: webId + "@" + Date.now(),
 		name: name,
 		category: category,
 		latitude: coords.lat,
@@ -149,7 +151,9 @@ export async function insertNewMarker(
 		description: description,
 		comments: [], //comments that other users make on the marker
 		reviewScores: [], //scores that other users give to the marker
+		pictures: [], //pictures that other users upload to the marker
 		date: Date.now(),
+		//webId: webId
 	};
 
 	//This is the map by default
@@ -162,7 +166,7 @@ export async function insertNewMarker(
 
 //Function that stablish permissions of the folder and the locations file
 async function updatePermissions(session, webId) {
-	await updatePermissionsOfFolder(session, webId);
+	//await updatePermissionsOfFolder(session, webId);
 	await updatePermissionsOfFile(session, webId);
 }
 
@@ -181,10 +185,7 @@ async function givePermissionsToUser(friend, session, file, control) {
 
 //Function that modifies permissions of the locations file
 async function updatePermissionsOfFile(session, webId) {
-	const fileUrl = webId.replace(
-		"/profile/card#me",
-		"/justforfriends/locations.json"
-	);
+	const fileUrl = webId.replace("/profile/card#me", "/lomap/locations.json");
 	//Get the friends of the user
 	const friends = await listFriends(webId);
 	try {
@@ -202,7 +203,7 @@ async function updatePermissionsOfFile(session, webId) {
 //Function that modifies permissions only for friends
 async function updatePermissionsOfFolder(session, webId) {
 	const friends = await listFriends(webId);
-	const folderUrl = webId.replace("/profile/card#me", "/justforfriends7/");
+	const folderUrl = webId.replace("/profile/card#me", "/lomap/");
 	const myDatasetWithAcl = await solid.getSolidDatasetWithAcl(folderUrl, {
 		fetch: session.fetch,
 	});
@@ -249,10 +250,7 @@ async function updatePermissionsOfFolder(session, webId) {
 //Function that extracts all the locations added by a user of a concrete map
 //If the extension of multiple maps is not implemented the default mapId is 1
 export async function listLocationsOfAUser(webId, session, mapId = 1) {
-	const podUrl = webId.replace(
-		"/profile/card#me",
-		"/justforfriends/locations.json"
-	);
+	const podUrl = webId.replace("/profile/card#me", "/lomap/locations.json");
 	//If needed, we update permissions of the folder and the file
 	//await updatePermissionsOfFile(session, webId);
 	//We extract the file of the concrete user if exists
@@ -297,10 +295,7 @@ export async function addReviewScore(
 	mapId = 1
 ) {
 	if (score >= 0 && score <= 5) {
-		const fileUrl = webId.replace(
-			"/profile/card#me",
-			"/justforfriends/locations.json"
-		);
+		const fileUrl = webId.replace("/profile/card#me", "/lomap/locations.json");
 		let file = await solid.getFile(fileUrl, { fetch: session.fetch });
 		let jsonMarkers = JSON.parse(await file.text());
 		const x = getMapValue(jsonMarkers.maps, mapId);
@@ -335,7 +330,7 @@ async function modifyScoresContent(
 	podUrl
 ) {
 	const newReviewScore = {
-		author: webId,
+		author: session.info.webId,
 		score: score,
 		date: Date.now(),
 	};
@@ -360,10 +355,7 @@ export async function addComment(
 	idLocation,
 	mapId = 1
 ) {
-	const fileUrl = webId.replace(
-		"/profile/card#me",
-		"/justforfriends/locations.json"
-	);
+	const fileUrl = webId.replace("/profile/card#me", "/lomap/locations.json");
 	let file = await solid.getFile(fileUrl, { fetch: session.fetch });
 	let jsonMarkers = JSON.parse(await file.text());
 	const x = getMapValue(jsonMarkers.maps, mapId);
@@ -395,7 +387,7 @@ async function modifyCommentsContent(
 	podUrl
 ) {
 	const newComment = {
-		author: webId,
+		author: session.info.webId,
 		comment: comment,
 		date: Date.now(),
 	};
@@ -417,6 +409,7 @@ export async function addNewFriend(webId, session, friendWebId) {
 		//First check if the friend exists
 		if (friends.some((friend) => friend === friendWebId)) {
 			console.log("Friend already exists!");
+			return false;
 		} else {
 			// Get the Solid dataset of the profile
 			let profileDataset = await solid.getSolidDataset(
@@ -424,16 +417,31 @@ export async function addNewFriend(webId, session, friendWebId) {
 			);
 			let thing = solid.getThing(profileDataset, webId);
 
-			// Get all the Things (resources) in the dataset that have the "knows" property
-			thing = solid.addUrl(thing, FOAF.knows, friendWebId);
-			profileDataset = solid.setThing(profileDataset, thing);
-			profileDataset = await solid.saveSolidDatasetAt(webId, profileDataset, {
-				fetch: session.fetch,
-			});
-			console.log("New friend was added!");
-			//We update the permissions of the folder where we will store the markers
-			await updatePermissions(session, webId);
-			return true;
+			//Get the friend profile
+			let friendProfileDataset = await solid.getSolidDataset(
+				friendWebId.replace("#me", "")
+			);
+			let friendThing = solid.getThing(friendProfileDataset, friendWebId);
+			let name = solid.getStringNoLocale(friendThing, FOAF.name.iri.value);
+
+			//Check if the new friend exists
+			if (name != null) {
+				// Get all the Things (resources) in the dataset that have the "knows" property
+				thing = solid.addUrl(thing, FOAF.knows, friendWebId);
+				profileDataset = solid.setThing(profileDataset, thing);
+				profileDataset = await solid.saveSolidDatasetAt(webId, profileDataset, {
+					fetch: session.fetch,
+				});
+				console.log("New friend was added!");
+				//We update the permissions of the folder where we will store the markers
+				try {
+					await updatePermissions(session, webId);
+				} catch (error) {}
+				return true;
+			} else {
+				console.log("The user doesn't exist");
+				return false;
+			}
 		}
 	} catch (error) {
 		console.log(error);
@@ -483,4 +491,83 @@ export async function filterByCategory(category, webId, session, mapId = 1) {
 	}
 
 	return placesFiltered;
+}
+
+//Function that deletes a location of the pod of the user
+export async function removeMarker(webId, session, markerId, mapId = 1) {
+	const fileUrl = webId.replace("/profile/card#me", "/lomap/locations.json");
+	let file = await solid.getFile(fileUrl, { fetch: session.fetch });
+	let jsonMarkers = JSON.parse(await file.text());
+	const x = getMapValue(jsonMarkers.maps, mapId);
+	const locations = jsonMarkers.maps[x].locations;
+
+	for (let i = 0; i < locations.length; i++) {
+		if (locations[i].id == markerId) {
+			jsonMarkers.maps[x].locations.splice(i, 1);
+		}
+	}
+
+	const blob = new Blob([JSON.stringify(jsonMarkers, null, 2)], {
+		type: "application/json",
+	});
+
+	var newFile = new File([blob], "locations.json", { type: blob.type });
+
+	return updatePlacesFile(newFile, fileUrl, session); //returns true if everything was ok or false if there was an error
+}
+
+//Function that adds new pictures to a location
+export async function addPictures(
+	markerId,
+	downloadUrls,
+	session,
+	webId,
+	mapId
+) {
+	const fileUrl = webId.replace("/profile/card#me", "/lomap/locations.json");
+	let file = await solid.getFile(fileUrl, { fetch: session.fetch });
+	let jsonMarkers = JSON.parse(await file.text());
+	const x = getMapValue(jsonMarkers.maps, mapId);
+	const locations = jsonMarkers.maps[x].locations;
+
+	for (let i = 0; i < locations.length; i++) {
+		if (locations[i].id === markerId) {
+			await modifyPicturesContent(
+				i,
+				webId,
+				session,
+				downloadUrls,
+				jsonMarkers,
+				x,
+				fileUrl
+			);
+		}
+	}
+}
+
+//Function that modifies the content of the file with the new pictures
+async function modifyPicturesContent(
+	i,
+	webId,
+	session,
+	imagesToAdd,
+	jsonMarkers,
+	mapValue,
+	podUrl
+) {
+	imagesToAdd.forEach((url) => {
+		const newImage = {
+			author: webId,
+			downloadUrl: url,
+		};
+		jsonMarkers.maps[mapValue].locations[i].pictures.push(newImage);
+	});
+
+	const blob = new Blob([JSON.stringify(jsonMarkers, null, 2)], {
+		type: "application/json",
+	});
+
+	var newFile = new File([blob], "locations.json", { type: blob.type });
+
+	return updatePlacesFile(newFile, podUrl, session); //returns true if everything was ok or false if there was an error
 }

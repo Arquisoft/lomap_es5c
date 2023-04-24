@@ -1,5 +1,6 @@
-import {render, fireEvent} from "@testing-library/react";
+import { fireEvent} from "@testing-library/react";
 import MarkerCard from "../../components/layout/podsCards/MarkerCard";
+import {render} from "../../setupTests";
 
 describe("MarkerCard", () => {
 
@@ -28,15 +29,27 @@ describe("MarkerCard", () => {
                 comment: "Test comment 2",
                 date: "2022-06-13",
             },
-        ]
+        ],
+        pictures: [],
     };
 
+    const mockSession = {
+        info: "user1",
+      };
+    
+    const mockHandleAddComment = jest.fn();
+    const mockNeedsUpdate = jest.fn();
+
+    beforeEach(() => {
+    jest.clearAllMocks();
+    });
+
     test("The marker card is rendered", async () => {
-        const {getByText} = render(<MarkerCard marker={marker}/>)
+        const {getByText} = render(<MarkerCard marker={marker} session={{session: mockSession}}/>)
         expect(getByText("Test Marker")).toBeInTheDocument();
         expect(getByText("Test Description")).toBeInTheDocument();
         expect(getByText("Rating:")).toBeInTheDocument();
-        expect(getByText("Test Category")).toBeInTheDocument(); 
+
 
 
         expect(getByText("Comment")).toBeInTheDocument();
@@ -70,3 +83,4 @@ describe("MarkerCard", () => {
         expect(getByText("By: Tester2 on Mon Jun 13 2022")).toBeInTheDocument();
     });
 });
+

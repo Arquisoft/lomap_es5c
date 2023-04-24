@@ -13,8 +13,6 @@
 
 [![Fer](https://img.shields.io/badge/UO277938-Fernando%20Jos%C3%A9%20Gonz%C3%A1lez-orange)](https://github.com/UO277938)
 
-[![Laura](https://img.shields.io/badge/UO275955%20-Laura%20Cordero-brightgreen)](https://github.com/lauracc97)
-
 [![Xin](https://img.shields.io/badge/UO276967%20-Chen%20Xin%20Pan%20Wang-hotpink)](https://github.com/iimxinn)
 
 ---

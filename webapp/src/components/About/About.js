@@ -38,18 +38,6 @@ const About = () => {
 			"https://www.linkedin.com/in/eduardo-blanco-bielsa-408908233/",
 	};
 
-	const laura = {
-		alt: "laura",
-		width: "10%",
-		username: "Laura Cordero Castrillo",
-		userTitle: t("About.laura.userTitle"),
-		description: t("About.laura.description"),
-		mail: "uo275955",
-		githubLink: "https://github.com/lauracc97",
-		twitterLink: {},
-		linkedinLink: {},
-	};
-
 	const fer = {
 		alt: "fer",
 		width: "10%",
@@ -62,19 +50,19 @@ const About = () => {
 		linkedinLink: "https://www.linkedin.com/in/fer-glez-869844236/",
 	};
 
-  const xin = {
-    alt: "xin",
-    width: "10%",
-    username: "Chen Xin Pan Wang",
-    userTitle: t("About.xin.userTitle"),
-    description: t("About.xin.description"),
-    mail: "uo276967",
-    githubLink: "https://github.com/iimxinn",
-    twitterLink: "https://twitter.com/iimxinn",
-    linkedinLink: "https://www.linkedin.com/in/chen-xin-pan-wang-4b5939233/",
-  };
+	const xin = {
+		alt: "xin",
+		width: "10%",
+		username: "Chen Xin Pan Wang",
+		userTitle: t("About.xin.userTitle"),
+		description: t("About.xin.description"),
+		mail: "uo276967",
+		githubLink: "https://github.com/iimxinn",
+		twitterLink: "https://twitter.com/iimxinn",
+		linkedinLink: "https://www.linkedin.com/in/chen-xin-pan-wang-4b5939233/",
+	};
 
-	const data = [jonathan, edu, laura, fer, xin];
+	const data = [jonathan, edu, fer, xin];
 
 	return (
 		<React.Fragment>

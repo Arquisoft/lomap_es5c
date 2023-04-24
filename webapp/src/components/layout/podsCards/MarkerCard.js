@@ -1,11 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import useInput from "../../../hooks/use-input";
 
 import {
   addComment,
   addReviewScore,
   listScoreOfAUser,
+  removeMarker,
 } from "../../Pods/PodsFunctions";
+
+import { uploadImages } from "../../Images/ImagesFunctions";
+
 import { useSession } from "@inrupt/solid-ui-react";
 
 import styles from "./MarkerCard.module.css";
@@ -14,13 +18,36 @@ import img from "../../../images/test.png";
 
 import { useTranslation } from "react-i18next";
 
-const MarkerCard = ({ marker }) => {
+import UserSessionContext from "../../../store/session-context";
+
+import { Button, Carousel, Modal } from "react-bootstrap";
+
+import { maker } from "rdf-namespaces/dist/foaf";
+
+const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
+  const ctx = useContext(UserSessionContext);
+
   const rating_color = {
     color: "#fbc634",
   };
 
   const { session } = useSession(); // Hook for providing access to the session in the component
-  const { webId } = session.info; // User's webId
+  const webId = session.info;
+  let webIdM;
+  if (marker.id !== undefined)
+    webIdM = marker.id.split("@")[0]; // User's webId.
+  else webIdM = webId;
+
+  const starsIds = ["star5", "star4", "star3", "star2", "star1"];
+
+  const randomId = function (length = 6) {
+    return Math.random()
+      .toString(36)
+      .substring(2, length + 2);
+  };
+
+  let canScore = true;
+  const [canScore2, setCanScore2] = useState(true);
 
   // useInput for each input
   const {
@@ -61,14 +88,22 @@ const MarkerCard = ({ marker }) => {
   // Commment form submission handler
   const formAddCommentHandler = (event) => {
     event.preventDefault();
-    addComment(webId, session, enteredComment, marker.id);
+
+    addComment(webIdM, session, enteredComment, marker.id);
     resetCommentInput();
+
+    ctx.handleAddComment(marker.id, {
+      author: webId.webId,
+      comment: enteredComment,
+      date: new Date(),
+    });
   };
 
   // Score form submission handler
   const formAddScoreHandler = (event) => {
     event.preventDefault();
-    addReviewScore(webId, session, enteredScore, marker.id);
+
+    addReviewScore(webIdM, session, enteredScore, marker.id);
 
     //Resets the radios selected value
     const radioButtons = document.getElementsByName("rating");
@@ -76,39 +111,174 @@ const MarkerCard = ({ marker }) => {
       radioButtons[i].checked = false;
     }
     resetScoreInput();
+    setCanScore2(false);
+    calculateRating();
+    needsUpdate(true);
+
+    // ctx.handleAddRating(marker.id, {
+    //   author: webId.webId,
+    //   score: enteredScore,
+    //   date: new Date(),
+    // });
+    // marker.rating = undefined;
   };
 
-  if (marker.score !== undefined) {
+  if (marker.score !== undefined && marker.rating === undefined) {
     let listScore = marker.score;
     let meanScore;
     let acc = 0;
+    let ableToScore = true;
 
     for (var i = 0; i < listScore.length; i++) {
       acc += Number(listScore[i].score);
+      if (listScore[i].author == webId.webId) {
+        ableToScore = false;
+      }
     }
     meanScore = acc / listScore.length;
 
     marker.rating = meanScore; // this should be obtained from the pod's rating
+
+    canScore = ableToScore;
   }
 
   // Remember to calculate the rating of the pod and pass it to the marker object (int number)
-  let stars = [];
-  for (let i = 0.5; i < 5.5; ++i) {
-    if (i < marker.rating) {
-      stars.push(<i className="fa fa-star" style={rating_color} key={i}></i>);
-    } else {
-      stars.push(<i className="fa fa-star" key={i}></i>);
-    }
-  }
+  //   for (let i = 0.5; i < 5.5; ++i) {
+  //     if (i < marker.rating) {
+  //       stars.push(<i className="fa fa-star" style={rating_color} key={i}></i>);
+  //     } else {
+  //       stars.push(<i className="fa fa-star" key={i}></i>);
+  //     }
+  //   }
+  var stars = [];
 
+  const calculateRating = () => {
+    stars = [];
+    for (let i = 0.5; i < 5.5; ++i) {
+      if (i < marker.rating) {
+        stars.push(<i className="fa fa-star" style={rating_color} key={i}></i>);
+      } else {
+        stars.push(<i className="fa fa-star" key={i}></i>);
+      }
+    }
+  };
+
+  calculateRating();
+
+  //   useEffect(() => {
+  //     console.log("marker.rating: " + marker.rating);
+  //     if (marker.rating !== undefined) {
+  //       calculateRating();
+  //     }
+  //   }, [marker.rating]);
+
+  const handleDeleteMarker = async () => {
+    // TODO: need to check whether the marker is removed from the pod
+    await removeMarker(webIdM, session, marker.id);
+    needsUpdate(true);
+  };
+
+  const [file, setFile] = useState([]);
+
+  const handleChange = (e) => {
+    setFile([]);
+    //setFile(e.target.files[0]);
+    let aux = e.target.files;
+    // console.log(aux[0]);
+    //setFile(URL.createObjectURL(e.target.files[0]));
+    for (let i = 0; i < aux.length; i++) {
+      setFile((files) => [...files, aux[i]]);
+    }
+  };
+
+  const submitFile = async () => {
+    await uploadImages(marker.id, file, session, webIdM);
+    needsUpdate(true);
+  };
+
+  useEffect(() => {}, [file]);
+
+  const [images, setImages] = useState([]);
+
+  const getImages = async () => {
+    if (marker.pictures !== undefined) {
+      setImages([]);
+      marker.pictures.map(async (pictureUrl) => {
+        const response = await fetch(pictureUrl);
+        const blob = await response.blob();
+
+        const url = URL.createObjectURL(blob);
+
+        console.log(url);
+        // const image = new Image();
+        // image.src = url;
+
+        setImages((prev) => [...prev, url]);
+      });
+    }
+  };
+
+  //   useEffect(() => {
+  //     getImages();
+  //   }, []);
+
+  const [image, setImage] = useState(null);
+
+  const handleImageModal = (image) => {
+    setImage(null);
+    setShow(true);
+    setImage(image);
+  };
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => {
+    setShow(false);
+    ctx.handleFilterOption("All");
+  };
+
+  const ownMarker = marker.own !== undefined ? marker.own : false;
   return (
     <div className="card my-2 mx-2 " style={{ width: "95%" }}>
-      <img
-        className="card-img-top mt-2 mx-2"
-        src={img}
-        alt="Card image cap"
-        style={{ maxWidth: "100px" }}
-      />
+      <div className="d-flex mx-2 my-2 justify-content-center">
+        {!ownMarker && marker.pictures.length > 0 && (
+          <Carousel variant="dark" style={{ width: "200px" }}>
+            {marker.pictures.map((image, i) => {
+              return (
+                <Carousel.Item
+                  key={i}
+                  onClick={() => {
+                    handleImageModal(image.downloadUrl);
+                  }}
+                >
+                  <img
+                    src={image.downloadUrl}
+                    alt={`Slide ${i}`}
+                    style={{ height: "200px", width: "200px" }}
+                  />
+                </Carousel.Item>
+              );
+            })}
+          </Carousel>
+        )}
+        {show && image !== null && image !== undefined && (
+          <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>{t("MarkerCard.imageModalTitle")}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <div className="d-flex justify-content-center">
+                <img src={image} alt="Image modal" style={{ width: "100%" }} />
+              </div>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="danger" onClick={handleClose}>
+                {t("MarkerCard.imageModalClose")}
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        )}
+      </div>
       <div className="card-body">
         <h1 className="card-title" style={{ color: "#000" }}>
           {marker.title}
@@ -136,7 +306,36 @@ const MarkerCard = ({ marker }) => {
         <li className="list-group-item">
           {t("MarkerCard.long")} {marker.coords.lng}
         </li>
+        <li className="list-group-item">
+          <div className="my-2">
+            <label className="form-label" htmlFor="customFile">
+              {/* TODO: internacionalizar  */}
+              {t("MarkerCard.uploadImage")}
+            </label>
+
+            <div className="d-flex align-items-center">
+              <input
+                className="form-control"
+                type="file"
+                id="formFileMultiple"
+                onChange={handleChange}
+                style={{ marginBottom: 0 }}
+                accept="image/*"
+                multiple
+              />
+              <Button
+                variant="primary"
+                className="mx-2"
+                onClick={submitFile}
+                // style={{ fontSize: "12px" }}
+              >
+                {t("MarkerCard.upload")}
+              </Button>
+            </div>
+          </div>
+        </li>
       </ul>
+
       {marker.id !== "" && marker.id !== undefined && (
         <>
           <form onSubmit={formAddCommentHandler} className={styles.commentText}>
@@ -164,38 +363,45 @@ const MarkerCard = ({ marker }) => {
               </button>
             </div>
           </form>
-
-          <form onSubmit={formAddScoreHandler} className={styles.scoreGroup}>
-            <div
-              className={styles.rating}
-              id="stars"
-              onChange={scoreChangeHandler}
-              value={enteredScore}
-            >
-              <input type="radio" name="rating" id="star5" value="5" />
-              <label htmlFor="star5">☆</label>
-              <input type="radio" name="rating" id="star4" value="4" />
-              <label htmlFor="star4">☆</label>
-              <input type="radio" name="rating" id="star3" value="3" />
-              <label htmlFor="star3">☆</label>
-              <input type="radio" name="rating" id="star2" value="2" />
-              <label htmlFor="star2">☆</label>
-              <input type="radio" name="rating" id="star1" value="1" />
-              <label htmlFor="star1">☆</label>
-            </div>
-
-            <div className={styles.commentButton}>
-              <button
-                type="submit"
-                className={styles.button}
-                disabled={!scoreIsValid}
+          {canScore && canScore2 && (
+            <form onSubmit={formAddScoreHandler} className={styles.scoreGroup}>
+              <div
+                className={styles.rating}
+                id="stars"
+                onChange={scoreChangeHandler}
+                value={enteredScore}
               >
-                {t("MarkerCard.score")}
-              </button>
-            </div>
-          </form>
+                {starsIds.map((starId, i) => {
+                  const id = randomId();
+                  return (
+                    <>
+                      <input
+                        type="radio"
+                        name="rating"
+                        id={id}
+                        value={starId.charAt(4)}
+                        key={i}
+                      />
+                      <label htmlFor={id}>☆</label>
+                    </>
+                  );
+                })}
+              </div>
+
+              <div className={styles.commentButton}>
+                <button
+                  type="submit"
+                  className={styles.button}
+                  disabled={!scoreIsValid}
+                >
+                  {t("MarkerCard.score")}
+                </button>
+              </div>
+            </form>
+          )}
         </>
       )}
+
       {marker.comments !== undefined && marker.comments.length !== 0 && (
         <div className="card-body">
           <h5 className="card-title">{t("MarkerCard.inComm.title")}</h5>
@@ -219,6 +425,27 @@ const MarkerCard = ({ marker }) => {
             );
           })}
         </div>
+      )}
+      {canDelete && !ownMarker && marker.isOwnMarker && (
+        <>
+          <button
+            className="btn btn-danger btn-sm mt-2"
+            type="button"
+            data-toggle="tooltip"
+            data-placement="top"
+            title="Delete"
+            style={{
+              minWidth: "40px",
+              minHeight: "40px",
+              borderRadius: "7px",
+            }}
+            onClick={() => {
+              handleDeleteMarker();
+            }}
+          >
+            <i className="fa fa-trash" style={{ fontSize: "20px" }}></i>
+          </button>{" "}
+        </>
       )}
     </div>
   );

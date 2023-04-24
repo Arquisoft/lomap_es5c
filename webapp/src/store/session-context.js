@@ -3,124 +3,172 @@ import React, { createContext, useState } from "react";
 import { LatLng } from "leaflet";
 
 const UserSessionContext = createContext({
-  webId: "",
-  markers: [],
-  filteredMarkers: [],
-  handleMarkers: () => {},
-  handleFilteredMarkers: () => {},
-  filterOption: "all",
-  handleFilterOption: () => {},
-  loaded: false,
-  selectedMarker: null,
-  createMarker: false,
-  handleCreateMarker: () => {},
-  handleSelectedMarker: () => {},
-  pageStyle: "dark",
-  handleStyle: () => {},
+	webId: "",
+	markers: [],
+	filteredMarkers: [],
+	handleMarkers: () => {},
+	handleFilteredMarkers: () => {},
+	changedFilter: false,
+	handleChangedFilter: () => {},
+	filterOption: "all",
+	handleFilterOption: () => {},
+	loaded: false,
+	handleLoaded: () => {},
+	selectedMarker: null,
+	createMarker: false,
+	handleCreateMarker: () => {},
+	handleSelectedMarker: () => {},
+	handleAddComment: () => {},
+	handleAddRating: () => {},
+	pageStyle: "dark",
+	handleStyle: () => {},
 });
 
 export const UserSessionProvider = ({ children }) => {
-  const [webId, setWebId] = useState("");
+	const [webId, setWebId] = useState("");
 
-  const [markers, setMarkers] = useState([]);
-  const [filteredMarkers, setFilteredMarkers] = useState([]);
-  const [loaded, setLoaded] = useState(false);
-  const [createMarker, setCreateMarker] = useState(null);
+	const [markers, setMarkers] = useState([]);
+	const [filteredMarkers, setFilteredMarkers] = useState([]);
+	const [loaded, setLoaded] = useState(false);
+	const [createMarker, setCreateMarker] = useState(null);
 
-  const [filterOption, setFilterOption] = useState("all");
+	const [changedFilter, setChangedFilter] = useState(false);
+	const [filterOption, setFilterOption] = useState("all");
 
-  const [selectedMarker, setSelectedMarker] = useState(null);
+	const [selectedMarker, setSelectedMarker] = useState(null);
 
-  const [pageStyle, setPageStyle] = useState("dark");
+	const [pageStyle, setPageStyle] = useState("dark");
 
-  const handleSessionWebId = (webId) => {
-    window.localStorage.setItem("webId", webId);
-    setWebId(webId);
-  };
+	const handleSessionWebId = (webId) => {
+		window.localStorage.setItem("webId", webId);
+		setWebId(webId);
+	};
 
-  const handleMarkers = (newMarkers) => {
-    setMarkers([]);
-    newMarkers.map((place) => {
-      for (let i = 0; i < place.length; i++) {
-        setMarkers((prevValue) => [
-          ...prevValue,
-          {
-            id: place[i].id,
-            title: place[i].name,
-            coords: new LatLng(place[i].latitude, place[i].longitude),
-            description: place[i].description,
-            category: place[i].category,
-            comments: place[i].comments,
-            score: place[i].reviewScores,
-          },
-        ]);
-      }
-    });
+	const handleMarkers = (newMarkers, canDelete = false) => {
+		if (newMarkers !== null) {
+			setMarkers([]);
+			newMarkers.map((place) => {
+				if (place !== null) {
+					for (let i = 0; i < place.length; i++) {
+						setMarkers((prevValue) => [
+							...prevValue,
+							{
+								id: place[i].id,
+								title: place[i].name,
+								coords: new LatLng(place[i].latitude, place[i].longitude),
+								description: place[i].description,
+								category: place[i].category,
+								comments: place[i].comments,
+								score: place[i].reviewScores,
+								pictures: place[i].pictures,
+								isOwnMarker: canDelete,
+							},
+						]);
+					}
+				}
+			});
 
-    setLoaded(true);
-  };
+			setLoaded(true);
+		}
+	};
 
-  const handleFilteredMarkers = (newMarkers) => {
-    if (newMarkers.length === 0) {
-      setFilteredMarkers([]);
-      return;
-    }
-    setFilteredMarkers([]);
-    newMarkers.map((place) => {
-      setFilteredMarkers((prevValue) => [
-        ...prevValue,
-        {
-          id: place.id,
-          title: place.title,
-          coords: new LatLng(place.coords.lat, place.coords.lng),
-          description: place.description,
-          category: place.category,
-          comments: place.comments,
-          score: place.score,
-        },
-      ]);
-    });
-  };
+	const handleFilteredMarkers = (newMarkers) => {
+		if (newMarkers.length === 0) {
+			setFilteredMarkers([]);
+			return;
+		}
+		setFilteredMarkers([]);
+		newMarkers.map((place) => {
+			setFilteredMarkers((prevValue) => [
+				...prevValue,
+				{
+					id: place.id,
+					title: place.title,
+					coords: new LatLng(place.coords.lat, place.coords.lng),
+					description: place.description,
+					category: place.category,
+					comments: place.comments,
+					score: place.score,
+					pictures: place.pictures,
+				},
+			]);
+		});
+	};
 
-  const handleCreateMarker = (marker) => {
-    setCreateMarker(marker);
-  };
+	const handleAddComment = (markerId, comment) => {
+		markers.map((marker) => {
+			if (marker.id === markerId) {
+				marker.comments.push(comment);
+			}
+		});
 
-  const handleFilterOption = (option) => {
-    setFilterOption(option);
-  };
+		filteredMarkers.map((marker) => {
+			if (marker.id === markerId) {
+				marker.comments.push(comment);
+			}
+		});
+	};
 
-  const handleSelectedMarker = (bool) => {
-    setSelectedMarker(bool);
-  };
+	const handleAddRating = (markerId, rating) => {
+		markers.map((marker) => {
+			if (marker.id === markerId) {
+				marker.score.push(rating);
+			}
+		});
+	};
 
-  const handleStyle = (style) => {
-    setPageStyle(style);
-  };
+	const handleLoaded = (bool) => {
+		setLoaded(bool);
+	};
 
-  return (
-    <UserSessionContext.Provider
-      value={{
-        webId,
-        markers,
-        handleMarkers,
-        loaded,
-        filteredMarkers,
-        handleFilteredMarkers,
-        createMarker,
-        handleCreateMarker,
-        filterOption,
-        handleFilterOption,
-        selectedMarker,
-        handleSelectedMarker,
-        handleSessionWebId,
-        pageStyle,
-        handleStyle,
-      }}
-    >
-      {children}
-    </UserSessionContext.Provider>
-  );
+	const handleCreateMarker = (marker) => {
+		setCreateMarker(marker);
+	};
+
+	const handleChangedFilter = (bool) => {
+		setChangedFilter(bool);
+	};
+
+	const handleFilterOption = (option) => {
+		setFilterOption(option);
+	};
+
+	const handleSelectedMarker = (bool) => {
+		setSelectedMarker(bool);
+	};
+
+	const handleStyle = (style) => {
+		setPageStyle(style);
+	};
+
+	return (
+		<UserSessionContext.Provider
+			value={{
+				webId,
+				markers,
+				handleMarkers,
+				loaded,
+				handleLoaded,
+				filteredMarkers,
+				handleFilteredMarkers,
+				createMarker,
+				handleCreateMarker,
+				changedFilter,
+				handleChangedFilter,
+				filterOption,
+				handleFilterOption,
+				selectedMarker,
+				handleSelectedMarker,
+				handleSessionWebId,
+				handleAddComment,
+				handleAddRating,
+				pageStyle,
+				handleStyle,
+			}}
+		>
+			{children}
+		</UserSessionContext.Provider>
+	);
 };
 
 export default UserSessionContext;

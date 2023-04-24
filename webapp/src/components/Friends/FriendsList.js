@@ -15,7 +15,7 @@ import { addNewFriend } from "../Pods/PodsFunctions";
 
 import defaultImage from "../../images/default_user.png";
 
-const FriendsList = ({ close, handleLoad }) => {
+const FriendsList = ({ close, handleLoad, handleMarkersload }) => {
 	const { session } = useSession(); // Hook for providing access to the session in the component
 	const { webId } = session.info; // User's webId
 
@@ -36,6 +36,7 @@ const FriendsList = ({ close, handleLoad }) => {
 		setFriendsWebIds([]);
 
 		var auxFriends = await listFriends(webId);
+
 		auxFriends.map(async (friend) => {
 			var friendData = await getFriendInfo(friend, session);
 			setFriendsWebIds((prevValue) => [
@@ -53,6 +54,7 @@ const FriendsList = ({ close, handleLoad }) => {
 	const handleDeleteFriend = async (friendWebId) => {
 		await deleteFriend(webId, session, friendWebId);
 		getFriendsWebIds();
+		handleMarkersload(false);
 	};
 
 	if (validFriendWebId) formIsValid = true;
@@ -65,6 +67,7 @@ const FriendsList = ({ close, handleLoad }) => {
 		}
 
 		handleLoad(false);
+		handleMarkersload(false);
 
 		// Add the new friend
 		var exit = await addNewFriend(webId, session, enteredFriendWebId);

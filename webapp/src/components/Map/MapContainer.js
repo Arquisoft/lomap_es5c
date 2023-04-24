@@ -20,6 +20,7 @@ const MapContainer = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [clickedMarker, setClickedMarker] = useState(false);
   const [option, setOption] = useState("userPods");
+  const [prevOption, setPrevOption] = useState("userPods");
 
   function error() {
     setIsLoaded(false); // Change the isLoaded property to false
@@ -132,8 +133,17 @@ const MapContainer = () => {
                 >
                   <SideMenu
                     option={option}
+                    prevOption={prevOption}
                     coords={newCoords}
                     handleOption={(opt) => {
+                      if (
+                        opt !== "friends" &&
+                        opt !== "filter" &&
+                        opt !== "markerInfo" &&
+                        opt !== "create"
+                      ) {
+                        setPrevOption(opt);
+                      }
                       setOption(opt);
                     }}
                   />
