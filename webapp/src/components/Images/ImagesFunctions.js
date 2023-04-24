@@ -10,7 +10,6 @@ export async function uploadImages(
 	images,
 	session,
 	webId,
-	//   callback,
 	mapId = 1
 ) {
 	try {

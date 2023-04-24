@@ -47,7 +47,7 @@ export const UserSessionProvider = ({ children }) => {
 	const handleMarkers = (newMarkers, canDelete = false) => {
 		if (newMarkers !== null) {
 			setMarkers([]);
-			newMarkers.map((place) => {
+			newMarkers.forEach((place) => {
 				if (place !== null) {
 					for (let i = 0; i < place.length; i++) {
 						setMarkers((prevValue) => [
@@ -78,7 +78,7 @@ export const UserSessionProvider = ({ children }) => {
 			return;
 		}
 		setFilteredMarkers([]);
-		newMarkers.map((place) => {
+		newMarkers.forEach((place) => {
 			setFilteredMarkers((prevValue) => [
 				...prevValue,
 				{
@@ -96,13 +96,13 @@ export const UserSessionProvider = ({ children }) => {
 	};
 
 	const handleAddComment = (markerId, comment) => {
-		markers.map((marker) => {
+		markers.forEach((marker) => {
 			if (marker.id === markerId) {
 				marker.comments.push(comment);
 			}
 		});
 
-		filteredMarkers.map((marker) => {
+		filteredMarkers.forEach((marker) => {
 			if (marker.id === markerId) {
 				marker.comments.push(comment);
 			}
@@ -110,7 +110,7 @@ export const UserSessionProvider = ({ children }) => {
 	};
 
 	const handleAddRating = (markerId, rating) => {
-		markers.map((marker) => {
+		markers.forEach((marker) => {
 			if (marker.id === markerId) {
 				marker.score.push(rating);
 			}

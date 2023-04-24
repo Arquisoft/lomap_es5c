@@ -3,7 +3,7 @@ import React, { useEffect, useState, useContext } from "react";
 import styles from "./PodCreateForm.module.css";
 
 import useInput from "../../hooks/use-input";
-import { insertNewMarker, listLocationsOfAUser } from "../Pods/PodsFunctions";
+import { insertNewMarker } from "../Pods/PodsFunctions";
 import { useSession } from "@inrupt/solid-ui-react";
 import { useTranslation } from "react-i18next";
 
@@ -11,7 +11,7 @@ import UserSessionContext from "../../store/session-context";
 
 const PodCreateForm = ({ coords, prevOption, close, needsUpdate }) => {
 	const ctx = useContext(UserSessionContext);
-	const [t, i18n] = useTranslation("translation");
+	const [t] = useTranslation("translation");
 
 	const { session } = useSession(); // Hook for providing access to the session in the component
 	const { webId } = session.info; // User's webId
@@ -24,20 +24,16 @@ const PodCreateForm = ({ coords, prevOption, close, needsUpdate }) => {
 	const [correctPointCreation, setCorrectPointCreation] = useState(true);
 
 	async function insertThing(coords, name, description, category) {
-		{
-			var result = insertNewMarker(
-				coords,
-				name,
-				description,
-				podUrl,
-				session,
-				webId,
-				category //WE HAVE TO ADD THIS
-			);
-			// setInitial(!result);
-			// if (result) setMarkers((prevValue) => [...prevValue, actualMarker]);
-			return result;
-		}
+		var result = insertNewMarker(
+			coords,
+			name,
+			description,
+			podUrl,
+			session,
+			webId,
+			category
+		);
+		return result;
 	}
 
 	// useInput for each input

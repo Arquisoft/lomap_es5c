@@ -40,11 +40,11 @@ const Card = ({ title, content }) => {
 		if (option.target.value !== "All") {
 			setFilterOption(option.target.value);
 			let filteredMarkers = [];
-			ctx.markers.map((marker) => {
+			ctx.markers.forEach((marker) => {
 				if (
-					marker.category == undefined ||
+					marker.category === undefined ||
 					marker.category == null ||
-					marker.category == ""
+					marker.category === ""
 				) {
 					marker.category = "Other";
 				}
@@ -64,7 +64,7 @@ const Card = ({ title, content }) => {
 		}
 	};
 
-	const [t, i18n] = useTranslation("translation");
+	const [t] = useTranslation("translation");
 
 	const getLocalizatedOptionValue = (option) => {
 		switch (option) {
@@ -130,11 +130,7 @@ const Card = ({ title, content }) => {
 						{t("FilterCard.category")}
 					</Button>
 					<div>
-						<select
-							//   defaultValue={ctx.filterOption}
-							value={ctx.filterOption}
-							onChange={handleFilter}
-						>
+						<select value={ctx.filterOption} onChange={handleFilter}>
 							{filterOptions.map((option) => (
 								<option key={option} value={option}>
 									{t(getLocalizatedOptionValue(option))}

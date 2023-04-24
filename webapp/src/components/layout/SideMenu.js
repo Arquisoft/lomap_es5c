@@ -20,7 +20,7 @@ import { useTranslation } from "react-i18next";
 const SideMenu = ({ option, prevOption, coords, handleOption }) => {
 	const ctx = useContext(UserSessionContext);
 
-	const [t, i18n] = useTranslation("translation");
+	const [t] = useTranslation("translation");
 
 	const [loaded, setLoaded] = React.useState(false);
 	const [loadedUserPods, setLoadedUserPods] = React.useState(false);
@@ -200,12 +200,10 @@ const SideMenu = ({ option, prevOption, coords, handleOption }) => {
 					<div className="d-flex justify-content-end">
 						<button
 							type="button"
-							// className="btn-close mx-3 mt-2"
 							className={styleButton}
 							style={{ fontSize: "1rem" }}
 							aria-label="Close"
 							onClick={() => {
-								// handleOption("userPods");
 								handleOption(prevOption);
 								setClosed(true);
 								ctx.handleSelectedMarker(null);
@@ -233,13 +231,11 @@ const SideMenu = ({ option, prevOption, coords, handleOption }) => {
 					<div className="d-flex justify-content-end">
 						<button
 							type="button"
-							// className="btn-close mx-3 mt-2"
 							className={styleButton}
 							style={{ fontSize: "1rem" }}
 							aria-label="Close"
 							onClick={() => {
 								setClosed(true); // Search for memory leaks here MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 login listeners added.
-								// handleOption("userPods");
 								handleOption(prevOption);
 								ctx.handleSelectedMarker(null);
 							}}
@@ -257,13 +253,11 @@ const SideMenu = ({ option, prevOption, coords, handleOption }) => {
 					<div className="d-flex justify-content-end my-2">
 						<button
 							type="button"
-							// className="btn-close mx-3 mt-2"
 							className={styleButton}
 							style={{ fontSize: "1rem" }}
 							aria-label="Close"
 							onClick={() => {
 								setClosed(true);
-								// handleOption("userPods");
 								handleOption(prevOption);
 								ctx.handleSelectedMarker(null);
 							}}

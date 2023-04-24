@@ -5,7 +5,7 @@ import { FOAF, VCARD } from "@inrupt/lit-generated-vocab-common";
 //Function that creates the file and saves it to the pod
 async function createPlaces(file, path, session) {
 	try {
-		let savedFile = await solid.saveFileInContainer(path, file, {
+		await solid.saveFileInContainer(path, file, {
 			slug: file.name,
 			contentType: file.type,
 			fetch: session.fetch,
@@ -84,7 +84,7 @@ export async function listFriends(webId) {
 //Funtion that updates the existing file of places on the user's pod
 async function updatePlacesFile(newFile, podUrl, session) {
 	try {
-		var overwrittenFile = await solid.overwriteFile(podUrl, newFile, {
+		await solid.overwriteFile(podUrl, newFile, {
 			contentType: newFile.type,
 			fetch: session.fetch,
 		});
@@ -101,7 +101,7 @@ function getMapValue(maps, mapId) {
 		return 0;
 	} else {
 		for (let i = 1; i < maps.length; i++) {
-			if (maps[i].id == mapId) return i;
+			if (maps[i].id === mapId) return i;
 		}
 	}
 	return -1;
@@ -302,7 +302,7 @@ export async function addReviewScore(
 		const locations = jsonMarkers.maps[x].locations;
 
 		for (let i = 0; i < locations.length; i++) {
-			if (locations[i].id == idLocation) {
+			if (locations[i].id === idLocation) {
 				await modifyScoresContent(
 					i,
 					webId,
@@ -362,7 +362,7 @@ export async function addComment(
 	const locations = jsonMarkers.maps[x].locations;
 
 	for (let i = 0; i < locations.length; i++) {
-		if (locations[i].id == idLocation) {
+		if (locations[i].id === idLocation) {
 			await modifyCommentsContent(
 				i,
 				webId,
@@ -485,7 +485,7 @@ export async function filterByCategory(category, webId, session, mapId = 1) {
 	const locationsMap = await listLocationsOfAUser(webId, session, mapId);
 	//We filter the locations by category
 	for (let i = 0; i < locationsMap.length; i++) {
-		if (locationsMap[i].category == category) {
+		if (locationsMap[i].category === category) {
 			placesFiltered.push(locationsMap[i]); //we add the location to the array
 		}
 	}
@@ -502,7 +502,7 @@ export async function removeMarker(webId, session, markerId, mapId = 1) {
 	const locations = jsonMarkers.maps[x].locations;
 
 	for (let i = 0; i < locations.length; i++) {
-		if (locations[i].id == markerId) {
+		if (locations[i].id === markerId) {
 			jsonMarkers.maps[x].locations.splice(i, 1);
 		}
 	}
