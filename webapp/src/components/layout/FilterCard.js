@@ -64,8 +64,6 @@ const Card = ({ title, content }) => {
 		}
 	};
 
-	console.log("filterOption: " + ctx.filterOption);
-
 	const [t, i18n] = useTranslation("translation");
 
 	const getLocalizatedOptionValue = (option) => {
