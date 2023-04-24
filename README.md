@@ -5,6 +5,7 @@
 [![CI for LOMAP ES5C](https://github.com/Arquisoft/lomap_es5c/actions/workflows/lomap_es5c.yml/badge.svg)](https://github.com/Arquisoft/lomap_es5c/actions/workflows/lomap_es5c.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_lomap_es5c&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Arquisoft_lomap_es5c)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_lomap_es5c&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Arquisoft_lomap_es5c)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/5f0341fc-0f07-415f-b496-6f93825eb42c/deploy-status)](https://app.netlify.com/sites/lomap5c/deploys)
 
 ## 👨‍💻 Participant list
 [![Jony](https://img.shields.io/badge/UO283586-Jonathan%20Arias-yellow)](https://github.com/JonathanAriass)
