@@ -3,7 +3,7 @@ import React, { useEffect, useState, useContext } from "react";
 import styles from "./PodCreateForm.module.css";
 
 import useInput from "../../hooks/use-input";
-import { insertNewMarker } from "../Pods/PodsFunctions";
+import { insertNewMarker } from "../../podsFunctions/PodsFunctions";
 import { useSession } from "@inrupt/solid-ui-react";
 import { useTranslation } from "react-i18next";
 

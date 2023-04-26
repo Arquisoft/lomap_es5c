@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from "react";
 
 import { useSession } from "@inrupt/solid-ui-react";
-import { listFriends } from "../Pods/PodsFunctions";
-import { listLocationsOfAUser } from "../Pods/PodsFunctions";
+import { listFriends } from "../../podsFunctions/PodsFunctions";
+import { listLocationsOfAUser } from "../../podsFunctions/PodsFunctions";
 import MarkerCard from "./podsCards/MarkerCard";
 
 import PodCreateForm from "../Pods/PodCreateForm";

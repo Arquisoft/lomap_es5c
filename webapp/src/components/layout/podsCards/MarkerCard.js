@@ -5,9 +5,9 @@ import {
 	addComment,
 	addReviewScore,
 	removeMarker,
-} from "../../Pods/PodsFunctions";
+} from "../../../podsFunctions/PodsFunctions";
 
-import { uploadImages } from "../../Images/ImagesFunctions";
+import { uploadImages } from "../../../firebaseImages/ImagesFunctions";
 
 import { useSession } from "@inrupt/solid-ui-react";
 
