@@ -2,7 +2,7 @@ export default {
     transform: {
         "^.+\\.tsx?$": "ts-jest"
     },
-    testMatch: ["**/steps/*.ts"],
+    testMatch: ["**/steps/*.js"],
     moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
     moduleNameMapper:{"^uuid$": "uuid"},
     preset: "jest-puppeteer",

@@ -33,7 +33,7 @@ describe("About", () => {
         expect(getByText("Chen Xin Pan Wang")).toBeInTheDocument();
         expect(getByText("Software Developer")).toBeInTheDocument();
         expect(getByText("Stackoverflow lover")).toBeInTheDocument();
-        //expect(getByText("uo276")).toBeInTheDocument();
+        expect(getByText("uo276967")).toBeInTheDocument();
         
         const buttons = screen.getAllByRole('button');
         expect(buttons.length).toBe(12);
