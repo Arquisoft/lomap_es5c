@@ -28,13 +28,4 @@ describe("OptionsMenu", () => {
       });
 
 
-      /* test("should call changeOption with correct value when a button is clicked/is pushed correctly", () => {
-        const changeOptionMock = jest.fn();
-        const { getByText } = render(<OptionsMenu changeOption={changeOptionMock} />);
-    
-        fireEvent.click(getByText("Markers"));
-    
-        expect(changeOptionMock).toHaveBeenCalledWith("userPods");
-      }); */
-
 })

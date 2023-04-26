@@ -59,4 +59,6 @@ jest.mock("@inrupt/solid-ui-react", () => ({
       const {getByText} = render(<InfoCard position={dbMarkers[0].name}></InfoCard>);
       expect(getByText("Marker 1")).toBeInTheDocument();
     }); 
+
+    
 });
