@@ -96,7 +96,7 @@ const FriendsList = ({ close, handleLoad, handleMarkersload }) => {
         <div className="card my-2">
           <div className="form-group mx-2 my-2">
             <form onSubmit={addFriendHandler}>
-              <label htmlFor="exampleInputEmail1">
+              <label htmlFor="inputFriendWebId">
                 {t("FriendsList.enter")}
               </label>
               <input

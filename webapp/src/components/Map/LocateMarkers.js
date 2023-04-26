@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Marker, useMapEvents } from "react-leaflet";
 import { LatLng } from "leaflet";
 import iconRed from "../../images/redMarker.png";

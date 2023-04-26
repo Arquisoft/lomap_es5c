@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import Layout from "../../components/layout/Layout";
 import { I18nextProvider } from "react-i18next";
 import i18n from "i18next";
@@ -47,4 +47,22 @@ describe("Layout", () => {
 		fireEvent.click(switchInput);
 		expect(mockContextValue.handleStyle).toHaveBeenCalledTimes(1);
 	});
+
+	  test('updates isChecked and style on button click', () => {
+		const { getByRole } = render(
+			<UserSessionContext.Provider value={mockContextValue}>
+				<Layout isLoggedIn={true} />
+			</UserSessionContext.Provider>
+		);
+		const button = getByRole("checkbox");
+	  
+		waitFor(() =>(expect(button).toHaveAttribute('checked', '')));
+		waitFor(() => expect(button).toHaveAttribute('value', 'dark'));
+	  
+		fireEvent.click(button);
+	  
+		waitFor(() => (expect(button).not.toHaveAttribute('checked')));
+		waitFor(() => expect(button).toHaveAttribute('value', 'light'));
+	  });
 });
+
