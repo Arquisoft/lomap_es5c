@@ -9,129 +9,129 @@ import UserSessionContext from "../../store/session-context";
 
 // This component is used when the user is not logged in
 const MapContainer = () => {
-  const ctx = useContext(UserSessionContext);
+	const ctx = useContext(UserSessionContext);
 
-  const [coords, setCorrds] = useState({
-    latitude: null,
-    longitude: null,
-  });
-  const [newCoords, setNewCoords] = useState({});
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [option, setOption] = useState("userPods");
-  const [prevOption, setPrevOption] = useState("userPods");
+	const [coords, setCorrds] = useState({
+		latitude: null,
+		longitude: null,
+	});
+	const [newCoords, setNewCoords] = useState({});
+	const [isLoaded, setIsLoaded] = useState(false);
+	const [option, setOption] = useState("userPods");
+	const [prevOption, setPrevOption] = useState("userPods");
 
-  const options = {
-    enableHighAccuracy: true,
-    maximumAge: 30000,
-    timeout: 27000,
-  };
+	const options = {
+		enableHighAccuracy: true,
+		maximumAge: 30000,
+		timeout: 27000,
+	};
 
-  async function getLocation() {
-    const response = await new Promise((resolve, reject) => {
-      navigator.geolocation.getCurrentPosition(resolve, reject, options);
-    });
+	async function getLocation() {
+		const response = await new Promise((resolve, reject) => {
+			navigator.geolocation.getCurrentPosition(resolve, reject, options);
+		});
 
-    setCorrds({
-      latitude: response.coords.latitude,
-      longitude: response.coords.longitude,
-    });
-    setIsLoaded(true);
-  }
+		setCorrds({
+			latitude: response.coords.latitude,
+			longitude: response.coords.longitude,
+		});
+		setIsLoaded(true);
+	}
 
-  // A useEffect without dependencies loads only on first componente load, otherwise a useEffect
-  // with dependencies only runs when the object/s changes
-  useEffect(() => {
-    if (coords.latitude == null || coords.longitude == null) {
-      return;
-    }
-  }, [coords]);
+	// A useEffect without dependencies loads only on first componente load, otherwise a useEffect
+	// with dependencies only runs when the object/s changes
+	useEffect(() => {
+		if (coords.latitude == null || coords.longitude == null) {
+			return;
+		}
+	}, [coords]);
 
-  useEffect(() => {
-    getLocation();
-  }, []);
+	useEffect(() => {
+		getLocation();
+	}, []);
 
-  let backgroundStyle =
-    ctx.pageStyle === "light"
-      ? { backgroundColor: "#ffffff" }
-      : { backgroundColor: "#212529" };
+	let backgroundStyle =
+		ctx.pageStyle === "light"
+			? { backgroundColor: "#ffffff" }
+			: { backgroundColor: "#212529" };
 
-  let sideMenuStyle =
-    ctx.pageStyle === "light"
-      ? { backgroundColor: "#ffffff" }
-      : { backgroundColor: "#424e5c" };
+	let sideMenuStyle =
+		ctx.pageStyle === "light"
+			? { backgroundColor: "#ffffff" }
+			: { backgroundColor: "#424e5c" };
 
-  return (
-    <>
-      {isLoaded ? (
-        <div
-          className="container-fluid px-0 align-items-center"
-          style={{ height: "90vh" }}
-        >
-          <div
-            className="row gx-2 flex-row flex-grow-1"
-            style={{ height: "100%" }}
-          >
-            <React.Fragment>
-              <div
-                className="col-md-8 d-flex"
-                style={{
-                  maxHeight: "100%",
-                  minHeight: "50%",
-                  backgroundColor: backgroundStyle.backgroundColor,
-                }}
-                aria-label="Map"
-              >
-                <Map
-                  coords={coords}
-                  markerEvent={(e) => {
-                    setOption("create");
-                    ctx.handleCreateMarker(true);
-                    setNewCoords(e);
-                  }}
-                />
-              </div>
-              <div
-                className={`col-md-4 d-flex align-items-center ${styles.map_container}`}
-                style={{ backgroundColor: backgroundStyle.backgroundColor }}
-              >
-                <div
-                  className={`dark ${styles.container_info}`}
-                  style={sideMenuStyle}
-                >
-                  <SideMenu
-                    option={option}
-                    prevOption={prevOption}
-                    coords={newCoords}
-                    handleOption={(opt) => {
-                      if (
-                        opt !== "friends" &&
-                        opt !== "filter" &&
-                        opt !== "markerInfo" &&
-                        opt !== "create"
-                      ) {
-                        setPrevOption(opt);
-                      }
-                      setOption(opt);
-                    }}
-                  />
-                </div>
-              </div>
-            </React.Fragment>
-          </div>
-        </div>
-      ) : (
-        <div className="container-fluid px-0 text-center">
-          <div
-            className="d-flex justify-content-center"
-            style={{ height: "100%" }}
-            aria-label="Loading Spinner"
-          >
-            <LoadingSpinner />
-          </div>
-        </div>
-      )}
-    </>
-  );
+	return (
+		<>
+			{isLoaded ? (
+				<div
+					className="container-fluid px-0 align-items-center"
+					style={{ height: "90vh" }}
+				>
+					<div
+						className="row gx-2 flex-row flex-grow-1"
+						style={{ height: "100%" }}
+					>
+						<React.Fragment>
+							<div
+								className="col-md-8 d-flex"
+								style={{
+									maxHeight: "100%",
+									minHeight: "50%",
+									backgroundColor: backgroundStyle.backgroundColor,
+								}}
+								aria-labelledby="Map"
+							>
+								<Map
+									coords={coords}
+									markerEvent={(e) => {
+										setOption("create");
+										ctx.handleCreateMarker(true);
+										setNewCoords(e);
+									}}
+								/>
+							</div>
+							<div
+								className={`col-md-4 d-flex align-items-center ${styles.map_container}`}
+								style={{ backgroundColor: backgroundStyle.backgroundColor }}
+							>
+								<div
+									className={`dark ${styles.container_info}`}
+									style={sideMenuStyle}
+								>
+									<SideMenu
+										option={option}
+										prevOption={prevOption}
+										coords={newCoords}
+										handleOption={(opt) => {
+											if (
+												opt !== "friends" &&
+												opt !== "filter" &&
+												opt !== "markerInfo" &&
+												opt !== "create"
+											) {
+												setPrevOption(opt);
+											}
+											setOption(opt);
+										}}
+									/>
+								</div>
+							</div>
+						</React.Fragment>
+					</div>
+				</div>
+			) : (
+				<div className="container-fluid px-0 text-center">
+					<div
+						className="d-flex justify-content-center"
+						style={{ height: "100%" }}
+						aria-label="Loading Spinner"
+					>
+						<LoadingSpinner />
+					</div>
+				</div>
+			)}
+		</>
+	);
 };
 
 export default MapContainer;
