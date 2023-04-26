@@ -38,6 +38,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --coverage --transformIgnorePatterns \"node_modules/(?!@toolz/allow-react)/\" --env=jsdom",
+    "test:e2e": " start-server-and-test 'npm --prefix ../restapi start' http://localhost:5000/api/users/list prod 3000 # Equivalente a ejecutar rpm run prod y npm http://localhost:3000cd e2e && jest' ",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -60,6 +61,9 @@
   },
   "devDependencies": {
     "css-loader": "^6.7.3",
+    "jest-cucumber": "^3.0.1",
+    "jest-puppeteer": "^8.0.6",
+    "puppeteer": "^19.11.1",
     "style-loader": "^3.3.1",
     "text-encoding-utf-8": "^1.0.2",
     "webpack": "^5.75.0",
