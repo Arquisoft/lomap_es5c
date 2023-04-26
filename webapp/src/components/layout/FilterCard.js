@@ -33,31 +33,38 @@ const Card = () => {
   ];
 
   const handleFilter = (option) => {
-    ctx.handleChangedFilter(true);
-    ctx.handleFilterOption(option.target.value);
-    if (option.target.value !== "All") {
-      let filteredMarkers = [];
-      ctx.markers.forEach((marker) => {
-        if (
-          marker.category === undefined ||
-          marker.category == null ||
-          marker.category === ""
-        ) {
-          marker.category = "Other";
-        }
-        if (
-          marker.category.toLowerCase() === option.target.value.toLowerCase()
-        ) {
-          filteredMarkers.push(marker);
-        }
-      });
-      ctx.handleFilteredMarkers(filteredMarkers);
-      if (filteredMarkers.length === 0) {
-        ctx.handleFilterOption("all");
-        handleShow();
-      }
-    } else {
+    if (option.target === undefined) {
+      ctx.handleChangedFilter(true);
+      ctx.handleChangedFilter("All");
+      ctx.handleFilterOption("All");
       ctx.handleFilteredMarkers([]);
+    } else {
+      ctx.handleChangedFilter(true);
+      ctx.handleFilterOption(option.target.value);
+      if (option.target.value !== "All") {
+        let filteredMarkers = [];
+        ctx.markers.forEach((marker) => {
+          if (
+            marker.category === undefined ||
+            marker.category == null ||
+            marker.category === ""
+          ) {
+            marker.category = "Other";
+          }
+          if (
+            marker.category.toLowerCase() === option.target.value.toLowerCase()
+          ) {
+            filteredMarkers.push(marker);
+          }
+        });
+        ctx.handleFilteredMarkers(filteredMarkers);
+        if (filteredMarkers.length === 0) {
+          ctx.handleFilterOption("all");
+          handleShow();
+        }
+      } else {
+        ctx.handleFilteredMarkers([]);
+      }
     }
   };
 
