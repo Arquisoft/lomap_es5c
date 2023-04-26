@@ -85,6 +85,7 @@ const MapContainer = () => {
 									minHeight: "50%",
 									backgroundColor: backgroundStyle.backgroundColor,
 								}}
+								aria-label="Map"
 							>
 								<Map
 									coords={coords}
@@ -130,6 +131,7 @@ const MapContainer = () => {
 					<div
 						className="d-flex justify-content-center"
 						style={{ height: "100%" }}
+						aria-label="Loading Spinner"
 					>
 						<LoadingSpinner />
 					</div>
