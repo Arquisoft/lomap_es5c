@@ -28,7 +28,7 @@ import { useSession } from "@inrupt/solid-ui-react";
 import InfoCard from "../UI/InfoCard";
 import PodCreateForm from "../Pods/PodCreateForm";
 import styles from "./LocateMarkers.module.css";
-import { insertNewMarker } from "../Pods/PodsFunctions";
+import { insertNewMarker } from "../../podsFunctions/PodsFunctions";
 
 import UserSessionContext from "../../store/session-context";
 import { useTranslation } from "react-i18next";

@@ -2,7 +2,7 @@ import { LOCATIONS_BUCKET, storage } from "./firebase.config";
 
 import { uploadBytes, ref, getDownloadURL } from "firebase/storage";
 
-import { addPictures } from "../Pods/PodsFunctions";
+import { addPictures } from "../podsFunctions/PodsFunctions";
 
 //Function that uploads images to firebase storage and saves the url and the uploader user in the pod
 export async function uploadImages(
