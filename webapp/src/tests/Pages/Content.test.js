@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { SessionProvider } from "@inrupt/solid-ui-react";
 import Content from "../../components/Pages/Content";
+import Map from "../../components/Map/Maps";
 
 describe("Content", () => {
 	test("renders NotLoggedText when not logged in", () => {
@@ -13,7 +14,10 @@ describe("Content", () => {
 		const notLoggedText = screen.getByText("Not logged, please login!");
 		expect(notLoggedText).toBeInTheDocument();
 	});
+
 });
+
+
 
 // import React from "react";
 // import {render} from "../../setupTests";

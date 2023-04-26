@@ -1,8 +1,11 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import MapContainer from "../../components/Map/MapContainer";
+import UserSessionContext from "../../store/session-context";
+
 
 describe("MapContainer", () => {
+	
 	test("renders map and side menu after fetching location data", async () => {
 		const mockGeolocation = {
 			getCurrentPosition: jest.fn().mockImplementationOnce((success) =>
@@ -35,4 +38,5 @@ describe("MapContainer", () => {
 		render(<MapContainer />);
 		expect(screen.getByLabelText("Loading Spinner")).toBeInTheDocument();
 	});
+
 });

@@ -80,6 +80,7 @@ const MapContainer = () => {
 									backgroundColor: backgroundStyle.backgroundColor,
 								}}
 								aria-labelledby="Map"
+								role="region"
 							>
 								<Map
 									coords={coords}
