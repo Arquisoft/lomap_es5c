@@ -109,7 +109,6 @@ const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
     setCanScore2(false);
     calculateRating();
     needsUpdate(true);
-    console.log("llega");
   };
 
   if (marker.score !== undefined && marker.rating === undefined) {
@@ -131,14 +130,6 @@ const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
     canScore = ableToScore;
   }
 
-  // Remember to calculate the rating of the pod and pass it to the marker object (int number)
-  //   for (let i = 0.5; i < 5.5; ++i) {
-  //     if (i < marker.rating) {
-  //       stars.push(<i className="fa fa-star" style={rating_color} key={i}></i>);
-  //     } else {
-  //       stars.push(<i className="fa fa-star" key={i}></i>);
-  //     }
-  //   }
   var stars = [];
 
   const calculateRating = () => {
@@ -154,15 +145,7 @@ const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
 
   calculateRating();
 
-  //   useEffect(() => {
-  //     console.log("marker.rating: " + marker.rating);
-  //     if (marker.rating !== undefined) {
-  //       calculateRating();
-  //     }
-  //   }, [marker.rating]);
-
   const handleDeleteMarker = async () => {
-    // TODO: need to check whether the marker is removed from the pod
     await removeMarker(webIdM, session, marker.id);
     needsUpdate(true);
   };
