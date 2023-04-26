@@ -247,33 +247,35 @@ const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
         <li className="list-group-item">
           {t("MarkerCard.long")} {marker.coords.lng}
         </li>
-        <li className="list-group-item">
-          <div className="my-2">
-            <label className="form-label" htmlFor="customFile">
-              {t("MarkerCard.uploadImage")}
-            </label>
+        {!ownMarker && (
+          <li className="list-group-item">
+            <div className="my-2">
+              <label className="form-label" htmlFor="customFile">
+                {t("MarkerCard.uploadImage")}
+              </label>
 
-            <div className="d-flex align-items-center">
-              <input
-                className="form-control"
-                type="file"
-                id="formFileMultiple"
-                onChange={handleChange}
-                style={{ marginBottom: 0 }}
-                accept="image/*"
-                multiple
-              />
-              <Button
-                variant="primary"
-                className="mx-2"
-                onClick={submitFile}
-                aria-label="uploadFirebase"
-              >
-                {t("MarkerCard.upload")}
-              </Button>
+              <div className="d-flex align-items-center">
+                <input
+                  className="form-control"
+                  type="file"
+                  id="formFileMultiple"
+                  onChange={handleChange}
+                  style={{ marginBottom: 0 }}
+                  accept="image/*"
+                  multiple
+                />
+                <Button
+                  variant="primary"
+                  className="mx-2"
+                  onClick={submitFile}
+                  aria-label="uploadFirebase"
+                >
+                  {t("MarkerCard.upload")}
+                </Button>
+              </div>
             </div>
-          </div>
-        </li>
+          </li>
+        )}
       </ul>
 
       {marker.id !== "" && marker.id !== undefined && (
