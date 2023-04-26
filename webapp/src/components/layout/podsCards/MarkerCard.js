@@ -48,9 +48,7 @@ const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
   const {
     value: enteredComment,
     isValid: validComment,
-    hasError: commentInputHasError,
     valueChangeHandler: commentChangeHandler,
-    inputBlurHandler: commentBlurHandler,
     reset: resetCommentInput,
   } = useInput((value) => value.trim() !== "");
 
@@ -58,9 +56,7 @@ const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
   const {
     value: enteredScore,
     isValid: validScore,
-    hasError: scoreInputHasError,
     valueChangeHandler: scoreChangeHandler,
-    inputBlurHandler: scoreBlurHandler,
     reset: resetScoreInput,
   } = useInput((value) => value.trim() !== "");
 
@@ -117,7 +113,7 @@ const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
     let acc = 0;
     let ableToScore = true;
 
-    for (var i = 0; i < listScore.length; i++) {
+    for (let i = 0; i < listScore.length; i++) {
       acc += Number(listScore[i].score);
       if (listScore[i].author === webId.webId) {
         ableToScore = false;

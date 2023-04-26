@@ -9,7 +9,7 @@ export default function Map({ coords, markerEvent }) {
 
   return (
     <MapContainer
-      classsName="map"
+      className="map"
       center={[latitude, longitude]}
       zoom={15}
       scrollWheelZoom={true}
