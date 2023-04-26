@@ -29,7 +29,7 @@ describe("NotLoggedText", () => {
 	});
 
 	const mockContextValue = {
-		pageStyle: "dark",
+		pageStyle: "light",
 		handleStyle: jest.fn(),
 	};
 
