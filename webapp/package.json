@@ -18,6 +18,7 @@
     "babel-jest": "^26.6.3",
     "bootstrap": "^5.2.3",
     "buffer": "^6.0.3",
+    "enzyme": "^3.11.0",
     "firebase": "^9.20.0",
     "i18next": "^22.4.14",
     "i18next-browser-languagedetector": "^7.0.1",
@@ -30,6 +31,7 @@
     "react-leaflet": "^4.2.1",
     "react-router-dom": "^6.8.2",
     "react-scripts": "5.0.1",
+    "solid-panes": "^3.5.32",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

@@ -6,8 +6,6 @@ import Form from "react-bootstrap/Form";
 
 import LogInButton from "../LogInButton";
 
-// import logo from "../../images/LoMap_logo.png";
-//import logo from "../../images/test.png";
 import logo from "../../images/logo.png";
 
 import esp from "../../images/esp.png";
@@ -50,13 +48,17 @@ const MainNavigation = ({
 				<Navbar.Toggle aria-controls="navbarExample01" className="mx-3" />
 				<Navbar.Collapse id="navbaxExample01" className="mx-5">
 					<Nav className="text-center justify-content-end align-items-center flex-grow-1 me-auto my-2 my-lg-0 ">
-						<Nav.Link href="/" className="mx-4" style={{fontSize:"0.9rem"}}>
+						<Nav.Link href="/" className="mx-4" style={{ fontSize: "0.9rem" }}>
 							{t("Menu.home")}
 						</Nav.Link>
-						<Nav.Link href="about" className="mx-4" style={{fontSize:"0.9rem"}}>
+						<Nav.Link
+							href="about"
+							className="mx-4"
+							style={{ fontSize: "0.9rem" }}
+						>
 							{t("Menu.about")}
 						</Nav.Link>
-						<LogInButton isLoggedIn={isLoggedIn}/>
+						<LogInButton isLoggedIn={isLoggedIn} />
 						<div className="d-flex my-2">
 							<Form.Check
 								className=""
@@ -113,7 +115,6 @@ const MainNavigation = ({
 					</Nav>
 				</Navbar.Collapse>
 			</Navbar>
-			{/* <br /> */}
 		</>
 	);
 };

@@ -26,7 +26,6 @@ describe("OptionsMenu", () => {
         expect(getByText("Friends")).toBeInTheDocument();
         expect(getByText("Filter")).toBeInTheDocument();
       });
-    })
 
 
       /* test("should call changeOption with correct value when a button is clicked/is pushed correctly", () => {

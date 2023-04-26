@@ -8,7 +8,6 @@ import iconLandscape from "../../images/landscape.png";
 import iconShop from "../../images/shop.png";
 import iconBar from "../../images/bar.png";
 import iconCurrentLocation from "../../images/current_location.png";
-import iconFriends from "../../images/friends.png";
 import iconSupermarket from "../../images/supermarket.png";
 import iconHotel from "../../images/hotel.png";
 import iconCinema from "../../images/cinema.png";
@@ -31,10 +30,6 @@ import PodCreateForm from "../Pods/PodCreateForm";
 import styles from "./LocateMarkers.module.css";
 import { insertNewMarker } from "../Pods/PodsFunctions";
 
-import { listFriends } from "../Pods/PodsFunctions";
-import { listLocationsOfAUser } from "../Pods/PodsFunctions";
-import { addComment } from "../Pods/PodsFunctions";
-
 import UserSessionContext from "../../store/session-context";
 import { useTranslation } from "react-i18next";
 
@@ -43,7 +38,6 @@ function LocationMarkers({ coords, markerEvent }) {
 
 	const [markerName, setMarkerName] = useState();
 	const initialMarker = new LatLng(coords.latitude, coords.longitude);
-	// const { latitude, longitude } = coords;
 	const [markers, setMarkers] = useState([]);
 	const [dbMarkers, setDbMarkes] = useState([]);
 	const [podMarkers, setPodMarkers] = useState([]);
@@ -107,10 +101,7 @@ function LocationMarkers({ coords, markerEvent }) {
 	const { session } = useSession(); // Hook for providing access to the session in the component
 	const { webId } = session.info; // User's webId
 	//Url of the places that user has on his pod
-	const podUrl = webId.replace(
-		"/profile/card#me",
-		"/justforfriends/locations.json"
-	);
+	const podUrl = webId.replace("/profile/card#me", "/lomap/locations.json");
 
 	const handleFetch = async () => {
 		const response = await fetch("http://localhost:5001/place/list").then(
@@ -128,24 +119,49 @@ function LocationMarkers({ coords, markerEvent }) {
 		);
 	};
 
-	const loadPodsMarkers = async () => {
-		// setPodMarkers([]);
-		ctx.markers.map((place) =>
-			setPodMarkers((prevValue) => [
-				...prevValue,
-				{
-					title: place.name,
-					coords: new LatLng(place.latitude, place.longitude),
-				},
-			])
-		);
-
-		setPodMarkersLoaded(true);
+	const getOptionIcon = (option) => {
+		switch (option) {
+			case "bar":
+				return barIcon;
+			case "restaurant":
+				return restaurantIcon;
+			case "shop":
+				return shopIcon;
+			case "supermarket":
+				return supermarketIcon;
+			case "hotel":
+				return hotelIcon;
+			case "cinema":
+				return cinemaIcon;
+			case "academicInstitution":
+				return academicInstitutionIcon;
+			case "publicInstitution":
+				return publicInstitutionIcon;
+			case "sportsClub":
+				return sportsClubIcon;
+			case "museum":
+				return museumIcon;
+			case "park":
+				return parkIcon;
+			case "landscape":
+				return landscapeIcon;
+			case "monument":
+				return monumentIcon;
+			case "hospital":
+				return hospitalIcon;
+			case "policeStation":
+				return policeStationIcon;
+			case "transportCenter":
+				return transportCenterIcon;
+			case "entertainment":
+				return entertainmentIcon;
+			default:
+				return defaultIcon;
+		}
 	};
 
 	useEffect(() => {
 		handleFetch();
-		// loadPodsMarkers();
 	}, []);
 
 	async function getCurrentCityName(lat, long) {
@@ -185,19 +201,12 @@ function LocationMarkers({ coords, markerEvent }) {
 	const map = useMapEvents({
 		click(e) {
 			markerEvent(e.latlng);
-			// if (e.originalEvent.target.attributes.length > 0) {
-			//   // if (aux === e.originalEvent.target.attributes[0].nodeValue) {
-			//   if (e.originalEvent.target.attributes[0].nodeValue.includes(aux)) {
-			//     setClicked(false);
 			setInitial(true);
 			setActualMarker(e.latlng);
-			//     //setMarkers((prevValue) => [...prevValue, e.latlng]);
-			//   }
-			// }
 		},
 	});
 
-	const [t, i18n] = useTranslation("translation");
+	const [t] = useTranslation("translation");
 
 	// FOR PODS ------------------------------------------
 
@@ -259,43 +268,7 @@ function LocationMarkers({ coords, markerEvent }) {
 					return (
 						<Marker
 							key={i}
-							icon={
-								marker.category === "shop"
-									? shopIcon
-									: marker.category === "bar"
-									? barIcon
-									: marker.category === "monument"
-									? monumentIcon
-									: marker.category === "landscape"
-									? landscapeIcon
-									: marker.category === "restaurant"
-									? restaurantIcon
-									: marker.category === "supermarket"
-									? supermarketIcon
-									: marker.category === "hotel"
-									? hotelIcon
-									: marker.category === "cinema"
-									? cinemaIcon
-									: marker.category === "academicInstitution"
-									? academicInstitutionIcon
-									: marker.category === "publicInstitution"
-									? publicInstitutionIcon
-									: marker.category === "sportsClub"
-									? sportsClubIcon
-									: marker.category === "museum"
-									? museumIcon
-									: marker.category === "park"
-									? parkIcon
-									: marker.category === "hospital"
-									? hospitalIcon
-									: marker.category === "policeStation"
-									? policeStationIcon
-									: marker.category === "transportCenter"
-									? transportCenterIcon
-									: marker.category === "entertainment"
-									? entertainmentIcon
-									: defaultIcon
-							}
+							icon={getOptionIcon(marker.category)}
 							position={marker.coords}
 							eventHandlers={{
 								click: (e) => {
@@ -311,48 +284,10 @@ function LocationMarkers({ coords, markerEvent }) {
 					return (
 						<Marker
 							key={i}
-							// icon={monumentIcon}
-							icon={
-								marker.category === "shop"
-									? shopIcon
-									: marker.category === "bar"
-									? barIcon
-									: marker.category === "monument"
-									? monumentIcon
-									: marker.category === "landscape"
-									? landscapeIcon
-									: marker.category === "restaurant"
-									? restaurantIcon
-									: marker.category === "supermarket"
-									? supermarketIcon
-									: marker.category === "hotel"
-									? hotelIcon
-									: marker.category === "cinema"
-									? cinemaIcon
-									: marker.category === "academicInstitution"
-									? academicInstitutionIcon
-									: marker.category === "publicInstitution"
-									? publicInstitutionIcon
-									: marker.category === "sportsClub"
-									? sportsClubIcon
-									: marker.category === "museum"
-									? museumIcon
-									: marker.category === "park"
-									? parkIcon
-									: marker.category === "hospital"
-									? hospitalIcon
-									: marker.category === "policeStation"
-									? policeStationIcon
-									: marker.category === "transportCenter"
-									? transportCenterIcon
-									: marker.category === "entertainment"
-									? entertainmentIcon
-									: defaultIcon
-							}
+							icon={getOptionIcon(marker.category)}
 							position={marker.coords}
 							eventHandlers={{
 								click: (e) => {
-									// addComment(webId, session, "Test", marker.id);
 									ctx.handleSelectedMarker(marker);
 								},
 							}}
