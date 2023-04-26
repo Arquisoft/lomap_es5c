@@ -38,11 +38,13 @@ describe("FriendsList", () => {
     expect(screen.getByText("Friend1")).toBeInTheDocument();
   });
 
-  //   test("renders add friend form and list of friends", async () => {
-  //     render(<FriendsList handleLoad={(r) => r} />);
-  //     const addFriendForm = screen.getByLabelText(/Enter friend webId/i);
-  //     expect(addFriendForm).toBeInTheDocument();
-  //     const friendsList = await screen.findByText(/My friends/i);
-  //     expect(friendsList).toBeInTheDocument();
-  //   });
+  test("renders add friend form", async () => {
+    listFriends.mockResolvedValue(["friend1"]);
+    getFriendInfo.mockResolvedValue({ name: "Friend1" });
+    const { getByText } = render(<FriendsList handleLoad={(r) => r} />);
+
+    await waitFor(() =>
+      expect(getByText("Enter friend webId")).toBeInTheDocument()
+    );
+  });
 });
