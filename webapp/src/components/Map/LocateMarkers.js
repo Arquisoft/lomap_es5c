@@ -25,290 +25,183 @@ import iconRestaurant from "../../images/restaurant.png";
 import unknownIcon from "../../images/unknown.png";
 import L from "leaflet";
 import { useSession } from "@inrupt/solid-ui-react";
-import InfoCard from "../UI/InfoCard";
-import PodCreateForm from "../Pods/PodCreateForm";
-import styles from "./LocateMarkers.module.css";
-import { insertNewMarker } from "../../podsFunctions/PodsFunctions";
-
 import UserSessionContext from "../../store/session-context";
 import { useTranslation } from "react-i18next";
 
 function LocationMarkers({ coords, markerEvent }) {
-	const ctx = useContext(UserSessionContext);
+  const ctx = useContext(UserSessionContext);
 
-	const [markerName, setMarkerName] = useState();
-	const initialMarker = new LatLng(coords.latitude, coords.longitude);
-	const [markers, setMarkers] = useState([]);
-	const [dbMarkers, setDbMarkes] = useState([]);
-	const [podMarkers, setPodMarkers] = useState([]);
-	const [podMarkersLoaded, setPodMarkersLoaded] = useState(false);
-	const [clicked, setClicked] = useState(false);
-	const [initial, setInitial] = useState(false); // manage to move this to the sidemenu component
+  const initialMarker = new LatLng(coords.latitude, coords.longitude);
+  const [dbMarkers, setDbMarkes] = useState([]);
+  const [actualMarker, setActualMarker] = useState();
 
-	const [actualMarker, setActualMarker] = useState();
+  function createCustomIcon(iconUrl, iconSize, iconAnchor) {
+    return new L.Icon({
+      iconUrl: iconUrl,
+      iconSize: iconSize,
+      iconAnchor: iconAnchor,
+    });
+  }
 
-	function createCustomIcon(iconUrl, iconSize, iconAnchor) {
-		return new L.Icon({
-			iconUrl: iconUrl,
-			iconSize: iconSize,
-			iconAnchor: iconAnchor,
-		});
-	}
+  const customIcon = createCustomIcon(iconCurrentLocation, [35, 35], [5, 30]);
+  const customDbIcon = createCustomIcon(iconRed, [35, 35], [5, 30]);
+  const monumentIcon = createCustomIcon(iconMonument, [35, 35], [5, 30]);
+  const shopIcon = createCustomIcon(iconShop, [35, 35], [5, 30]);
+  const barIcon = createCustomIcon(iconBar, [35, 35], [5, 30]);
+  const landscapeIcon = createCustomIcon(iconLandscape, [35, 35], [5, 30]);
+  const restaurantIcon = createCustomIcon(iconRestaurant, [35, 35], [5, 30]);
+  const supermarketIcon = createCustomIcon(iconSupermarket, [35, 35], [5, 30]);
+  const hotelIcon = createCustomIcon(iconHotel, [35, 35], [5, 30]);
+  const cinemaIcon = createCustomIcon(iconCinema, [35, 35], [5, 30]);
+  const academicInstitutionIcon = createCustomIcon(
+    iconAcademicInstitution,
+    [35, 35],
+    [5, 30]
+  );
+  const publicInstitutionIcon = createCustomIcon(
+    iconPublicInstitution,
+    [35, 35],
+    [5, 30]
+  );
+  const sportsClubIcon = createCustomIcon(iconSportsClub, [35, 35], [5, 30]);
+  const museumIcon = createCustomIcon(iconMuseum, [35, 35], [5, 30]);
+  const parkIcon = createCustomIcon(iconPark, [35, 35], [5, 30]);
+  const hospitalIcon = createCustomIcon(iconHospital, [35, 35], [5, 30]);
+  const policeStationIcon = createCustomIcon(
+    iconPoliceStation,
+    [35, 35],
+    [5, 30]
+  );
+  const transportCenterIcon = createCustomIcon(
+    iconTransportCenter,
+    [35, 35],
+    [5, 30]
+  );
+  const entertainmentIcon = createCustomIcon(
+    iconEntertainment,
+    [35, 35],
+    [5, 30]
+  );
+  const defaultIcon = createCustomIcon(unknownIcon, [35, 35], [5, 30]);
+  const addMarkerIcon = createCustomIcon(addMarkIcon, [35, 35], [5, 30]);
 
-	const customIcon = createCustomIcon(iconCurrentLocation, [35, 35], [5, 30]);
-	const customDbIcon = createCustomIcon(iconRed, [35, 35], [5, 30]);
-	const monumentIcon = createCustomIcon(iconMonument, [35, 35], [5, 30]);
-	const shopIcon = createCustomIcon(iconShop, [35, 35], [5, 30]);
-	const barIcon = createCustomIcon(iconBar, [35, 35], [5, 30]);
-	const landscapeIcon = createCustomIcon(iconLandscape, [35, 35], [5, 30]);
-	const restaurantIcon = createCustomIcon(iconRestaurant, [35, 35], [5, 30]);
-	const supermarketIcon = createCustomIcon(iconSupermarket, [35, 35], [5, 30]);
-	const hotelIcon = createCustomIcon(iconHotel, [35, 35], [5, 30]);
-	const cinemaIcon = createCustomIcon(iconCinema, [35, 35], [5, 30]);
-	const academicInstitutionIcon = createCustomIcon(
-		iconAcademicInstitution,
-		[35, 35],
-		[5, 30]
-	);
-	const publicInstitutionIcon = createCustomIcon(
-		iconPublicInstitution,
-		[35, 35],
-		[5, 30]
-	);
-	const sportsClubIcon = createCustomIcon(iconSportsClub, [35, 35], [5, 30]);
-	const museumIcon = createCustomIcon(iconMuseum, [35, 35], [5, 30]);
-	const parkIcon = createCustomIcon(iconPark, [35, 35], [5, 30]);
-	const hospitalIcon = createCustomIcon(iconHospital, [35, 35], [5, 30]);
-	const policeStationIcon = createCustomIcon(
-		iconPoliceStation,
-		[35, 35],
-		[5, 30]
-	);
-	const transportCenterIcon = createCustomIcon(
-		iconTransportCenter,
-		[35, 35],
-		[5, 30]
-	);
-	const entertainmentIcon = createCustomIcon(
-		iconEntertainment,
-		[35, 35],
-		[5, 30]
-	);
-	const defaultIcon = createCustomIcon(unknownIcon, [35, 35], [5, 30]);
-	const addMarkerIcon = createCustomIcon(addMarkIcon, [35, 35], [5, 30]);
+  const getOptionIcon = (option) => {
+    switch (option) {
+      case "bar":
+        return barIcon;
+      case "restaurant":
+        return restaurantIcon;
+      case "shop":
+        return shopIcon;
+      case "supermarket":
+        return supermarketIcon;
+      case "hotel":
+        return hotelIcon;
+      case "cinema":
+        return cinemaIcon;
+      case "academicInstitution":
+        return academicInstitutionIcon;
+      case "publicInstitution":
+        return publicInstitutionIcon;
+      case "sportsClub":
+        return sportsClubIcon;
+      case "museum":
+        return museumIcon;
+      case "park":
+        return parkIcon;
+      case "landscape":
+        return landscapeIcon;
+      case "monument":
+        return monumentIcon;
+      case "hospital":
+        return hospitalIcon;
+      case "policeStation":
+        return policeStationIcon;
+      case "transportCenter":
+        return transportCenterIcon;
+      case "entertainment":
+        return entertainmentIcon;
+      default:
+        return defaultIcon;
+    }
+  };
 
-	//PODS
-	const { session } = useSession(); // Hook for providing access to the session in the component
-	const { webId } = session.info; // User's webId
-	//Url of the places that user has on his pod
-	const podUrl = webId.replace("/profile/card#me", "/lomap/locations.json");
+  const map = useMapEvents({
+    click(e) {
+      markerEvent(e.latlng);
+      setActualMarker(e.latlng);
+    },
+  });
 
-	const handleFetch = async () => {
-		const response = await fetch("http://localhost:5001/place/list").then(
-			(res) => res.json()
-		);
+  const [t] = useTranslation("translation");
 
-		response.map((place) =>
-			setDbMarkes((prevValue) => [
-				...prevValue,
-				{
-					title: place.name,
-					coords: new LatLng(place.latitude, place.longitude),
-				},
-			])
-		);
-	};
+  return (
+    <React.Fragment>
+      <Marker
+        icon={customIcon}
+        position={initialMarker}
+        eventHandlers={{
+          click: (e) => {
+            ctx.handleSelectedMarker({
+              title: t("LocateMarkers.here"),
+              coords: e.latlng,
+              own: true,
+            });
+          },
+        }}
+      ></Marker>
 
-	const getOptionIcon = (option) => {
-		switch (option) {
-			case "bar":
-				return barIcon;
-			case "restaurant":
-				return restaurantIcon;
-			case "shop":
-				return shopIcon;
-			case "supermarket":
-				return supermarketIcon;
-			case "hotel":
-				return hotelIcon;
-			case "cinema":
-				return cinemaIcon;
-			case "academicInstitution":
-				return academicInstitutionIcon;
-			case "publicInstitution":
-				return publicInstitutionIcon;
-			case "sportsClub":
-				return sportsClubIcon;
-			case "museum":
-				return museumIcon;
-			case "park":
-				return parkIcon;
-			case "landscape":
-				return landscapeIcon;
-			case "monument":
-				return monumentIcon;
-			case "hospital":
-				return hospitalIcon;
-			case "policeStation":
-				return policeStationIcon;
-			case "transportCenter":
-				return transportCenterIcon;
-			case "entertainment":
-				return entertainmentIcon;
-			default:
-				return defaultIcon;
-		}
-	};
+      {dbMarkers.map((marker, i) => (
+        <Marker
+          key={i}
+          icon={customDbIcon}
+          position={marker.coords}
+          eventHandlers={{
+            click: (e) => {
+              ctx.handleSelectedMarker(marker);
+            },
+          }}
+        ></Marker>
+      ))}
+      {ctx.loaded &&
+        ctx.markers.length > 0 &&
+        ctx.filteredMarkers.length === 0 &&
+        ctx.markers.map((marker, i) => {
+          return (
+            <Marker
+              key={i}
+              icon={getOptionIcon(marker.category)}
+              position={marker.coords}
+              eventHandlers={{
+                click: (e) => {
+                  ctx.handleSelectedMarker(marker);
+                },
+              }}
+            ></Marker>
+          );
+        })}
+      {ctx.filteredMarkers.length > 0 &&
+        ctx.changedFilter &&
+        ctx.filteredMarkers.map((marker, i) => {
+          return (
+            <Marker
+              key={i}
+              icon={getOptionIcon(marker.category)}
+              position={marker.coords}
+              eventHandlers={{
+                click: (e) => {
+                  ctx.handleSelectedMarker(marker);
+                },
+              }}
+            ></Marker>
+          );
+        })}
 
-	useEffect(() => {
-		handleFetch();
-	}, []);
-
-	async function getCurrentCityName(lat, long) {
-		let url =
-			"https://nominatim.openstreetmap.org/reverse?format=jsonv2" +
-			"&lat=" +
-			lat +
-			"&lon=" +
-			long;
-
-		const response = await fetch(url, {
-			method: "GET",
-			mode: "cors",
-			headers: {
-				"Access-Control-Allow-Origin": "https://o2cj2q.csb.app",
-			},
-		})
-			.then((response) => response.json())
-			.then((data) => setMarkerName(data.display_name));
-		setClicked(true);
-	}
-
-	const load = (
-		<div className={styles.info_container}>
-			<InfoCard position={markerName}></InfoCard>
-		</div>
-	);
-
-	const form = (
-		<div className={styles.info_container}>
-			<PodCreateForm coords={actualMarker} saveData={insertThing} />
-		</div>
-	);
-
-	const aux = "leaflet-container leaflet-touch";
-
-	const map = useMapEvents({
-		click(e) {
-			markerEvent(e.latlng);
-			setInitial(true);
-			setActualMarker(e.latlng);
-		},
-	});
-
-	const [t] = useTranslation("translation");
-
-	// FOR PODS ------------------------------------------
-
-	//Function to save a new place into user's pod
-	async function insertThing(coords, name, description, category) {
-		{
-			var result = insertNewMarker(
-				coords,
-				name,
-				description,
-				podUrl,
-				session,
-				webId,
-				category //WE HAVE TO ADD THIS
-			);
-			setInitial(!result);
-			if (result) setMarkers((prevValue) => [...prevValue, actualMarker]);
-			return result;
-		}
-	}
-
-	return (
-		<React.Fragment>
-			<Marker
-				icon={customIcon}
-				position={initialMarker}
-				eventHandlers={{
-					click: (e) => {
-						setInitial(false);
-						getCurrentCityName(e.latlng.lat, e.latlng.lng);
-						ctx.handleSelectedMarker({
-							title: t("LocateMarkers.here"),
-							coords: e.latlng,
-							own: true,
-						});
-					},
-				}}
-			></Marker>
-
-			{dbMarkers.map((marker, i) => (
-				<Marker
-					key={i}
-					icon={customDbIcon}
-					position={marker.coords}
-					eventHandlers={{
-						click: (e) => {
-							setClicked(true);
-							setInitial(false);
-							setMarkerName(marker.title);
-							ctx.handleSelectedMarker(marker);
-						},
-					}}
-				></Marker>
-			))}
-			{ctx.loaded &&
-				ctx.markers.length > 0 &&
-				ctx.filteredMarkers.length === 0 &&
-				ctx.markers.map((marker, i) => {
-					return (
-						<Marker
-							key={i}
-							icon={getOptionIcon(marker.category)}
-							position={marker.coords}
-							eventHandlers={{
-								click: (e) => {
-									ctx.handleSelectedMarker(marker);
-								},
-							}}
-						></Marker>
-					);
-				})}
-			{ctx.filteredMarkers.length > 0 &&
-				ctx.changedFilter &&
-				ctx.filteredMarkers.map((marker, i) => {
-					return (
-						<Marker
-							key={i}
-							icon={getOptionIcon(marker.category)}
-							position={marker.coords}
-							eventHandlers={{
-								click: (e) => {
-									ctx.handleSelectedMarker(marker);
-								},
-							}}
-						></Marker>
-					);
-				})}
-
-			{ctx.createMarker && (
-				<Marker
-					icon={addMarkerIcon}
-					position={actualMarker}
-					eventHandlers={{
-						click: (e) => {
-							setInitial(false);
-							getCurrentCityName(e.latlng.lat, e.latlng.lng);
-						},
-					}}
-				></Marker>
-			)}
-		</React.Fragment>
-	);
+      {ctx.createMarker && (
+        <Marker icon={addMarkerIcon} position={actualMarker}></Marker>
+      )}
+    </React.Fragment>
+  );
 }
 
 export default LocationMarkers;

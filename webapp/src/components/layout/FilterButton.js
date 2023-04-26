@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import FilterCard from "./FilterCard"
+import FilterCard from "./FilterCard";
 
 const FilterButton = ({ title, content }) => {
   const [isHidden, setIsHidden] = useState(true);
@@ -18,7 +18,7 @@ const FilterButton = ({ title, content }) => {
       {isHidden ? (
         <button onClick={handleClick}>{title}</button>
       ) : (
-        <FilterCard title={title} content={content} onClose={handleClose} />
+        <FilterCard />
       )}
     </div>
   );

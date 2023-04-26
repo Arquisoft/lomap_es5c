@@ -33,10 +33,7 @@ const SideMenu = ({ option, prevOption, coords, handleOption }) => {
 
   const [updatePoints, setUpdatePoints] = React.useState(false);
 
-  const [closed, setClosed] = React.useState(false);
-
   const loadUserPodsMarkers = async () => {
-    setClosed(false);
     setLoaded(false);
     ctx.handleLoaded(false);
     ctx.handleFilterOption("all");
@@ -53,7 +50,6 @@ const SideMenu = ({ option, prevOption, coords, handleOption }) => {
   };
 
   const loadPodsMarkers = async () => {
-    setClosed(false);
     setLoaded(false);
     ctx.handleLoaded(false);
     ctx.handleFilterOption("all");
@@ -114,8 +110,6 @@ const SideMenu = ({ option, prevOption, coords, handleOption }) => {
       ? "btn-close mx-3 mt-2"
       : "btn-close mx-3 mt-2 btn-close-white";
 
-  // let headerStyle =
-  // 	window.localStorage.getItem("themeStyle") === "dark" ? "#fff " : "#000 ";
   let headerStyle = ctx.pageStyle === "light" ? "#000" : "#fff";
 
   return (
@@ -208,7 +202,6 @@ const SideMenu = ({ option, prevOption, coords, handleOption }) => {
               aria-label="Close"
               onClick={() => {
                 handleOption(prevOption);
-                setClosed(true);
                 ctx.handleSelectedMarker(null);
               }}
             ></button>
@@ -238,7 +231,6 @@ const SideMenu = ({ option, prevOption, coords, handleOption }) => {
               style={{ fontSize: "1rem" }}
               aria-label="Close"
               onClick={() => {
-                setClosed(true); // Search for memory leaks here MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 login listeners added.
                 handleOption(prevOption);
                 ctx.handleSelectedMarker(null);
               }}
@@ -260,7 +252,6 @@ const SideMenu = ({ option, prevOption, coords, handleOption }) => {
               style={{ fontSize: "1rem" }}
               aria-label="Close"
               onClick={() => {
-                setClosed(true);
                 handleOption(prevOption);
                 ctx.handleSelectedMarker(null);
               }}
