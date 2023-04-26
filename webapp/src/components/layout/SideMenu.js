@@ -94,10 +94,12 @@ const SideMenu = ({ option, prevOption, coords, handleOption }) => {
   }, [option]);
 
   useEffect(() => {
-    if (updatePoints) {
+    if (updatePoints && option === "userPods") {
       loadUserPodsMarkers().then(() => {
         handleOption("userPods");
       });
+    } else if (updatePoints && option !== "userPods") {
+      loadPodsMarkers();
     }
   }, [updatePoints]);
 
