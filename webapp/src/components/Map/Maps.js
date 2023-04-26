@@ -13,6 +13,7 @@ export default function Map({ coords, markerEvent }) {
       center={[latitude, longitude]}
       zoom={15}
       scrollWheelZoom={true}
+      aria-labelledby="Map"
     >
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> 

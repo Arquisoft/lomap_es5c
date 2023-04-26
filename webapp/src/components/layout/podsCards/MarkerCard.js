@@ -230,7 +230,7 @@ const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
           </p>
         )}
         {marker.id !== "" && marker.id !== undefined && (
-          <div className="mt-2 ratings">
+          <div className="mt-2 ratings" aria-label="star">
             {t("MarkerCard.rating")} {stars}
           </div>
         )}
@@ -263,7 +263,12 @@ const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
                 accept="image/*"
                 multiple
               />
-              <Button variant="primary" className="mx-2" onClick={submitFile}>
+              <Button
+                variant="primary"
+                className="mx-2"
+                onClick={submitFile}
+                aria-label="uploadFirebase"
+              >
                 {t("MarkerCard.upload")}
               </Button>
             </div>
