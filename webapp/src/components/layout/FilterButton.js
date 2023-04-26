@@ -9,9 +9,6 @@ const FilterButton = ({ title, content }) => {
     setIsHidden(false);
   };
 
-  const handleClose = () => {
-    setIsHidden(true);
-  };
 
   return (
     <div>
