@@ -3,6 +3,7 @@ import {
 	listFriends,
 	getFriendInfo,
 	deleteFriend,
+	addNewFriend,
 } from "../../podsFunctions/PodsFunctions";
 import { useSession } from "@inrupt/solid-ui-react";
 import { useTranslation } from "react-i18next";
@@ -10,8 +11,6 @@ import { useTranslation } from "react-i18next";
 import { Button } from "react-bootstrap";
 
 import useInput from "../../hooks/use-input";
-
-import { addNewFriend } from "../../podsFunctions/PodsFunctions";
 
 import defaultImage from "../../images/default_user.png";
 
