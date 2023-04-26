@@ -24,6 +24,7 @@ const OptionsMenu = ({ changeOption }) => {
 					>
 						<Button
 							id="userPods"
+							data-testid = "userPods"
 							className="btn my-2"
 							onClick={() => handleOptionChange("userPods")}
 							disabled={ctx.loaded ? false : true}
@@ -37,6 +38,7 @@ const OptionsMenu = ({ changeOption }) => {
 					>
 						<Button
 							id="read"
+							data-testid = "read"
 							className="btn my-2"
 							onClick={() => handleOptionChange("read")}
 							disabled={ctx.loaded ? false : true}
@@ -51,6 +53,7 @@ const OptionsMenu = ({ changeOption }) => {
 					>
 						<Button
 							id="friends"
+							data-testid = "friends"
 							className="btn my-2"
 							onClick={() => handleOptionChange("friends")}
 						>
@@ -63,6 +66,7 @@ const OptionsMenu = ({ changeOption }) => {
 					>
 						<Button
 							id="filter"
+							data-testid = "filter"
 							className="btn my-2"
 							onClick={() => handleOptionChange("filter")}
 							disabled={ctx.loaded ? false : true}
