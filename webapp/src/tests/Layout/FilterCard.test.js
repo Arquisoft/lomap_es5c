@@ -27,7 +27,7 @@ describe("Card", () => {
     expect(filterOptions).toBeInTheDocument();
   });
 
-  it("renders the filter options and handles filter changes", () => {
+  test("renders the filter options and handles filter changes", () => {
     render(
       <UserSessionContext.Provider value={mockCtx}>
         <Card />
@@ -73,6 +73,8 @@ describe("Card", () => {
     // expect(screen.getByText("No markers found")).toBeInTheDocument();
     // expect(screen.queryByText("Reset")).toBeNull();
   });
+
+
 
 
 });
