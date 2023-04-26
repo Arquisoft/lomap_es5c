@@ -16,16 +16,10 @@ const MapContainer = () => {
 		longitude: null,
 	});
 	const [newCoords, setNewCoords] = useState({});
-	const [display_name, setName] = useState("");
 	const [isLoaded, setIsLoaded] = useState(false);
-	const [clickedMarker, setClickedMarker] = useState(false);
 	const [option, setOption] = useState("userPods");
 	const [prevOption, setPrevOption] = useState("userPods");
 
-	function error() {
-		setIsLoaded(false); // Change the isLoaded property to false
-		alert("Sorry, no position available.");
-	}
 	const options = {
 		enableHighAccuracy: true,
 		maximumAge: 30000,
@@ -85,11 +79,10 @@ const MapContainer = () => {
 									minHeight: "50%",
 									backgroundColor: backgroundStyle.backgroundColor,
 								}}
-								aria-label="Map"
+								aria-labelledby="Map"
 							>
 								<Map
 									coords={coords}
-									display_name={display_name}
 									markerEvent={(e) => {
 										setOption("create");
 										ctx.handleCreateMarker(true);
