@@ -90,12 +90,14 @@ const SideMenu = ({ option, prevOption, coords, handleOption }) => {
   }, [option]);
 
   useEffect(() => {
-    if (updatePoints && option === "userPods") {
+    if (updatePoints && prevOption === "userPods") {
       loadUserPodsMarkers().then(() => {
         handleOption("userPods");
       });
-    } else if (updatePoints && option !== "userPods") {
-      loadPodsMarkers();
+    } else if (updatePoints && prevOption === "read") {
+      loadPodsMarkers().then(() => {
+        handleOption("read");
+      });
     }
   }, [updatePoints]);
 
@@ -104,6 +106,10 @@ const SideMenu = ({ option, prevOption, coords, handleOption }) => {
       handleOption("markerInfo");
     }
   }, [ctx.selectedMarker]);
+
+  // useEffect(() => {
+
+  // }, []);
 
   let styleButton =
     ctx.pageStyle === "light"

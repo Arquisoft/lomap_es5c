@@ -17,7 +17,7 @@ const PodCreateForm = ({ coords, prevOption, close, needsUpdate }) => {
   const { webId } = session.info; // User's webId
 
   const [submited, setSubmited] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   //Url of the places that user has on his pod
   const podUrl = webId.replace("/profile/card#me", "/lomap/locations.json");
   // true until is there a problem creating a point
@@ -85,9 +85,10 @@ const PodCreateForm = ({ coords, prevOption, close, needsUpdate }) => {
     : "form-control";
 
   // Form submission handler
-  const formSubmissionHandler = (event) => {
+  const formSubmissionHandler = async (event) => {
     event.preventDefault();
     setSubmited(true);
+    setLoading(true);
     //Check validity and log in case of error
     if (!validTitle) {
       return;
@@ -98,10 +99,12 @@ const PodCreateForm = ({ coords, prevOption, close, needsUpdate }) => {
     }
 
     // We should save the data to pod in here
-    insertThing(coords, enteredTitle, enteredDescription, enteredCategory).then(
-      succes,
-      failure
-    );
+    await insertThing(
+      coords,
+      enteredTitle,
+      enteredDescription,
+      enteredCategory
+    ).then(succes, failure);
   };
 
   function succes(resultado) {
@@ -115,11 +118,13 @@ const PodCreateForm = ({ coords, prevOption, close, needsUpdate }) => {
 
     //We reload the map
     ctx.handleCreateMarker(false);
+    setLoading(false);
     needsUpdate(true);
   }
 
   function failure(error) {
     setCorrectPointCreation(false);
+
     //setShowForm(true);
   }
 
@@ -151,6 +156,7 @@ const PodCreateForm = ({ coords, prevOption, close, needsUpdate }) => {
               style={{ fontSize: "1rem" }}
               aria-label="Close"
               onClick={closeForm}
+              disabled={loading}
             ></button>
           </div>
           <h4 className={styles.header}>{t("PodCreateForm.create")}</h4>
