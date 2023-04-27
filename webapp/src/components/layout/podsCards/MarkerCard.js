@@ -221,9 +221,17 @@ const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
         )}
       </div>
       <div className="card-body">
-        <h1 className="card-title" style={{ color: "#000" }}>
-          {marker.title}
-        </h1>
+        {ownMarker && (
+          <h1 className="card-title" style={{ color: "#000" }}>
+            {t("LocateMarkers.here")}
+          </h1>
+        )}
+        {!ownMarker && (
+          <h1 className="card-title" style={{ color: "#000" }}>
+            {marker.title}
+          </h1>
+        )}
+
         {marker.description !== "" && (
           <p className="card-text" style={{ marginBottom: 0 }}>
             {marker.description}
@@ -264,6 +272,7 @@ const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
                   accept="image/*"
                   multiple
                 />
+
                 <Button
                   variant="primary"
                   className="mx-2"
@@ -324,7 +333,9 @@ const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
                         value={starId.charAt(4)}
                         key={i}
                       />
-                      <label htmlFor={id}>☆</label>
+                      <label htmlFor={id} key={randomId}>
+                        ☆
+                      </label>
                     </>
                   );
                 })}

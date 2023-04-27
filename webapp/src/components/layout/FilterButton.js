@@ -2,13 +2,12 @@ import React, { useState } from "react";
 
 import FilterCard from "./FilterCard";
 
-const FilterButton = ({ title, content }) => {
+const FilterButton = ({ title }) => {
   const [isHidden, setIsHidden] = useState(true);
 
   const handleClick = () => {
     setIsHidden(false);
   };
-
 
   return (
     <div>
