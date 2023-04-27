@@ -6,6 +6,14 @@ import i18n from "i18next";
 
 //Por defecto es en inglés
 
+const mockCtx = {
+  handleChangedFilter: jest.fn(),
+  handleFilterOption: jest.fn(),
+  handleFilteredMarkers: jest.fn(),
+  markers: [{ category: "bar" }, { category: "restaurant" }],
+  filterOption: "All",
+};
+
 describe("OptionsMenu", () => {
   const changeOptionMock = jest.fn();
   const contextValues = { loaded: true };
@@ -56,5 +64,7 @@ describe("OptionsMenu", () => {
     fireEvent.click(getByTestId("filter"));
     expect(changeOptionMock).toHaveBeenCalledWith('filter');
   });
+
+  
 
 });
