@@ -7,7 +7,7 @@
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_lomap_es5c&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Arquisoft_lomap_es5c)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/5f0341fc-0f07-415f-b496-6f93825eb42c/deploy-status)](https://app.netlify.com/sites/lomap5c/deploys)
 
-## 👨‍💻 Participant list
+## 👨‍💻 Participant list / Miembros del equipo
 [![Jony](https://img.shields.io/badge/UO283586-Jonathan%20Arias-yellow)](https://github.com/JonathanAriass)
 
 [![Edu](https://img.shields.io/badge/UO285176-Eduardo%20Blanco-blueviolet)](https://github.com/gitblanc)
@@ -17,7 +17,7 @@
 [![Xin](https://img.shields.io/badge/UO276967%20-Chen%20Xin%20Pan%20Wang-hotpink)](https://github.com/iimxinn)
 
 ---
-## 💻 Technologies used
+## 💻 Technologies used / Tecnología usadas
 
 ![](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
@@ -27,62 +27,44 @@
 <img src="https://user-images.githubusercontent.com/87705461/217768979-69ceaa1b-27c4-48da-955d-40813377bb15.png" alt="solid" width="25"/>
 ![](https://img.shields.io/badge/Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)
 
-## Quick start guide
+## 📫 Quick start guide for offline build / Guía rápida para despliegue sin conexión
 
 <mark>In case you already have node.js and npm, make sure you update them before attempting to build the images</mark>
 
-If you want to execute the project you will need [git](https://git-scm.com/downloads), [Node.js and npm](https://www.npmjs.com/get-npm) and [Docker](https://docs.docker.com/get-docker/). Make sure the three of them are installed in your system. Download the project with `git clone https://github.com/arquisoft/lomap_es5c`. The fastest way to launch everything is with docker:
-
+- Install / Instala [git](https://git-scm.com/downloads), [Node.js and npm](https://www.npmjs.com/get-npm) and [Docker](https://docs.docker.com/get-docker/).
+- Clone this project / Clona el proyecto
+- On the base directory of this project execute this: / En el directorio raíz del proyecto ejecuta:
 ```bash
 docker-compose up --build
 ```
-
-This will create two docker images as they don't exist in your system (the webapp and the restapi) and launch a mongo container database. It will also launch Prometheus and Grafana containers to monitor the webservice. You should be able to access everything from here:
-
-- [Webapp - http://localhost:3000](http://localhost:3000)
-- [RestApi example call - http://localhost:5001/api/users/list](http://localhost:5001/api/users/list)
-- [RestApi raw metrics - http://localhost:5001/metrics](http://localhost:5001/metrics)
-- [Prometheus server - http://localhost:9090](http://localhost:9090)
-- [Grafana server http://localhost:9091](http://localhost:9091)
-
-If you want to run it without docker. Compile and run the restapi:
-
-```shell
-cd restapi
-npm install
-npm start
-```
-
-Now the webapp:
-
+- If you want to run it without docker: / Si quieres ejecutar el proyecto sin docker:
 ```shell
 cd webapp
 npm install
 npm start
 ```
 
-You should be able to access the application in [http://localhost:3000](http://localhost:3000).
+- Open on your web browser `https://localhost:3000` (maybe 3001, 3002... if you have that port busy) / Abre en tu navegador web `https://localhost:3000` (quizás 3001, 3002... si ese puerto lo tienes ocupado)
 
-## More information
+## ⚙️ More information / Más información
 
-You can get more information about the repository in the other README files:
+You can get more information about the repository in the other README files: / Obtén más información en los README de:
 
-- Documentation: https://github.com/arquisoft/lomap_es5c/tree/master/docs
+- Documentation / Documentación: https://github.com/arquisoft/lomap_es5c/tree/master/docs
 - Webapp: https://github.com/arquisoft/lomap_es5c/tree/master/webapp
-- Restapi: https://github.com/arquisoft/lomap_es5c/tree/master/restapi
 
-## 🧩 Deployment
+## 🧩 Deployment / Desplegado
  
- This app is in continuous deployment on https://lomap5c.netlify.app where you can use it whenever you want.
+ This app is in continuous deployment on `https://lomap5c.netlify.app` where you can use it whenever you want / Esta aplicación está publicada en Internet y en despliegue continuo en `https://lomap5c.netlify.app`.
  
- In case that you want to create your own deployment you can follow this steps:
- 1. Fork this repository
- 2. Create an account on Netlify (must be linked to your Github profile if you want to make a continuous integration to the forked repository).
- 3. Select your default team and project on Netlify (in this case the Lomap forked repository)
- 4. Add a new repository
- 5. Set up this configuration:
+ In case that you want to create your own deployment you can follow this steps / Si quieres crear un despliegue similar sigue estos pasos:
+ 1. Fork this repository / Forkea el repositorio
+ 2. Create an account on Netlify (must be linked to your Github profile if you want to make a continuous integration to the forked repository) / Crea una cuenta en Netlify (que esté vinculada a tu cuenta de Github).
+ 3. Select your default team and project on Netlify (in this case the Lomap forked repository) / Selecciona un equipo y repositorio por defecto (el de Lomap).
+ 4. Add a new repository / Añade el nuevo repositorio.
+ 5. Set up this configuration to your build: / Aplica esta configuración de despliegue:
  <img width="878" alt="image" src="https://user-images.githubusercontent.com/87705461/234882737-a34de532-0eae-4da7-b6c7-9a8768c5e21d.png">
- 6. Change the default domain (if you want)
+ 6. Change the default domain (if you want) / Cambia el dominio (si lo deseas)
 
-And that's it. Enjoy our project :)
+And that's it. Enjoy our project :) / Eso es todo, disfruta de Lomap :)
  
