@@ -644,10 +644,6 @@ If requirements documents exist this overview should refer to these documents.</
 <td class="tableblock halign-left valign-top"><p class="tableblock">Each user has a unique pod for its personal information</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Optional centralized information</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">If necessary, for specific perfomance purposes, some information can be centralized</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Social interaction</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A user can see other user&#8217;s places and reviews</p></td>
 </tr>
@@ -671,16 +667,10 @@ If requirements documents exist this overview should refer to these documents.</
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
-<tbody>
+<tfoot>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">User roles</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">There will be roles: citizien, clothing shop, restaurant, bar&#8230;&#8203;</p></td>
-</tr>
-</tbody>
-<tfoot>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Establishment pods</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Shops, bars, restaurants, etc can create their own pod</p></td>
 </tr>
 </tfoot>
 </table>
@@ -808,11 +798,6 @@ These stakeholders determine the extent and the level of detail of your work and
 <td class="tableblock halign-left valign-top"><p class="tableblock">Learn new skills and learn how to work as a team on big projects</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Laura Cordero Castrillo</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="mailto:uo275955@uniovi.es">uo275955@uniovi.es</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Build a useful app and learn new technologies</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Fernando José González Sierra</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="mailto:uo277938@uniovi.es">uo277938@uniovi.es</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Learn new frontend skills and build a nice app</p></td>
@@ -896,8 +881,8 @@ conventions (e.g. programming or versioning guidelines, documentation or naming 
 <td class="tableblock halign-left valign-top"><p class="tableblock">We will use GitHub to update the changes of the source code.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Docker + Amazon AWS</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">We will deploy our application using Amazon AWS to create a virtual machine and use docker to create the images and then deploy the application with GitHub Actions.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Docker + Netlify</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We will deploy our application using Netlify.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1043,10 +1028,6 @@ The title of the table is the name of your system, the three columns contain the
 <td class="tableblock halign-left valign-top"><p class="tableblock">It is responsible for making the application work.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Database</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Stores static places, centralized.</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">API</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">We are using OpenStreet Maps to visualize the locations.</p></td>
 </tr>
@@ -1108,12 +1089,8 @@ together with a mapping table showing the relationships between channels and inp
 <td class="tableblock halign-left valign-top"><p class="tableblock">Used for the system deployment</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AWS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Netlify</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Used for the system deployment</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">MongoDB</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Used for store some aditional data.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Bootstrap</p></td>
@@ -1192,10 +1169,7 @@ Refer to details in the following sections.</p>
 <p><strong>Docker</strong>: is a software platform that allows to create, try and implement new apps easily and fast. We will use it for the fast deployment of our web application.</p>
 </li>
 <li>
-<p><strong>AWS</strong>: is a cloud server provider which we will use to deploy our app. It is also free (for our specific case) and it&#8217;s one of the fastest options for deploying the app.</p>
-</li>
-<li>
-<p><strong>MongoDB</strong>: is a NoSQL document-oriented database. Instead of saving data on tables (relational databases), MongoDB saves BSON data estructures (similar to JSON). We will use it for some specific data saving on the app.</p>
+<p><strong>Netlify</strong>: is a cloud server provider which we will use to deploy our app. It is also free (for our specific case) and it&#8217;s one of the fastest options for deploying the app.</p>
 </li>
 <li>
 <p><strong>Github</strong>: is a version management system where all the code will be stored, structured and modified.</p>
@@ -1213,13 +1187,13 @@ Refer to details in the following sections.</p>
 <p>React, CSS, Javascript and NodeJS were chosen to reach a good level of usability and accesibility.</p>
 </li>
 <li>
-<p>MongoDB, SOLID, docker and some libraries of NodeJS will provide the privacy, integrity and security of the web app.</p>
-</li>
-<li>
 <p>Github was chosen for version control and organization and communication between the team.</p>
 </li>
 <li>
-<p>Bootstrap was chosen becouse the facilities it provides and to have a nice, clean and responsive view to the web app.</p>
+<p>Bootstrap was chosen because the facilities it provides and to have a nice, clean and responsive view to the web app.</p>
+</li>
+<li>
+<p>Netlify was chosen because of its deployment, which it&#8217;s very easy and it automaticaly builds when updating the app.</p>
 </li>
 </ul>
 </div>
@@ -1363,15 +1337,15 @@ according the the following black box template:</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Model</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Stores/gets data from/to database and gets info from personal pods. Defines business model and also gives information to the view layer to represent it.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stores/gets data from personal pods. Defines business model and also gives information to the view layer to represent it.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>View</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Process the data sent by Model layer and represents it  on the web. This layer is the one which interacts with the final user.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Process the data sent by Model layer and represents it on the web. This layer is the one which interacts with the final user.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Controller</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">This layer receives the inputs from users and manages the interactions between View layer and Model layer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This layer receives the inputs from users and manages the interactions between View layer and Model layer.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1481,7 +1455,7 @@ You will mainly capture scenarios in your documentation to communicate your arch
 <h3 id="_visualize_map">6.3. Visualize map</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/Map%20diagram.png" alt="Map diagram" width="628" height="426">
+<img src="./images/Map%20diagram.png" alt="Map diagram" width="376" height="305">
 </div>
 </div>
 </div>
@@ -1489,7 +1463,7 @@ You will mainly capture scenarios in your documentation to communicate your arch
 <h3 id="_friends_list">6.4. Friends list</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/Friends%20list%20diagram.png" alt="Friends list diagram" width="555" height="365">
+<img src="./images/Friends%20list%20diagram.png" alt="Friends list diagram" width="438" height="305">
 </div>
 </div>
 </div>
@@ -1497,7 +1471,7 @@ You will mainly capture scenarios in your documentation to communicate your arch
 <h3 id="_add_places_to_map">6.5. Add places to map</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/Add%20places%20diagram.png" alt="Add places diagram" width="650" height="365">
+<img src="./images/Add%20places%20diagram.png" alt="Add places diagram" width="465" height="305">
 </div>
 </div>
 </div>
@@ -1505,7 +1479,7 @@ You will mainly capture scenarios in your documentation to communicate your arch
 <h3 id="_reviews">6.6. Reviews</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/Reviews%20diagram.png" alt="Reviews diagram" width="742" height="335">
+<img src="./images/Reviews%20diagram.png" alt="Reviews diagram" width="605" height="305">
 </div>
 </div>
 </div>
@@ -1513,7 +1487,7 @@ You will mainly capture scenarios in your documentation to communicate your arch
 <h3 id="_filter_map">6.7. Filter map</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/filter%20map%20diagram.png" alt="filter map diagram" width="851" height="426">
+<img src="./images/filter%20map%20diagram.png" alt="filter map diagram" width="628" height="305">
 </div>
 </div>
 <div style="page-break-after: always;"></div>
@@ -1609,7 +1583,7 @@ when your infrastructure is more complex.</p>
 </dd>
 <dt class="hdlist1">Quality and/or Performance Features</dt>
 <dd>
-<p>To improve the performance of the application we have chosen MongoDB as the database that will store some information. It helps us because it is a very efficient database.</p>
+<p>High performance as we operate directly.</p>
 </dd>
 <dt class="hdlist1">Mapping of Building Blocks to Infrastructure</dt>
 <dd>
@@ -1634,11 +1608,11 @@ when your infrastructure is more complex.</p>
 <dl>
 <dt class="hdlist1">Motivation</dt>
 <dd>
-<p>This diagram allow us to have a more exhaustive vision about how the deployment on AWS would work. It includes the docker containers.</p>
+<p>This diagram allow us to have a more exhaustive vision about how the deployment on every deployment service using Docker and also the deployment on Netlify.</p>
 </dd>
 <dt class="hdlist1">Quality and/or Performance Features</dt>
 <dd>
-<p>We are going to use AWS to deploy the application, working as a remote server. We will use Docker to launch each part of the system.</p>
+<p>We are going to use Netlify to deploy the application, working as a remote server. We will use Docker to in case it&#8217;s wanted to deploy on other services.</p>
 </dd>
 <dt class="hdlist1">Mapping of Building Blocks to Infrastructure</dt>
 <dd>
@@ -1770,28 +1744,20 @@ on this list.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">User who uses the application. Can be friend with other users.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Professional User</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Special user who runs the POD for an actual place as: bar, shop, bar&#8230;&#8203;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Comment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A comment made by a user related to a place.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Post</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A comment, score&#8230;&#8203; made by a user related to a place.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Score</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A score submitted by a user related to a place.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Places</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Photo</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A photo upload by a user related to a place.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Place</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A location in the map that is static over time.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Professional Places</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A location in the map that is run by a user.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Monuments</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A type of static place.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Restaurant</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A type of place run by a user.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1877,19 +1843,13 @@ here in this central section or whether you better document it locally
 <td class="tableblock halign-left valign-top"><p class="tableblock">The separation in layers makes the application more complex.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Data Base</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">We will use MongoDB to store some information.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">MonboDB works good with NodeJS.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">It is a new technology for the team, so we have to learn.</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OpenStreetMaps API</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">We will use the API to create the map.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">It&#8217;s free, not like the Google Maps API.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">It&#8217;s the first time using it, we&#8217;ll have to adapt.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Docker+AWS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Netlify</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">We use them to deploy the application.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">It&#8217;s free and it provides a very fast deployment.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The general cloud computing issues as backup protection.</p></td>
@@ -2223,6 +2183,10 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <td class="tableblock halign-left valign-top"><p class="tableblock">Bootstrap</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A multiplatform library, open source toolbox to design web applications.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Netlify</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A remote cloud computing company that offers a development platform that provides: serverless backend services, build and deployment functionality for dynamic websites and web applications.</p></td>
+</tr>
 </tbody>
 </table>
 <div style="page-break-after: always;"></div>
@@ -2250,7 +2214,7 @@ Created by Dr. Peter Hruschka &amp; Dr. Gernot Starke.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-04-12 21:04:39 +0200
+Last updated 2023-04-13 18:45:03 +0200
 </div>
 </div>
 </body>
