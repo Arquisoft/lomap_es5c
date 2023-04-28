@@ -79,9 +79,9 @@ image::Whitebox_Overall_System.png[]
 
 |=======================
 |Name|Responsability
-|**Model**| Stores/gets data from/to database and gets info from personal pods. Defines business model and also gives information to the view layer to represent it.
-|**View**| Process the data sent by Model layer and represents it  on the web. This layer is the one which interacts with the final user.
-|**Controller**|This layer receives the inputs from users and manages the interactions between View layer and Model layer
+|**Model**| Stores/gets data from personal pods. Defines business model and also gives information to the view layer to represent it.
+|**View**| Process the data sent by Model layer and represents it on the web. This layer is the one which interacts with the final user.
+|**Controller**|This layer receives the inputs from users and manages the interactions between View layer and Model layer.
 |=======================
 
 === Building block view - Level 2
