@@ -30,7 +30,7 @@ html {
 
 @media (max-width: 400px) {
   html {
-    font-size: 11px;
+    font-size: 17px;
   }
 }
 /* .MuiContainer-root {
@@ -231,3 +231,25 @@ a {
 .error-text {
   color: #b40e0e;
 }
+
+/* html {
+  font-size: 1.2rem;
+}
+
+@include media-breakpoint-up(sm) {
+  html {
+    font-size: 1.4rem;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  html {
+    font-size: 1.5rem;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  html {
+    font-size: 1.6rem;
+  }
+} */
