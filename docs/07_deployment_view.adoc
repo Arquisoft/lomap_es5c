@@ -52,7 +52,7 @@ Motivation::
 This diagram helps us to visualise which components we will use and their dependencies.
 
 Quality and/or Performance Features::
-To improve the performance of the application we have chosen MongoDB as the database that will store some information. It helps us because it is a very efficient database.
+High performance as we operate directly.
 
 Mapping of Building Blocks to Infrastructure::
 image:Deployment1.png[arc42]
@@ -67,10 +67,10 @@ Please copy the structure from level 1 for each selected element.
 ****
 
 Motivation::
-This diagram allow us to have a more exhaustive vision about how the deployment on AWS would work. It includes the docker containers.
+This diagram allow us to have a more exhaustive vision about how the deployment on every deployment service using Docker and also the deployment on Netlify.
 
 Quality and/or Performance Features::
-We are going to use AWS to deploy the application, working as a remote server. We will use Docker to launch each part of the system.
+We are going to use Netlify to deploy the application, working as a remote server. We will use Docker to in case it's wanted to deploy on other services.
 
 Mapping of Building Blocks to Infrastructure::
 image:Deployment2.png[arc42]

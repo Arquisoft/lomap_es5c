@@ -26,7 +26,7 @@ conventions (e.g. programming or versioning guidelines, documentation or naming 
 |NodeJS| Node.js is designed to build network applications and it will be used as the backend of our application. It is based on JavaScript and it is event-driven.
 |SOLID| We will use SOLID to store users information using PODs, giving this data more privacy. This is a requirement.
 |GitHub| We will use GitHub to update the changes of the source code.
-|Docker + Amazon AWS| We will deploy our application using Amazon AWS to create a virtual machine and use docker to create the images and then deploy the application with GitHub Actions.
+|Docker + Netlify| We will deploy our application using Netlify.
 |=======================
 
 === Convention
