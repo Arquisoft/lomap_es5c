@@ -43,7 +43,6 @@ Keep these excerpts as short as possible. Balance readability of this document w
 |Reviews    |Users can add punctuations, comments, photos and more to added places   
 |Privacy    |A user can customize the way of sharing information with other users
 |Decentralized information| Each user has a unique pod for its personal information
-|Optional centralized information| If necessary, for specific perfomance purposes, some information can be centralized
 |Social interaction| A user can see other user's places and reviews
 |App options available| There are filters for categories, friends and more
 |=======================
@@ -53,7 +52,6 @@ Keep these excerpts as short as possible. Balance readability of this document w
 |=======================
 |Name|Description
 |User roles| There will be roles: citizien, clothing shop, restaurant, bar...
-|Establishment pods| Shops, bars, restaurants, etc can create their own pod
 |=======================
 
 === Quality Goals
@@ -109,7 +107,6 @@ Table with role names, person names, and their expectations with respect to the 
 |Inrupt |info@inrupt.com| Make decentralized SOLID based technologies more visible for the public through this app
 |Eduardo Blanco Bielsa |uo285176@uniovi.es| Build a secure and decentralized app, hone teamwork and try to get the scolarship offered by SOLID team
 |Jonathan Arias Busto|uo283586@uniovi.es| Learn new skills and learn how to work as a team on big projects
-|Laura Cordero Castrillo|uo275955@uniovi.es| Build a useful app and learn new technologies
 |Fernando José González Sierra|uo277938@uniovi.es|Learn new frontend skills and build a nice app
 |Chen Xin Pan Wang|uo276967@uniovi.es|Learn some new technologies and work in a good team
 |Cristian Augusto|augustocristian@uniovi.es|A full functional and decentralized app

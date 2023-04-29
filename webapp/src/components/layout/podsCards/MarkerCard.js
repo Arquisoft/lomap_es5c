@@ -41,7 +41,7 @@ const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
       .substring(2, length + 2);
   };
 
-  let canScore = true;
+  const [canScore, setCanScore] = useState(true);
   const [canScore2, setCanScore2] = useState(true);
 
   // useInput for each input
@@ -123,7 +123,8 @@ const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
 
     marker.rating = meanScore; // this should be obtained from the pod's rating
 
-    canScore = ableToScore;
+    setCanScore(ableToScore);
+    console.log("ENTRA");
   }
 
   var stars = [];
@@ -160,8 +161,6 @@ const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
     await uploadImages(marker.id, file, session, webIdM);
     needsUpdate(true);
   };
-
-  useEffect(() => {}, [file]);
 
   const [image, setImage] = useState(null);
 
