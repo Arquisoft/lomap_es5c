@@ -31,7 +31,6 @@ jobs:
         with:
           node-version: 18
       - run: npm --prefix webapp install
-      - run: npm --prefix restapi install
       - run: npm --prefix webapp run build
       - run: npm --prefix webapp run test:e2e
   # deploy:
