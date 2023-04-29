@@ -53,7 +53,6 @@ database Pod as "USER_POD"
 
 User -> EntityWeb: enter WebID
 EntityWeb -> Pod: send webId
-Pod --> EntityWeb: send username and password
 Pod -> Pod: check login data
 Pod -> EntityWeb: notify success
 EntityWeb -> User: log the user into the app
@@ -118,11 +117,9 @@ EntityWeb -> User: show review on map
 ----
 actor User
 entity EntityWeb as "WebApp"
-database Pod as "USER_POD"
 
-User -> EntityWeb: select a cattegory (has to be logged)
-EntityWeb -> Pod: ask for the places from the specified cattegory
-Pod --> EntityWeb: receive data
-EntityWeb -> User: show places for specified cattegory on map
+User -> EntityWeb: select a category (has to be logged)
+EntityWeb -> EntityWeb: filter markers to specified category
+EntityWeb -> User: show places for specified category on map
 ----
 
