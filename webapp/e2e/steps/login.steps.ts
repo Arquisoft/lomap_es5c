@@ -1,8 +1,7 @@
 import { defineFeature, loadFeature } from "jest-cucumber";
 import puppeteer, { Page, Browser } from "puppeteer";
 import LogInButton from "../../src/components/LogInButton";
-import { render } from "@testing-library/react";
-import "@testing-library/jest-dom/extend-expect";
+import { render, fireEvent } from "@testing-library/react";
 
 const feature = loadFeature("./features/login.feature");
 
@@ -23,24 +22,59 @@ defineFeature(feature, (test) => {
 			.catch(() => {});
 	});
 
-	test("The user is not logged in the site", ({ given, when, then }) => {
+	test("Display login button when not logged in", ({ given, when, then }) => {
 		let username: string;
 		let password: string;
 
-		given("A not logged user", () => {
+		given("I am not logged in", () => {
 			username = "lomap5c";
 			password = "Lomap_es5c";
 		});
 
-		when("Enters the app", async () => {
+		when("I navigate to the page", async () => {
 			await delay(1000);
 		});
 
-		then("The login button is shown on the page", async () => {
+		then("I should see the login button", async () => {
 			const text = await page.evaluate(() => document.body.textContent);
 			expect(text).toMatch("HOME");
 			expect(text).toMatch("ABOUT");
 			expect(text).toMatch("LOGIN");
+		});
+	});
+
+	test("Display logout button when logged in", ({ given, when, then }) => {
+		let username: string;
+		let password: string;
+
+		given("I am logged in", async () => {
+			username = "lomap5c";
+			password = "Lomap_es5c";
+		});
+
+		when("I navigate to the page", async () => {
+			await expect(page).toClick("button", { label: "Toggle navigation" });
+			await delay(1000);
+			await expect(page).toClick("button", { text: "LOGIN" });
+			await delay(1000);
+			await expect(page).toClick("div", {
+				name: "https://solidcommunity.net/",
+			});
+			await delay(5000);
+			await expect(page).toFillForm(
+				'form[class="form-horizontal login-up-form"]',
+				{
+					username: username,
+					password: password,
+				}
+			);
+			await expect(page).toClick("button", { text: "Log In" });
+			await delay(3000);
+		});
+
+		then("I should see the logout button", async () => {
+			const text = await page.evaluate(() => document.body.textContent);
+			expect(text).toMatch("LOGOUT");
 		});
 	});
 

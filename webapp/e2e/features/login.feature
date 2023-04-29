@@ -1,6 +1,12 @@
 Feature: Log in into pod
 
-Scenario: The user is not logged in the site
-  Given A not logged user
-  When Enters the app
-  Then The login button is shown on the page
+Scenario: Display login button when not logged in
+    Given I am not logged in
+    When I navigate to the page
+    Then I should see the login button
+
+
+  Scenario: Display logout button when logged in
+    Given I am logged in
+    When I navigate to the page
+    Then I should see the logout button
