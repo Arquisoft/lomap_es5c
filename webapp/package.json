@@ -1,74 +1,78 @@
 {
-  "name": "pods-ejemplo",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@babel/plugin-transform-modules-commonjs": "^7.12.13",
-    "@inrupt/lit-generated-vocab-common": "^0.3.11",
-    "@inrupt/solid-client": "^1.25.2",
-    "@inrupt/solid-client-authn-browser": "^1.13.2",
-    "@inrupt/solid-ui-react": "^2.8.2",
-    "@inrupt/vocab-common-rdf": "^1.0.5",
-    "@inrupt/vocab-solid": "^1.0.4",
-    "@mobiscroll/react-lite": "^4.10.9",
-    "@rdfjs/data-model": "^2.0.1",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "babel-jest": "^26.6.3",
-    "bootstrap": "^5.2.3",
-    "buffer": "^6.0.3",
-    "enzyme": "^3.11.0",
-    "firebase": "^9.20.0",
-    "i18next": "^22.4.14",
-    "i18next-browser-languagedetector": "^7.0.1",
-    "leaflet": "^1.9.3",
-    "rdf-namespaces": "^1.10.1",
-    "react": "^18.2.0",
-    "react-bootstrap": "^2.7.2",
-    "react-dom": "^18.2.0",
-    "react-i18next": "^12.2.0",
-    "react-leaflet": "^4.2.1",
-    "react-router-dom": "^6.8.2",
-    "react-scripts": "5.0.1",
-    "solid-panes": "^3.5.32",
-    "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --coverage --transformIgnorePatterns \"node_modules/(?!@toolz/allow-react)/\" --env=jsdom",
-    "test:e2e": " start-server-and-test 'npm --prefix ../restapi start' http://localhost:5000/api/users/list prod 3000 # Equivalente a ejecutar rpm run prod y npm http://localhost:3000cd e2e && jest' ",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "css-loader": "^6.7.3",
-    "jest-cucumber": "^3.0.1",
-    "jest-puppeteer": "^8.0.6",
-    "puppeteer": "^19.11.1",
-    "style-loader": "^3.3.1",
-    "text-encoding-utf-8": "^1.0.2",
-    "webpack": "^5.75.0",
-    "webpack-cli": "^5.0.1",
-    "webpack-dev-server": "^4.11.1"
-  },
-  "proxy": "http://localhost:5000"
+	"name": "pods-ejemplo",
+	"version": "0.1.0",
+	"private": true,
+	"dependencies": {
+		"@babel/plugin-transform-modules-commonjs": "^7.12.13",
+		"@inrupt/lit-generated-vocab-common": "^0.3.11",
+		"@inrupt/solid-client": "^1.25.2",
+		"@inrupt/solid-client-authn-browser": "^1.13.2",
+		"@inrupt/solid-ui-react": "^2.8.2",
+		"@inrupt/vocab-common-rdf": "^1.0.5",
+		"@inrupt/vocab-solid": "^1.0.4",
+		"@mobiscroll/react-lite": "^4.10.9",
+		"@rdfjs/data-model": "^2.0.1",
+		"@testing-library/jest-dom": "^5.16.5",
+		"@testing-library/react": "^13.4.0",
+		"@testing-library/user-event": "^13.5.0",
+		"@types/puppeteer": "^7.0.4",
+		"babel-jest": "^29.5.0",
+		"bootstrap": "^5.2.3",
+		"buffer": "^6.0.3",
+		"enzyme": "^3.11.0",
+		"firebase": "^9.20.0",
+		"i18next": "^22.4.14",
+		"i18next-browser-languagedetector": "^7.0.1",
+		"leaflet": "^1.9.3",
+		"rdf-namespaces": "^1.10.1",
+		"react": "^18.2.0",
+		"react-bootstrap": "^2.7.2",
+		"react-dom": "^18.2.0",
+		"react-i18next": "^12.2.0",
+		"react-leaflet": "^4.2.1",
+		"react-router-dom": "^6.8.2",
+		"react-scripts": "5.0.1",
+		"solid-panes": "^3.5.32",
+		"start-server-and-test": "^2.0.0",
+		"ts-jest": "^29.1.0",
+		"ts-node": "^10.9.1",
+		"web-vitals": "^2.1.4"
+	},
+	"scripts": {
+		"start": "react-scripts start",
+		"build": "react-scripts build",
+		"test": "react-scripts test --coverage --transformIgnorePatterns \"node_modules/(?!@toolz/allow-react)/\" --env=jsdom",
+		"test:e2e": "start-server-and-test start 3000 \"cd e2e && jest --runInBand --coverage \" ",
+		"eject": "react-scripts eject"
+	},
+	"eslintConfig": {
+		"extends": [
+			"react-app",
+			"react-app/jest"
+		]
+	},
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	},
+	"devDependencies": {
+		"css-loader": "^6.7.3",
+		"jest-cucumber": "^3.0.1",
+		"jest-puppeteer": "^8.0.6",
+		"puppeteer": "^19.11.1",
+		"style-loader": "^3.3.1",
+		"text-encoding-utf-8": "^1.0.2",
+		"webpack": "^5.75.0",
+		"webpack-cli": "^5.0.1",
+		"webpack-dev-server": "^4.11.1"
+	},
+	"proxy": "http://localhost:5000"
 }
