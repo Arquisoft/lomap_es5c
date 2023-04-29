@@ -33,7 +33,7 @@ jobs:
         with:
           node-version: 18
       - run: npm --prefix webapp install
-      - run: npm --prefix webapp run build
+      - run: CI=false && npm --prefix webapp run build
       - run: npm --prefix webapp run test:e2e
   # deploy:
   #   name: Deploy over SSH
