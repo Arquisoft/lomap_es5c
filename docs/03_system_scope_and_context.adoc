@@ -42,7 +42,7 @@ image::LOmap_BUsiness.png[]
 
 |=======================
 |*Entity*|*Description*
-|User| Interacts with the application front-end and sends requests to the backend.
+|User| Interacts with the application front-end.
 |POD| Stores user's private information. In case the user is not registered it creates a new POD.
 |System| It is responsible for making the application work. 
 |Database| Stores static places, centralized.

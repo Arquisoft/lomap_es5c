@@ -28,8 +28,6 @@ We have chosen to use the next technologies on the app:
 
 * **SOLID**: is an acronym that refers to five good and essential principles for the design of a software architecture (**S**ingle Responsibility, **O**pen/Closed, **L**iskov Substitution, **I**nterface Segregation and **D**ependency Inversion). With this principles the user knows that all his "sensitive data" is safe and decentralized. We use it because it is required on the project.
 
-* **Node js**: is a Javascript execution environment controlled by events, what makes it light and efficient. It is also a nice option for reactive web apps because it's able to provide a big amount of simultaneous conections with high performance (big scalability). 
-
 * *Javascript*: is an interpreted programming language based on prototypes, imperative and dynamic. We will use it on both frontend and backend.
 
 * **CSS**: is a graphic programming language oriented to define the repesentation of a document. We will use it as part of the frontend of the app.
