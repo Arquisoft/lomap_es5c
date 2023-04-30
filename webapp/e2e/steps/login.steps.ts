@@ -1,7 +1,5 @@
 import { defineFeature, loadFeature } from "jest-cucumber";
 import puppeteer, { Page, Browser } from "puppeteer";
-import LogInButton from "../../src/components/LogInButton";
-import { render, fireEvent } from "@testing-library/react";
 
 const feature = loadFeature("./features/login.feature");
 
