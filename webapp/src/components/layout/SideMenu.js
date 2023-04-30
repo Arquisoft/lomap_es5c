@@ -107,10 +107,6 @@ const SideMenu = ({ option, prevOption, coords, handleOption }) => {
     }
   }, [ctx.selectedMarker]);
 
-  // useEffect(() => {
-
-  // }, []);
-
   let styleButton =
     ctx.pageStyle === "light"
       ? "btn-close mx-3 mt-2"

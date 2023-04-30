@@ -96,9 +96,7 @@ const FriendsList = ({ close, handleLoad, handleMarkersload }) => {
         <div className="card my-2">
           <div className="form-group mx-2 my-2">
             <form onSubmit={addFriendHandler}>
-              <label htmlFor="inputFriendWebId">
-                {t("FriendsList.enter")}
-              </label>
+              <label htmlFor="inputFriendWebId">{t("FriendsList.enter")}</label>
               <input
                 type="text"
                 className="form-control"
@@ -128,7 +126,7 @@ const FriendsList = ({ close, handleLoad, handleMarkersload }) => {
           return (
             <div key={i} className="card mb-2">
               <div className="d-flex mx-2 my-2 align-items-center">
-                {friend.friendData.imageUrl != null ||
+                {friend.friendData.imageUrl !== null &&
                 friend.friendData.imageUrl !== undefined ? (
                   <img
                     src={friend.friendData.imageUrl}
