@@ -40,7 +40,7 @@ const MainNavigation = ({
   const getUserImg = async () => {
     const userData = await getFriendInfo(webId, session);
     console.log(userData);
-    if (userData.imageUrl !== null) {
+    if (userData.imageUrl !== undefined && userData.imageUrl !== null) {
       setUserImage(userData.imageUrl);
     } else {
       setUserImage(defaultImage);
