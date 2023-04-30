@@ -37,7 +37,7 @@ describe("Layout", () => {
   test("toggles theme style when switch is clicked", () => {
     const { getByRole } = render(
       <UserSessionContext.Provider value={mockContextValue}>
-        <Layout isLoggedIn={false} />
+        <Layout isLoggedIn={true} />
       </UserSessionContext.Provider>
     );
 
@@ -51,7 +51,7 @@ describe("Layout", () => {
   test("updates isChecked and style on button click", () => {
     const { getByRole } = render(
       <UserSessionContext.Provider value={mockContextValue}>
-        <Layout isLoggedIn={false} />
+        <Layout isLoggedIn={true} />
       </UserSessionContext.Provider>
     );
     const button = getByRole("checkbox");
