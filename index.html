@@ -866,11 +866,11 @@ conventions (e.g. programming or versioning guidelines, documentation or naming 
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">JavaScript</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">It will be used on the frontend but also on the backend to work with SOLID pods and NodeJS.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It will be used on the frontend but also on the backend to work with SOLID pods.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">NodeJS</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Node.js is designed to build network applications and it will be used as the backend of our application. It is based on JavaScript and it is event-driven.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bootstrap</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We will use Bootstrap to make a responsive interface.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SOLID</p></td>
@@ -1157,9 +1157,6 @@ Refer to details in the following sections.</p>
 <p><strong>SOLID</strong>: is an acronym that refers to five good and essential principles for the design of a software architecture (<strong>S</strong>ingle Responsibility, <strong>O</strong>pen/Closed, <strong>L</strong>iskov Substitution, <strong>I</strong>nterface Segregation and <strong>D</strong>ependency Inversion). With this principles the user knows that all his "sensitive data" is safe and decentralized. We use it because it is required on the project.</p>
 </li>
 <li>
-<p><strong>Node js</strong>: is a Javascript execution environment controlled by events, what makes it light and efficient. It is also a nice option for reactive web apps because it&#8217;s able to provide a big amount of simultaneous conections with high performance (big scalability).</p>
-</li>
-<li>
 <p><strong>Javascript</strong>: is an interpreted programming language based on prototypes, imperative and dynamic. We will use it on both frontend and backend.</p>
 </li>
 <li>
@@ -1184,7 +1181,7 @@ Refer to details in the following sections.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>React, CSS, Javascript and NodeJS were chosen to reach a good level of usability and accesibility.</p>
+<p>React, CSS and Javascript were chosen to reach a good level of usability and accesibility.</p>
 </li>
 <li>
 <p>Github was chosen for version control and organization and communication between the team.</p>
@@ -1286,7 +1283,7 @@ In the best case you will get away with examples or simple signatures.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Here, the app is represented as a whitebox. Inside of it we can see the three layers of MVC (Model View Controller) convention in black boxes:</p>
+<p>Here, the app is represented as a whitebox. Inside of it we can see the component-based architecture in black boxes:</p>
 </div>
 <div class="sidebarblock arc42help">
 <div class="content">
@@ -1336,16 +1333,16 @@ according the the following black box template:</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Responsability</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Model</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Stores/gets data from personal pods. Defines business model and also gives information to the view layer to represent it.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Utils</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stores/gets data from personal pods, images&#8230;&#8203; Gives information to the component.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>View</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Process the data sent by Model layer and represents it on the web. This layer is the one which interacts with the final user.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Store</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stores/gets the context of the user to the correct functionality of the component.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Controller</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">This layer receives the inputs from users and manages the interactions between View layer and Model layer.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Components</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Is the final view of the application and interacts with the final user, self managed.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1439,7 +1436,7 @@ You will mainly capture scenarios in your documentation to communicate your arch
 <h3 id="_register_user">6.1. Register User</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/register%20diagram.png" alt="register diagram" width="357" height="298">
+<img src="./images/register%20diagram.png" alt="register diagram" width="337" height="305">
 </div>
 </div>
 </div>
@@ -1447,7 +1444,7 @@ You will mainly capture scenarios in your documentation to communicate your arch
 <h3 id="_user_login_pod">6.2. User Login Pod</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/login%20diagram.png" alt="login diagram" width="434" height="341">
+<img src="./images/login%20diagram.png" alt="login diagram" width="402" height="348">
 </div>
 </div>
 </div>
@@ -1455,7 +1452,7 @@ You will mainly capture scenarios in your documentation to communicate your arch
 <h3 id="_visualize_map">6.3. Visualize map</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/Map%20diagram.png" alt="Map diagram" width="396" height="298">
+<img src="./images/Map%20diagram.png" alt="Map diagram" width="376" height="305">
 </div>
 </div>
 </div>
@@ -1463,7 +1460,7 @@ You will mainly capture scenarios in your documentation to communicate your arch
 <h3 id="_friends_list">6.4. Friends list</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/Friends%20list%20diagram.png" alt="Friends list diagram" width="473" height="298">
+<img src="./images/Friends%20list%20diagram.png" alt="Friends list diagram" width="438" height="305">
 </div>
 </div>
 </div>
@@ -1471,7 +1468,7 @@ You will mainly capture scenarios in your documentation to communicate your arch
 <h3 id="_add_places_to_map">6.5. Add places to map</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/Add%20places%20diagram.png" alt="Add places diagram" width="492" height="298">
+<img src="./images/Add%20places%20diagram.png" alt="Add places diagram" width="465" height="305">
 </div>
 </div>
 </div>
@@ -1479,7 +1476,7 @@ You will mainly capture scenarios in your documentation to communicate your arch
 <h3 id="_reviews">6.6. Reviews</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/Reviews%20diagram.png" alt="Reviews diagram" width="648" height="298">
+<img src="./images/Reviews%20diagram.png" alt="Reviews diagram" width="605" height="305">
 </div>
 </div>
 </div>
@@ -1487,7 +1484,7 @@ You will mainly capture scenarios in your documentation to communicate your arch
 <h3 id="_filter_map">6.7. Filter map</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/filter%20map%20diagram.png" alt="filter map diagram" width="550" height="282">
+<img src="./images/filter%20map%20diagram.png" alt="filter map diagram" width="504" height="287">
 </div>
 </div>
 <div style="page-break-after: always;"></div>
@@ -1838,9 +1835,9 @@ here in this central section or whether you better document it locally
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Architecture</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">We will use MVC as the architecture design.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">We will have a very well structured code separarated by Model, View and Controller.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The separation in layers makes the application more complex.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We will use component-based architecture (CBA) as the architecture design.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We will have a very well structured code separarated by components.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The separation in components makes the application complicated.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OpenStreetMaps API</p></td>
@@ -1857,7 +1854,7 @@ here in this central section or whether you better document it locally
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CSS+Bootstrap</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">We use it to add a nice look to the application.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">It&#8217;s a well known stylesheet languaje for the team.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It&#8217;s a well known stylesheet languaje for the team, responsive.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Different browsers work different, we have to take care of it.</p></td>
 </tr>
 </tbody>
@@ -2168,8 +2165,8 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <td class="tableblock halign-left valign-top"><p class="tableblock">Code hosting platform for version control and collaboration.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">MVC</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Pattern in software design commonly used to implement user interfaces, data, and controlling logic. It emphasizes a separation between the software&#8217;s business logic and display.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Component-based Architecture</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Process of building software based on reusable components. Structure of components that contains other smaller components.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">POD</p></td>
@@ -2214,7 +2211,7 @@ Created by Dr. Peter Hruschka &amp; Dr. Gernot Starke.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-04-13 09:01:47 +0200
+Last updated 2023-04-30 12:32:49 +0200
 </div>
 </div>
 </body>
