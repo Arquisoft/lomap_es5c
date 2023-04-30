@@ -1,5 +1,5 @@
 import PodCreateForm from "../../components/Pods/PodCreateForm";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import i18n from "i18next";
 //import * as markers from "../../components/Pods/PodsFunctions";
 
@@ -83,8 +83,8 @@ describe("PodCreateForm", () => {
 		expect(closeMock).toHaveBeenCalledTimes(1);
 	  });
 
-	  /*
-	  test('resets input fields and closes form when point creation is successful', async () => {
+	  
+	  /* test('resets input fields and closes form when point creation is successful', async () => {
 
 		//const createPointMock = jest.fn().mockResolvedValue({ status: 200 });
 		const coords = [1, 2];
@@ -110,13 +110,13 @@ describe("PodCreateForm", () => {
 		await waitFor(() => expect(screen.getByText("No markers found")).toBeInTheDocument());
 		//await waitFor(() => expect(needsUpdate).toHaveBeenCalledTimes(1));
 
-		expect(titleInput.value).toBe('');
-		expect(descriptionInput.value).toBe('');
-		expect(needsUpdate).toHaveBeenCalled();
-		expect(needsUpdate).toHaveBeenCalledTimes(1);
+		await waitFor(() =>expect(titleInput.value).toBe(''));
+		await waitFor(() =>expect(descriptionInput.value).toBe(''));
+		await waitFor(() =>expect(needsUpdate).toHaveBeenCalled());
+		await waitFor(() =>expect(needsUpdate).toHaveBeenCalledTimes(1));
 	  });
-*/
-/*
+
+
 	  test('calls insertNewMarker function when form is submitted with valid data', () => {
 		const coords = [1, 2];
 		const { getByRole, getByLabelText } = render(<PodCreateForm coords={coords} />);
@@ -140,9 +140,8 @@ describe("PodCreateForm", () => {
 			'https://example.com',
 			'Shop'
 		);
-	  });
+	  }); */
 
-*/
 
 	  test("The form to create a new point in the map in spanish", async () => {
 		i18n.changeLanguage("es");

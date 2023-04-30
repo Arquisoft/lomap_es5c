@@ -27,7 +27,7 @@ describe("Card", () => {
     expect(filterOptions).toBeInTheDocument();
   });
 
-  it("renders the filter options and handles filter changes", () => {
+  test("renders the filter options and handles filter changes", () => {
     render(
       <UserSessionContext.Provider value={mockCtx}>
         <Card />
@@ -74,53 +74,7 @@ describe("Card", () => {
     // expect(screen.queryByText("Reset")).toBeNull();
   });
 
-  /* test('changes filter option', () => {
-    const handleFilterOption = jest.fn();
-    const handleChangedFilter = jest.fn();
 
-    render(
-      <UserSessionContext.Providerw
-        value={{
-          filterOption: 'all',
-          markers: [],
-          filteredMarkers: [],
-          handleFilterOption,
-          handleChangedFilter,
-        }}
-      >
-        <Card />
-      </UserSessionContext.Provider>,
-    );
 
-    const filterOptions = screen.getByRole('combobox');
-    fireEvent.change(filterOptions, { target: { value: 'Bar' } });
 
-    expect(handleChangedFilter).toHaveBeenCalledTimes(1);
-    expect(handleFilterOption).toHaveBeenCalledWith('Bar');
-  });
-
-  test('resets filter option', () => {
-    const handleFilterOption = jest.fn();
-    const handleChangedFilter = jest.fn();
-
-    render(
-      <UserSessionContext.Provider
-        value={{
-          filterOption: 'Bar',
-          markers: [],
-          filteredMarkers: [],
-          handleFilterOption,
-          handleChangedFilter,
-        }}
-      >
-        <Card />
-      </UserSessionContext.Provider>,
-    );
-
-    const resetButton = screen.getByRole('button', { name: 'Reset' });
-    fireEvent.click(resetButton);
-
-    expect(handleChangedFilter).toHaveBeenCalledTimes(1);
-    expect(handleFilterOption).toHaveBeenCalledWith('All');
-  }); */
 });

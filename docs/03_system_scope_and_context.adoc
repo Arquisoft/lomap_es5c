@@ -45,7 +45,6 @@ image::LOmap_BUsiness.png[]
 |User| Interacts with the application front-end.
 |POD| Stores user's private information. In case the user is not registered it creates a new POD.
 |System| It is responsible for making the application work. 
-|Database| Stores static places, centralized.
 |API| We are using OpenStreet Maps to visualize the locations.
 |=======================
 
@@ -74,8 +73,7 @@ image::Technical.png[]
 |JavaScript| Principal language for our code application
 |CSS| Language to set different styles and positions to our components.
 |Docker| Used for the system deployment
-|AWS| Used for the system deployment
-|MongoDB| Used for store some aditional data.
+|Netlify| Used for the system deployment
 |Bootstrap| Simplifies the use of CSS and HTML, using the HTLM5 standards.
 |=======================
 

@@ -41,7 +41,7 @@ const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
       .substring(2, length + 2);
   };
 
-  let canScore = true;
+  const [canScore, setCanScore] = useState(true);
   const [canScore2, setCanScore2] = useState(true);
 
   // useInput for each input
@@ -123,7 +123,8 @@ const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
 
     marker.rating = meanScore; // this should be obtained from the pod's rating
 
-    canScore = ableToScore;
+    setCanScore(ableToScore);
+    console.log("ENTRA");
   }
 
   var stars = [];
@@ -160,8 +161,6 @@ const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
     await uploadImages(marker.id, file, session, webIdM);
     needsUpdate(true);
   };
-
-  useEffect(() => {}, [file]);
 
   const [image, setImage] = useState(null);
 
@@ -221,9 +220,17 @@ const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
         )}
       </div>
       <div className="card-body">
-        <h1 className="card-title" style={{ color: "#000" }}>
-          {marker.title}
-        </h1>
+        {ownMarker && (
+          <h1 className="card-title" style={{ color: "#000" }}>
+            {t("LocateMarkers.here")}
+          </h1>
+        )}
+        {!ownMarker && (
+          <h1 className="card-title" style={{ color: "#000" }}>
+            {marker.title}
+          </h1>
+        )}
+
         {marker.description !== "" && (
           <p className="card-text" style={{ marginBottom: 0 }}>
             {marker.description}
@@ -264,6 +271,7 @@ const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
                   accept="image/*"
                   multiple
                 />
+
                 <Button
                   variant="primary"
                   className="mx-2"
@@ -324,7 +332,9 @@ const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
                         value={starId.charAt(4)}
                         key={i}
                       />
-                      <label htmlFor={id}>☆</label>
+                      <label htmlFor={id} key={randomId}>
+                        ☆
+                      </label>
                     </>
                   );
                 })}

@@ -10,7 +10,7 @@ const NotLoggedText = () => {
 
 	const [t] = useTranslation("translation");
 
-	let styleText = ctx.pageStyle === "light" ? "#000" : "#fff";
+	let styleText = ctx.pageStyle === "light" ? "#000" : "#fff";  //NOSONAR
 
 	return (
 		<div

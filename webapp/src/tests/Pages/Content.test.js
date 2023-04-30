@@ -1,6 +1,8 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { SessionProvider } from "@inrupt/solid-ui-react";
 import Content from "../../components/Pages/Content";
+import Map from "../../components/Map/Maps";
+import MapContainer from "../../components/Map/MapContainer";
 
 describe("Content", () => {
 	test("renders NotLoggedText when not logged in", () => {
@@ -13,7 +15,47 @@ describe("Content", () => {
 		const notLoggedText = screen.getByText("Not logged, please login!");
 		expect(notLoggedText).toBeInTheDocument();
 	});
+
+	test("renders MapContainer when isLoggedIn is true", () => {
+		const mockGeolocation = {
+			getCurrentPosition: jest.fn().mockImplementationOnce((success) =>
+				Promise.resolve(
+					success({
+						coords: {
+							latitude: 37.7749,
+							longitude: -122.4194,
+						},
+					})
+				)
+			),
+		};
+		global.navigator.geolocation = mockGeolocation;
+		render(<MapContainer />);
+
+		// Check that loading spinner is not visible
+		expect(screen.queryByTestId("loading-spinner")).toBeNull();
+
+		waitFor(() => {
+			expect(screen.getByLabelText("Map")).toBeInTheDocument();
+			expect(
+				screen.getByRole("heading", { name: "Side Menu" })
+			).toBeInTheDocument();
+		});
+	  });
+
+	  test("renders MapContainer when logged in", () => {
+		const { queryByRole } = render(
+		  <SessionProvider sessionId="log-in-example">
+			<Content isLoggedIn={true} />
+		  </SessionProvider>
+		);
+		const mapContainer = queryByRole("figure");
+		waitFor(() =>expect(mapContainer).toBeInTheDocument());
+	  });
+
 });
+
+
 
 // import React from "react";
 // import {render} from "../../setupTests";

@@ -34,9 +34,7 @@ We have chosen to use the next technologies on the app:
 
 * **Docker**: is a software platform that allows to create, try and implement new apps easily and fast. We will use it for the fast deployment of our web application.
 
-* **AWS**: is a cloud server provider which we will use to deploy our app. It is also free (for our specific case) and it's one of the fastest options for deploying the app.
-
-* **MongoDB**: is a NoSQL document-oriented database. Instead of saving data on tables (relational databases), MongoDB saves BSON data estructures (similar to JSON). We will use it for some specific data saving on the app.
+* **Netlify**: is a cloud server provider which we will use to deploy our app. It is also free (for our specific case) and it's one of the fastest options for deploying the app.
 
 * **Github**: is a version management system where all the code will be stored, structured and modified.
 
@@ -44,6 +42,6 @@ We have chosen to use the next technologies on the app:
 
 === Why this technologies?
 * React, CSS, Javascript and NodeJS were chosen to reach a good level of usability and accesibility.
-* MongoDB, SOLID, docker and some libraries of NodeJS will provide the privacy, integrity and security of the web app.
 * Github was chosen for version control and organization and communication between the team.
-* Bootstrap was chosen becouse the facilities it provides and to have a nice, clean and responsive view to the web app.
+* Bootstrap was chosen because the facilities it provides and to have a nice, clean and responsive view to the web app.
+* Netlify was chosen because of its deployment, which it's very easy and it automaticaly builds when updating the app. 
