@@ -27,9 +27,9 @@ Various options:
 
 |=======================
 |*Decision*|*Details*|*Advantages*|*Disadvantages*
-|Architecture | We will use MVC as the architecture design. | We will have a very well structured code separarated by Model, View and Controller.| The separation in layers makes the application more complex.
+|Architecture | We will use component-based architecture (CBA) as the architecture design. | We will have a very well structured code separarated by components.| The separation in components makes the application complicated.
 |OpenStreetMaps API| We will use the API to create the map. | It's free, not like the Google Maps API.| It's the first time using it, we'll have to adapt.
 |Netlify| We use them to deploy the application.| It's free and it provides a very fast deployment. | The general cloud computing issues as backup protection.
-|CSS+Bootstrap| We use it to add a nice look to the application.| It's a well known stylesheet languaje for the team. | Different browsers work different, we have to take care of it.|
+|CSS+Bootstrap| We use it to add a nice look to the application.| It's a well known stylesheet languaje for the team, responsive. | Different browsers work different, we have to take care of it.|
 |=======================
 
