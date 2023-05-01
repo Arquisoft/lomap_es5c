@@ -56,7 +56,7 @@ Since there are so many ways to specify interfaces why do not provide a specific
 In the best case you will get away with examples or simple signatures.
 
 ****
-Here, the app is represented as a whitebox. Inside of it we can see the three layers of MVC (Model View Controller) convention in black boxes:
+Here, the app is represented as a whitebox. Inside of it we can see the component-based architecture in black boxes:
 
 
 [role="arc42help"]
@@ -79,9 +79,9 @@ image::Whitebox_Overall_System.png[]
 
 |=======================
 |Name|Responsability
-|**Model**| Stores/gets data from personal pods. Defines business model and also gives information to the view layer to represent it.
-|**View**| Process the data sent by Model layer and represents it on the web. This layer is the one which interacts with the final user.
-|**Controller**|This layer receives the inputs from users and manages the interactions between View layer and Model layer.
+|**Utils**| Stores/gets data from personal pods, images... Gives information to the component.
+|**Store**| Stores/gets the context of the user to the correct functionality of the component.
+|**Components**| Is the final view of the application and interacts with the final user, self managed.
 |=======================
 
 === Building block view - Level 2

@@ -22,8 +22,8 @@ conventions (e.g. programming or versioning guidelines, documentation or naming 
 |=======================
 |Name|Description
 |React| We will use React framework to develop the frontend of the application.
-|JavaScript| It will be used on the frontend but also on the backend to work with SOLID pods and NodeJS.
-|NodeJS| Node.js is designed to build network applications and it will be used as the backend of our application. It is based on JavaScript and it is event-driven.
+|JavaScript| It will be used on the frontend but also on the backend to work with SOLID pods.
+|Bootstrap| We will use Bootstrap to make a responsive interface.
 |SOLID| We will use SOLID to store users information using PODs, giving this data more privacy. This is a requirement.
 |GitHub| We will use GitHub to update the changes of the source code.
 |Docker + Netlify| We will deploy our application using Netlify.

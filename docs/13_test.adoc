@@ -1,0 +1,59 @@
+[[section-test]]
+== Test
+In this section we are going to test the application. We will use the following
+technologies for testing:
+[options="header"]
+|===
+|Name|Description
+|Sonarcloud | Checks the code coverage and quality for the application tests.
+|Cucumber | Technology used for behavior driven development (BDD) to write acceptance tests for the application.
+|Gatling | Technology used for load testing the application.
+|===
+
+
+We are going to analyze the results of the Gatling tests in the following section.
+
+[[section-sonarcloud]]
+=== Sonarcloud
+Sonarcloud allows us to check the code coverage and quality of the application. The following image shows the results of the Sonarcloud tests:
+
+image::sonarcloud_test.png[]
+
+We can see how we have a 80% of code coverage for the application. We can also see that the code quality is good, with 0 bugs and 0 security vulnerabilities. We can also see that the code duplication is 1.1% which seems to be a good value thinking that the application hasn't been developed by a single person and a refactor of the code has never been done.
+
+
+[[section-gatling]]
+=== Gatling
+After running the Gatling tests, we can analyze the results. After analyzing the results, we can see that the application at 100 active users and 50 requests per second has a response time of 0.8 seconds for a 40% of success rate. The following image shows the results of the Gatling tests:
+
+image::test_gatling.png[] 
+Maybe the success rate is not the best, but we can see that the response time is very good. We have to take into account that the application is running in a free instance of Netlify, so the performance is not the best. If we want to improve the performance, we can migrate the application to another cloud provider, like AWS, Azure or Google Cloud. We also need to take into account that the test have been run
+
+when a lot of traffic has been generated to Inrupt POD provider. This can affect the results of the tests.
+
+
+[[section-usability]]
+=== Usability
+In this section we are going to have a look at the usability of the application. We have done a usability test with 5 users. The following table shows the results of the usability test:
+[options="header"]
+|===
+| Question | Luis | Carmen | Paula | Ana | David | Average
+| Is the application intuitive? | 10 | 10 | 9 | 8 | 7 | 8.8
+| Is the application easy to use? | 10 | 10 | 8 | 9 | 7 | 8.8
+| Is the application attractive? | 8 | 9 | 10 | 10 | 9 | 9.2
+| Is the application fast? | 7 | 6 | 7 | 8 | 8 | 7.2
+| Is the application accessible? | 9 | 9 | 9 | 9 | 8 | 8.8
+| Is the application useful? | 10 | 10 | 8 | 9 | 9 | 9.2
+| How would you rate the application? | 9 | 10 | 10 | 10 | 10 | 9.8
+|===
+
+We can see that overall the application has a good user rate. The users have rated the application with a 9.8 out of 10. The users have also rated the application as intuitive, easy to use, attractive, accessible and useful. The only thing that the users have not rated very well is the speed of the application. The found themselves waiting for the application to load some times.
+
+The users have the following age:
+* Luis: 60
+* Carmen: 55
+* Paula: 19
+* Ana: 66
+* David: 22
+
+We can see that the users are from different ages, so we can say that the application is suitable for all ages.

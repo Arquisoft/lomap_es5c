@@ -33,7 +33,7 @@ Potentially more columns in case you need translations.
 |	Framework	|	Tool that provides ready-made components or solutions that are customized in order to speed up development
 |	Frontend	|	Part of computer programming that focuses on the coding and creation of elements and features that will then be seen by the user.
 |	GitHub	|	Code hosting platform for version control and collaboration.
-|	MVC	|	Pattern in software design commonly used to implement user interfaces, data, and controlling logic. It emphasizes a separation between the software's business logic and display.
+|	Component-based Architecture	| Process of building software based on reusable components. Structure of components that contains other smaller components.
 |	POD	|	Pods are like secure personal web servers for data. When data is stored in someone's Pod, they control which people and applications can access it.
 |	SOLID	|	SOLID is an acronym for the first five object-oriented design principleS. These principles establish practices that lend to developing software with considerations for maintaining and extending as the project grows.
 |   Bootstrap   |  A multiplatform library, open source toolbox to design web applications.
