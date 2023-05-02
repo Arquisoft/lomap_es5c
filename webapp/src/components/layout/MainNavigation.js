@@ -49,7 +49,9 @@ const MainNavigation = ({
 
   useEffect(() => {
     if (isLoggedIn) {
-      getUserImg();
+      getUserImg().catch((error) => {
+        console.log(error);
+      });
     }
   }, [isLoggedIn]);
 
@@ -123,7 +125,7 @@ const MainNavigation = ({
             <button
               type="button"
               className={styles.button}
-              onClick={() => i18n.changeLanguage("es")}
+              onClick={() => i18n.changeLanguage("es").catch((err) => err)}
             >
               <img
                 className="d-inline-block align-center"
@@ -136,7 +138,7 @@ const MainNavigation = ({
             <button
               type="button"
               className={styles.button}
-              onClick={() => i18n.changeLanguage("en")}
+              onClick={() => i18n.changeLanguage("en").catch((err) => err)}
             >
               <img
                 className="d-inline-block align-center"

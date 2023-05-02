@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import useInput from "../../../hooks/use-input";
 
 import {
@@ -80,7 +80,9 @@ const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
   const formAddCommentHandler = (event) => {
     event.preventDefault();
 
-    addComment(webIdM, session, enteredComment, marker.id);
+    addComment(webIdM, session, enteredComment, marker.id).catch((error) => {
+      console.log(error);
+    });
     resetCommentInput();
 
     ctx.handleAddComment(marker.id, {
@@ -392,7 +394,9 @@ const MarkerCard = ({ marker, needsUpdate, canDelete }) => {
               borderRadius: "7px",
             }}
             onClick={() => {
-              handleDeleteMarker();
+              handleDeleteMarker().catch((error) => {
+                console.log(error);
+              });
             }}
           >
             <i className="fa fa-trash" style={{ fontSize: "20px" }}></i>

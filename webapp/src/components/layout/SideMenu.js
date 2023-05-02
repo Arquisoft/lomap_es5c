@@ -70,34 +70,44 @@ const SideMenu = ({ option, prevOption, coords, handleOption }) => {
     setUpdatePoints(false);
   };
 
-  const handleClick = () => {
-    setFirstLoad(!firstLoad);
-  };
-
   useEffect(() => {
     if (firstLoad) {
-      loadUserPodsMarkers();
+      loadUserPodsMarkers().catch((error) => {
+        console.log(error);
+      });
     }
   }, []);
 
   useEffect(() => {
     if (option === "read" && !loaded) {
       setLoaded(false);
-      loadPodsMarkers();
+      loadPodsMarkers().catch((error) => {
+        console.log(error);
+      });
     } else if (option === "userPods" && !firstLoad && !loadedUserPods) {
-      loadUserPodsMarkers();
+      loadUserPodsMarkers().catch((error) => {
+        console.log(error);
+      });
     }
   }, [option]);
 
   useEffect(() => {
     if (updatePoints && prevOption === "userPods") {
-      loadUserPodsMarkers().then(() => {
-        handleOption("userPods");
-      });
+      loadUserPodsMarkers()
+        .then(() => {
+          handleOption("userPods");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     } else if (updatePoints && prevOption === "read") {
-      loadPodsMarkers().then(() => {
-        handleOption("read");
-      });
+      loadPodsMarkers()
+        .then(() => {
+          handleOption("read");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }, [updatePoints]);
 

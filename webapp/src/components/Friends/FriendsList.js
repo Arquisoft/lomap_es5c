@@ -50,7 +50,9 @@ const FriendsList = ({ close, handleLoad, handleMarkersload }) => {
 
   const handleDeleteFriend = async (friendWebId) => {
     await deleteFriend(webId, session, friendWebId);
-    getFriendsWebIds();
+    getFriendsWebIds().catch((error) => {
+      console.log(error);
+    });
     handleMarkersload(false);
   };
 
@@ -70,7 +72,9 @@ const FriendsList = ({ close, handleLoad, handleMarkersload }) => {
     var exit = await addNewFriend(webId, session, enteredFriendWebId);
 
     if (exit) {
-      getFriendsWebIds();
+      getFriendsWebIds().catch((error) => {
+        console.log(error);
+      });
     } else {
       alert("Friend not added");
     }
@@ -79,7 +83,9 @@ const FriendsList = ({ close, handleLoad, handleMarkersload }) => {
   };
 
   useEffect(() => {
-    getFriendsWebIds();
+    getFriendsWebIds().catch((error) => {
+      console.log(error);
+    });
   }, []);
 
   const [t] = useTranslation("translation");
@@ -163,7 +169,9 @@ const FriendsList = ({ close, handleLoad, handleMarkersload }) => {
                     title="Delete"
                     style={{ minWidth: "40px", minHeight: "40px" }}
                     onClick={() => {
-                      handleDeleteFriend(friend.friend);
+                      handleDeleteFriend(friend.friend).catch((error) => {
+                        console.log(error);
+                      });
                     }}
                   >
                     <i className="fa fa-trash" style={{ fontSize: "20px" }}></i>
