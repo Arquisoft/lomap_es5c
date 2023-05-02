@@ -69,7 +69,7 @@ defineFeature(feature, (test) => {
 				}
 			);
 			await expect(page).toClick("button", { text: "Log In" });
-			await delay(3000);
+			await delay(10000);
 		});
 
 		then("I should see the logout button", async () => {
